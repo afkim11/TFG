@@ -218,7 +218,7 @@ public class AutomataEFEImp implements ItfUsoAutomata {
 //                   this.estadoActual = this.theTablaEstadosControl.crearEstadoErrorInterno();
                     this.estadoActual = "errorInternoIrrecuperable";
 
-                logger.info("Error al procesar el " + input +  "Ejecutando accion: " + op.accionSemantica + "se transita al estado" + estadoActual);
+                logger.info(" Error al procesar el " + input +  " Ejecutando accion: " + op.accionSemantica + "se transita al estado " + estadoActual);
 				trazas.aceptaNuevaTraza(new InfoTraza(nombreAgente,
 						"Error al procesar el " + input +  "Ejecutando accion: " + op.accionSemantica+ "se transita al estado" + estadoActual,
 						InfoTraza.NivelTraza.error));
