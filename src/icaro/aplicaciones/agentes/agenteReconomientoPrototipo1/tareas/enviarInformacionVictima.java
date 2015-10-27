@@ -7,7 +7,7 @@ public class enviarInformacionVictima extends TareaSincrona{
 	@Override
 	public void ejecutar(Object... params) {
 		
-		
+		 
 	}
 
 }
