@@ -1,0 +1,216 @@
+import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
+import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.*;
+import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.gestorTareas.ItfGestorTareas;
+import icaro.infraestructura.entidadesBasicas.PerformativaUsuario;
+import icaro.aplicaciones.agentes.AgenteAplicacionAccesoCognitivo.objetivos.*;
+import icaro.aplicaciones.informacion.dominioClases.aplicacionAcceso.InfoAccesoSinValidar;
+import icaro.aplicaciones.informacion.dominioClases.aplicacionAcceso.VocabularioSistemaAcceso;
+import icaro.aplicaciones.agentes.AgenteAplicacionAccesoCognitivo.tareas.*;
+import icaro.aplicaciones.agentes.AgenteAplicacionAccesoCognitivo.comportamientoAlta.tareas.*;
+import icaro.aplicaciones.agentes.AgenteAplicacionAccesoCognitivo.comportamientoAlta.objetivos.*;
+
+global ItfGestorTareas gestorTareas;
+global ItfUsoRecursoTrazas recursoTrazas;
+global String agentId;
+
+rule "Acciones Iniciales"
+ when
+ then
+  Focus foco = new Focus();
+  insert(foco);
+  recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Creando el Foco ",InfoTraza.NivelTraza.debug));
+end
+
+rule "Creacion de los objectivos iniciales"
+ when
+ then
+//  DarAcceso obj = new AutorizarAccesoUsuarios();
+     insert(new AutorizarAccesoUsuarios());
+//   insert(new TerminarServicioAcceso());
+end
+
+rule "Creacion del objetivo DarAlta"
+ when
+   obj:AutorizarAccesoUsuarios(state == Objetivo.SOLVING)
+   f:Focus(foco == obj)
+   informeTarea:InformeDeTarea(identTarea == "ValidarDatosAutentUsuarioAltaIT", contenidoInforme == "usuarioNoValido")
+ then
+  DarAlta nuevoObj = new DarAlta();
+  recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Se genera el objetivo  "+nuevoObj.getID(),InfoTraza.NivelTraza.debug));
+  nuevoObj.setPending();
+  insert(nuevoObj);
+end
+
+
+// =======================================================================
+
+//Reglas de focalizacion.
+
+rule "Regla de focalizacion en objetivo AutorizarAccesoUsuarios"
+ when
+    f:Focus(foco == null )
+    obj:AutorizarAccesoUsuarios()
+ then
+    f.setFoco(obj);
+    recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Foco: Focalizando el objetivo "+obj.getID(),InfoTraza.NivelTraza.debug));
+    update(f);
+end
+rule "Regla de Re-focalizacion en objetivo AutorizarAccesoUsuarios"
+ when
+   obj1:AutorizarAccesoUsuarios(state == Objetivo.SOLVING)
+   obj2:DarAlta(state == Objetivo.SOLVED)
+   focoActual:Focus(foco == obj2)
+ then
+  focoActual.setFoco(obj1);
+  recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Foco: Focalizando el objetivo "+obj1.getID(),InfoTraza.NivelTraza.debug));
+  update(focoActual);
+end
+
+rule "Regla de focalizacion en objetivo DarAlta"
+ when
+   obj1:AutorizarAccesoUsuarios(state == Objetivo.SOLVING)
+//   cre:Creencia(emisor == "Task:ValidarDatosdePerformativaUsuario", contenido == "usuarioNoValido" )
+    informeTarea:InformeDeTarea(identTarea == "ValidarDatosAutentUsuarioAltaIT", contenidoInforme == "usuarioNoValido")
+   obj2:DarAlta(state == Objetivo.PENDING)
+   focoActual:Focus(foco == obj1)
+ then
+  focoActual.setFoco(obj2);
+  recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Foco: Focalizando el objetivo "+obj2.getID(),InfoTraza.NivelTraza.debug));
+  update(focoActual);retract (informeTarea);
+end
+
+//=======================================================================
+///Reglas de Resolucion de Objetivos.
+
+///Reglas de Resolucion del Objetivo AutorizarAccesoUsuarios
+
+
+rule "Iniciando objetivo AutorizarAccesoUsuarios"
+  when
+    obj:AutorizarAccesoUsuarios(state==Objetivo.PENDING)
+    Focus(foco ==obj)
+  then
+    obj.setSolving();
+    update(obj);
+end
+
+rule "Solicitud de Datos Inicial"
+   when
+    obj:AutorizarAccesoUsuarios(state==Objetivo.SOLVING)
+    Focus(foco == obj)
+   then
+    recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Se ejecuta la tarea : SolicitarDatosAcceso",InfoTraza.NivelTraza.debug));
+     Tarea tarea = gestorTareas.crearTarea(SolicitarDatosAccesoAlta.class);
+     tarea.ejecutar(VocabularioSistemaAcceso.IdentRecursoVisualizacionAccesoAlta);
+end
+
+rule "Validacion de datos Iniciales de Acceso"
+  when
+    obj:AutorizarAccesoUsuarios(state == Objetivo.SOLVING)
+    Focus(foco==obj)
+    perf:PerformativaUsuario ( nombreOperacion soundslike "autenticacion")
+ //   cre:Creencia(emisor == "VisualizacionAcceso1", contenido == perf )
+     evtContent:ExtractedInfo(origen==VocabularioSistemaAcceso.IdentRecursoVisualizacionAccesoAlta,contenido == perf)
+  then
+    recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Se ejecuta la tarea : ValidarDatosAutentUsuarioAltaIT",InfoTraza.NivelTraza.debug));
+    Tarea tarea = gestorTareas.crearTarea(ValidarDatosAutentUsuarioAltaIT.class);
+    tarea.ejecutar(perf);
+    retract(evtContent);
+    retract(perf);
+end
+rule "Peticion de Terminacion  del Acceso"
+  when
+    obj:AutorizarAccesoUsuarios(state == Objetivo.SOLVING)
+    Focus(foco==obj)
+    perf:PerformativaUsuario ( nombreOperacion soundslike "peticion_terminacion_usuario")
+     evtContent:ExtractedInfo(origen==VocabularioSistemaAcceso.IdentRecursoVisualizacionAccesoAlta,contenido == perf)
+  then
+    Tarea tarea = gestorTareas.crearTarea(PeticionTerminacionAcceso.class);
+    tarea.ejecutar(VocabularioSistemaAcceso.IdentRecursoVisualizacionAccesoAlta);
+    retract(evtContent);
+//    retract(perf);
+end
+
+rule "Permiso del Acceso con Informe Tarea"
+ when
+  obj:AutorizarAccesoUsuarios(state == Objetivo.SOLVING)
+  Focus(foco:foco->(obj==foco))
+  informeTarea:InformeDeTarea(identTarea == "ValidarDatosAutentUsuarioAltaIT", contenidoInforme == "usuarioValido")
+ then
+  Tarea tarea = gestorTareas.crearTarea(PermitirAcceso.class);
+  tarea.ejecutar(VocabularioSistemaAcceso.IdentRecursoVisualizacionAccesoAlta);
+  retract(informeTarea);
+end
+
+
+rule " objetivo AutorizarAccesoUsuarios Resuelto"
+  when
+    obj:AutorizarAccesoUsuarios(state==Objetivo.SOLVING)
+    Focus(foco ==obj)
+    informeTarea:InformeDeTarea(identTarea == "PermitirAcceso", contenidoInforme == "Autorizacion_Acceso_Notificado_Al_Usuario")
+  then
+    obj.setSolved();
+recursoTrazas.aceptaNuevaTraza(new InfoTraza("AgenteAplicacionAcceso1","Se ha resuelto el objetivo : "+obj.getID(),InfoTraza.NivelTraza.debug));
+    update(obj);
+end
+
+//  ===============================================
+// Reglas de resolucion del objetivo DarAlta
+
+rule "Inicio del  objetivo DarAlta"
+  when
+    obj:DarAlta(state==Objetivo.PENDING)
+    Focus(foco ==obj)
+  then
+    obj.setSolving();
+    update(obj);
+end
+rule "Inicio realizacion del  objetivo DarAlta"
+  when
+    obj:DarAlta(state==Objetivo.SOLVING)
+    Focus(foco ==obj)
+  then
+    Tarea tarea = gestorTareas.crearTarea(DarAltaUsuario.class);
+    tarea.ejecutar();
+end
+rule " Validar y guardar datos iniciales de alta  "
+  when
+    obj:DarAlta(state == Objetivo.SOLVING)
+    Focus(foco==obj)
+     perf:PerformativaUsuario (nombrePerformativa soundslike  "peticion", nombreOperacion soundslike "peticion_alta")
+    evtContent:ExtractedInfo(origen==VocabularioSistemaAcceso.IdentRecursoVisualizacionAccesoAlta,contenido == perf)     
+
+  then
+// La tarea valida los datos de acceso introducidos por el usuario
+//  si ya estan definidos le pide otros datos
+    Tarea tarea = gestorTareas.crearTarea(GuardarInfoAcceso.class);
+    tarea.ejecutar(perf);
+    retract(evtContent);retract(perf);
+end
+rule " Validar y guardar nuevos  datos de alta  "
+  when
+    obj:DarAlta(state == Objetivo.SOLVING)
+    Focus(foco==obj)
+    perf:PerformativaUsuario (nombrePerformativa soundslike  "peticion", nombreOperacion soundslike "peticion_alta")
+    evtContent:ExtractedInfo(origen==VocabularioSistemaAcceso.IdentRecursoVisualizacionAccesoAlta,contenido == perf)
+ //   cre2:Creencia(emisor=="Task:GuardarInfoAcceso",contenido == "infoUsuarioYaExistente")
+    informeTarea:InformeDeTarea(identTarea == "GuardarInfoAcceso", contenidoInforme == "infoUsuarioYaExistente")
+  then
+// La tarea valida los datos de acceso introducidos por el usuario
+//  si ya estan definidos le pide otros datos
+    Tarea tarea = gestorTareas.crearTarea(GuardarInfoAcceso.class);
+    tarea.ejecutar(perf);
+    retract(perf);retract(evtContent);retract(informeTarea);
+end
+
+rule "Objectivo DarAlta resuelto"
+ when
+  obj:DarAlta(state == Objetivo.SOLVING)
+  Focus( foco==obj )
+// cre:Creencia(emisor=="Task:GuardarInfoAcceso",contenido == "InfoAltaUsuarioGuardada")
+  informeTarea:InformeDeTarea(identTarea == "GuardarInfoAcceso", contenidoInforme == "InfoAltaUsuarioGuardada")
+ then
+  obj.setSolved();
+  update(obj);
+end

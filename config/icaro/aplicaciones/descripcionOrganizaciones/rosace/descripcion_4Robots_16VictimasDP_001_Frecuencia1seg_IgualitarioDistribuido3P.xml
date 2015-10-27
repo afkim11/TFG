@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<icaro:DescOrganizacion xmlns:icaro="urn:icaro:aplicaciones:descripcionOrganizaciones"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="urn:icaro:aplicaciones:descripcionOrganizaciones ../../../../schemas/DescripcionOrganizacionSchema.xsd ">
+<!--******************************************************************************************************
+******************     Propiedades globales de la organizacion             	            ******************
+********************************************************************************************************-->
+<icaro:PropiedadesGlobales>
+     <icaro:intervaloMonitorizacionGestores>800000</icaro:intervaloMonitorizacionGestores>
+     <icaro:activarPanelTrazasDebug>true</icaro:activarPanelTrazasDebug>
+     <icaro:listaPropiedades>
+            <icaro:propiedad atributo="HostNodoRMI_Org" valor="traianus"/>
+            <icaro:propiedad atributo="PuertoRMI_Org" valor="1099"/>
+            <icaro:propiedad atributo="identificadorEquipo" valor = "robotMasterIA" />
+            <icaro:propiedad atributo="rutaFicheroVictimasTest" valor = "src/utils/Escenario_0DP_V001_16Victims.xml" />
+            <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Escenario_Igualitario_001_4Robots.xml" />                      
+            <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "1000" />   <!-- valor expresado en milisegundos -->            
+            <icaro:propiedad atributo="timeTimeoutMilisegundosRecibirEvaluaciones" valor = "5000" />   <!-- creo que se usa en el igualitario y en el jerarquico -->
+            <icaro:propiedad atributo="timeTimeoutMilisegundosRecibirPropuestaDesempate" valor = "10000" />   <!-- creo que se usa en el igualitario -->
+            <icaro:propiedad atributo="timeTimeoutMilisegundosRecibirRespPropuestasIrYo" valor = "10000" />   <!-- creo que se usa en el igualitario -->                                    
+        </icaro:listaPropiedades>
+</icaro:PropiedadesGlobales>
+
+<icaro:DescripcionComponentes>
+
+<icaro:DescComportamientoAgentes>
+	<!--******************************************************************************************************
+	******************  Descripcion del comportamiento de los gestores                      ******************
+	********************************************************************************************************-->
+<icaro:DescComportamientoGestores>
+        <icaro:DescComportamientoAgente
+            nombreComportamiento="GestorOrganizacion" rol="Gestor" tipo="Reactivo" />
+        <icaro:DescComportamientoAgente
+            nombreComportamiento="GestorAgentes" rol="Gestor" tipo="Reactivo" />
+        <icaro:DescComportamientoAgente
+            nombreComportamiento="GestorRecursos" rol="Gestor" tipo="Reactivo" />
+        <icaro:DescComportamientoAgente nombreComportamiento="GestorNodo" rol="Gestor" tipo="Reactivo" />                       
+</icaro:DescComportamientoGestores>
+	<!--******************************************************************************************************
+	******************   Descripcion del comportamiento de los agentes de aplicacion        ******************
+	********************************************************************************************************-->
+<icaro:DescComportamientoAgentesAplicacion>
+    <icaro:DescComportamientoAgente
+       nombreComportamiento="AgenteAplicacionrobotMasterIA" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionrobotMasterIACognitivo" tipo="Cognitivo" />
+</icaro:DescComportamientoAgentesAplicacion>
+</icaro:DescComportamientoAgentes>
+	<!--******************************************************************************************************
+	******************   Descripcion de los recursos de aplicacion                          ******************
+	********************************************************************************************************-->
+<icaro:DescRecursosAplicacion>
+    <icaro:DescRecursoAplicacion nombre="RecursoMorse" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoMorse.imp.ClaseGeneradoraRecursoMorse"/>
+    <icaro:DescRecursoAplicacion nombre="RecursoGUI" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoGUI.imp.ClaseGeneradoraRecursoGUI"/>
+	<icaro:DescRecursoAplicacion nombre="RecursoEstadistica" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoEstadistica.imp.ClaseGeneradoraRecursoEstadistica"/>
+</icaro:DescRecursosAplicacion>
+
+</icaro:DescripcionComponentes>
+
+
+<icaro:DescInstancias>
+	<!--******************************************************************************************************
+	******************   Instancias de gestores                                             ******************
+	********************************************************************************************************-->
+            <icaro:Gestores>
+                <icaro:InstanciaGestor id="GestorOrganizacion" refDescripcion="GestorOrganizacion">
+                    <icaro:componentesGestionados>
+                            <icaro:componenteGestionado refId="GestorAgentes" tipoComponente="Gestor"/>
+                            <icaro:componenteGestionado refId="GestorRecursos" tipoComponente="Gestor"/>
+                    </icaro:componentesGestionados>
+                </icaro:InstanciaGestor>
+                <icaro:InstanciaGestor id="GestorAgentes" refDescripcion="GestorAgentes">
+                    <icaro:componentesGestionados>
+                            <icaro:componenteGestionado refId="robotMasterIA1" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotMasterIA2" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotMasterIA3" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotMasterIA4" tipoComponente="AgenteAplicacion"/>
+                    </icaro:componentesGestionados>
+                </icaro:InstanciaGestor>
+                <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos">
+                    <icaro:componentesGestionados>
+                            <icaro:componenteGestionado refId="RecursoMorse1" tipoComponente="RecursoAplicacion"/>
+                            <icaro:componenteGestionado refId="RecursoGUI1" tipoComponente="RecursoAplicacion"/>
+                            <icaro:componenteGestionado refId="RecursoEstadistica1" tipoComponente="RecursoAplicacion"/>
+                    </icaro:componentesGestionados>
+                </icaro:InstanciaGestor>
+                <icaro:InstanciaGestor id="GestorNodo" refDescripcion="GestorNodo">
+  					<icaro:componentesGestionados />
+  				</icaro:InstanciaGestor>                
+            </icaro:Gestores>
+	<!--******************************************************************************************************
+	******************   Instancias de Agentes de aplicacion                                ******************
+	*******************************************************************************************************-->            
+        <icaro:AgentesAplicacion>
+                <icaro:Instancia id="robotMasterIA1" refDescripcion="AgenteAplicacionrobotMasterIA">
+                    <icaro:nodoEspecifico>
+  					<icaro:nombreUso>sertorius</icaro:nombreUso> 
+  					<icaro:nombreCompletoHost>161.67.100.58</icaro:nombreCompletoHost>
+  					</icaro:nodoEspecifico>
+                </icaro:Instancia>
+                <icaro:Instancia id="robotMasterIA2" refDescripcion="AgenteAplicacionrobotMasterIA">
+                    <icaro:nodoEspecifico>
+  					<icaro:nombreUso>MOMOCS</icaro:nombreUso> 
+  					<icaro:nombreCompletoHost>161.67.100.58</icaro:nombreCompletoHost>
+  					</icaro:nodoEspecifico>
+                </icaro:Instancia>
+                <icaro:Instancia id="robotMasterIA3" refDescripcion="AgenteAplicacionrobotMasterIA">
+                    <icaro:nodoEspecifico>
+  					<icaro:nombreUso>MOMOCS</icaro:nombreUso> 
+  					<icaro:nombreCompletoHost>161.67.100.58</icaro:nombreCompletoHost>
+  					</icaro:nodoEspecifico>  
+                </icaro:Instancia>
+                <icaro:Instancia id="robotMasterIA4" refDescripcion="AgenteAplicacionrobotMasterIA">
+                	<icaro:listaPropiedades>
+					    <icaro:propiedad atributo="" valor="" />
+  					</icaro:listaPropiedades>
+                    <icaro:nodoEspecifico>
+  					<icaro:nombreUso>TRAIANUS</icaro:nombreUso> 
+  					<icaro:nombreCompletoHost>161.67.100.58</icaro:nombreCompletoHost>
+  					</icaro:nodoEspecifico>                                                               
+                </icaro:Instancia> 
+        </icaro:AgentesAplicacion>
+	<!--******************************************************************************************************
+	******************   Instancias de Recursos de aplicacion                               ******************
+	********************************************************************************************************-->        
+        <icaro:RecursosAplicacion>
+                <icaro:Instancia id="RecursoMorse1" refDescripcion="RecursoMorse" xsi:type="icaro:Instancia">
+                </icaro:Instancia>
+                <icaro:Instancia id="RecursoGUI1" refDescripcion="RecursoGUI" xsi:type="icaro:Instancia">
+                    <icaro:nodoEspecifico>
+                                    <icaro:nombreUso>sertorius</icaro:nombreUso>
+                                    <icaro:nombreCompletoHost>192.168.1.131</icaro:nombreCompletoHost>
+                                </icaro:nodoEspecifico>
+                </icaro:Instancia>
+                <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia">
+                    <icaro:nodoEspecifico>
+                                    <icaro:nombreUso>sertorius</icaro:nombreUso>
+                                    <icaro:nombreCompletoHost>192.168.1.131</icaro:nombreCompletoHost>
+                                </icaro:nodoEspecifico>               
+                </icaro:Instancia>                
+        </icaro:RecursosAplicacion>
+
+	<!--******************************************************************************************************
+	******************   Descripcion comun del nodo en el que se despliegan las instancias  ******************
+	*******************************************************************************************************-->	
+<icaro:nodoComun>
+     <icaro:nombreUso>traianus</icaro:nombreUso>
+     <icaro:nombreCompletoHost />
+<!--   <icaro:nombreCompletoHost>localhost</icaro:nombreCompletoHost>   -->
+</icaro:nodoComun>
+     
+</icaro:DescInstancias>
+</icaro:DescOrganizacion>

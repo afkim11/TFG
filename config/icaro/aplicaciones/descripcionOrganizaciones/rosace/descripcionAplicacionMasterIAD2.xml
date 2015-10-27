@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : descripcionLimpiaParaDistribuido.xml
+    Created on : 4 de mayo de 2010, 16:59
+    Author     : Arturo Mazón
+    Description:
+        Purpose of the document follows.
+-->
+
+<icaro:DescOrganizacion xmlns:icaro="urn:icaro:aplicaciones:descripcionOrganizaciones"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="urn:icaro:aplicaciones:descripcionOrganizaciones ../../../../schemas/DescripcionOrganizacionSchema.xsd ">
+    <!--******************************************************************************************************
+        ******************     Propiedades globales de la organización             		******************
+        ********************************************************************************************************-->
+    <icaro:PropiedadesGlobales>
+        <icaro:intervaloMonitorizacionGestores>15000</icaro:intervaloMonitorizacionGestores>
+        <icaro:activarPanelTrazasDebug>false</icaro:activarPanelTrazasDebug>
+        <icaro:listaPropiedades>
+            <!-- Chat nuevo -->
+
+            <!-- Es necesario activar el gestor de comunicaciones -->
+            <icaro:propiedad atributo="activarGestorComunicaciones" valor="true"/>
+            <!-- Para RMI usamos el puerto 1099 por defecto-->
+            <icaro:propiedad atributo="puertoRMI" valor="1099"/>
+            <!-- Seleccionar la opcion entre mostrar las trazas o no hacerlo -->
+            <icaro:propiedad atributo="mostrarTrazas" valor="true"/>
+
+            <!-- En este punto se introducen los atributos-propiedades de los nodos a distribuir.
+                 En atributo se coloca el nombre del nodo y en la propiedad su ip. -->
+
+            <!-- Ejemplo nodos a distribuir:
+            --><icaro:propiedad atributo="nodo1" valor="172.16.0.8"/>
+            <icaro:propiedad atributo="nodo2" valor="172.16.0.3"/>
+            
+
+            <icaro:propiedad atributo="nombreUsuario" valor="NombreUsuario"/>
+
+        </icaro:listaPropiedades>
+    </icaro:PropiedadesGlobales>
+    <icaro:DescripcionComponentes>
+        <icaro:DescComportamientoAgentes>
+            <!--******************************************************************************************************
+        ******************  Descripción del comportamiento de los gestores   			******************
+        ********************************************************************************************************-->
+            <!-- ¡ESTO NO SE TOCA! ES PARTE DE LA ARQUITECTURA DE ICARO -->
+            <icaro:DescComportamientoGestores>
+                <icaro:DescComportamientoAgente
+                    nombreComportamiento="GestorOrganizacion" rol="Gestor" tipo="Reactivo" />
+                <icaro:DescComportamientoAgente
+                    nombreComportamiento="GestorAgentes" rol="Gestor" tipo="Reactivo" />
+                <icaro:DescComportamientoAgente
+                    nombreComportamiento="GestorRecursos" rol="Gestor" tipo="Reactivo" />
+                <icaro:DescComportamientoAgente
+                    nombreComportamiento="GestorAplicacionComunicacion" rol="Gestor" tipo="Reactivo" />
+            </icaro:DescComportamientoGestores>
+            <!--******************************************************************************************************
+        ******************   Descripción del comportamiento de los agentes de aplicación   	******************
+        ********************************************************************************************************-->
+            <!-- Aqui se colocan los agentes de la aplicacion como se muestra en el ejemplo -->
+            <icaro:DescComportamientoAgentesAplicacion>
+                <!-- Ejemplos agentes de aplicacion -->
+
+               <icaro:DescComportamientoAgente
+                    nombreComportamiento="AgenteAplicacionrobotMasterIA" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionrobotMasterIAReactivo.comportamiento"
+                    tipo="Reactivo" />
+                <!--<icaro:DescComportamientoAgente
+                    nombreComportamiento="AgenteAplicacion2Usuario" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacion2UsuarioReactivo.comportamiento"
+                    tipo="ReactivoRemoto" />-->
+               
+
+                <!-- Cada nuevo agente debe ir dentro del cuerpo <icaro: DescComportamientoAgente ..... />
+                     La unica diferencia con el icaro no distribuido es que el tipo tiene que ser "ReactivoRemoto"
+                -->
+            </icaro:DescComportamientoAgentesAplicacion>
+        </icaro:DescComportamientoAgentes>
+        <!--******************************************************************************************************
+        ******************   Descripción de los recursos de aplicación				******************
+        ********************************************************************************************************-->
+        <icaro:DescRecursosAplicacion>
+             <!--Aqui van los recursos de la palicacion del usuario-->
+            <!--<icaro:DescRecursoAplicacion nombre="VisualizacionUsuario"/>-->
+            <icaro:DescRecursoAplicacion nombre="VisualizacionAgenteMasterIA" localizacionClaseGeneradora="icaro.aplicaciones.recursos.visualizacionAgenteMasterIA.imp.ClaseGeneradoraVisualizacionAgenteMasterIA"/>
+       </icaro:DescRecursosAplicacion>
+    </icaro:DescripcionComponentes>
+    <icaro:DescInstancias>
+        <!--******************************************************************************************************
+        ******************   Instancias de gestores						******************
+        ********************************************************************************************************-->
+        
+        <!-- Aqui se colocan los gestores de la arquitectura con sus componentes gestionados -->
+        <icaro:Gestores>
+            <icaro:InstanciaGestor id="GestorOrganizacion" refDescripcion="GestorOrganizacion">
+                <!-- ESTE NO SE TOCA -->
+                <icaro:componentesGestionados>
+                    <icaro:componenteGestionado refId="GestorAgentes" tipoComponente="Gestor"/>
+                    <icaro:componenteGestionado refId="GestorRecursos" tipoComponente="Gestor"/>
+                    <icaro:componenteGestionado refId="GestorAplicacionComunicacion" tipoComponente="Gestor"/>
+                </icaro:componentesGestionados>
+            </icaro:InstanciaGestor>
+            <icaro:InstanciaGestor id="GestorAgentes" refDescripcion="GestorAgentes">
+                <icaro:componentesGestionados>
+                    <!-- Ejemplo
+                    <icaro:componenteGestionado refId="AgenteAplicacion1usuario" tipoComponente="AgenteAplicacion"/>
+                    <icaro:componenteGestionado refId="AgenteAplicacion2Usuario" tipoComponente="AgenteAplicacion"/>
+                    -->
+                    <icaro:componenteGestionado refId="robotMasterIA1" tipoComponente="AgenteAplicacion"/>
+                    <icaro:componenteGestionado refId="robotMasterIA2" tipoComponente="AgenteAplicacion"/>
+                    <icaro:componenteGestionado refId="robotMasterIA3" tipoComponente="AgenteAplicacion"/>
+                    <icaro:componenteGestionado refId="robotMasterIA4" tipoComponente="AgenteAplicacion"/>
+                </icaro:componentesGestionados>
+            </icaro:InstanciaGestor>
+
+            <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos" >
+                <icaro:componentesGestionados>
+                    <!-- Ejemplo
+                    <icaro:componenteGestionado refId="VisualizacionUsuario" tipoComponente="RecursoAplicacion"/>
+                    -->
+                    <icaro:componenteGestionado refId="vis1" tipoComponente="RecursoAplicacion"/>
+                </icaro:componentesGestionados>
+            </icaro:InstanciaGestor>
+
+            <icaro:InstanciaGestor id="GestorAplicacionComunicacion" refDescripcion="GestorAplicacionComunicacion" >
+                <icaro:componentesGestionados>
+                    <!-- Ejemplo
+                    <icaro:componenteGestionado refId="VisualizacionUsuario" tipoComponente="RecursoAplicacion"/>-->
+                    
+                    <icaro:componenteGestionado refId="vis1" tipoComponente="RecursoAplicacion"/>
+                </icaro:componentesGestionados>
+            </icaro:InstanciaGestor>
+
+        </icaro:Gestores>
+        <!--******************************************************************************************************
+        ******************   Instancias de Agentes de aplicación				******************
+        *******************************************************************************************************-->
+        <!-- En este punto se declaran los agentes de aplicacion del usuario indicando en que nodo estan situados.
+             El nodo local esta por defecto, los nodos que quiera el usuario se declaran en las propiedades globales
+             al comienzo del fichero 
+        -->
+        <icaro:AgentesAplicacion>
+            <!-- Ejemplos
+            <icaro:Instancia id="AgenteAplicacion1Usuario" refDescripcion="AgenteAplicacion1Usuario">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodo1"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+            <icaro:Instancia id="AgenteAplicacion2Usuario" refDescripcion="AgenteAplicacion2Usuario">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodoLocal"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+            -->
+            <icaro:Instancia id="robotMasterIA1" refDescripcion="AgenteAplicacionrobotMasterIA">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodo1"/>
+                    <icaro:propiedad atributo="grupo" valor="ROBOTS"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+            <icaro:Instancia id="robotMasterIA2" refDescripcion="AgenteAplicacionrobotMasterIA">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodo1"/>
+                    <icaro:propiedad atributo="grupo" valor="ROBOTS"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+            <icaro:Instancia id="robotMasterIA3" refDescripcion="AgenteAplicacionrobotMasterIA">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodo2"/>
+                    <icaro:propiedad atributo="grupo" valor="ROBOTS"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+            <icaro:Instancia id="robotMasterIA4" refDescripcion="AgenteAplicacionrobotMasterIA">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodo2"/>
+                    <icaro:propiedad atributo="grupo" valor="ROBOTS"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+        </icaro:AgentesAplicacion>
+        <!--******************************************************************************************************
+        ******************   Instancias de Recursos de aplicación				******************
+        ********************************************************************************************************-->
+        <!-- En este punto se declaran los recursos de aplicacion del usuario indicando en que nodo estan situados.
+             El nodo local esta por defecto, los nodos que quiera el usuario se declaran en las propiedades globales
+             al comienzo del fichero 
+        -->
+        <icaro:RecursosAplicacion>
+            <!-- Ejemplo
+            <icaro:Instancia id="VisualizacionUsuario" refDescripcion="VisualizacionUsuario" xsi:type="icaro:Instancia">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodo2"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+            -->
+            <icaro:Instancia id="vis1" refDescripcion="VisualizacionAgenteMasterIA" xsi:type="icaro:Instancia">
+                <icaro:listaPropiedades>
+                    <icaro:propiedad atributo="nodo" valor="nodoLocal"/>
+                </icaro:listaPropiedades>
+            </icaro:Instancia>
+        </icaro:RecursosAplicacion>
+        <!--******************************************************************************************************
+        ******************   Descripción común del nodo en el que se despliegan las instancias	******************
+        *******************************************************************************************************-->
+        <icaro:nodoComun>
+            <icaro:nombreUso>NodoPrincipal</icaro:nombreUso>
+            <icaro:nombreCompletoHost>localhost</icaro:nombreCompletoHost>
+        </icaro:nodoComun>
+    </icaro:DescInstancias>
+</icaro:DescOrganizacion>

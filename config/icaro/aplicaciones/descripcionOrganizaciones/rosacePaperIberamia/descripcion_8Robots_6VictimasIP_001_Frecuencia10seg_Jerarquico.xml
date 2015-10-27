@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<icaro:DescOrganizacion xmlns:icaro="urn:icaro:aplicaciones:descripcionOrganizaciones"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="urn:icaro:aplicaciones:descripcionOrganizaciones ../../../../schemas/DescripcionOrganizacionSchema.xsd ">
+<!--******************************************************************************************************
+******************     Propiedades globales de la organizacion             	            ******************
+********************************************************************************************************-->
+<icaro:PropiedadesGlobales>
+     <icaro:intervaloMonitorizacionGestores>800000</icaro:intervaloMonitorizacionGestores>
+     <icaro:activarPanelTrazasDebug>true</icaro:activarPanelTrazasDebug>
+        <icaro:listaPropiedades>
+            <icaro:propiedad atributo="identificadorEquipo" valor = "Jerarquico" />
+            <icaro:propiedad atributo="rutaFicheroVictimasTest" valor = "src/utils/Esc_6Victimas_0IP_001.xml" />            
+            <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Esc_Jerarquico_8Robots_001.xml" />
+            <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->  
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "7000" />   <!-- se usa en el igualitario y en el jerarquico -->                                                                        
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirConfirmacionesRealizacionObjetivo1" valor = "8000" />
+            <icaro:propiedad atributo="timeTimeoutPorDefecto" valor = "8000" />
+        </icaro:listaPropiedades>
+</icaro:PropiedadesGlobales>
+
+<icaro:DescripcionComponentes>
+
+<icaro:DescComportamientoAgentes>
+	<!--******************************************************************************************************
+	******************  Descripcion del comportamiento de los gestores                      ******************
+	********************************************************************************************************-->
+<icaro:DescComportamientoGestores>
+        <icaro:DescComportamientoAgente
+            nombreComportamiento="GestorOrganizacion" rol="Gestor" tipo="Reactivo" />
+        <icaro:DescComportamientoAgente
+            nombreComportamiento="GestorAgentes" rol="Gestor" tipo="Reactivo" />
+        <icaro:DescComportamientoAgente
+            nombreComportamiento="GestorRecursos" rol="Gestor" tipo="Reactivo" />           
+</icaro:DescComportamientoGestores>
+	<!--******************************************************************************************************
+	******************   Descripcion del comportamiento de los agentes de aplicacion        ******************
+	********************************************************************************************************-->
+<icaro:DescComportamientoAgentesAplicacion>
+    <icaro:DescComportamientoAgente
+       nombreComportamiento="AgenteAplicacionAsignadorObjetivos" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo" tipo="Cognitivo" />
+     <icaro:DescComportamientoAgente  
+       nombreComportamiento="AgenteAplicacionSubordinado" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo" tipo="Cognitivo"
+       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.procesoResolucionObjetivos.reglasSubordinado.drl"/>
+</icaro:DescComportamientoAgentesAplicacion>
+</icaro:DescComportamientoAgentes>
+	<!--******************************************************************************************************
+	******************   Descripcion de los recursos de aplicacion                          ******************
+	********************************************************************************************************-->
+<icaro:DescRecursosAplicacion>
+    <icaro:DescRecursoAplicacion nombre="RecursoMorse" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoMorse.imp.ClaseGeneradoraRecursoMorse"/>
+    <icaro:DescRecursoAplicacion nombre="RecursoGUI" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoGUI.imp.ClaseGeneradoraRecursoGUI"/>
+	<icaro:DescRecursoAplicacion nombre="RecursoEstadistica" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoEstadistica.imp.ClaseGeneradoraRecursoEstadistica"/>
+</icaro:DescRecursosAplicacion>
+
+</icaro:DescripcionComponentes>
+
+
+<icaro:DescInstancias>
+	<!--******************************************************************************************************
+	******************   Instancias de gestores                                             ******************
+	********************************************************************************************************-->
+            <icaro:Gestores>
+                <icaro:InstanciaGestor id="GestorOrganizacion" refDescripcion="GestorOrganizacion">
+                    <icaro:componentesGestionados>
+                            <icaro:componenteGestionado refId="GestorAgentes" tipoComponente="Gestor"/>
+                            <icaro:componenteGestionado refId="GestorRecursos" tipoComponente="Gestor"/>
+                    </icaro:componentesGestionados>
+                </icaro:InstanciaGestor>
+                <icaro:InstanciaGestor id="GestorAgentes" refDescripcion="GestorAgentes">
+                    <icaro:componentesGestionados>
+                            <icaro:componenteGestionado refId="agenteAsignador" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado1" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado2" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado3" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado4" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado5" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado6" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado7" tipoComponente="AgenteAplicacion"/>
+                            <icaro:componenteGestionado refId="robotSubordinado8" tipoComponente="AgenteAplicacion"/>
+                    </icaro:componentesGestionados>
+                </icaro:InstanciaGestor>
+                <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos">
+                    <icaro:componentesGestionados>
+                            <icaro:componenteGestionado refId="RecursoMorse1" tipoComponente="RecursoAplicacion"/>
+                            <icaro:componenteGestionado refId="RecursoGUI1" tipoComponente="RecursoAplicacion"/>
+                            <icaro:componenteGestionado refId="RecursoEstadistica1" tipoComponente="RecursoAplicacion"/>
+                    </icaro:componentesGestionados>
+                </icaro:InstanciaGestor>
+            </icaro:Gestores>
+	<!--******************************************************************************************************
+	******************   Instancias de Agentes de aplicacion                                ******************
+	*******************************************************************************************************-->            
+        <icaro:AgentesAplicacion>
+                <icaro:Instancia id="agenteAsignador" refDescripcion="AgenteAplicacionAsignadorObjetivos">
+                </icaro:Instancia>
+                <icaro:Instancia id="robotSubordinado1" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia>
+                <icaro:Instancia id="robotSubordinado2" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia>
+                <icaro:Instancia id="robotSubordinado3" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia> 
+                <icaro:Instancia id="robotSubordinado4" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia> 
+                <icaro:Instancia id="robotSubordinado5" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia> 
+                <icaro:Instancia id="robotSubordinado6" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia> 
+                <icaro:Instancia id="robotSubordinado7" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia> 
+                <icaro:Instancia id="robotSubordinado8" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia> 
+        </icaro:AgentesAplicacion>
+	<!--******************************************************************************************************
+	******************   Instancias de Recursos de aplicacion                               ******************
+	********************************************************************************************************-->        
+        <icaro:RecursosAplicacion>
+                <icaro:Instancia id="RecursoMorse1" refDescripcion="RecursoMorse" xsi:type="icaro:Instancia">
+                </icaro:Instancia>
+                <icaro:Instancia id="RecursoGUI1" refDescripcion="RecursoGUI" xsi:type="icaro:Instancia">
+                </icaro:Instancia>
+                <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
+        </icaro:RecursosAplicacion>
+
+	<!--******************************************************************************************************
+	******************   Descripcion comun del nodo en el que se despliegan las instancias  ******************
+	*******************************************************************************************************-->	
+<icaro:nodoComun>
+     <icaro:nombreUso>NodoPrincipal</icaro:nombreUso>
+     <icaro:nombreCompletoHost>localhost</icaro:nombreCompletoHost>
+</icaro:nodoComun>
+     
+</icaro:DescInstancias>
+</icaro:DescOrganizacion>

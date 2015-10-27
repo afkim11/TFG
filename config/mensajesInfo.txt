@@ -1,0 +1,416 @@
+
+pregunta1
+PRIMERO
+Sociable
+
+mensaje4
+SECUENCIAL
+No puede borrar este mensaje, es utilizado por el propio recurso
+Está intentando borrar un mensaje que haría que la gestion de este recurso no funcionara correctamente
+
+mensaje3
+SECUENCIAL
+No hay ningún mensaje seleccionado
+Debe seleccionar el mensaje que desea eliminar
+Primero seleccione el mensaje y despues de al botón eliminar
+
+mensaje2
+SECUENCIAL
+El cuerpo del mensaje está en blanco, debe introducir uno
+El campo de descripcion no puede estar vacio, introduzca uno, por favor
+Debe introducir descripción para añadir el mensaje
+
+mensaje1
+SECUENCIAL
+Debe de introducir un identificador
+Por favor introduzca un identificador
+Es necesario que el mensaje tenga un identificador
+
+pregunta2
+PRIMERO
+Creativa
+
+pregunta3
+PRIMERO
+Ordenada
+
+pregunta4
+PRIMERO
+Confiada
+
+pregunta5
+PRIMERO
+Estable
+
+pregunta6
+PRIMERO
+Vital
+
+pregunta7
+PRIMERO
+Curiosa
+
+pregunta8
+PRIMERO
+Disciplinada
+
+pregunta9
+PRIMERO
+Honrada
+
+pregunta10
+PRIMERO
+Con control de emociones
+
+pregunta11
+PRIMERO
+Asertiva
+
+pregunta12
+PRIMERO
+Fantasiosa
+
+pregunta13
+PRIMERO
+Perseverante
+
+pregunta14
+PRIMERO
+Altruista
+
+pregunta15
+PRIMERO
+Tranquila
+
+pregunta16
+PRIMERO
+Aventurera
+
+pregunta17
+PRIMERO
+Liberal
+
+pregunta18
+PRIMERO
+Con sentido del deber
+
+pregunta19
+PRIMERO
+Conciliadora
+
+pregunta20
+PRIMERO
+Con cambios de humor
+
+pregunta21
+PRIMERO
+Buscadora de emociones
+
+pregunta22
+PRIMERO
+Tolerante
+
+pregunta23
+PRIMERO
+Competente
+
+pregunta24
+PRIMERO
+Modesta
+
+pregunta25
+PRIMERO
+Con control de impulsos
+
+pregunta26
+PRIMERO
+Dominante
+
+pregunta27
+PRIMERO
+Atraída por lo novedoso
+
+pregunta28
+PRIMERO
+Minuciosa
+
+pregunta29
+PRIMERO
+Empática
+
+pregunta30
+PRIMERO
+Optimista
+
+texto1
+PRIMERO
+En primer lugar, pareces ser una persona con baja estabilidad emocional. Así, puedes tener ciertos problemas para adaptarte a algunas situaciones, porque controlas poco tus impulsos y tiendes a actuar de forma inquieta y nerviosa. Si el entorno se vuelve hostil o estresante, la mayoría de las veces te cuesta mucho esfuerzo mantener la tranquilidad, lo que puede transmitir la impresión de que tienes cambios bruscos de humor. En definitiva, tu puntuación supone una gran riqueza en tus emociones, lo que implica que vivirás con mucha intensidad todo tipo de situaciones, tanto las positivas como las negativas.
+
+texto2
+PRIMERO
+En primer lugar, pareces ser una persona con un nivel moderado de estabilidad emocional. En general, te muestras como alguien moderadamente tranquilo, relajado y sin demasiados cambios bruscos de humor, por lo que no deberías tener muchos problemas para controlar tus impulsos y tus emociones. No obstante, en ocasiones esto puede no ser así, ya que tiendes a depender en gran medida de las características de las situaciones a las que te enfrentas. En definitiva, tu puntuación supone una aceptable gestión de las emociones, si bien su ajuste emocional depende de la intensidad de las situaciones en que te encuentras.
+
+texto3
+PRIMERO
+En primer lugar, pareces ser una persona con muy buena estabilidad emocional, lo que supone una buena gestión de las emociones. Es decir, te adaptas bastante bien a las situaciones porque controla tus impulsos y te muestras como una persona tranquila, sosegada y relajada. Si el entorno se vuelve hostil o estresante, la mayoría de las veces mantienes la calma y no te alteras, lo que te ayuda a afrontar la situación eficazmente, sin evasivas y con cierta ventaja sobre los demás.
+
+texto4
+PRIMERO
+En segundo lugar, tu puntuación en extroversión indica que probablemente eres una persona con un grado de sociabilidad bajo. Así, es de esperar que tiendas a comportarte de forma bastante reservada, independiente y constante. Esto hace que en ocasiones tu carácter pueda parecer algo retraído e introspectivo, de modo que muestres más interés por las distracciones individuales (ordenador, televisión, lectura, etc) que por las personas, excepto cuando se trata de tus amigos íntimos. En definitiva, pareces verte como alguien bastante introvertido, lo que sin embargo no implica que sientas incomodidad en situaciones sociales, tales como reuniones o fiestas.
+
+texto5
+PRIMERO
+En segundo lugar, tu puntuación en extroversión indica que probablemente eres una persona con un nivel medio de sociabilidad. Esto hará que no tengas dificultad en comportarte de modo afable, hablador y dinámico cuando la situación lo requiera, pero tampoco en hacerlo de forma más reservada, independiente y retraída cuando sea necesario. En definitiva, pareces verte como alguien moderadamente extrovertido, lo que significa que sueles adaptar tu comportamiento a las características de cada situación.
+
+texto6
+PRIMERO
+En segundo lugar, tu puntuación en extroversión indica que probablemente eres una persona con un grado de sociabilidad muy elevado. Así, es de esperar que tengas muchos amigos, porque a menudo necesitas a alguien con quien hablar, del mismo modo que no te agrada demasiado leer o estudiar en solitario, ya que prefieres estar en movimiento o haciendo cosas. Te gustan las fiestas, las bromas y el cambio; anhelas la excitación y el riesgo, y sueles actuar de forma despreocupada e impulsiva, bajo el lema \“diviértete y sé feliz\”. En definitiva, pareces verte como alguien bastante extrovertido.
+
+texto7
+PRIMERO
+Por otra parte, muestras una baja puntuación en apertura. Esto significa que eres una persona bastante conservadora, sin gustos artísticos pronunciados, pero probablemente con alta religiosidad, y tendencia a seguir los caminos ya marcados. Puede que a veces te cueste encontrar nuevas vías para hacer frente a los problemas, y también que no veas con buenos ojos las ideas que provocan cambios profundos, especialmente si son radicales, porque en términos generales te encuentras a gusto con tu situación actual. En resumen, te presentas como una persona que se siente cómoda con las normas, y que manifiesta pocas ganas de vivir nuevas experiencias, lo que no suele relacionarse con niveles altos de creatividad.
+
+texto8
+PRIMERO
+Por otra parte, muestras una puntuación intermedia apertura, lo que significa que eres una persona moderadamente conservadora y con una ligera tendencia a seguir los caminos ya marcados. No obstante, tampoco te cuesta demasiado salirte de ellos cuando las circunstancias lo requieren, del mismo modo que en ocasiones mantienes ideas o valores “poco convencionales”. En resumen, te presentas como una persona moderadamente liberal y “abierta” tanto a los demás como a la experiencia, lo que en ocasiones se relaciona con un nivel intermedio de creatividad.
+
+texto9
+PRIMERO
+Por otra parte, muestras una alta puntuación en apertura. Esto significa que eres una persona que en general se define como liberal, ancha de miras, creativa y tolerante. Tiendes a la fantasía, y también a tener emociones y pensamientos “no-ortodoxos”, de modo que te sales con facilidad del camino trazado por los demás para encontrar tus propias vías. De hecho, es probable que te gusten más las posiciones extremas, opuestas a los convencionalismos sociales, que las ideas conservadoras y tradicionales, y también que valores todo tipo de manifestaciones artísticas (pintura, escultura, arquitectura, escritura, etc) En resumen, te presentas como una persona muy liberal y "abierta" a los demás y a la experiencia, lo que a menudo se relaciona con un nivel alto de creatividad.
+
+
+texto10
+PRIMERO
+En cuarto lugar, has obtenido una puntuación baja en cordialidad, lo que indica que te presentas como una persona poco dada a mostrarte simpática, agradable o cooperadora, con tendencia a la frialdad, y bajo interés por lo que le pueda pasar a la gente o al mundo que te rodea. Esta manera de actuar transmite la impresión de que te comportas de una forma algo egocéntrica y suspicaz respecto a las intenciones de los demás. En consecuencia, es probable que goces de una popularidad inferior a la de otras personas; Sin embargo, esta actitud escéptica y crítica puede resultarte muy beneficiosa a la hora de luchar por tus propios intereses.
+
+texto11
+PRIMERO
+En cuarto lugar, has obtenido una puntuación intermedia en cordialidad, lo que indica que te presentas como alguien moderadamente simpático y agradable. Sin embargo, eso no quita para que en ocasiones te comportes de forma fría y distante con determinados individuos, especialmente si no cuentan con tu estima, o incluso si no les conoces en profundidad. En estos casos, puedes llegar a dar la impresión de ser una persona poco cooperadora, y también algo egocéntrica y suspicaz respecto a las intenciones de los demás. Por el contrario, cuando alguien cuenta con tu simpatía, sueles comportarte de modo muy amable y afectuoso. En consecuencia, en este sentido es probable que tu forma de ser dependa en gran medida de las circunstancias y, sobre todo, de las personas que le rodeen en cada momento.
+
+texto12
+PRIMERO
+En cuarto lugar, has obtenido una puntuación elevada en cordialidad, lo que indica que te presentas como una persona simpática, agradable, cooperadora y solidaria. Tiendes a comportarte de forma muy cálida y sincera, si bien evitas contar la verdad cuando crees que puede herir a alguien, ya que sueles preocuparte por lo que le pasa tanto a la gente que te rodea como al mundo en general. A consecuencia de tu gran amabilidad, es probable que goces de una popularidad superior a la de otras personas.
+
+texto13
+PRIMERO
+Finalmente, tus respuestas indican que eres una persona bastante irresponsable, poco voluntariosa, poco perseverante, poco ordenada, con escasa tendencia a la reflexión, y con bajo sentido del deber. Esto se traduce en un escaso autocontrol por tu parte, que se manifiesta tanto en tu manera de expresar emociones como en tu forma de desempeñar tareas profesionales.
+
+texto14
+PRIMERO
+Finalmente, tus respuestas indican que eres una persona moderadamente responsable, voluntariosa, perseverante, ordenada, reflexiva y con cierto sentido del deber. Esto se traduce en un nivel medio de autocontrol, que se manifiesta tanto en tu manera de expresar emociones como en tu forma de desempeñar tareas profesionales. Por lo tanto, cabe esperar que tu comportamiento dependa mucho de la situación en que te encuentres, pudiendo mostrar mucha responsabilidad en algunas ocasiones, y todo lo contrario en otras.
+
+texto15
+PRIMERO
+Finalmente, tus respuestas indican que eres una persona bastante responsable, voluntariosa, perseverante, ordenada e implicada con el trabajo. Esto se traduce en un  alto nivel de autocontrol, que se manifiesta tanto en tu manera de expresar emociones como en tu forma de desempeñar tareas profesionales, en las que pones de manifiesto tu escrupulosidad, puntualidad y fiabilidad.
+
+ayuda1
+PRIMERO
+SOCIABLE: Persona amistosa y popular. Le gusta estar con los demás, y se relaciona bien con ellos.
+
+ayuda2
+PRIMERO
+CREATIVA: Persona capaz transformar la información en expresiones o ideas con nuevos significados, sin repetir o copiar lo que ha percibido.
+
+ayuda3
+PRIMERO
+ORDENADA: Persona meticulosa y organizada, que coloca cada cosa en el lugar que le corresponde.
+
+ayuda4
+PRIMERO
+CONFIADA: Persona que cree en las buenas intenciones y propósitos de los demás.
+
+ayuda5
+PRIMERO
+ESTABLE: Persona firme en sus actuaciones, sin altibajos ni cambios de humor frecuentes.
+
+ayuda6
+PRIMERO
+VITAL: Persona dinámica, con inquietudes, activa, y enérgica.
+
+ayuda7
+PRIMERO
+CURIOSA: Persona observadora, con inquietud intelectual, o que intenta saber el máximo posible sobre aquellos aspectos que le interesan.
+
+ayuda8
+PRIMERO
+DISCIPLINADA: Persona ordenada, que sigue pautas exigentes para alcanzar sus objetivos.
+
+ayuda9
+PRIMERO
+HONRADA: Persona honesta, sincera y sin malas intenciones, que despierta confianza en los demás.
+
+ayuda10
+PRIMERO
+CON CONTROL DE EMOCIONES: Persona capaz de regular y manejar toda clase de sentimientos (alegría, pena, entusiasmo, etc)
+
+ayuda11
+PRIMERO
+ASERTIVA: Persona capaz de manifestar sus opiniones, deseos o necesidades de manera segura, pero también de expresar desacuerdo o negación cuando lo estima oportuno.
+
+ayuda12
+PRIMERO
+FANTASIOSA: Persona con ideas y pensamientos poco corrientes, muy alejados del mundo real, o poco convencionales.
+
+ayuda13
+PRIMERO
+PERSEVERANTE: Persona que se mantiene constante en todas las tareas y actividades que emprende, hasta alcanzar su objetivo.
+
+ayuda14
+PRIMERO
+ALTRUISTA: Persona capaz de hacer cosas por los demás sin buscar un beneficio propio.
+
+ayuda15
+PRIMERO
+TRANQUILA: Persona calmada, serena, sosegada, pacífica, con pocas o ninguna inquietud.
+
+ayuda16
+PRIMERO
+AVENTURERA: Persona arriesgada y atrevida, que disfruta con las aventuras y los deportes de riesgo.
+
+ayuda17
+PRIMERO
+LIBERAL: Persona tolerante, abierta, que no es conservadora ni se siente atraída por los convencionalismos sociales.
+
+ayuda18
+PRIMERO
+CON SENTIDO DEL DEBER: Persona comprometida en su forma de actuar, que se hace responsable de las tareas que le encomiendan, y se siente obligada a cumplir con sus obligaciones.
+
+ayuda19
+PRIMERO
+CONCILIADORA: Persona que sabe mediar, reconciliar, y armonizar situaciones difíciles entre dos o más personas.
+
+ayuda20
+PRIMERO
+CON CAMBIOS DE HUMOR: Persona que varía de estado de ánimo con relativa rapidez, o cuyas reacciones emocionales resultan difíciles de prever.
+
+ayuda21
+PRIMERO
+BUSCADORA DE EMOCIONES: Persona que disfruta al enfrentarse a situaciones nuevas, aun sin saber bien la sensación que le van a causar.
+
+ayuda22
+PRIMERO
+TOLERANTE: Persona que respeta a toda clase de culturas, pueblos y personas, así como de ideas, valores o creencias, aunque sean diferentes o contrarias a las suyas.
+
+ayuda23
+PRIMERO
+COMPETENTE: Persona capaz de llevar a cabo de la forma más adecuada las tareas o actividades que se le encomiendan.
+
+ayuda24
+PRIMERO
+MODESTA: Persona humilde, que no siente ni manifiesta una opinión elevada de sí misma.
+
+ayuda25
+PRIMERO
+CON CONTROL DE IMPULSOS: Persona capaz de mantener el control sobre su comportamiento incluso en situaciones de incomodidad, conflicto y peligro, sin perder la calma ni dejarse llevar por el primer instinto.
+
+ayuda26
+PRIMERO
+DOMINANTE: Persona capaz de imponerse, sobresalir, o hacer valer su influencia sobre los demás.
+
+ayuda27
+PRIMERO
+ATRAÍDA POR LO NOVEDOSO: Persona que disfruta viviendo o experimentando situaciones nuevas, o desconocidas para ella.
+
+ayuda28
+PRIMERO
+MINUCIOSA: Persona escrupulosa, meticulosa, y amante del orden, que suele cuidar hasta los detalles mínimos.
+
+ayuda29
+PRIMERO
+EMPÁTICA: Persona capaz de ponerse en el lugar de los demás y entender sus sentimientos, cooperando eficazmente con ellos para hacer frente a sus problemas y necesidades.
+
+ayuda30
+PRIMERO
+OPTIMISTA: Persona que tiende a ver y a juzgar las cosas en su aspecto más favorable.
+
+texto16
+PRIMERO
+A continuación se le va a presentar una breve y divertida prueba para la evaluación de su personalidad. El objetivo de dicha prueba no es más que tratar de configurar su Yo Digital de la forma más individual y personalizada posible.
+
+texto17
+PRIMERO
+No piense demasiado la respuesta y conteste lo más rápidamente posible. La prueba se compone solamente de 30 adjetivos y usted tiene que indicar en qué grado definen su personalidad (escala de 0 a 10, 0 = nada; 5 = lo normal; 10 = muchísimo). El tiempo de duración de la prueba es inferior a cinco minutos.
+
+texto18
+PRIMERO
+Al finalizar, y sólo si usted lo desea, su Yo Digital le puede crear un informe personal y confidencial con los resultados y la interpretación de su perfil de Personalidad para su propio autoconocimiento.
+
+texto19
+PRIMERO
+SI NO TIENE NINGUNA DUDA, AHORA                PUEDE COMENZAR
+
+texto20
+PRIMERO
+Test de Personalidad
+
+texto21
+PRIMERO
+Indique por favor en que grado (0 = nada; 5 = lo normal; 10 = muchísimo) usted se considera una persona……….
+
+texto22
+PRIMERO
+Resultado del Test:
+
+texto23
+PRIMERO
+Aceptar
+
+texto24
+PRIMERO
+Salir
+
+texto25
+PRIMERO
+Comenzar
+
+texto26
+PRIMERO
+Terminar
+
+texto27
+PRIMERO
+Informe
+
+texto28
+PRIMERO
+Salir
+
+texto29
+PRIMERO
+Rehacer
+
+texto30
+PRIMERO
+Extroversión
+
+texto31
+PRIMERO
+Cordialidad
+
+texto32
+PRIMERO
+Responsabilidad
+
+texto33
+PRIMERO
+Estabilidad Emocional
+
+texto34
+PRIMERO
+Apertura Mental
+
+texto35
+PRIMERO
+¿Desea guardar el progreso antes de salir del Test de Personalidad?
+
+texto36
+PRIMERO
+¿Deseas acceder al test de personalidad para adaptar tu YoDigital?
+
+texto37
+PRIMERO
+Veo que no has respondido a todas las preguntas. ¿Quieres guardar el progreso para que más tarde puedas terminar el test?
+
+texto38
+PRIMERO
+Por esta razón, se ruega la máxima sinceridad y honestidad en sus respuestas. Además, conviene que sepa que no existen respuestas correctas o incorrectas, de la misma forma que no existen personalidades buenas o malas, sino que cada ser humano tiene la suya propia. 

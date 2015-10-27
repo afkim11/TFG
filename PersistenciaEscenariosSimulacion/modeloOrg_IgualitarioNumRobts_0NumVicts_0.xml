@@ -1,0 +1,18 @@
+<escenarioSimulacion>
+   <identEscenario>modeloOrg_IgualitarioNumRobts_0NumVicts_0</identEscenario>
+   <modeloOrganizativo>Igualitario</modeloOrganizativo>
+   <numRobots>0</numRobots>
+   <numVictimas>0</numVictimas>
+   <robots key="initRobot">
+      <point>
+         <x>0</x>
+         <y>0</y>
+      </point>
+   </robots>
+   <victimas key="initVictim">
+      <point>
+         <x>0</x>
+         <y>0</y>
+      </point>
+   </victimas>
+</escenarioSimulacion>
