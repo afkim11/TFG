@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence>
+    <robot>
+        <id>robotMasterIA1</id>
+        <initialenergy>2500</initialenergy>
+        <initialcoordinate>
+            <x>70.0</x>
+            <y>120.0</y>
+            <z>0.5</z>
+        </initialcoordinate>
+        <healrange>4.5</healrange>
+        <!--<rangeproximity>30.0</rangeproximity>-->
+    </robot>
+    <robot>
+        <id>robotMasterIA2</id>
+        <initialenergy>2500</initialenergy>
+        <initialcoordinate>
+            <x>300.0</x>
+            <y>300.0</y>
+            <z>0.5</z>
+        </initialcoordinate>
+        <healrange>4.5</healrange>
+        <!--<rangeproximity>30.0</rangeproximity>-->
+    </robot>
+    <robot>
+        <id>robotMasterIA3</id>
+        <initialenergy>2500</initialenergy>
+        <initialcoordinate>
+            <x>40.0</x>
+            <y>20.0</y>
+            <z>0.5</z>
+        </initialcoordinate>
+        <healrange>4.5</healrange>
+        <!--<rangeproximity>30.0</rangeproximity>-->
+    </robot>
+    <robot>
+        <id>robotMasterIA4</id>
+        <initialenergy>2500</initialenergy>
+        <initialcoordinate>
+            <x>125.0</x>
+            <y>200.0</y>
+            <z>0.5</z>
+        </initialcoordinate>
+        <healrange>4.5</healrange>
+        <!--<rangeproximity>30.0</rangeproximity>-->
+    </robot>
+</sequence>
