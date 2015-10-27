@@ -1,7 +1,7 @@
-<serieAsignacionVictimas1445538994081>
-  <tituloSerie>serieAsignacionVictimas1445538994081</tituloSerie>
+<serieLlegadaYasignacionVictimas1445983062906>
+  <tituloSerie>serieLlegadaYasignacionVictimas1445983062906</tituloSerie>
   <infoEntornoSimulacion>
-    <tiempoInicioSimulacion>1445538994081</tiempoInicioSimulacion>
+    <tiempoInicioSimulacion>1445983062906</tiempoInicioSimulacion>
     <nroVictimasenEntorno>6</nroVictimasenEntorno>
     <numeroRobotsSimulacion>5</numeroRobotsSimulacion>
     <intervaloSecuencia>10000</intervaloSecuencia>
@@ -12,27 +12,27 @@
   <serieResultados>
     <puntoAsignacionVictima>
       <x>1.0</x>
-      <y>118.0</y>
+      <y>1151.0</y>
     </puntoAsignacionVictima>
     <puntoAsignacionVictima>
       <x>2.0</x>
-      <y>78.0</y>
+      <y>10155.0</y>
     </puntoAsignacionVictima>
     <puntoAsignacionVictima>
       <x>3.0</x>
-      <y>114.0</y>
+      <y>20255.0</y>
     </puntoAsignacionVictima>
     <puntoAsignacionVictima>
       <x>4.0</x>
-      <y>118.0</y>
+      <y>30341.0</y>
     </puntoAsignacionVictima>
     <puntoAsignacionVictima>
       <x>5.0</x>
-      <y>136.0</y>
+      <y>40512.0</y>
     </puntoAsignacionVictima>
     <puntoAsignacionVictima>
       <x>6.0</x>
-      <y>138.0</y>
+      <y>50581.0</y>
     </puntoAsignacionVictima>
   </serieResultados>
-</serieAsignacionVictimas1445538994081>
+</serieLlegadaYasignacionVictimas1445983062906>
