@@ -1,80 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="dist/IcaroRosaceNuevosDesarrollos_2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/aclibico-2.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/activation-1.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/ant.jar"/>
-	<classpathentry kind="lib" path="dist/lib/antlr-2.7.7.jar"/>
-	<classpathentry kind="lib" path="dist/lib/antlr-3.3.jar"/>
-	<classpathentry kind="lib" path="dist/lib/antlr-runtime-3.1.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/antlr-runtime-3.3.jar"/>
-	<classpathentry kind="lib" path="dist/lib/antlr.jar"/>
-	<classpathentry kind="lib" path="dist/lib/bcmail-jdk14-138.jar"/>
-	<classpathentry kind="lib" path="dist/lib/bcprov-jdk14-136.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-beanutils-bean-collections.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-beanutils-core.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-digester-1.8.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-discovery-0.4.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-el.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-jexl-1.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-logging-adapters-1.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-logging-api-1.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/commons-scxml-0.6.jar"/>
-	<classpathentry kind="lib" path="dist/lib/core-3.4.2.v_883_R34x.jar"/>
-	<classpathentry kind="lib" path="dist/lib/core-renderer-R8pre2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/datanucleus-rdbms-2.2.0-release.jar"/>
-	<classpathentry kind="lib" path="dist/lib/drools-compiler-5.5.0.Final.jar"/>
-	<classpathentry kind="lib" path="dist/lib/drools-core-5.5.0.Final.jar"/>
-	<classpathentry kind="lib" path="dist/lib/fj-core-3.0.jar"/>
-	<classpathentry kind="lib" path="dist/lib/forms-1.3.0.jar"/>
-	<classpathentry kind="lib" path="dist/lib/itext-2.1.0.jar"/>
-	<classpathentry kind="lib" path="dist/lib/itext-2.1.2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jackson-core-lgpl-1.8.5.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jackson-mapper-lgpl-1.8.5.jar"/>
-	<classpathentry kind="lib" path="dist/lib/janino-2.5.5.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jaxb-api-2.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jaxb-impl-2.1.3.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jcommon-1.0.8.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jdbm-0.12.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jfreechart-1.0.14-experimental.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jfreechart-1.0.3.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jmorse-0.0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jsr173_api-1.0.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jsr94-1.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/junit.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jxl-2.4.2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jxl-2.6.10.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jyarp-0.0.1-SNAPSHOT_1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jyarp-0.0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="dist/lib/jyarp-json-0.0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="dist/lib/knowledge-api-5.5.0.Final.jar"/>
-	<classpathentry kind="lib" path="dist/lib/knowledge-internal-api-5.5.0.Final.jar"/>
-	<classpathentry kind="lib" path="dist/lib/log4j-1.2.14.jar"/>
-	<classpathentry kind="lib" path="dist/lib/log4j.jar"/>
-	<classpathentry kind="lib" path="dist/lib/megamap-0.9.jar"/>
-	<classpathentry kind="lib" path="dist/lib/mvel2-2.1.3.Final.jar"/>
-	<classpathentry kind="lib" path="dist/lib/mysql-3.1.7.jar"/>
-	<classpathentry kind="lib" path="dist/lib/org-jdesktop-layout.jar"/>
-	<classpathentry kind="lib" path="dist/lib/org-netbeans-api-visual.jar"/>
-	<classpathentry kind="lib" path="dist/lib/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
-	<classpathentry kind="lib" path="dist/lib/org-openide-util.jar"/>
-	<classpathentry kind="lib" path="dist/lib/org.eclipse.jdt.core_3.2.3.v_686_R32x.jar"/>
-	<classpathentry kind="lib" path="dist/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="dist/lib/simple-xml-2.7.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/slf4j-api-1.6.4.jar"/>
-	<classpathentry kind="lib" path="dist/lib/stax-api-1.0-2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/stringtemplate-3.0.jar"/>
-	<classpathentry kind="lib" path="dist/lib/swing-layout-1.0.3.jar"/>
-	<classpathentry kind="lib" path="dist/lib/xml-apis-1.0.b2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/xpp3-1.1.3.4.O.jar"/>
-	<classpathentry kind="lib" path="dist/lib/xstream-1.3.1.jar"/>
-	<classpathentry kind="lib" path="dist/lib/xstream-1.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/aclibico-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/ant.jar"/>
@@ -108,7 +34,7 @@
 	<classpathentry kind="lib" path="lib/Drools/knowledge-api-5.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/Drools/knowledge-internal-api-5.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/Drools/mvel2-2.1.3.Final.jar"/>
-	<classpathentry kind="lib" path="lib/Drools/slf4j-api-1.7.12.jar"/>
+	<classpathentry kind="lib" path="lib/Drools/slf4j-api-1.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/fj-core-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/forms-1.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/itext-2.1.0.jar"/>
@@ -147,6 +73,7 @@
 	<classpathentry kind="lib" path="lib/Rosace/jyarp-json-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/simple-xml-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/Simple/simple-xml-2.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/Simple/stax-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/Simple/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/Simple/xpp3-1.1.3_8.jar"/>
