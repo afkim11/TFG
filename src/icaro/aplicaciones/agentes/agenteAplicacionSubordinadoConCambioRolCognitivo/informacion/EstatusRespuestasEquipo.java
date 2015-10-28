@@ -29,18 +29,23 @@ public class EstatusRespuestasEquipo {
                 }
             respuestasEsperadas = agtesEquipoIds.size() ;// 
     }
+    
+    //Funcion que se utiliza para indicar en el array que el agente IDENTOTROAGTE ha enviado su respuesta siempre y cuando sea de la iteración de nombre ITERACIONID
     public boolean addRespuestaAgente (String identOtroAgte, String iteracionId){
         if ((respuestasEsperadas > respuestasRecibidas) && (identIteracion.equals(iteracionId)) ){
-            for (int i = 0; i < agtesEquipoIds.size(); i++) { 
-                if ( agtesEquipoIds.get(i).equals(identOtroAgte))
+            for (int i = 0; i < agtesEquipoIds.size(); i++) {
+                if ( agtesEquipoIds.get(i).equals(identOtroAgte)){
                     if (!respuestasAgtsEquipo.get(i)){
                       respuestasRecibidas ++;
                       respuestasAgtsEquipo.set(i,true);
                       return true;
                   }
+                }
             } 
         } return false;
     }
+    
+    //Devuelve un Array con los miembros del equipo que no han contestado aun a la iteración ITERACIONID
     public ArrayList<String> getAgtesFaltanRespuestas (String iteracionId){ 
         if (agtesEquipoIds.isEmpty() || !(identIteracion.equals(iteracionId)) ) return null;
         ArrayList<String> agtesEquipoSinRespuesta = new ArrayList();
@@ -53,6 +58,8 @@ public class EstatusRespuestasEquipo {
                   }
         return agtesEquipoSinRespuesta;
     }
+    
+    //Devuelve un Array con los miembros del equipo que sí han contestado a la iteración de nombre ITERACIONID
     public ArrayList<String> getAgtesHanRespondido (String iteracionId){ 
         if (agtesEquipoIds.isEmpty() || !(identIteracion.equals(iteracionId)) ) return null;
         ArrayList<String> agtesEquipoHanRespondido = new ArrayList();
@@ -65,12 +72,18 @@ public class EstatusRespuestasEquipo {
                   }
         return agtesEquipoHanRespondido;
     }
+    
+    //Devuelve un bool indicando si se han conseguido recibir las respuestas de todos los robots que se esperaban
     public boolean hanLlegadoTodasLasRespuestasEsperadas (){
         return (respuestasRecibidas==respuestasEsperadas);
     }
+    
+    //Actualiza con un número nuevo las respuestas que se esperan
     public void  setRespuestasEsperadas (int numRespEsperadas){
         respuestasEsperadas = numRespEsperadas;
     }
+    
+    //Devuelve el número de respuestas que se esperan recibir (No haría falta el argumento, ¿no?)
     public int  getRespuestasRecibidas (int numRespEsperadas){
         return respuestasRecibidas;
     }

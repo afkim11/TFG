@@ -22,21 +22,33 @@ public class InfoInteraccionBasica {
         refIteracion = iteracionId;
         tema =temaId;
     }
+    
+    //Devuelve el valor del identificador del agente iniciador
      public String getAgteIniciadorId(){
          return agteIniciadorId ;
     }
+     
+    //Actualiza el valor del identificador del agente iniciador
     public void setAgteIniciadorId(String agentId){
         agteIniciadorId =agentId;
     }
+    
+    //Devuelve el ¿tema?
     public String getTema(){
          return tema ;
     }
+    
+    //Actualiza el ¿tema?
     public void setTema(String identTema){
         tema =identTema;
     }
+    
+    //Devuelve el referente de iteracion
     public String getrefIteracion(){
          return refIteracion ;
     }
+    
+    //Actualiza el referente de iteracion
     public void setrefIteracion(String iterId){
         refIteracion =iterId;
     }

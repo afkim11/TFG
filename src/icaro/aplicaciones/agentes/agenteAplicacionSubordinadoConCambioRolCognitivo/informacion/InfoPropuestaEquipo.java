@@ -38,6 +38,8 @@ public class InfoPropuestaEquipo extends InfoInteraccionBasica{
         agtsEquipoRechazanPropuesta= new Boolean [numCompasEnEquipo];
         numMiembrosEquipoParaConsenso = (idsEquipo.size()*2/3); // tomamos dos tercios por defecto
     }
+    
+    //Funcion que añade un agente que acepta la pruopuesta aceptPr y actualiza
     public void addAgteAceptaPropuesta ( PropuestaAgente aceptPr){
        if ( respuestasEquipo.addRespuestaAgente(aceptPr.identAgente, aceptPr.getMensajePropuesta())){
             agtsEquipoAceptanPropuesta[equipoIds.indexOf(aceptPr.identAgente)]= true;
@@ -46,6 +48,8 @@ public class InfoPropuestaEquipo extends InfoInteraccionBasica{
           actualizarInfoPropuesta () ;
        }       
     }
+    
+    //Funcion que comprueba si la propuesta se acepta, puede que sea por unanimidad o por mayoria(siempre y cuando nadie lo haya rechazado, visto en var alguienDiscrepa)
     public void actualizarInfoPropuesta (){
         if(this.hanLlegadoTodasLasResPuestasDeMiembrosDelEquipo())
             if (equipoIds.size()== numAgtesAceptanPropuesta){
@@ -54,14 +58,17 @@ public class InfoPropuestaEquipo extends InfoInteraccionBasica{
             }else if (!propuestaAceptada&&getHayConsenso(numMiembrosEquipoParaConsenso))propuestaAceptada = true;
     }
     
+    //Funcion que añade al agente como que rechaza la propuesta rechazoPr y actualiza la informacion de la propuesta y var alguienDiscrepa
     public void procesarRechazarPropuesta ( PropuestaAgente rechazoPr){
         if ( respuestasEquipo.addRespuestaAgente(myId, rechazoPr.getMensajePropuesta())){
             agtsEquipoRechazanPropuesta[equipoIds.indexOf(rechazoPr.identAgente)]= true;
              numAgtesRechazanPropuesta++;
              alguienDiscrepa=true;
-             actualizarInfoPropuesta ();
+             actualizarInfoPropuesta();
        }     
     }
+    
+ 
     public boolean getpropuestaAceptadaPorUnanimidad(){
         return propuestaAceptadaPorUnanimidad;
     }
@@ -69,15 +76,19 @@ public class InfoPropuestaEquipo extends InfoInteraccionBasica{
     public void setPropuestaAceptada(){
         propuestaAceptada = true;
     }
+    
     public boolean getPropuestaAceptada(){
          return propuestaAceptada ;
-    }  
+    } 
+    
     public boolean hanLlegadoTodasLasResPuestasDeMiembrosDelEquipo(){
          return respuestasEquipo.hanLlegadoTodasLasRespuestasEsperadas() ;
     }
+    
     public ArrayList<String> getIdentsAgtesFaltanResponder(){
         return respuestasEquipo.getAgtesFaltanRespuestas(refIteracion);
     }
+    
     public boolean getHayConsenso (int numMiembrosParaAcuerdo){
         // Puede usarse cuando no han llegado todas las respuestas pero una mayoria ha aceptado una propuesta y no hay rechazos
         return hayConsenso=(!alguienDiscrepa && (numAgtesAceptanPropuesta>= numMiembrosParaAcuerdo) );
