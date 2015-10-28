@@ -34,7 +34,6 @@
 	<classpathentry kind="lib" path="lib/Drools/knowledge-api-5.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/Drools/knowledge-internal-api-5.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/Drools/mvel2-2.1.3.Final.jar"/>
-	<classpathentry kind="lib" path="lib/Drools/slf4j-api-1.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/fj-core-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/forms-1.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/itext-2.1.0.jar"/>
@@ -73,7 +72,6 @@
 	<classpathentry kind="lib" path="lib/Rosace/jyarp-json-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/simple-xml-2.7.1.jar"/>
-	<classpathentry kind="lib" path="lib/Simple/simple-xml-2.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/Simple/stax-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/Simple/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/Simple/xpp3-1.1.3_8.jar"/>
