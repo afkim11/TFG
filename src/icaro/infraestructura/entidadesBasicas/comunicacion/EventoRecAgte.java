@@ -30,7 +30,7 @@ public EventoRecAgte(String input, String origen, String destino) {
         this.origen = origen;
         this.contenido = new InfoContEvtMsgAgteReactivo (input);
 	this.destino = destino;
- //       this.origen = origen;
+ 
         
 	}
 	

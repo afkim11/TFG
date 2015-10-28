@@ -52,7 +52,7 @@ public interface InterfazGestion extends Remote {
 
 
 	/**
-	 *  Inicializa y prepara el elemento para recibir rdenes o informacin
+	 *  Inicializa y prepara el elemento para recibir ordenes o informacion
 	 *
 	 *@exception  Exception  
 	 */
@@ -63,7 +63,7 @@ public interface InterfazGestion extends Remote {
 	
 	//public void arrancaConInput(String nombreInput);
 	/**
-	 *  Detiene el servicio del elemento momentneamente Esta operacion es OPCIONAL
+	 *  Detiene el servicio del elemento momentaneamente.Esta operacion es OPCIONAL
 	 *
 	 *@exception  Exception  
 	 */
