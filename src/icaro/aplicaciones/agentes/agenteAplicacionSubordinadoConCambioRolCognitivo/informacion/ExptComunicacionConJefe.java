@@ -42,6 +42,8 @@ public class ExptComunicacionConJefe extends Expectativa{
             respuestasEsperadas = agtesEquipoIds.size() ;// quitamos al propio agente ;
     }
    
+    /* Funcion que comprueba el estado de la conexion del robot IDENTAGTEINFORMANTE con el IDENTOTROAGENTE (que tiene que ser el jefe)
+      y si se ha recibido se actualiza las respuestas y si no se aumenta las respuestas sin conexion */
     public void procesarInfoEstatusComunicacion(InfoEstatusComunicacionConOtroAgente comunicEstatus){
         // Se guarda la informacion recogida del estatus y se verifica si  todas las respuestas coinciden en la falta de comunicacion
         String identAgteInformante = comunicEstatus.getidentAgteInformante();
@@ -59,6 +61,8 @@ public class ExptComunicacionConJefe extends Expectativa{
     }
    
     @Override
+    /*Funcion que sirve para comprobar si el equipo tiene conexion con el jefe, para esto llama a procesarInfoEstatusComunicacion y comprueba
+      si las respuestas sin conexion son iguales a las respuestas esperadas, es decir, ningun subordinado se comunico con el jefe  */
     public void validarExpectativa(Object... params){
         // la expectativa NO se satisface si todos los agentes del equipo confirman la falta de conexion con el jefe
         try {
@@ -78,21 +82,32 @@ public class ExptComunicacionConJefe extends Expectativa{
         // todos confirma que no hay conexion
        
     }
+    //Actualiza la variable booleana que indica si este subordinado se puede comunicar con el jefe
     public void setmiComunicacionConJefe(boolean hayComunicacion){
         miComunicacionConJefe = hayComunicacion;
     }
+    
+    //Devuelve el estado de la posible comunicacion con el jefe
     public boolean getmiComunicacionConJefe(){
         return miComunicacionConJefe ;
     }
+    
+    //Actualiza la variable booleana que indica si el resto de mi equipo tiene comunicacion con el jefe
     public void setrestEquipoTieneComunicacionConJefe(boolean hayComunicacion){
         restEquipoTieneComunicacionConJefe = hayComunicacion;
     }
+    
+    //Devuelve el estado de la posible comunicacion del resto del equipo con el jefe
     public boolean getrestEquipoTieneComunicacionConJefe(){
         return restEquipoTieneComunicacionConJefe ;
     }
+    
+    //Actualiza el String de identificador del jefe
     public void setidentAgteRolJefe(String  idJefe){
         identAgteRolJefe = idJefe;
     }
+    
+    //Devuelve el identificador del jefe
     public String getidentAgteRolJefe(){
         return identAgteRolJefe ;
     }
