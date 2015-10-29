@@ -28,7 +28,15 @@ public class Coordinate implements Serializable{
   }
   public synchronized double getZ (){
       return this.z;
+      
   }
+  @Override
+  public boolean equals(Object obj){
+	  Coordinate c=(Coordinate)obj;
+	  return (c.getX() == this.x && c.getY() == this.y);
+  } // UN SEGUNDO
+  
+  
   @Override
   public String toString() {
     return "Coordinate: (" + x + "," + y + "," + z +")";

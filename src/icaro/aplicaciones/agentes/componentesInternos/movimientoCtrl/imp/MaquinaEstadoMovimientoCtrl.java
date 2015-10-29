@@ -15,10 +15,15 @@ import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaE
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza.NivelTraza;
+
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.datanucleus.store.rdbms.table.MapTable;
 
 
 /**
@@ -29,7 +34,7 @@ public class MaquinaEstadoMovimientoCtrl {
     private static EstadoAbstractoMovRobot instance;
     private String identEstadoActual;
     private String identComponente;
-    public static  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, RobotBloqueado,RobotavanceImposible,enDestino,  error}
+    public static  enum EstadoMovimientoRobot {Indefinido,RobotParado, RobotEnMovimiento, RobotBloqueado, RobotBloqueadoPorObstaculo,RobotavanceImposible,enDestino,  error}
     //Nombres de las clases que implementan estados del recurso interno
     public static  enum EvalEnergiaRobot {sinEnergia,energiaSuficiente,EnergiaJusta, EnergiaInsuficiente }
     public EstadoAbstractoMovRobot estadoActual;
@@ -45,10 +50,12 @@ public class MaquinaEstadoMovimientoCtrl {
     public ItfProcesadorObjetivos itfProcObjetivos;
     protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
     ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
+    private ArrayList<Coordinate> obstaculos;
     
     public  MaquinaEstadoMovimientoCtrl (){
         estadosCreados = new EnumMap<EstadoMovimientoRobot, EstadoAbstractoMovRobot>(EstadoMovimientoRobot.class) ;
-        
+        this.obstaculos = new ArrayList<Coordinate>();
+        this.obstaculos.add(new Coordinate(585.5 , 395.28907560706136, 0.5));
     }
     
     public EstadoAbstractoMovRobot getEstadoActual (){
@@ -174,6 +181,11 @@ public class MaquinaEstadoMovimientoCtrl {
        estadoActual = this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueado);
     }
     
+    public synchronized boolean checkObstaculo(Coordinate coor){
+    	return this.obstaculos.contains(coor);
+    	
+    }
+    
 
     public synchronized Coordinate getCoordenadasActuales() {
      return this.robotposicionActual;
@@ -193,4 +205,10 @@ public class MaquinaEstadoMovimientoCtrl {
      public void  setEstadoActual (EstadoAbstractoMovRobot estadoRobot){
          this.estadoActual = estadoRobot;
     }
+     
+     
+     public void bloqueadoPorObstaculo(){
+    	 estadoActual = estadosCreados.get(EstadoMovimientoRobot.RobotBloqueadoPorObstaculo);
+     
+     }
 }

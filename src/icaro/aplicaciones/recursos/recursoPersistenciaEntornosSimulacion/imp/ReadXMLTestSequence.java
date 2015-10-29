@@ -25,6 +25,7 @@ public class ReadXMLTestSequence {
 		return this.sequenceTestPath;
 	}
 	
+	//Funcion para obtener el documento de nombre TESTFILEPATH 
 	public Document getDocument(String testFilePath){
 		Document doc=null;		
         try {

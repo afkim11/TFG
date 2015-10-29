@@ -1,3 +1,4 @@
+
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 
@@ -26,6 +27,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 	 * @uml.property  name="finalizar"
 	 */
     protected volatile boolean finalizar = false;
+    protected boolean bloqueado = false;
 
     /**
 	 * Agente reactivo al que se pasan los eventos de monitorizacin
@@ -59,6 +61,7 @@ public class HebraMonitorizacionLlegada extends Thread {
     private int distanciaRecorridaEnIntervaloInformes ;
     private long tiempoParaAlcanzarDestino = 2000;
     public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
+  
 //    private int numeroPuntos = 20;
     /**
      * Constructor
@@ -146,16 +149,17 @@ public class HebraMonitorizacionLlegada extends Thread {
 //      this.itfusoRecVisSimulador.mostrarMovimientoAdestino(identRobot,identDestino, coordActuales,velocidadRobot);
         while (!this.finalizar && (!enDestino)) {
 	  try {
-//	    Thread.sleep(intervaloEnvioInformesMs);
-            Thread.sleep(intervaloEnvioInformesMs);
-	  
-                     calcularNuevasCoordenadas (distanciaRecorridaEnIntervaloInformes);                      
-                     log.debug("Coord Robot " + identRobot + " calculadas -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");  
-                     enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
-                     finalizar = (coordActuales.x<0.5 || coordActuales.y<0.5 );
-                     if (itfusoRecVisSimulador != null)
-                        this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
-                        this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+		  	if(!this.bloqueado){
+	            Thread.sleep(intervaloEnvioInformesMs);
+		  
+	                     calcularNuevasCoordenadas (distanciaRecorridaEnIntervaloInformes);                      
+	                     log.debug("Coord Robot " + identRobot + " calculadas -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");  
+	                     enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
+	                     finalizar = (coordActuales.x<0.5 || coordActuales.y<0.5 );
+	                     if (itfusoRecVisSimulador != null)
+	                        this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
+	                        this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+		  	}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -186,15 +190,17 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
              this.coordActuales.setY(coordActuales.getY() + incrementoDistancia*dirY);
         }
         else {
-            // incremmento de x respecto a distancia recorrida 
-            this.coordActuales.setY(coordActuales.getY() + pendienteRecta*incrementoDistancia*dirY);
-            this.coordActuales.setX(coordActuales.getX() + incrementoDistancia*dirX);
-//            if ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0){
-//                enDestino = true;
-////                System.out.println("Coord Robot En Calculo  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");
-//             log.debug("Coord Robot En Calculo  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");   
-//            }
-//          i
+            // incremmento de x respecto a distancia recorrida
+        	double nuevaVariableY = coordActuales.getY() + pendienteRecta*incrementoDistancia*dirY;
+        	double nuevaVariableX = coordActuales.getX() + incrementoDistancia*dirX;
+        	if(!this.controladorMovimiento.checkObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))){
+        		this.coordActuales.setY(nuevaVariableY);
+        		this.coordActuales.setX(nuevaVariableX);
+        	}
+        	else {
+        		this.bloqueado = true;
+        		this.controladorMovimiento.bloqueadoPorObstaculo();
+        	}
         }
 }
 
