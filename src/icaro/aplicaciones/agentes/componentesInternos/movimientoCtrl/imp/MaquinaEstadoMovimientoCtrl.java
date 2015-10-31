@@ -208,7 +208,10 @@ public class MaquinaEstadoMovimientoCtrl {
      
      
      public void bloqueadoPorObstaculo(){
-    	 estadoActual = estadosCreados.get(EstadoMovimientoRobot.RobotBloqueadoPorObstaculo);
+    	 	this.estadoActual=this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueadoPorObstaculo);
+    		 trazas.trazar(identAgente, "Se informa de bloqueo por obstaculo del robot " + identAgente + ". El robot esta en el estado: "+ identEstadoActual + " CoordActuales =  "+robotposicionActual.toString(), InfoTraza.NivelTraza.error);
+    	 
+ 
      
      }
 }

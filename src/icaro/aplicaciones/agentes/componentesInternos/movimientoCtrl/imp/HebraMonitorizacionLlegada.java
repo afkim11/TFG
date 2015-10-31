@@ -199,6 +199,7 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
         	}
         	else {
         		this.bloqueado = true;
+        		
         		this.controladorMovimiento.bloqueadoPorObstaculo();
         	}
         }
