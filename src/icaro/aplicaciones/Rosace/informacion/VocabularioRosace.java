@@ -89,6 +89,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     
     static public  final String rutaFicheroVictimasTest  = "rutaFicheroVictimasTest";
     static public  final String rutaFicheroRobotsTest    = "rutaFicheroRobotsTest";
+	static public  final String rutaFicheroObstaculosTest    = "rutaFicheroObstaculosTest";
     static public  final String rutaPruebaFicheroVictimasTest  = "src/utils/Escenario_0IP_V001_6Victims.xml" ;
     static public  final String rutaPruebaFicheroRobotsTest    = "src/utils/Escenario_Jerarquico_001_4Robots.xml";
     static public  final String intervaloMilisegundosEnvioCCMensajes = "intervaloMilisegundosEnvioMensajesDesdeCC"; 
@@ -122,5 +123,5 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String NombreFicheroSeriePeticionVictimas = "seriePeticionVictimas";
     static public  final String NombreFicheroSerieLlegadaYasignacion = "serieLlegadaYasignacionVictimas";
     static public  final String NombreFicheroSerieAsignacion = "serieAsignacionVictimas";
-    static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo};
+    static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo}
 }

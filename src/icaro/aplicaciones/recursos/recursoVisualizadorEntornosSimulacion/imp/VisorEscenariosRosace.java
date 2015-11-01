@@ -10,6 +10,7 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.JTextArea;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestObstacles;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestRobots;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestSequence;
 
@@ -48,6 +50,7 @@ public class VisorEscenariosRosace extends JFrame {
     private JPanel contentPaneRoot;
     private Map<String, JLabel> robotslabel;      //La clave es el indice del robot, es decir, 1, 2, 3, .... El contenido es el JLabel
     private Map<String, JLabel> victimaslabel;    //La clave es el indice de la victima, es decir, 1, 2, 3, .... El contenido es el JLabel 
+    private Map<String, LineaObstaculo> obstaculos;
     private String imageniconoHombre = "Hombre.png";
     private String imageniconoMujer = "Mujer.png";
     private String imageniconoMujerRescatada = "MujerRescatada.png";
@@ -55,6 +58,7 @@ public class VisorEscenariosRosace extends JFrame {
     private String imageniconoRobot = "Robot.png";
     private JTextArea textAreaMensaje;
     private JPanel panelVisor;
+    private Graphics graficosVisor;
 
     //Variables para hacer pruebas en local sin lanzar un descripcion de la organizacion
     //String rutaFicheroRobotsTest = "src/utils/Esc_Igualitario_8Robots_001.xml";
@@ -225,16 +229,21 @@ public class VisorEscenariosRosace extends JFrame {
         ItfUsoConfiguracion itfconfig = (ItfUsoConfiguracion) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
         String rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroVictimasTest);
         String rutaFicheroRobotsTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroRobotsTest);
+        String rutaFicheroObstaculosTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroObstaculosTest);
         ReadXMLTestSequence rXMLTSeq = new ReadXMLTestSequence(rutaFicheroVictimasTest);
         ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(rutaFicheroRobotsTest);
+        ReadXMLTestObstacles rXMLTObs = new ReadXMLTestObstacles(rutaFicheroObstaculosTest);
         Document docRobots = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePath());
         NodeList nodeLstRobots = rXMLTRobots.getRobotsXMLStructure(docRobots, "robot");   //Obtain all the robots		
         int nroRobots = rXMLTRobots.getNumberOfRobots(nodeLstRobots);
         Document docVictimas = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePath());
         NodeList nodeLstVictimas = rXMLTSeq.getVictimsXMLStructure(docVictimas, "victim");   //Obtain all the victims
         int nroVictimas = rXMLTSeq.getNumberOfVictimsInSequence(nodeLstVictimas);
+        Document docObstaculos = rXMLTObs.getDocument(rXMLTObs.gettestFilePath());
+        NodeList nodeLstObs = rXMLTObs.getObstaculosXMLStructure(docObstaculos, "obstacle");
+        int nroObstaculos = rXMLTObs.getNumberObstaculos(nodeLstObs);
 
-        System.out.println("Escenario actual simulado con " + nroRobots + " robots y " + nroVictimas + " victimas");
+        System.out.println("Escenario actual simulado con " + nroRobots + " robots y " + nroVictimas + " victimas, teniendo el mapa " + nroObstaculos + " obstaculos.");
         System.out.println("Los elementos estan localizados en el escenario como sigue ......\n");
 
         //*********************************************************************************************
@@ -334,6 +343,36 @@ public class VisorEscenariosRosace extends JFrame {
 
             System.out.println("Localizacion de la victima " + label.getText() + "-> (" + label.getLocation().x + "," + label.getLocation().y + ")");
         }
+        
+        for (int j = 0; j < nroObstaculos; j++) {
+            Element info = rXMLTObs.getObsElement(nodeLstObs, j);
+            String valueid = rXMLTRobots.getRobotIDValue(info, "id");
+            Coordinate valueInitialCoordinate = rXMLTObs.getCoordinate(info, "initialcoordinate");
+            Coordinate valueFinalCoordinate = rXMLTObs.getCoordinate(info, "finalcoordinate");
+            int iniX = (int) valueInitialCoordinate.x;
+            int iniY = (int) valueInitialCoordinate.y;
+            int finX = (int) valueFinalCoordinate.x;
+            int finY = (int) valueFinalCoordinate.y;
+
+            //crear el label y posicionarlo en el JPanel
+            JLabel label = new JLabel("");
+
+            //System.out.println("Ruta->" + rutaIconoRobot);
+            ///NO FUNCIONA PORQUE DA UN NULL POINTER EXCEPTION CUANDO SE INTENTA LLAMAR A DRAWLINE, BUSCAR OTRA FORMA
+            graficosVisor = panelVisor.getGraphics();
+            graficosVisor.drawLine(iniX, iniY, finX, finY);
+
+
+            //El texto que se pone en el label NO es el nombre completo del robot, solo ponemos el numero. 
+            //Por ejemplo, de robotIgualitario2 nos quedaria 2, y 2 sería el texto que ponemos en el label
+
+
+            obstaculos.put(valueid, new LineaObstaculo(valueInitialCoordinate, valueFinalCoordinate));
+
+            System.out.println("Localizacion del robot " + valueid + "-> (" + iniX + "(Inicio - X), " + iniY + "(Inicio - Y) ;;;; " + finX + "(Fin - X), " + finY + "(Fin - Y)");
+        }
+
+        System.out.println("");
     }
 
     public synchronized void cambiarPosicionRobot(String valor_idRobot, int nueva_coordx, int nueva_coordy) {
