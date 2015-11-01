@@ -95,7 +95,15 @@ public class ReadXMLTestObstacles {
 			  valuey = ((Node)yNm.item(0)).getNodeValue();					  
 		  }
 		  return valuey;
-    }    
+    }
+
+	public String getObsIDValue(Element info, String tag) {
+		  NodeList idNmElmntLst = info.getElementsByTagName(tag);
+		  Element idNmElmnt = (Element) idNmElmntLst.item(0);
+		  NodeList idNm = idNmElmnt.getChildNodes();					  
+		  String valueid = ((Node)idNm.item(0)).getNodeValue();					  
+    	  return valueid;
+	}    
 
 
 }

@@ -25,6 +25,8 @@ import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.Rea
 
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,14 +52,14 @@ public class VisorEscenariosRosace extends JFrame {
     private JPanel contentPaneRoot;
     private Map<String, JLabel> robotslabel;      //La clave es el indice del robot, es decir, 1, 2, 3, .... El contenido es el JLabel
     private Map<String, JLabel> victimaslabel;    //La clave es el indice de la victima, es decir, 1, 2, 3, .... El contenido es el JLabel 
-    private Map<String, LineaObstaculo> obstaculos;
+    private ArrayList <LineaObstaculo> obstaculos;
     private String imageniconoHombre = "Hombre.png";
     private String imageniconoMujer = "Mujer.png";
     private String imageniconoMujerRescatada = "MujerRescatada.png";
     private String imageniconoHombreRescatado = "HombreRescatado.png";
     private String imageniconoRobot = "Robot.png";
     private JTextArea textAreaMensaje;
-    private JPanel panelVisor;
+    private JPanelObstaculo panelVisor;
     private Graphics graficosVisor;
 
     //Variables para hacer pruebas en local sin lanzar un descripcion de la organizacion
@@ -162,23 +164,9 @@ public class VisorEscenariosRosace extends JFrame {
         //Poner en la parte superior del JSplitPane un JPanel para mostrar los elementos del escenarios
         //---------------------------------------------------------------------------------------------
         //JPanel panelVisor = new JPanel();
-        panelVisor = new JPanel();
-//        panelVisor.addMouseListener(new MouseAdapter() {
-//        	@Override
-//        	public void mouseClicked(MouseEvent e) {        		
-//				int X = e.getX();
-//				int Y = e.getY();
-//              System.out.println("Clic en X->" + X + " , Y->" + Y);		
-//        	}
-//        });
-
-        panelVisor.setBackground(Color.WHITE);
-        panelVisor.setSize(dimensionHorizontalJFrame, dimensionVerticalJFrame);
-        panelVisor.setLayout(null);
-        splitPane.setLeftComponent(panelVisor);
 
 
-        System.out.println("Tamanio del visor -> " + panelVisor.size());
+
 
         //Poner en la parte inferior del JSplitPane un JTextArea para mostrar mensajes
         //---------------------------------------------------------------------------------------------
@@ -242,9 +230,35 @@ public class VisorEscenariosRosace extends JFrame {
         Document docObstaculos = rXMLTObs.getDocument(rXMLTObs.gettestFilePath());
         NodeList nodeLstObs = rXMLTObs.getObstaculosXMLStructure(docObstaculos, "obstacle");
         int nroObstaculos = rXMLTObs.getNumberObstaculos(nodeLstObs);
+        obstaculos = new ArrayList<LineaObstaculo>();
+        for (int j = 0; j < nroObstaculos; j++) {
+            Element info = rXMLTObs.getObsElement(nodeLstObs, j);
+            String valueid = rXMLTObs.getObsIDValue(info, "id");
+            Coordinate valueInitialCoordinate = rXMLTObs.getCoordinate(info, "initialcoordinate");
+            Coordinate valueFinalCoordinate = rXMLTObs.getCoordinate(info, "finalcoordinate");
+            int iniX = (int) valueInitialCoordinate.x;
+            int iniY = (int) valueInitialCoordinate.y;
+            int finX = (int) valueFinalCoordinate.x;
+            int finY = (int) valueFinalCoordinate.y;
+            
+            obstaculos.add(new LineaObstaculo(valueInitialCoordinate, valueFinalCoordinate, valueid));
+
+            System.out.println("Localizacion del obstaculo " + valueid + "-> (" + iniX + "(Inicio - X), " + iniY + "(Inicio - Y) ;;;; " + finX + "(Fin - X), " + finY + "(Fin - Y)");
+        }
+        
+        panelVisor = new JPanelObstaculo(obstaculos);
+
+        panelVisor.setBackground(Color.WHITE);
+        panelVisor.setSize(dimensionHorizontalJFrame, dimensionVerticalJFrame);
+        panelVisor.setLayout(null);
+
+        System.out.println("Tamanio del visor -> " + panelVisor.size());
+        splitPane.setLeftComponent(panelVisor);
 
         System.out.println("Escenario actual simulado con " + nroRobots + " robots y " + nroVictimas + " victimas, teniendo el mapa " + nroObstaculos + " obstaculos.");
         System.out.println("Los elementos estan localizados en el escenario como sigue ......\n");
+        
+
 
         //*********************************************************************************************
         //Aniadir al panel panelVisor los componentes label que representan los robots leidos del xml
@@ -343,34 +357,7 @@ public class VisorEscenariosRosace extends JFrame {
 
             System.out.println("Localizacion de la victima " + label.getText() + "-> (" + label.getLocation().x + "," + label.getLocation().y + ")");
         }
-        
-        for (int j = 0; j < nroObstaculos; j++) {
-            Element info = rXMLTObs.getObsElement(nodeLstObs, j);
-            String valueid = rXMLTRobots.getRobotIDValue(info, "id");
-            Coordinate valueInitialCoordinate = rXMLTObs.getCoordinate(info, "initialcoordinate");
-            Coordinate valueFinalCoordinate = rXMLTObs.getCoordinate(info, "finalcoordinate");
-            int iniX = (int) valueInitialCoordinate.x;
-            int iniY = (int) valueInitialCoordinate.y;
-            int finX = (int) valueFinalCoordinate.x;
-            int finY = (int) valueFinalCoordinate.y;
 
-            //crear el label y posicionarlo en el JPanel
-            JLabel label = new JLabel("");
-
-            //System.out.println("Ruta->" + rutaIconoRobot);
-            ///NO FUNCIONA PORQUE DA UN NULL POINTER EXCEPTION CUANDO SE INTENTA LLAMAR A DRAWLINE, BUSCAR OTRA FORMA
-            graficosVisor = panelVisor.getGraphics();
-            graficosVisor.drawLine(iniX, iniY, finX, finY);
-
-
-            //El texto que se pone en el label NO es el nombre completo del robot, solo ponemos el numero. 
-            //Por ejemplo, de robotIgualitario2 nos quedaria 2, y 2 sería el texto que ponemos en el label
-
-
-            obstaculos.put(valueid, new LineaObstaculo(valueInitialCoordinate, valueFinalCoordinate));
-
-            System.out.println("Localizacion del robot " + valueid + "-> (" + iniX + "(Inicio - X), " + iniY + "(Inicio - Y) ;;;; " + finX + "(Fin - X), " + finY + "(Fin - Y)");
-        }
 
         System.out.println("");
     }
