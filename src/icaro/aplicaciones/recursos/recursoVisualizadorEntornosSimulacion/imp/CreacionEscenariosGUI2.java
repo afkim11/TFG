@@ -171,10 +171,10 @@ private void leerInfoEscenario(){
         IMAGEmujerRes = Utilities.loadImage ( rutapaqueteConstructorEscenariosROSACE +imageniconoMujerRescatada); 
         ReadXMLTestSequence rXMLTSeq = new ReadXMLTestSequence(VocabularioRosace.rutaPruebaFicheroVictimasTest);
         ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(VocabularioRosace.rutaPruebaFicheroRobotsTest);
-        Document docRobots = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePaht());
+        Document docRobots = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePath());
         NodeList nodeLstRobots = rXMLTRobots.getRobotsXMLStructure(docRobots, "robot");   //Obtain all the robots		
         int nroRobots = rXMLTRobots.getNumberOfRobots(nodeLstRobots);
-        Document docVictimas = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePaht());
+        Document docVictimas = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePath());
         NodeList nodeLstVictimas = rXMLTSeq.getVictimsXMLStructure(docVictimas, "victim");   //Obtain all the victims
         int nroVictimas = rXMLTSeq.getNumberOfVictimsInSequence(nodeLstVictimas);
 
