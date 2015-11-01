@@ -21,7 +21,7 @@ public class ReadXMLTestSequence {
 		this.sequenceTestPath = testFilePath;
 	}
 
-	public String gettestFilePaht(){
+	public String gettestFilePath(){
 		return this.sequenceTestPath;
 	}
 	

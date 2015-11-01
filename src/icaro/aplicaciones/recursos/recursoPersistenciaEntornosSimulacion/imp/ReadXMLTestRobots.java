@@ -28,7 +28,7 @@ public  class ReadXMLTestRobots {
 		this.sequenceTestPath = testFilePath;
 	}
 
-	public String gettestFilePaht(){
+	public String gettestFilePath(){
 		return this.sequenceTestPath;
 	}
 	
@@ -43,7 +43,7 @@ public  class ReadXMLTestRobots {
         } catch (Exception e) {
              e.printStackTrace();
         }
-        return doc; //this return will be not executed
+        return doc; //this return will not be  executed
 	}
 	
 	//tag parameter should be equal to "robot"
@@ -185,7 +185,7 @@ public  class ReadXMLTestRobots {
 
     	//Leer la coordenada del robot examinando el fichero de robots obtenido
     	ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(rutaFicheroRobotTest);    	
-		Document doc = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePaht());
+		Document doc = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePath());
 		//Obtain all the robots
 		NodeList nodeLst = rXMLTRobots.getRobotsXMLStructure(doc, "robot");		
         for(int j=0; j<rXMLTRobots.getNumberOfRobots(nodeLst);j++){
