@@ -21,4 +21,15 @@ public class LineaObstaculo {
 	public Coordinate getCoordenadaFin(){
 		return this.fin;
 	}
+//(350,40)                      (352,43)
+	public boolean compruebaCoordenada(Coordinate coor) {
+		int iniX=(int)this.ini.getX(),
+			finX=(int)this.fin.getX(),
+			iniY=(int)this.ini.getY(),
+			finY=(int)this.fin.getY();
+		if(iniX<=(int)coor.getX() && finX>=(int)coor.getX()){
+			if (iniY <= (int)coor.getY() && finY >= (int)coor.getY())return true;
+		}
+		return false;
+	}
 }

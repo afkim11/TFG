@@ -8,19 +8,7 @@
 		</initialcoordinate>
 		<finalcoordinate>
 			<x>585.5</x>
-			<y>400</y>
+			<y>600</y>
 			 </finalcoordinate>
 	</obstacle>
 </sequence>
-
-
-<!-- Alternativo
-	<sequence>
-		<obstacle>
-			<initialcoordinate> </initialcoordinate>
-			<finalcoordinate> </finalcoordinate>
-	
-	
-		</obstacle>
-	Si no hay final es solo un punto
--->

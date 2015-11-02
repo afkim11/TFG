@@ -52,7 +52,7 @@ public class VisorEscenariosRosace extends JFrame {
     private JPanel contentPaneRoot;
     private Map<String, JLabel> robotslabel;      //La clave es el indice del robot, es decir, 1, 2, 3, .... El contenido es el JLabel
     private Map<String, JLabel> victimaslabel;    //La clave es el indice de la victima, es decir, 1, 2, 3, .... El contenido es el JLabel 
-    private ArrayList <LineaObstaculo> obstaculos;
+    private static ArrayList <LineaObstaculo> obstaculos;
     private String imageniconoHombre = "Hombre.png";
     private String imageniconoMujer = "Mujer.png";
     private String imageniconoMujerRescatada = "MujerRescatada.png";
@@ -231,6 +231,7 @@ public class VisorEscenariosRosace extends JFrame {
         NodeList nodeLstObs = rXMLTObs.getObstaculosXMLStructure(docObstaculos, "obstacle");
         int nroObstaculos = rXMLTObs.getNumberObstaculos(nodeLstObs);
         obstaculos = new ArrayList<LineaObstaculo>();
+        
         for (int j = 0; j < nroObstaculos; j++) {
             Element info = rXMLTObs.getObsElement(nodeLstObs, j);
             String valueid = rXMLTObs.getObsIDValue(info, "id");
@@ -463,5 +464,8 @@ public class VisorEscenariosRosace extends JFrame {
         String idNumero = utilsCadenaComponente.getNumber(valor_idVictima, index);
 
         return idNumero;
+    }
+    public static  ArrayList<LineaObstaculo> getObstaculos(){
+    	return obstaculos;
     }
 }
