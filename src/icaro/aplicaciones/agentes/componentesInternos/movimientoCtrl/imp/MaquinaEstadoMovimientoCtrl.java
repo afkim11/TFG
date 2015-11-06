@@ -11,6 +11,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoR
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
+import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Temporizador;
 import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaEInterfacesPrObj.ItfProcesadorObjetivos;
@@ -214,9 +215,17 @@ public class MaquinaEstadoMovimientoCtrl {
 
 	public void bloqueadoPorObstaculo(){
 		this.estadoActual=this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueadoPorObstaculo);
+		
 		trazas.trazar(identAgente, "Se informa de bloqueo por obstaculo del robot " + identAgente + ". El robot esta en el estado: "+ identEstadoActual + " CoordActuales =  "+robotposicionActual.toString(), InfoTraza.NivelTraza.error);
+		
 
 
-
+	}
+	
+	public LineaObstaculo getObstaculo(Coordinate coordinate) {
+		for(LineaObstaculo obs:obstaculos){
+			if(obs.compruebaCoordenada(coordinate))return obs;
+		}
+		return null;
 	}
 }

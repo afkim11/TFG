@@ -3,9 +3,14 @@ package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
+import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.patronAgenteCognitivo.percepcion.imp.PercepcionAgenteCognitivoImp;
+
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 
@@ -199,8 +204,10 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
         	}
         	else {
         		this.bloqueado = true;
-        		
-        		this.controladorMovimiento.bloqueadoPorObstaculo();
+        		ArrayList<Object> array = new ArrayList<Object>();
+        		array.add(VocabularioRosace.MsgRobotBloqueadoObstaculo);
+        		array.add(this.controladorMovimiento.getObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))); //Identidad obtaculo
+        		this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(array,this.identRobot,"Jefe"));      		
         	}
         }
 }
