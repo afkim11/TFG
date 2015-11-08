@@ -11,6 +11,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoR
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
+import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeBloqueoObstaculo;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Temporizador;
@@ -54,12 +55,12 @@ public class MaquinaEstadoMovimientoCtrl {
 	protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
 	ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
 	private ArrayList<LineaObstaculo> obstaculos;
+	private ArrayList<LineaObstaculo> obstaculosDescubiertos; //Necesita volatile?
 
 	public  MaquinaEstadoMovimientoCtrl (){
 		this.obstaculos=VisorEscenariosRosace.getObstaculos();
+		this.obstaculosDescubiertos = new ArrayList<LineaObstaculo>();
 		estadosCreados = new EnumMap<EstadoMovimientoRobot, EstadoAbstractoMovRobot>(EstadoMovimientoRobot.class) ;
-
-		//this.obstaculos.add(new Coordinate(585.5 , 395.28907560706136, 0.5));
 	}
 
 	public EstadoAbstractoMovRobot getEstadoActual (){
@@ -215,7 +216,8 @@ public class MaquinaEstadoMovimientoCtrl {
 
 	public void bloqueadoPorObstaculo(){
 		this.estadoActual=this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueadoPorObstaculo);
-		
+		MensajeBloqueoObstaculo m = new MensajeBloqueoObstaculo(VocabularioRosace.MsgRobotBloqueadoObstaculo, this.identAgente, "Jefe", this.getObstaculo(robotposicionActual), this.obstaculosDescubiertos);
+		this.itfProcObjetivos.insertarHecho(m);
 		trazas.trazar(identAgente, "Se informa de bloqueo por obstaculo del robot " + identAgente + ". El robot esta en el estado: "+ identEstadoActual + " CoordActuales =  "+robotposicionActual.toString(), InfoTraza.NivelTraza.error);
 		
 
