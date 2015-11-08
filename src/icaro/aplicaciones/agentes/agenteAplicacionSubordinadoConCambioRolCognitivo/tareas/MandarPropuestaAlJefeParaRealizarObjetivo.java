@@ -27,7 +27,7 @@ public class MandarPropuestaAlJefeParaRealizarObjetivo  extends TareaSincrona {
 	private MisObjetivos misObjtvs;
 	private Integer miEvalDeRespuesta;
 	private Integer valorDisuasorioParaElquePideAcepteQueSoyYoElResponsable = 5000000;
-	private  Integer valorParaExcluirmeDelObjetivo = -5000 ;
+	private Integer valorParaExcluirmeDelObjetivo = -5000 ;
 	private VictimsToRescue victimasRecibidas ;
 	private Victim victimaCC,victimaEncontrada ;
 	private RobotStatus robot;
@@ -79,7 +79,7 @@ public class MandarPropuestaAlJefeParaRealizarObjetivo  extends TareaSincrona {
 				miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);
 				miPropuesta.setIdentObjectRefPropuesta(identObjEvaluacion);
 				miPropuesta.setJustificacion(miEvaluacion);
-				this.getComunicator().enviarInfoAotroAgent2e(miPropuesta,nombreAgenteReceptor );
+				this.getComunicator().enviarInfoAotroAgente(miPropuesta,nombreAgenteReceptor );
 				this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutRespuestaJefe, null, nombreAgenteEmisor, null);                 
 				trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Enviamos la propuesta " + miPropuesta, InfoTraza.NivelTraza.info));               
 			} catch (Exception e) {

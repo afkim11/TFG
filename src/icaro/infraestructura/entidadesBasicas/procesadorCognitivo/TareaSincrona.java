@@ -182,7 +182,7 @@ public abstract class TareaSincrona {
      public void setComunicator(ComunicacionAgentes comunicator) {
         this.comunicator = comunicator;
     }
-      public ComunicacionAgentes getComunicator() {
+    public ComunicacionAgentes getComunicator() {
         return this.comunicator ;
     }
       
