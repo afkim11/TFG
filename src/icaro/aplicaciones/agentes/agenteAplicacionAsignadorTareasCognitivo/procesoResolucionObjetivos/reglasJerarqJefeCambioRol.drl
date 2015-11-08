@@ -7,6 +7,7 @@ import icaro.aplicaciones.Rosace.tareasComunes.*;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.*;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.*;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.tareas.*;
+import icaro.infraestructura.entidadesBasicas.comunicacion.*;
 import java.util.ArrayList;
 import java.lang.String;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.InformeDeTarea;
@@ -366,12 +367,15 @@ rule "Proceso el  timeout aceptacion propuesta doy por  asignado el objetivo"
 end
 
 rule "Procesamiento del robot bloqueado por un obstaculo"
-	when
-		mensaje:MensajeBloqueoObstaculo(receptor=="Jefe", contenido == VocabularioRosace.MsgRobotBloqueadoObstaculo)
+     when
+        mensaje : MensajeBloqueoObstaculo(receptor=="Jefe",contenido == VocabularioRosace.MsgRobotBloqueadoObstaculo,idRobot:emisor)
 		//Comprobar si emisor existe?
 		//Mas comprobaciones?
-	then
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(ActualizarObstaculos.class)
-		tarea.ejecutar(mensaje)
+     then
+        System.out.println("hola");
+        recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Agente: "+idRobot + "EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+        System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+		//TareaSincrona tarea = gestorTareas.crearTareaSincrona(ActualizarObstaculos.class);
+		//tarea.ejecutar(mensaje);
 	
 end

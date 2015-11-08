@@ -204,10 +204,11 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
         	}
         	else {
         		this.bloqueado = true;
-        		ArrayList<Object> array = new ArrayList<Object>();
-        		array.add(VocabularioRosace.MsgRobotBloqueadoObstaculo);
-        		array.add(this.controladorMovimiento.getObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))); //Identidad obtaculo
-        		this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(array,this.identRobot,"Jefe"));      		
+        		this.controladorMovimiento.bloqueadoPorObstaculo();
+        		//ArrayList<Object> array = new ArrayList<Object>();
+        		//array.add(VocabularioRosace.MsgRobotBloqueadoObstaculo);
+        		//array.add(this.controladorMovimiento.getObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))); //Identidad obtaculo
+        		//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeBloqueoObstaculo(array,this.identRobot,"Jefe"));      		
         	}
         }
 }

@@ -19,13 +19,13 @@ public class MensajeBloqueoObstaculo extends MensajeSimple implements Serializab
 
 
 	private static final long serialVersionUID = 1624889937599726865L;
-
-	private Object contenido;
+   /* private Object contenido;
 	private Object emisor;
 	private Object receptor;
+	*/
 	private LineaObstaculo obstaculo;
-        private boolean iscontentColection= false;
-        private ArrayList<LineaObstaculo> listaObstaculos= null;
+    private boolean iscontentColection= false;
+    private ArrayList<LineaObstaculo> listaObstaculos= null;
 
     public MensajeBloqueoObstaculo() {
 

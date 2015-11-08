@@ -14,6 +14,7 @@ import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.*;
 // se utilizan los objetivos y las tareas del Agente Subordinado y se incorporan nuevos objetivos, tareas y clases
 import java.util.ArrayList;
 import java.lang.String;
+import icaro.infraestructura.entidadesBasicas.comunicacion.*;
 
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
@@ -270,6 +271,14 @@ when
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConseguirObjetivoActualizarFocoOpcional.class);
     tarea.ejecutar(misObjs,obj1,null);
- recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
   
 end
+
+rule "Tratamiento de bloqueo por obstaculo"
+when
+    mensaje : MensajeBloqueoObstaculo(VocabularioRosace.MsgRobotBloqueadoObstaculo == contenido, origen : emisor, destino : receptor)
+then
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
