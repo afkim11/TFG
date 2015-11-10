@@ -282,7 +282,7 @@ when
 	
 then
 	TareaSincrona tarea=gestorTareas.crearTareaSincrona(EnviarMensajeAlJefePorBloqueoPorObstaculo.class);
-	tarea.ejecutar(agentId,identAsignador,infoequipo);
+	tarea.ejecutar(agentId,infoequipo,mensaje);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 

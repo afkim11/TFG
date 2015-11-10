@@ -204,7 +204,7 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
         	}
         	else {
         		this.bloqueado = true;
-        		this.controladorMovimiento.bloqueadoPorObstaculo();
+        		this.controladorMovimiento.bloqueadoPorObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()));
         		//ArrayList<Object> array = new ArrayList<Object>();
         		//array.add(VocabularioRosace.MsgRobotBloqueadoObstaculo);
         		//array.add(this.controladorMovimiento.getObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))); //Identidad obtaculo

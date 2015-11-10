@@ -3,16 +3,16 @@ package icaro.infraestructura.patronAgenteCognitivo.percepcion.imp;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.EventoSimple;
 import icaro.infraestructura.entidadesBasicas.comunicacion.EventoRecAgte;
+import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeBloqueoObstaculo;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimpleConInfoTemporal;
 import icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn.AgenteCognitivo;
 import icaro.infraestructura.patronAgenteCognitivo.percepcion.PercepcionAgenteCognitivo;
 import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaEInterfacesPrObj.ItfProcesadorObjetivos;
-
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
-import java.rmi.RemoteException;
 
+import java.rmi.RemoteException;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
@@ -125,6 +125,9 @@ public class PercepcionAgenteCognitivoImp extends PercepcionAgenteCognitivo {
 				try {
 					log.debug("Recogiendo item desde el buzon de items de la percepcion...");
 					item = buzon.take();
+					if(item instanceof MensajeBloqueoObstaculo){
+						System.out.println("");
+					}
 					if (item != null) {
 						boolean seguirEnviando = procesador.procesarItem(item);
 						if (!seguirEnviando)

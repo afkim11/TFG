@@ -214,9 +214,10 @@ public class MaquinaEstadoMovimientoCtrl {
 	}
 
 
-	public void bloqueadoPorObstaculo(){
+	public void bloqueadoPorObstaculo(Coordinate coordenadasObstaculo){
 		this.estadoActual=this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueadoPorObstaculo);
-		MensajeBloqueoObstaculo m = new MensajeBloqueoObstaculo(VocabularioRosace.MsgRobotBloqueadoObstaculo, this.identAgente, "Jefe", this.getObstaculo(robotposicionActual), this.obstaculosDescubiertos);
+		LineaObstaculo obs=this.getObstaculo(coordenadasObstaculo);
+		MensajeBloqueoObstaculo m = new MensajeBloqueoObstaculo(VocabularioRosace.MsgRobotBloqueadoObstaculo, this.identAgente, VocabularioRosace.IdentAgteDistribuidorTareas, obs);
 		this.itfProcObjetivos.insertarHecho(m);
 		trazas.trazar(identAgente, "Se informa de bloqueo por obstaculo del robot " + identAgente + ". El robot esta en el estado: "+ identEstadoActual + " CoordActuales =  "+robotposicionActual.toString(), InfoTraza.NivelTraza.error);
 		

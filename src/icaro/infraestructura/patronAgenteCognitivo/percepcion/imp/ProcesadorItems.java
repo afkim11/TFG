@@ -140,6 +140,11 @@ public class ProcesadorItems implements ItfProcesadorItems {
 			if (interpreteMsgS == null)
 				interpreteMsgS = new InterpreteMensajesSimples(agente.getIdentAgente());
 
+		}else if (item instanceof MensajeBloqueoObstaculo) {
+			MensajeBloqueoObstaculo mensaje = (MensajeBloqueoObstaculo) item;
+			if (interpreteMsgS == null )
+				interpreteMsgS = new InterpreteMensajesSimples(agente.getIdentAgente());
+			infoExtracted =  interpreteMsgS.extractInfo(mensaje);
 		}else if (item instanceof MensajeSimple) {
 			MensajeSimple mensaje = (MensajeSimple) item;
 			if (interpreteMsgS == null )

@@ -1,5 +1,7 @@
 package icaro.infraestructura.entidadesBasicas.procesadorCognitivo;
 
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
+
 import java.util.ArrayList;
 
 public class ExtractedInfo {
@@ -11,7 +13,7 @@ public class ExtractedInfo {
     private Object creador;     //JM: Identificdor  del agente que recibe el mensaje/evento (es decir el destinatario del mensaje/evento)
 	private Object contenido;   //JM: Contenido del mensaje/evento que fue creado en el origen
     private Boolean esElContenidoUnaColeccion = false;
-	
+	private LineaObstaculo obstaculo;
 	public ExtractedInfo(){
         contenido = null;
         origen = null;
@@ -80,5 +82,12 @@ public class ExtractedInfo {
     public String toString() {
     	return "ExtractedInfo:" + " origen->" + this.getOrigen() + " ; creador->" + this.getCreador() + " ; contenido->" + this.getContenido(); 
     }
+
+	public void setObstaculo(LineaObstaculo obs) {
+		this.obstaculo = obs;	
+	}
+	public LineaObstaculo getObstaculo(){
+		return this.obstaculo;
+	}
     
 }

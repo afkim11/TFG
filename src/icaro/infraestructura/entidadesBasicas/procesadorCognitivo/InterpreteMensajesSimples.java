@@ -4,15 +4,20 @@
  */
 
 package icaro.infraestructura.entidadesBasicas.procesadorCognitivo;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.PerformativaUsuario;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeACLSimple;
+import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeBloqueoObstaculo;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
+
+
 //import java.util.logging.Logger;
 import java.util.List;
 import java.util.ListIterator;
+
 import org.apache.log4j.Logger;
 /**
  *
@@ -76,6 +81,24 @@ public ExtractedInfo extractInfo(MensajeACLSimple mensaje) {
 return  inforExtracted ;
  }
 */
+
+public ExtractedInfo extractInfo(MensajeBloqueoObstaculo mensaje){
+	 	Object contenido =  mensaje;
+	    emisorMensaje = (String ) mensaje.getEmisor();
+	   
+	    inforExtracted = new  ExtractedInfo ( );
+	    inforExtracted.setOrigen(emisorMensaje);
+	    inforExtracted.setCreador(propietario);
+//	    if (contenido.getClass().isArray()){
+//	        inforExtracted.setContentCollection((Array)contenido);
+//	    }
+	    if ( mensaje.isContenidoColection())
+	    inforExtracted.setContentCollection(mensaje.getColeccionContenido());
+	    else inforExtracted.setContenido(contenido);
+
+	return  inforExtracted ;
+}
+
 public ExtractedInfo extractInfo(MensajeSimple mensaje) {
 
     Object contenido = mensaje.getContenido();

@@ -31,12 +31,11 @@ public class MensajeBloqueoObstaculo extends MensajeSimple implements Serializab
 
     }
 
-	public MensajeBloqueoObstaculo(Object contenido, Object emisor, Object receptor, LineaObstaculo obstaculo, ArrayList<LineaObstaculo> lObs) {
+	public MensajeBloqueoObstaculo(Object contenido, Object emisor, Object receptor, LineaObstaculo obstaculo) {
             this.contenido = contenido;
 		this.emisor=emisor;
 		this.receptor = receptor;
 		this.obstaculo = obstaculo;
-		this.listaObstaculos = lObs;
 	}
 
 	public Object getEmisor() {
