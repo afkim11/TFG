@@ -14,12 +14,12 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 public class Coste {
     private Coordinate robotLocation; //Localizacion del robot
-    private double funcionEvaluacion;
+    private double funcionEvaluacion=0;
 	
 //    ItfUsoRecursoTrazas trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ; //Para depurar por la ventana de trazas de ICARO los calculos de costes
 	
 	//Constructor
-	public void Coste(){
+	public Coste(){
 		
 	}
     //Funcion de evaluacion que solo considera distancia entre la nueva victima y la posicion del robot. NO SE CONSIDERA LA ENERGIA NI LAS VICTIMAS QUE TIENE ASIGNADAS PREVIAMENTE.
@@ -166,12 +166,12 @@ public class Coste {
            int mi_eval = (int)funcionEvaluacion;   //convierto de double a int porque la implementación inicial de Paco usaba int                                  
             
             if (mi_eval>=0){            
-              int  mi_eval_nueva = Integer.MAX_VALUE; 
+              
 //              mi_eval_nueva = cotaMaxima; 
                 //como va el que menor rango tiene, lo inicializamos a la peor                        
             	//Para que gane el que mayor valor tiene de evaluación le resto el valor de la distancia obtenida al valor máximo de Integer
             	//El que este más cercano hará decrecer menos ese valor y por tanto es el MEJOR
-            	mi_eval = mi_eval_nueva - mi_eval;
+            	mi_eval = Integer.MAX_VALUE - mi_eval;
             }
             return mi_eval;
         }

@@ -2,6 +2,8 @@
 package icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn.imp;
 
 import icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn.AgenteCognitivo;
+import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.componentesBasicos.automatas.automataEFsinAcciones.ItfUsoAutomataEFsinAcciones;
 import icaro.infraestructura.entidadesBasicas.comunicacion.EventoRecAgte;
@@ -13,6 +15,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTra
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
@@ -30,7 +33,7 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
 
 	private String identAgente;
 	private String estadoAgente;
-
+	private ArrayList<LineaObstaculo> obstaculo;
 	private PercepcionAgenteCognitivo percepcion;
 	private ProcesadorObjetivos procObjetivos;
 	private ItfUsoAutomataEFsinAcciones itfAutomataEstadoAgente ;
@@ -43,7 +46,7 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
 	 * @throws Exception
 	 */
 	public AgenteCognitivotImp2(String nombreAgenteNormalizado) throws Exception {
-
+		this.obstaculo=new ArrayList<LineaObstaculo>();
 		this.identAgente =nombreAgenteNormalizado;
 		procObjetivos = null;
 		percepcion = null;
@@ -234,9 +237,18 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
 	public void setControl(ProcesadorObjetivos control) {
 		this.procObjetivos = control;
 	}
-
 	@Override
 	public String getIdentAgente() {
 		return this.identAgente;
+	}
+	/**
+	 * 
+	 */
+	public boolean añadirObstaculo(LineaObstaculo obstaculo){
+		if(this.identAgente.equals(VocabularioRosace.IdentAgteDistribuidorTareas)){
+			this.obstaculo.add(obstaculo);
+			return true;
+		}
+		return false;
 	}
 }

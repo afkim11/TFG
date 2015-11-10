@@ -198,7 +198,7 @@ private void calcularNuevasCoordenadas (long incrementoDistancia){
             // incremmento de x respecto a distancia recorrida
         	double nuevaVariableY = coordActuales.getY() + pendienteRecta*incrementoDistancia*dirY;
         	double nuevaVariableX = coordActuales.getX() + incrementoDistancia*dirX;
-        	if(!this.controladorMovimiento.checkObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))){
+        	if(!this.controladorMovimiento.checkObstaculo(new Coordinate(nuevaVariableX+40, nuevaVariableY, coordActuales.getZ()))){
         		this.coordActuales.setY(nuevaVariableY);
         		this.coordActuales.setX(nuevaVariableX);
         	}

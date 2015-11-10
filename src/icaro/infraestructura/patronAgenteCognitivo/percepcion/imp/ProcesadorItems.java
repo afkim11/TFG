@@ -4,10 +4,8 @@ import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.EventoSimple;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn.AgenteCognitivo;
-import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Evidencia;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.InterpreteEventosSimples;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.InterpreteMensajesSimples;
-import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaEInterfacesPrObj.ProcesadorObjetivos;//import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.RepositorioInterfaces;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeACLSimple;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeBloqueoObstaculo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.ExtractedInfo;
@@ -17,8 +15,6 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
 
 
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.logging.Level;
-
 import org.apache.log4j.Logger;
 
 
