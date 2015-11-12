@@ -304,10 +304,10 @@ public class Coste {
 	
 	
 	//Calcula la distancia entre dos puntos
-    public double distanciaC1toC2(Coordinate c1, Coordinate c2){
+    public static double distanciaC1toC2(Coordinate c1, Coordinate c2){
     	
-    	System.out.println("Coord calculo Coste c1->"+c1);
-    	System.out.println("Coord calculo Coste c2->"+c2);
+    	//System.out.println("Coord calculo Coste c1->"+c1);
+    	//System.out.println("Coord calculo Coste c2->"+c2);
     	
         return Math.sqrt( Math.pow(c1.x - c2.x,2) + 
      	 	   			  Math.pow(c1.y - c2.y,2) +

@@ -45,8 +45,10 @@ public class VisorEscenariosRosace extends JFrame {
     private int excesoY = 20;
     private int excesoX = 10;
     private int dimensionVerticalTextArea = 20;
-    private int dimensionHorizontalJFrame = excesoX + 1100;                                //width  -- ancho  1110 es el valor del ancho del JPanel del editor de escenarios
-    private int dimensionVerticalJFrame = excesoY + dimensionVerticalTextArea + 700;     //height -- alto   700  es el valor del alto  del JPanel del editor de escenarios
+    public static int alto= 700;
+    public static int ancho= 1100;
+    private int dimensionHorizontalJFrame = excesoX + ancho;                                //width  -- ancho  1110 es el valor del ancho del JPanel del editor de escenarios
+    private int dimensionVerticalJFrame = excesoY + dimensionVerticalTextArea + alto;     //height -- alto   700  es el valor del alto  del JPanel del editor de escenarios
     private int posicionXInicialJFrame = 0;
     private int posicionYInicialJFrame = 0;
     private JPanel contentPaneRoot;
