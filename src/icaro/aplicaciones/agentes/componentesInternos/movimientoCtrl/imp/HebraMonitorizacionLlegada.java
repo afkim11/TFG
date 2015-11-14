@@ -176,11 +176,13 @@ public class HebraMonitorizacionLlegada extends Thread {
 						for(int j=0;j<VisorEscenariosRosace.alto;j++)
 							visitados[i][j]=false;
 					visitados[(int)this.coordActuales.getX()][(int)this.coordActuales.getY()]=true;
-					ArrayList<Coordinate> ruta=calculaRuta(visitados,this.coordActuales,0);
+					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
+					ruta.add(coordActuales);
+					ruta=calculaRuta(visitados,this.coordActuales,0,ruta);
 					if(ruta!=null){
 						while(!enDestino){
 							for(int i=0;i<ruta.size();i++){
-
+								Thread.sleep(intervaloEnvioInformesMs);
 								Coordinate punto=ruta.get(i);
 								this.coordActuales.setY(punto.getY());
 								this.coordActuales.setX(punto.getX());
@@ -222,10 +224,54 @@ public class HebraMonitorizacionLlegada extends Thread {
 	 * 678 
 	 * 
 	 */
-	private ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordinadasActuales,int anterior) {
-		PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordinadasActuales,anterior); 
-
+	private ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora) {
+		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(this.coordDestino)){
+			return rutaHastaAhora;
+		}
+		else{
+			PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior); 
+			while(!colaNodos.isEmpty()){
+				Coordinate coor=colaNodos.poll();
+				int x=(int)coor.getX(),y=(int)coor.getY();
+				visitados[x][y]=true;
+				rutaHastaAhora.add(coor);
+				try {
+					this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coor);
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ArrayList<Coordinate> posible_sol=calculaRuta(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora);
+				if(posible_sol!=null)return posible_sol;			
+				rutaHastaAhora.remove(rutaHastaAhora.size()-1);
+				visitados[x][y]=false;
+			}
+		}
 		return null;
+	}
+	/**
+	 * 
+	 * 123
+	 * 4X5
+	 * 678 
+	 * 
+	 */
+	private int calculaAnterior(Coordinate anterior,Coordinate siguiente){
+		int x1=(int)anterior.getX(),y1=(int)anterior.getY(),x2=(int)siguiente.getX(),y2=(int)siguiente.getY();
+		int restaX = x2 - x1, restaY = y2 - y1;
+		if (restaX == -1 && restaY == -1) return 8;
+		else if (restaX == 0 && restaY == -1) return 7;
+		else if (restaX == 1 && restaY == -1) return 6;
+		else if (restaX == -1 && restaY == 0) return 5;
+		else if (restaX == 1 && restaY == 0) return 4;
+		else if (restaX == -1 && restaY == 1) return 3;
+		else if (restaX == 0 && restaY == 1) return 2;
+		else if (restaX == 1 && restaY == 1) return 1;
+		else return -1;
+		
+		
+		
 	}
 	private PriorityQueue<Coordinate> estimaCoste(boolean[][] visitados, Coordinate coordinadasActuales, int anterior) {
 		PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(new Comparator<Coordinate>(){
@@ -241,66 +287,66 @@ public class HebraMonitorizacionLlegada extends Thread {
 		for(int i=1;i<=8;i++){
 			if(i!=anterior){
 				if(i==1){
-					int x=(int)this.coordActuales.getX()-1;
-					int y=(int)this.coordActuales.getY()-1;
+					int x=(int)coordinadasActuales.getX()-1;
+					int y=(int)coordinadasActuales.getY()-1;
 					Coordinate coor=new Coordinate(x,y,0.5);
 					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}
 				else if(i==2){
-					int x=(int)this.coordActuales.getX();
-					int y=(int)this.coordActuales.getY()-1;
+					int x=(int)coordinadasActuales.getX();
+					int y=(int)coordinadasActuales.getY()-1;
 					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
+					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}
 				else if(i==3){
-					int x=(int)this.coordActuales.getX()+1;
-					int y=(int)this.coordActuales.getY()-1;
+					int x=(int)coordinadasActuales.getX()+1;
+					int y=(int)coordinadasActuales.getY()-1;
 					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
+					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}
 				else if(i==4){
-					int x=(int)this.coordActuales.getX()-1;
-					int y=(int)this.coordActuales.getY();
+					int x=(int)coordinadasActuales.getX()-1;
+					int y=(int)coordinadasActuales.getY();
 					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
+					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}
 				else if(i==5){
-					int x=(int)this.coordActuales.getX()+1;
-					int y=(int)this.coordActuales.getY();
+					int x=(int)coordinadasActuales.getX()+1;
+					int y=(int)coordinadasActuales.getY();
 					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
+					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}
 				else if(i==6){
-					int x=(int)this.coordActuales.getX()-1;
-					int y=(int)this.coordActuales.getY()+1;
+					int x=(int)coordinadasActuales.getX()-1;
+					int y=(int)coordinadasActuales.getY()+1;
 					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
+					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}
 				else if(i==7){
-					int x=(int)this.coordActuales.getX();
-					int y=(int)this.coordActuales.getY()+1;
+					int x=(int)coordinadasActuales.getX();
+					int y=(int)coordinadasActuales.getY()+1;
 					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
+					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}
 				else if(i==8){
-					int x=(int)this.coordActuales.getX()+1;
-					int y=(int)this.coordActuales.getY()+1;
+					int x=(int)coordinadasActuales.getX()+1;
+					int y=(int)coordinadasActuales.getY()+1;
 					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
+					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
 						cola.add(coor);
 
 				}

@@ -34,7 +34,7 @@ public class Coordinate implements Serializable{
   public boolean equals(Object obj){
 	  Coordinate c=(Coordinate)obj;
 	  return (c.getX() == this.x && c.getY() == this.y);
-  } // UN SEGUNDO
+  } 
   
   
   @Override

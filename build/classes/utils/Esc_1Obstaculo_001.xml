@@ -8,17 +8,18 @@
 		</initialcoordinate>
 		<finalcoordinate>
 			<x>585.5</x>
-			<y>600</y>
+			<y>601</y>
 			 </finalcoordinate>
 	</obstacle>
 	<obstacle>
 		<id>2</id>
 		<initialcoordinate>
-			<x>585.5</x>
+			<x>400</x>
 			<y>600</y>
 		</initialcoordinate>
 		<finalcoordinate>
-			<x>400</x>
+			
+			<x>590</x>
 			<y>600</y>
 			 </finalcoordinate>
 	</obstacle>
