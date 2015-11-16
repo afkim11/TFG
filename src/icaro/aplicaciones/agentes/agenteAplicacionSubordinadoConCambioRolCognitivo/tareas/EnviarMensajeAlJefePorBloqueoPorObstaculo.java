@@ -21,12 +21,7 @@ public class EnviarMensajeAlJefePorBloqueoPorObstaculo extends TareaSincrona{
 		miEquipo = (InfoEquipo)params[1];
 		this.mensaje=(MensajeBloqueoObstaculo)params[2];
 		this.comunicador=getComunicator();
-		if(this.comunicador.enviarMsgaOtroAgente(mensaje)){
-			
-		}
-		else{
-			
-		}
+		this.comunicador.enviarMsgaOtroAgente(mensaje);
 		
 		
 	}

@@ -68,6 +68,7 @@ public class NombresPredefinidos {
   public static final String PREFIJO_REGLAS = "reglas";
   public static final String PREFIJO_PROPIEDAD_TAREA_TIMEOUT ="timeMsTarea:";
   public static final String PREFIJO_MSG_TIMEOUT = "Expiro timeout";
+  public static final String PREFIJO_MSG_TIMEOUT_ESQUIVAR_OBSTACULO = "Expiro timeout de esquivar obstaculo";
   public static final String CARPETA_REGLAS = "procesoResolucionObjetivos";
   public static final String FICHERO_REGLAS = "reglas.drl";
   public static final String CARPETA_OBJETIVOS = "objetivos";

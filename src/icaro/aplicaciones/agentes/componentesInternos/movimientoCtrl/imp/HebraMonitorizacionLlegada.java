@@ -8,6 +8,7 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
+import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.patronAgenteCognitivo.percepcion.imp.PercepcionAgenteCognitivoImp;
 
@@ -179,7 +180,12 @@ public class HebraMonitorizacionLlegada extends Thread {
 					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 					ruta.add(coordActuales);
 					ruta=calculaRuta(visitados,this.coordActuales,0,ruta);
-					if(ruta!=null){
+					if(ruta!=null){		
+						
+						
+						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
+						
+						
 						while(!enDestino){
 							for(int i=0;i<ruta.size();i++){
 								Thread.sleep(intervaloEnvioInformesMs);
@@ -195,6 +201,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 						}
 					}
 					else {
+						
 						this.wait();
 					}
 				}
@@ -235,13 +242,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 				int x=(int)coor.getX(),y=(int)coor.getY();
 				visitados[x][y]=true;
 				rutaHastaAhora.add(coor);
-				try {
-					this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coor);
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				ArrayList<Coordinate> posible_sol=calculaRuta(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora);
 				if(posible_sol!=null)return posible_sol;			
 				rutaHastaAhora.remove(rutaHastaAhora.size()-1);

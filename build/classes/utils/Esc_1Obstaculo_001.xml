@@ -11,16 +11,4 @@
 			<y>601</y>
 			 </finalcoordinate>
 	</obstacle>
-	<obstacle>
-		<id>2</id>
-		<initialcoordinate>
-			<x>400</x>
-			<y>600</y>
-		</initialcoordinate>
-		<finalcoordinate>
-			
-			<x>590</x>
-			<y>600</y>
-			 </finalcoordinate>
-	</obstacle>
 </sequence>

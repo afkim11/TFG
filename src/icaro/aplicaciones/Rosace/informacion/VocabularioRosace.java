@@ -55,6 +55,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String ResEjTaskConsensoParaIrYo = "TengoAcuerdoDeTodosParaIrYo";
     static public  final String ResEjTaskDebenLlegarMasConfirmacionesParaIrYo="DebenLlegarMasRespuestasDeAcuerdoParaIrYo";
     static public  final String MsgTimeoutRecibirPropuestaDesempate = "ExpiroElTimeoutPropuestaDesempate";
+    static public  final String MsgTimeoutEsquivarObstaculo = "EsquivarObstaculo";
     static public  final String MsgTimeoutRecibirRespPropuestasIrYo = "ExpiroElTimeoutRespuestaPropuestasParaIrYo";
     static public  final String MsgTimeoutRecibirEvaluaciones = "ExpiradoTiempoEsperaEvaluaciones";
     static public  final String MsgTimeoutComunicacionConJefe = "ExpiroTimeoutReaccionJefe";
@@ -76,6 +77,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String IdentTareaTimeOutRecibirEstatusComunicacionConJefe ="TimeOutRecibirEstatusComunicacionConJefe";
     static public  final String IdentTareaTimeOutRecibirRespuestasEquipo ="TimeOutRecibirRespuestasEquipo";
     static public  final String IdentTareaTimeOutContactarMiembrosEquipo ="TimeOutContactarMiembrosEquipo";
+    static public  final String IdentTareaTimeOutEsquivarObstaculo ="TimeOutEsquivarObstaculo";    
     static public  final String IdentTareaTimeOutReaccionJefeAmsgeCC ="TimeOutReaccionJefeAmsgeCC";
     static public  final String IdentTareaTimeOutRespuestaJefe = "TimeOutRespuestaJefe";
     static public  final String PrefijoMsgTimeout = "Expiro timeout";
@@ -124,5 +126,6 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String NombreFicheroSerieLlegadaYasignacion = "serieLlegadaYasignacionVictimas";
     static public  final String NombreFicheroSerieAsignacion = "serieAsignacionVictimas";
 	public static  final String MsgRobotBloqueadoObstaculo = "robotBloqueadoPorObstaculo";
+	static public final String MsgEsquivaObstaculo = "He esquivado el obstaculo";
 	static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo}
 }

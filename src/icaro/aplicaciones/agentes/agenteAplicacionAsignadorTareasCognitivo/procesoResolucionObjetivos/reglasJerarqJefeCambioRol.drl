@@ -369,12 +369,38 @@ end
 rule "Procesamiento del robot bloqueado por un obstaculo"
      when
         mensaje : MensajeBloqueoObstaculo(idRobot:emisor)
-		//Comprobar si emisor existe?
-		//Mas comprobaciones?
      then
         recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
         System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(TratamientoRobotBloqueadoPorObstaculo.class);
 		tarea.ejecutar(mensaje);
 	
+end
+
+rule "Proceso timeout para saber si esquivo el obstaculo"
+	when   
+	    //miEquipo: InfoEquipo(idTeam:teamId,inicioContactoConEquipo== true)
+	    //misObjs: MisObjetivos()
+	   // infoTarea: I nformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
+	    //obj1 : DefinirMiEquipo(state == Objetivo.SOLVING)
+	    //focoActual : Focus(foco == obj1)
+	  
+       informacion : Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)
+	then 
+	    //Lo ha conseguido, por lo que le dejamos que siga su propio curso y vaya a rescatar a la victima. 
+	    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"POLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLA");
+	    System.out.println( "\n"+agentId +"POLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLA");
+end
+
+rule "Proceso timeout cuando el robot no me ha contestado "
+when   
+    //miEquipo: InfoEquipo(idTeam:teamId,inicioContactoConEquipo== true)
+    //misObjs: MisObjetivos()
+    infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
+    not (exists(MensajeSimple(contenido=="He conseguido esquivar el obstaculo")))
+    //obj1 : DefinirMiEquipo(state == Objetivo.SOLVING)
+    //focoActual : Focus(foco == obj1)
+then 
+	
+    //No ha conseguido esquivar el obstaculo asique reasignamos la victima
 end
