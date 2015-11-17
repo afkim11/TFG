@@ -1,5 +1,6 @@
 package icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn;
 
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
 import icaro.infraestructura.entidadesBasicas.componentesBasicos.automatas.automataEFsinAcciones.ItfUsoAutomataEFsinAcciones;
 import icaro.infraestructura.entidadesBasicas.comunicacion.EventoRecAgte;
@@ -27,5 +28,7 @@ public abstract class AgenteCognitivo extends UnicastRemoteObject implements Itf
     public abstract void aceptaMensaje(MensajeSimple mensaje);
     @Override
     public abstract void aceptaEvento(EventoRecAgte evento);
-    public abstract boolean añadirObstaculo(LineaObstaculo obstaculo);
+	public abstract void setVictima(Victim refVictima);
+	public abstract Victim getVictima();
+	public abstract boolean añadirObstaculo(LineaObstaculo obstaculo);
 }

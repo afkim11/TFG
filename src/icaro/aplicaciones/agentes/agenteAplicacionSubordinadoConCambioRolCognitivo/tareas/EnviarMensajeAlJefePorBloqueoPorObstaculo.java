@@ -25,13 +25,6 @@ public class EnviarMensajeAlJefePorBloqueoPorObstaculo extends TareaSincrona{
 		
 		
 	}
-	
-	private String getIdentAgteAsignadorTareas(){
-		ArrayList<String> identsConMismoRol = miEquipo.getTeamMemberIDsWithThisRol(VocabularioRosace.IdentRolAgteDistribuidorTareas);  
-		if (identsConMismoRol.isEmpty())trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "No se ha encontrado un agente con el rol :  "+ VocabularioRosace.IdentAgteDistribuidorTareas, InfoTraza.NivelTraza.error)); 
-		else if (identsConMismoRol.size()>1) trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Hay mas de un agente con el rol : "+ VocabularioRosace.IdentAgteDistribuidorTareas, InfoTraza.NivelTraza.error)); 
-		else return identsConMismoRol.get(0);
-		return null;
-	}
+
 
 }

@@ -183,8 +183,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 					ruta.add(coordActuales);
 					ruta=calculaRuta(visitados,this.coordActuales,0,ruta);
 					if(ruta!=null){		
-						
-						
 						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
 						
 						
@@ -240,17 +238,11 @@ public class HebraMonitorizacionLlegada extends Thread {
 		}
 		else{
 			PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior); 
-			while(!colaNodos.isEmpty() && this.contadorAuxiliar<1000){
+			while(!colaNodos.isEmpty()){
 				Coordinate coor=colaNodos.poll();
 				int x=(int)coor.getX(),y=(int)coor.getY();
 				visitados[x][y]=true;
 				rutaHastaAhora.add(coor);
-				try {
-					this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coor);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				ArrayList<Coordinate> posible_sol=calculaRuta(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora);
 				if(posible_sol!=null)return posible_sol;			
 				rutaHastaAhora.remove(rutaHastaAhora.size()-1);
@@ -385,6 +377,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 			else {
 				this.bloqueado = true;
 				this.controladorMovimiento.bloqueadoPorObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()));
+				
 				//ArrayList<Object> array = new ArrayList<Object>();
 				//array.add(VocabularioRosace.MsgRobotBloqueadoObstaculo);
 				//array.add(this.controladorMovimiento.getObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))); //Identidad obtaculo

@@ -71,6 +71,7 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
             this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);  
                 AyudarVictima nuevoObj = new AyudarVictima(refVictima);
                 nuevoObj.setSolving() ;
+                this.agente.setVictima(victima);
                 victimas.addVictimToRescue(victima);
                 misObjs.addObjetivo(nuevoObj);
                 focoActual.setFocusToObjetivoMasPrioritario(misObjs);

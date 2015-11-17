@@ -2,6 +2,7 @@
 package icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn.imp;
 
 import icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn.AgenteCognitivo;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -33,6 +34,7 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
 
 	private String identAgente;
 	private String estadoAgente;
+	private Victim obj;
 	private ArrayList<LineaObstaculo> obstaculo;
 	private PercepcionAgenteCognitivo percepcion;
 	private ProcesadorObjetivos procObjetivos;
@@ -241,6 +243,11 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
 	public String getIdentAgente() {
 		return this.identAgente;
 	}
+	public void setVictima(Victim refVictima){
+		this.obj = refVictima;
+	}
+	
+	public Victim getVictima(){return this.obj;}
 	/**
 	 * 
 	 */

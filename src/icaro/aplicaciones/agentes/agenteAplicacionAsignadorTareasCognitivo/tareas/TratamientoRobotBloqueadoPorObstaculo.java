@@ -12,7 +12,7 @@ public class TratamientoRobotBloqueadoPorObstaculo extends TareaSincrona{
 		MensajeBloqueoObstaculo mensaje=(MensajeBloqueoObstaculo) params[0];
 		this.agente.añadirObstaculo(mensaje.getObstaculo());
 		//Damos la oportunidad al robot de esquivar al obstaculo. Para ello, generamos un timeout para obtener una solucion al obstaculo
-		this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo, null, this.identAgente, NombresPredefinidos.PREFIJO_MSG_TIMEOUT_ESQUIVAR_OBSTACULO);
+		this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo,null, this.identAgente, NombresPredefinidos.PREFIJO_MSG_TIMEOUT_ESQUIVAR_OBSTACULO);
 	
 	}
 
