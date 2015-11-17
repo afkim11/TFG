@@ -73,6 +73,8 @@ public class HebraMonitorizacionLlegada extends Thread {
 	private long tiempoParaAlcanzarDestino = 2000;
 	public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
 
+	private int contadorAuxiliar=0;
+
 	//    private int numeroPuntos = 20;
 	/**
 	 * Constructor
@@ -232,16 +234,23 @@ public class HebraMonitorizacionLlegada extends Thread {
 	 * 
 	 */
 	private ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora) {
+		this.contadorAuxiliar++;
 		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(this.coordDestino)){
 			return rutaHastaAhora;
 		}
 		else{
 			PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior); 
-			while(!colaNodos.isEmpty()){
+			while(!colaNodos.isEmpty() && this.contadorAuxiliar<1000){
 				Coordinate coor=colaNodos.poll();
 				int x=(int)coor.getX(),y=(int)coor.getY();
 				visitados[x][y]=true;
 				rutaHastaAhora.add(coor);
+				try {
+					this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coor);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				ArrayList<Coordinate> posible_sol=calculaRuta(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora);
 				if(posible_sol!=null)return posible_sol;			
 				rutaHastaAhora.remove(rutaHastaAhora.size()-1);

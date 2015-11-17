@@ -388,8 +388,8 @@ rule "Proceso timeout para saber si esquivo el obstaculo"
        informacion : Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)
 	then 
 	    //Lo ha conseguido, por lo que le dejamos que siga su propio curso y vaya a rescatar a la victima. 
-	    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"POLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLA");
-	    System.out.println( "\n"+agentId +"POLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLAPOLLA");
+	   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+        System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
 
 rule "Proceso timeout cuando el robot no me ha contestado "
@@ -397,10 +397,11 @@ when
     //miEquipo: InfoEquipo(idTeam:teamId,inicioContactoConEquipo== true)
     //misObjs: MisObjetivos()
     infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
-    not (exists(MensajeSimple(contenido=="He conseguido esquivar el obstaculo")))
+    not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
     //obj1 : DefinirMiEquipo(state == Objetivo.SOLVING)
     //focoActual : Focus(foco == obj1)
 then 
-	
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+        System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
     //No ha conseguido esquivar el obstaculo asique reasignamos la victima
 end
