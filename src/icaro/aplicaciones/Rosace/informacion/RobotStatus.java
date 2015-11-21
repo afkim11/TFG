@@ -33,12 +33,10 @@ public class RobotStatus {
     private final double limiteDespalzamiento = 0.5;
     private List<Integer> robotCapabilities = new ArrayList<Integer>();
     private InfoCompMovimiento infoCompMovt;
-    private boolean bloqueado;
         
 	//Constructor sin argumentos
 	public void RobotStatus(){
 		robotCoordinateAnterior = new Coordinate(0,0,0);
-		this.bloqueado = false;
 	}
 		
 	public void setIdRobot(String id){
@@ -118,14 +116,6 @@ public class RobotStatus {
     			" ; engergylevel->" + this.getAvailableEnergy() + 
     			" ; coordinate->" + this.getRobotCoordinate() + 
     			" ; healrange->" + this.getHealRange() ;    	    	    	     	
-    }
-    
-    public boolean getBloqueado(){
-    	return this.bloqueado;
-    }
-    
-    public void setBloqueado(boolean b){
-    	this.bloqueado = b;
     }
 }
 /*

@@ -6,7 +6,6 @@ package icaro.aplicaciones.Rosace.informacion;
 
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -130,12 +129,7 @@ public class InfoEquipo {
          return teamRobotIdsWithMyRol;        
      }
      public synchronized ArrayList<String> getTeamMemberIDs (){
-         //return this.teamRobotIds;
-    	 ArrayList<String> members = new ArrayList<String>();
-         for(int i = 0; i < this.numberOfTeamMembers; i++){
-        	 if(!this.teamInfoAgentStatus.get(i).getBloqueado()) members.add(this.teamInfoAgentStatus.get(i).getIdRobot());
-         }
-         return members;
+         return this.teamRobotIds;
      }
      public synchronized RobotStatus getTeamMemberStatus(String identMember){ 
          return teamInfoAgentStatus.get(identMember);
@@ -183,9 +177,4 @@ public class InfoEquipo {
      public void  setidentMiRolEnEsteEquipo(String idRolAgte){ 
          identMiRolEnEsteEquipo = idRolAgte ;
      }
-
-	public void setBloqueado(String emisor) {
-		this.teamInfoAgentStatus.get(emisor).setBloqueado(true);
-		
-	}
 }
