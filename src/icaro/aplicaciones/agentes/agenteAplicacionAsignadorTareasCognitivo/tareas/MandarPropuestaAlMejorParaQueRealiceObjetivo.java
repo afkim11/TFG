@@ -10,10 +10,12 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.InfoParaDecidirAQuienAsignarObjetivo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
+
 import java.util.ArrayList;
 
 /**
@@ -41,6 +43,7 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
               Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
               infoDecision = (InfoParaDecidirAQuienAsignarObjetivo)params[1];
               Victim victima = (Victim)params[2];
+              MisObjetivos objs = (MisObjetivos)params[3];
               nombreAgenteEmisor = this.getAgente().getIdentAgente();
               identDeEstaTarea = this.getIdentTarea();
                    trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.debug));
@@ -62,6 +65,7 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 //                           nombreAgenteEmisor,  infoDecision.getidElementoDecision());
                    
                    infoDecision.setheInformadoAlmejorParaQueAsumaElObjetivo(Boolean.TRUE);
+                   objs.setVictimaAsignada(nombreAgenteEmisor, victima);
                    this.getEnvioHechos().actualizarHecho(infoDecision);
 		   trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,"IdentObjetoPropuesta: " +infoDecision.getidElementoDecision()+ "Enviamos la propuesta: " + VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo + "  Al agente " +nombreAgenteReceptor  , InfoTraza.NivelTraza.debug));
         }
