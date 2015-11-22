@@ -19,26 +19,20 @@ public class ReasignarVictima extends TareaSincrona{
 		String emisor = (String) params[0];
 		InfoEquipo info = (InfoEquipo)params[1];
 		MisObjetivos objs = (MisObjetivos) params[2];
-		Focus foco = (Focus) params[3];
 		
 		info.setBloqueado(emisor);
 		Victim v = objs.getVictimaAsignada(emisor);
-		DecidirQuienVa o = new DecidirQuienVa(v.getName());
-		o.setState(Objetivo.SOLVING);
 		//this.itfProcObjetivos.eliminarHechoWithoutFireRules(infoDecision);
-		this.itfProcObjetivos.eliminarHechoWithoutFireRules(foco);
-		foco.setFoco(o);
 		InfoParaDecidirAQuienAsignarObjetivo infoDecision = new InfoParaDecidirAQuienAsignarObjetivo(VocabularioRosace.IdentAgteDistribuidorTareas, info);
-        this.getEnvioHechos().eliminarHechoWithoutFireRules(infoDecision);
         AyudarVictima ayudarVictima = new AyudarVictima(v.getName());
         ayudarVictima.setState(Objetivo.PENDING);
-   
-        this.getEnvioHechos().insertarHechoWithoutFireRules(ayudarVictima);
+        ayudarVictima.setPriority(Integer.MAX_VALUE);
+        objs.addObjetivo(ayudarVictima);
+		this.itfProcObjetivos.actualizarHechoWithoutFireRules(info);
+        this.itfProcObjetivos.insertarHechoWithoutFireRules(ayudarVictima);
 		infoDecision.inicializarInfoParaDecidir(v.getName());
-		this.itfProcObjetivos.actualizarHechoWithoutFireRules(infoDecision);
-		this.itfProcObjetivos.actualizarHechoWithoutFireRules(o);
-		this.itfProcObjetivos.actualizarHechoWithoutFireRules(foco);
-		this.itfProcObjetivos.actualizarHecho(v);
+		this.itfProcObjetivos.insertarHechoWithoutFireRules(infoDecision);
+		this.itfProcObjetivos.actualizarHechoWithoutFireRules(objs);
 	}
 
 }

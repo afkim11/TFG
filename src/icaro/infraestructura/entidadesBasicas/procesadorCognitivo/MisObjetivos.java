@@ -54,7 +54,7 @@ public class MisObjetivos {
         }
     }
     public Objetivo getobjetivoMasPrioritario ( ){
-        objetivoMasPrioritario= misObjetivosPriorizados.peek();
+        objetivoMasPrioritario= misObjetivosPriorizados.poll();
         return objetivoMasPrioritario;       
     }
     

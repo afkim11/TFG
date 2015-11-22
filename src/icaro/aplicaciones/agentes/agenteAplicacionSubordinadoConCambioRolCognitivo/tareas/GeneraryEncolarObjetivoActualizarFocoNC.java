@@ -76,9 +76,9 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
                 misObjs.addObjetivo(nuevoObj);
                 focoActual.setFocusToObjetivoMasPrioritario(misObjs);
                 Objetivo objActual = focoActual.getFoco();
-                victima = victimas.getVictimToRescue(objActual.getobjectReferenceId());
+               // victima = victimas.getVictimToRescue(objActual.getobjectReferenceId());
                  ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
-            itfcompMov.moverAdestino(objActual.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); // se pondra la verlocidad por defecto 
+            itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); // se pondra la verlocidad por defecto 
             trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea : " + identTarea + " Se genera el  objetivo:  "+ nuevoObj+
                     " Se actualiza el  foco al objetivo:  " + focoActual + "\n");
             trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se da orden al comp Movimiento  para salvar a la victima :  " + victima + "\n");

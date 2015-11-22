@@ -160,6 +160,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 		log.debug ("Coord Robot " + identRobot + " destino -> ("+this.coordDestino.getX() + " , " + this.coordDestino.getY() + ")");
 		//       System.out.println("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");
 		//      this.itfusoRecVisSimulador.mostrarMovimientoAdestino(identRobot,identDestino, coordActuales,velocidadRobot);
+		this.bloqueado=true;
 		while (!this.finalizar && (!enDestino)) {
 			try {
 				if(!this.bloqueado){
