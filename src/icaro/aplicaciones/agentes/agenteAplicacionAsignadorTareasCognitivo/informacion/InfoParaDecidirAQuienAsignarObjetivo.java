@@ -22,7 +22,7 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
 
       private ArrayList confirmacionesAgentes,evaluacionesRecibidas;//resto de agentes que forman mi equipo
       private String  identEquipo = null;
-      private String  nombreAgente;
+      public String  nombreAgente;
  //     private ItfUsoConfiguracion itfConfig  ;
       private ArrayList<String> agentesAplicacionDefinidos, agentesEquipo,agentesEmpatados,respuestasAgentes;
       private  int respuestasEsperadas,confirmacionesEsperadas ;

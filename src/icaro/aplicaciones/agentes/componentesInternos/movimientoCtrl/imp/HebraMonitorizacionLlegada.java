@@ -184,8 +184,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 					ruta=calculaRuta(visitados,this.coordActuales,0,ruta);
 					if(ruta!=null){		
 						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
-						
-						
 						while(!enDestino){
 							for(int i=0;i<ruta.size();i++){
 								Thread.sleep(intervaloEnvioInformesMs);
@@ -201,8 +199,9 @@ public class HebraMonitorizacionLlegada extends Thread {
 						}
 					}
 					else {
-						
-						this.wait();
+						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(this.identRobot),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
+						finalizar=true;
+						enDestino=false;
 					}
 				}
 			} catch (Exception e) {
@@ -233,12 +232,13 @@ public class HebraMonitorizacionLlegada extends Thread {
 	 */
 	private ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora) {
 		this.contadorAuxiliar++;
+		if(this.contadorAuxiliar>=4500)return null;
 		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(this.coordDestino)){
 			return rutaHastaAhora;
 		}
 		else{
 			PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior); 
-			while(!colaNodos.isEmpty()){
+			while(!colaNodos.isEmpty() && this.contadorAuxiliar<4500){
 				Coordinate coor=colaNodos.poll();
 				int x=(int)coor.getX(),y=(int)coor.getY();
 				visitados[x][y]=true;

@@ -130,22 +130,17 @@ public class InfoEquipo {
          return teamRobotIdsWithMyRol;        
      }
      public synchronized ArrayList<String> getTeamMemberIDs (){
-         //return this.teamRobotIds;
     	 ArrayList<String> members = new ArrayList<String>();
          for(int i = 0; i < this.numberOfTeamMembers; i++){
-        	 if(!this.teamInfoAgentStatus.get(i).getBloqueado()) members.add(this.teamInfoAgentStatus.get(i).getIdRobot());
+        	 if(this.teamInfoAgentStatus.get(this.teamRobotIds.get(i)) == null ||
+        	 	!this.teamInfoAgentStatus.get(this.teamRobotIds.get(i)).getBloqueado()) members.add(this.teamRobotIds.get(i));
          }
          return members;
      }
      public synchronized RobotStatus getTeamMemberStatus(String identMember){ 
          return teamInfoAgentStatus.get(identMember);
      }
- /*    
-     public synchronized void setTeamMemberRol(String robtId, String rolId){ 
-         teamInfoAgentStatus.put(robtId,rolId);
-     }
-     * 
-     */
+
       public synchronized boolean getinicioContactoConEquipo(){ 
          return inicioContactoConEquipo;
      }

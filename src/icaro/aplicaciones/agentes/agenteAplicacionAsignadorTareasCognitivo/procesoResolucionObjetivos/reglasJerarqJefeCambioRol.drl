@@ -376,29 +376,31 @@ rule "Procesamiento del robot bloqueado por un obstaculo"
         System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(TratamientoRobotBloqueadoPorObstaculo.class);
 		tarea.ejecutar(mensaje);
-	
 end
 
-/*rule "Proceso timeout para saber si esquivo el obstaculo"
+rule "Proceso timeout para saber si esquivo el obstaculo"
 	when
        informacion : Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)
 	then 
-	    //Lo ha conseguido, por lo que le dejamos que siga su propio curso y vaya a rescatar a la victima. 
-	   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+	   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
         System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+        retract(informacion);
 end
 
-rule "Proceso timeout cuando el robot no me ha contestado "
+
+rule "Proceso timeout cuando el robot no me ha contestado"
 when   
-    infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo, origen : identAgenteEmisor)
-    not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo, idVict : contenido2)))
+    infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
+    not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
+ 	informacion : Informacion(origen : contenido)
     objs : MisObjetivos()
     focoActual:Focus()
-    infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == $idVict)
-    info: infoEquipo(identAgentePropietario == agentId)
-then 
+    info: InfoEquipo(identAgentePropietario == agentId)
+then
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ReasignarVictima.class);
-    tarea.ejecuta(origen, info, infoDecision, objs, focoActual);
-end*/
+    tarea.ejecutar(origen, info,  objs, focoActual);
+    retract (infoTarea);
+    retract (informacion);
+end

@@ -65,7 +65,7 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 //                           nombreAgenteEmisor,  infoDecision.getidElementoDecision());
                    
                    infoDecision.setheInformadoAlmejorParaQueAsumaElObjetivo(Boolean.TRUE);
-                   objs.setVictimaAsignada(nombreAgenteEmisor, victima);
+                   objs.setVictimaAsignada(nombreAgenteReceptor, victima);
                    this.getEnvioHechos().actualizarHecho(infoDecision);
 		   trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,"IdentObjetoPropuesta: " +infoDecision.getidElementoDecision()+ "Enviamos la propuesta: " + VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo + "  Al agente " +nombreAgenteReceptor  , InfoTraza.NivelTraza.debug));
         }

@@ -4,10 +4,12 @@ package icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.tare
 import icaro.aplicaciones.Rosace.informacion.InfoEquipo;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
+import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.InfoParaDecidirAQuienAsignarObjetivo;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.DecidirQuienVa;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Focus;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 public class ReasignarVictima extends TareaSincrona{
@@ -16,21 +18,27 @@ public class ReasignarVictima extends TareaSincrona{
 	public void ejecutar(Object... params) {
 		String emisor = (String) params[0];
 		InfoEquipo info = (InfoEquipo)params[1];
-		InfoParaDecidirAQuienAsignarObjetivo infoDecision = (InfoParaDecidirAQuienAsignarObjetivo) params[2];
-		MisObjetivos objs = (MisObjetivos) params[3];
-		Focus foco = (Focus) params[4];
+		MisObjetivos objs = (MisObjetivos) params[2];
+		Focus foco = (Focus) params[3];
 		
 		info.setBloqueado(emisor);
 		Victim v = objs.getVictimaAsignada(emisor);
 		DecidirQuienVa o = new DecidirQuienVa(v.getName());
-		this.itfProcObjetivos.eliminarHechoWithoutFireRules(infoDecision);
+		o.setState(Objetivo.SOLVING);
+		//this.itfProcObjetivos.eliminarHechoWithoutFireRules(infoDecision);
 		this.itfProcObjetivos.eliminarHechoWithoutFireRules(foco);
 		foco.setFoco(o);
-		infoDecision = new InfoParaDecidirAQuienAsignarObjetivo(VocabularioRosace.IdentAgteDistribuidorTareas, info);
-		this.itfProcObjetivos.insertarHechoWithoutFireRules(infoDecision);
-		this.itfProcObjetivos.insertarHechoWithoutFireRules(o);
-		this.itfProcObjetivos.insertarHechoWithoutFireRules(foco);
-		this.itfProcObjetivos.insertarHecho(v);
+		InfoParaDecidirAQuienAsignarObjetivo infoDecision = new InfoParaDecidirAQuienAsignarObjetivo(VocabularioRosace.IdentAgteDistribuidorTareas, info);
+        this.getEnvioHechos().eliminarHechoWithoutFireRules(infoDecision);
+        AyudarVictima ayudarVictima = new AyudarVictima(v.getName());
+        ayudarVictima.setState(Objetivo.PENDING);
+   
+        this.getEnvioHechos().insertarHechoWithoutFireRules(ayudarVictima);
+		infoDecision.inicializarInfoParaDecidir(v.getName());
+		this.itfProcObjetivos.actualizarHechoWithoutFireRules(infoDecision);
+		this.itfProcObjetivos.actualizarHechoWithoutFireRules(o);
+		this.itfProcObjetivos.actualizarHechoWithoutFireRules(foco);
+		this.itfProcObjetivos.actualizarHecho(v);
 	}
 
 }
