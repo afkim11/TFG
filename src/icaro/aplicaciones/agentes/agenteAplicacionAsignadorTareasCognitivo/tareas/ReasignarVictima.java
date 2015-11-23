@@ -2,6 +2,7 @@ package icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.tare
 
 
 import icaro.aplicaciones.Rosace.informacion.InfoEquipo;
+import icaro.aplicaciones.Rosace.informacion.OrdenCentroControl;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
@@ -19,20 +20,30 @@ public class ReasignarVictima extends TareaSincrona{
 		String emisor = (String) params[0];
 		InfoEquipo info = (InfoEquipo)params[1];
 		MisObjetivos objs = (MisObjetivos) params[2];
+		Focus foco = (Focus) params[3];
 		
 		info.setBloqueado(emisor);
 		Victim v = objs.getVictimaAsignada(emisor);
-		//this.itfProcObjetivos.eliminarHechoWithoutFireRules(infoDecision);
-		InfoParaDecidirAQuienAsignarObjetivo infoDecision = new InfoParaDecidirAQuienAsignarObjetivo(VocabularioRosace.IdentAgteDistribuidorTareas, info);
-        AyudarVictima ayudarVictima = new AyudarVictima(v.getName());
-        ayudarVictima.setState(Objetivo.PENDING);
-        ayudarVictima.setPriority(Integer.MAX_VALUE);
+	/*	InfoParaDecidirAQuienAsignarObjetivo infoDecision = new InfoParaDecidirAQuienAsignarObjetivo(VocabularioRosace.IdentAgteDistribuidorTareas, info);
+        
         objs.addObjetivo(ayudarVictima);
-		this.itfProcObjetivos.actualizarHechoWithoutFireRules(info);
         this.itfProcObjetivos.insertarHechoWithoutFireRules(ayudarVictima);
 		infoDecision.inicializarInfoParaDecidir(v.getName());
 		this.itfProcObjetivos.insertarHechoWithoutFireRules(infoDecision);
-		this.itfProcObjetivos.actualizarHechoWithoutFireRules(objs);
+		this.itfProcObjetivos.actualizarHechoWithoutFireRules(objs);*/
+		this.itfProcObjetivos.actualizarHecho(info);
+		DecidirQuienVa d = new DecidirQuienVa(v.getName());
+		d.setSolving();
+		//foco.setFoco(d);
+		AyudarVictima ayudarVictima = new AyudarVictima(v.getName());
+        ayudarVictima.setState(Objetivo.PENDING);
+        this.itfProcObjetivos.insertarHecho(v);
+		this.itfProcObjetivos.actualizarHecho(foco);
+        this.itfProcObjetivos.insertarHecho(d);
+		this.itfProcObjetivos.insertarHecho(ayudarVictima);
+		/*OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, v);
+		this.itfProcObjetivos.insertarHecho(ccOrder);
+        */
 	}
 
 }

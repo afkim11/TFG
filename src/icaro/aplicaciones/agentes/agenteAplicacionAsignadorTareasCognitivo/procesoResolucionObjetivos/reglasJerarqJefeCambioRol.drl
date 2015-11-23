@@ -190,8 +190,8 @@ rule "Focalizacion inicial en el  objectivo  para decidir quien se hace cargo de
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
    
 end
-
-rule "Focalizacion  en el  objectivo para decidir quien se hace cargo de la ayuda "
+/*
+rule "Focalizacion  en el  objectivo para decidir quien se hace cargo de la ayuda"
 // se ha generado un nuevo objetivo y una nueva victima al tratar un mensaje del CC en la tareas InterperetarOrdenDelCC  
  when   
 //    misObjs : MisObjetivos()
@@ -210,7 +210,7 @@ rule "Focalizacion  en el  objectivo para decidir quien se hace cargo de la ayud
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict1 + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 end
-
+*/
 rule "Re-focalizacion  en el  ultimo objetivo despues de conseguir decidirQuienVa "
  when
     misObjs : MisObjetivos($objPrio:objetivoMasPrioritario)
@@ -404,19 +404,20 @@ then
     retract (infoTarea);
     retract (informacion);
 end*/
-
+/*
 rule "Proceso timeout cuando el robot no me ha contestado"
 when   
-    infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
-    not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
+    //infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
+    //not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
  	informacion : Informacion(origen : contenido)
     objs : MisObjetivos()
+    foco : Focus()
     info: InfoEquipo(identAgentePropietario == agentId)
 then
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ReasignarVictima.class);
-    tarea.ejecutar(origen, info,  objs);
-    retract (infoTarea);
+    tarea.ejecutar(origen, info,  objs, foco);
+    //retract (infoTarea);
     retract (informacion);
-end
+end*/

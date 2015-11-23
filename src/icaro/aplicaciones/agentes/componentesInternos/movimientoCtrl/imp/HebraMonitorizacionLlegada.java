@@ -184,7 +184,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 					ruta.add(coordActuales);
 					ruta=calculaRuta(visitados,this.coordActuales,0,ruta);
 					if(ruta!=null){		
-						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
+						//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
 						while(!enDestino){
 							for(int i=0;i<ruta.size();i++){
 								Thread.sleep(intervaloEnvioInformesMs);
