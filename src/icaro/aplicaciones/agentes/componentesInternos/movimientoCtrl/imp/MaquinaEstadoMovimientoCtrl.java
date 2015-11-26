@@ -1,4 +1,5 @@
 /*
+
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -54,7 +55,7 @@ public class MaquinaEstadoMovimientoCtrl {
 	public ItfProcesadorObjetivos itfProcObjetivos;
 	protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
 	ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
-	private ArrayList<LineaObstaculo> obstaculos;
+	private static ArrayList<LineaObstaculo> obstaculos;
 	private ArrayList<LineaObstaculo> obstaculosDescubiertos; //Necesita volatile?
 
 	public  MaquinaEstadoMovimientoCtrl (){
@@ -186,7 +187,7 @@ public class MaquinaEstadoMovimientoCtrl {
 		estadoActual = this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueado);
 	}
 
-	public synchronized boolean checkObstaculo(Coordinate coor){
+	public static synchronized boolean checkObstaculo(Coordinate coor){
 		for(LineaObstaculo obs:obstaculos){
 			if(obs.compruebaCoordenada(coor))return true;
 		}

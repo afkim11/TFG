@@ -224,13 +224,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 		}
 	}
 
-	/**
-	 * 
-	 * 123
-	 * 4X5
-	 * 678 
-	 * 
-	 */
 	private ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora) {
 		this.contadorAuxiliar++;
 		if(this.contadorAuxiliar>=4500)return null;
