@@ -41,4 +41,10 @@ public class RobotBloqueadoPorObstaculo extends EstadoAbstractoMovRobot implemen
 		return null;
 	}
 
+	@Override
+	public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

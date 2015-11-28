@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Francisco J Garijo
@@ -230,22 +233,30 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
      
      //devuelve el agente mejor dentro de mi equipo
      public synchronized String dameIdentMejor(){
-         String mejorAgente = (String)agentesEquipo.get(0);
-         int mejor_eval = (Integer)evaluacionesRecibidas.get(0);
+         String mejorAgente = null;
+         int mejor_eval = Integer.MAX_VALUE;
          int evaluacion_local;
 
          //empezamos en el uno porque lo hemos inicializado en el cero
-         for(int i = 1; i< evaluacionesRecibidas.size();i++){
+         for(int i = 0; i< evaluacionesRecibidas.size();i++){
              evaluacion_local = (Integer)evaluacionesRecibidas.get(i);
-             if(mejor_eval<evaluacion_local){
+             if(mejor_eval>evaluacion_local && evaluacion_local != -5){
                  mejorAgente = (String)agentesEquipo.get(i);
                  mejor_eval = evaluacion_local;
              }
          }
+         /*
+          * Mostramos un mensaje emergente avisando de que se ha asignado una victima sin tener evaluaciones
+          */
+         if(mejor_eval == Integer.MAX_VALUE || mejor_eval==-5){
+        	 JFrame frame = new JFrame();
+        	 JOptionPane.showMessageDialog(frame,"Se han asignado una victima" + this.idElementoDecision + " sin evaluaciones: " +mejor_eval + " al agente " + mejorAgente,"Aviso",JOptionPane.WARNING_MESSAGE);
+         }
+         if(mejorAgente==null)return this.agentesEquipo.get(0);
          return mejorAgente;
      }
      
-     public synchronized String dameEmpatados(){
+     public synchronized String dameEmpatados(){ 
          String mejorAgente = (String)agentesEquipo.get(0);
             			//         int mejor_eval = (Integer)evaluacionesRecibidas.get(0);
          int evaluacion_local;

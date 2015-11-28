@@ -11,12 +11,12 @@
         <icaro:listaPropiedades>
             <icaro:propiedad atributo="identificadorEquipo" valor = "Jerarquico" />
             <icaro:propiedad atributo="rutaFicheroVictimasTest" valor = "src/utils/Esc_6Victimas_0IP_001.xml" />            
-            <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Esc_Jerarquico_4Robots_001.xml" />         
+            <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Esc_Jerarquico_2Robots_001.xml" />         
             <icaro:propiedad atributo="rutaFicheroObstaculosTest" valor = "src/utils/Esc_1Obstaculo_001.xml" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutContactarMiembrosEquipo" valor = "3000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutEsquivarObstaculo" valor="2000" />
             <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->  
-            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "100" />   <!-- se usa en el igualitario y en el jerarquico -->                                                                        
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "500" />   <!-- se usa en el igualitario y en el jerarquico -->                                                                        
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones2" valor = "100" />                                                                
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirConfirmacionesRealizacionObjetivo1" valor = "8000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEstatusComunicacionConJefe" valor = "3000" />     
@@ -86,9 +86,8 @@
                     <icaro:componentesGestionados>
                             <icaro:componenteGestionado refId="AgenteControladorSimuladorRosaceReactivo1" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicoagenteAsignador" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicorobotSubordinado1" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicorobotSubordinado2" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicorobotSubordinado3" tipoComponente="AgenteAplicacion"/>
+                 
                             <icaro:componenteGestionado refId="JerarquicorobotSubordinado4" tipoComponente="AgenteAplicacion"/>
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
@@ -111,12 +110,10 @@
                 </icaro:Instancia>
                 <icaro:Instancia id="JerarquicoagenteAsignador" refDescripcion="AgenteAplicacionAsignadorTareas">
                 </icaro:Instancia>
-                <icaro:Instancia id="JerarquicorobotSubordinado1" refDescripcion="AgenteAplicacionSubordinado">
-                </icaro:Instancia>
+               
                 <icaro:Instancia id="JerarquicorobotSubordinado2" refDescripcion="AgenteAplicacionSubordinado">
                 </icaro:Instancia>
-                <icaro:Instancia id="JerarquicorobotSubordinado3" refDescripcion="AgenteAplicacionSubordinado">
-                </icaro:Instancia>
+                
                 <icaro:Instancia id="JerarquicorobotSubordinado4" refDescripcion="AgenteAplicacionSubordinado">
                 </icaro:Instancia>
         </icaro:AgentesAplicacion>

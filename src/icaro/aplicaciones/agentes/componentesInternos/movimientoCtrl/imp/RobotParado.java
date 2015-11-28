@@ -99,7 +99,13 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
             this.trazas.trazar (this.identAgente +"."+this.getClass().getSimpleName(), " ignoro la operacion porque estoy parado ", InfoTraza.NivelTraza.debug); 
         }
         @Override
-    public  Coordinate getCoordenadasActuales(){
-        return this.monitorizacionLlegadaDestino.getCoordRobot();
-    }
+        public  Coordinate getCoordenadasActuales(){
+        	return this.monitorizacionLlegadaDestino.getCoordRobot();
+        }
+
+		@Override
+		public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
+			return this.monitorizacionLlegadaDestino;
+		}
+		
 }

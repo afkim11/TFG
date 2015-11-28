@@ -139,7 +139,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 	public synchronized void setCoordRobot(Coordinate robotCoord) {
 		this.coordActuales= robotCoord;
 	}
-	public synchronized Coordinate getCoordRobot() {
+	public Coordinate getCoordRobot() {
 		return coordActuales;
 	}
 	public synchronized void setCoordDestino(Coordinate destCoord) {
@@ -195,7 +195,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 								if (itfusoRecVisSimulador != null)
 									this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
 								this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-
 							}
 						}
 					}
@@ -212,15 +211,11 @@ public class HebraMonitorizacionLlegada extends Thread {
 		}
 		if (enDestino ){
 			finalizar = true;
-			try {
-				Thread.sleep(tiempoParaAlcanzarDestino);
-				this.controladorMovimiento.estamosEnDestino(identDestino,coordDestino );
-				log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
-				//          System.out.println("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");       
-				//                this.controladorMovimiento.setCoordenadasActuales(coordDestino);
-			} catch (InterruptedException ex) {
-				log.error( ex);
-			}
+			//Thread.sleep(tiempoParaAlcanzarDestino);
+			this.controladorMovimiento.estamosEnDestino(identDestino,coordDestino );
+			log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
+			//          System.out.println("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");       
+			//                this.controladorMovimiento.setCoordenadasActuales(coordDestino);
 		}
 	}
 

@@ -411,7 +411,7 @@ public class VisorEscenariosRosace extends JFrame {
 
 
 //        System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getBounds());
-        System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getLocationOnScreen());
+        //System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getLocationOnScreen());
     }
 
     public void cambiarIconoVictimaARescatada(String valor_idVictima) {

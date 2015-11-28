@@ -265,18 +265,18 @@ no-loop true
 
  end
 
-rule " Si me llegan  evaluaciones de otros agentes las proceso hasta que las tenga todas"
+rule " Me ha llegado una evaluacion de un agente: la proceso hasta que las tenga todas"
 no-loop true
  when
     victimaCC:Victim(idVict:name)   
     obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == idVict )
     focoActual:Focus(foco == obj )
     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict, peticionEvaluacionEnviadaAtodos == true, hanLlegadoTodasLasEvaluaciones == false)
-    evalRecibida:EvaluacionAgente(identAgente != agentId,objectEvaluationId ==idVict )
+    evalRecibida:EvaluacionAgente(agente : identAgente != agentId,objectEvaluationId ==idVict )
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ProcesarEvaluacionRecibida.class); ;
     tarea.ejecutar(obj,infoDecision,evalRecibida );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,agente + "( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
  //   depuracion4(agentId,idVict, drools.getRule().getName(), recursoTrazas);     
 end

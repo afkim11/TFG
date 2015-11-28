@@ -36,8 +36,9 @@ public class RobotStatus {
     private boolean bloqueado;
         
 	//Constructor sin argumentos
-	public void RobotStatus(){
+	public RobotStatus(){
 		robotCoordinateAnterior = new Coordinate(0,0,0);
+		
 		this.bloqueado = false;
 	}
 		
@@ -67,10 +68,9 @@ public class RobotStatus {
     }
     
     public synchronized Coordinate getRobotCoordinate(){
-        if ( sinMovimientoSignificativo()||infoCompMovt == null )return robotCoordinateActual;
-//        if (infoCompMovt != null)
-        return this.robotCoordinateActual= infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
-//        else return robotCoordinateActual;
+        if (infoCompMovt != null && infoCompMovt.itfAccesoComponente.getHebraMonitorizacionLlegadaDestino() != null)
+        	this.robotCoordinateActual = infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
+       return robotCoordinateActual;
     }
     public void setInfoCompMovt(InfoCompMovimiento compInfo){
         this.infoCompMovt = compInfo;    	
