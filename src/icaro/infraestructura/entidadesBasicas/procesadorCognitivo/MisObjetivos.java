@@ -49,12 +49,12 @@ public class MisObjetivos {
         String goalRefId = obj.getobjectReferenceId();
         if(goalRefId==null)goalRefId= obj.getgoalId();
         if (! existeObjetivoConEsteIdentRef(goalRefId)){    
-                    misObjetivosPriorizados.add((Objetivo)obj);
-                    setOfIGoalRefIds.add(goalRefId);
+                    this.misObjetivosPriorizados.add((Objetivo)obj);
+                    this.setOfIGoalRefIds.add(goalRefId);
         }
     }
     public Objetivo getobjetivoMasPrioritario ( ){
-        objetivoMasPrioritario= misObjetivosPriorizados.poll();
+        objetivoMasPrioritario= misObjetivosPriorizados.peek();
         return objetivoMasPrioritario;       
     }
     
@@ -68,8 +68,8 @@ public class MisObjetivos {
         
     }
     public PriorityBlockingQueue <Objetivo> getMisObjetivosPriorizados ( ){
-
-        return misObjetivosPriorizados;      
+    	
+        return this.misObjetivosPriorizados;      
     }
     public void deleteObjetivosSolved(){
     	Iterator<Objetivo> it = misObjetivosPriorizados.iterator();    	    	

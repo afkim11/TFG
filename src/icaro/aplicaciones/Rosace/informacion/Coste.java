@@ -217,34 +217,39 @@ public class Coste {
 	}
 
 	public int prototipo(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima){
-
-		Map<String, Victim> victimasARescatarPorMi=victims2Resc.getvictims2Rescue();
-		Iterator<Victim> it=victimasARescatarPorMi.values().iterator();
+		PriorityBlockingQueue<Objetivo> cola=misObjs.getMisObjetivosPriorizados();
+		Iterator<Objetivo> it=cola.iterator();
 		int time = 0;
 		boolean[][] visitados= new boolean[VisorEscenariosRosace.ancho][VisorEscenariosRosace.alto];
 		Coordinate actual = robotLocation;
 		while(it.hasNext()){
-			Victim v = it.next();
-			visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
-			visitados[(int)actual.getX()][(int)actual.getY()]=true;
-			ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
-			ruta.add(actual);
-			ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
-			try{
-				arrayAux = this.calculaCoste(visitados, actual, 0,ruta, v.getCoordinateVictim());}
-			catch(Exception e){
-				System.out.println("");
-			}
+			Objetivo x = it.next();
+			if(x.getState()==Objetivo.SOLVING){
+				String nombreVictima=x.getobjectReferenceId();
+				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
 
-			if(arrayAux != null){
-				time = time + arrayAux.size();
-				actual = v.getCoordinateVictim();
+				visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
+				visitados[(int)actual.getX()][(int)actual.getY()]=true;
+				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
+				ruta.add(actual);
+				ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
+				try{
+					arrayAux = this.calculaCoste(visitados, actual, 0,ruta, v.getCoordinateVictim());}
+				catch(Exception e){
+					System.out.println("");
+				}
+
+				if(arrayAux != null){
+					time = time + arrayAux.size();
+					actual = v.getCoordinateVictim();
+				}
+				else return -1;
 			}
-			else return -1;
 
 		}
+
 		visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
-		
+
 		visitados[(int)actual.getX()][(int)actual.getY()]=true;
 		ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 		ruta.add(actual);
@@ -265,7 +270,7 @@ public class Coste {
 	}
 	private ArrayList<Coordinate> calculaCoste(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora, Coordinate coordDestino) {
 		contadorAuxiliar++;
-		if(contadorAuxiliar>=10000)return null;
+		if(contadorAuxiliar>=4500)return null;
 
 		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(coordDestino)){
 			return rutaHastaAhora;

@@ -265,7 +265,7 @@ no-loop true
 
  end
 
-rule " Me ha llegado una evaluacion de un agente: la proceso hasta que las tenga todas"
+rule " Me ha llegado una evaluacion de un agente, la proceso hasta que las tenga todas"
 no-loop true
  when
     victimaCC:Victim(idVict:name)   
@@ -276,7 +276,7 @@ no-loop true
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ProcesarEvaluacionRecibida.class); ;
     tarea.ejecutar(obj,infoDecision,evalRecibida );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,agente + "( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + " (Agente: " + agente + " )" + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
  //   depuracion4(agentId,idVict, drools.getRule().getName(), recursoTrazas);     
 end
@@ -345,8 +345,24 @@ rule " Si el agente de mejor evaluacion acepta la propuesta resuelvo el objetivo
         };
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() +agenteIdAceptador+ "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
- //   depuracion4(agentId,idVict, drools.getRule().getName(), recursoTrazas);     
 end
+
+rule "Si no hay agente que pueda llegar a la victima la reservo para despues"
+ when
+    victimaCC:Victim(idVict:name)
+    obj1:AyudarVictima(state == Objetivo.PENDING,victimId == idVict)
+    obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == idVict )
+    focoActual:Focus(foco == obj )
+    infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict, hePreguntadoARobotsYNoHayValido == true, heInformadoAlmejorParaQueAsumaElObjetivo == false)
+   // not(exists(aceptPropuesta :AceptacionPropuesta(agenteIdAceptador:identAgente != agentId,identObjectRefAcetPropuesta ==idVict )))
+ then
+    modify ( obj ){
+          setSolved()
+    };
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+end
+
 rule "Proceso el  timeout aceptacion propuesta doy por  asignado el objetivo"
   when
      victimaCC:Victim(idVict:name)

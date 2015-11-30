@@ -47,6 +47,7 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
       public boolean miDecisionParaAsumirElObjetivoEnviadaAtodos = false;
       public boolean miPropuestaDeDesempateEnviadaAtodos = false;
       public boolean heInformadoAlmejorParaQueAsumaElObjetivo = false;
+      public boolean hePreguntadoARobotsYNoHayValido = false;
       public String idElementoDecision = null;
 //      private ItfUsoRecursoTrazas trazas;
 
@@ -252,7 +253,9 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
         	 JFrame frame = new JFrame();
         	 JOptionPane.showMessageDialog(frame,"Se han asignado una victima" + this.idElementoDecision + " sin evaluaciones: " +mejor_eval + " al agente " + mejorAgente,"Aviso",JOptionPane.WARNING_MESSAGE);
          }
-         if(mejorAgente==null)return this.agentesEquipo.get(0);
+         if(mejorAgente==null){
+        	 
+         }
          return mejorAgente;
      }
      
@@ -448,11 +451,11 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
           miDecisionParaAsumirElObjetivoEnviadaAtodos = valor ;
      }
        
-      public synchronized Boolean getheInformadoAlmejorParaQueAsumaElObjetivo(){
+      public synchronized boolean getheInformadoAlmejorParaQueAsumaElObjetivo(){
          return heInformadoAlmejorParaQueAsumaElObjetivo;
      }
      
-     public synchronized void setheInformadoAlmejorParaQueAsumaElObjetivo(Boolean valor){
+     public synchronized void setheInformadoAlmejorParaQueAsumaElObjetivo(boolean valor){
           heInformadoAlmejorParaQueAsumaElObjetivo = valor ;
      }
 
@@ -484,6 +487,13 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
     	        
     	        ; 
      }
+
+	public void setNoHayRobotAdecuado(boolean b) {
+		this.hePreguntadoARobotsYNoHayValido=b;	
+	}
+	public boolean getNoHayRobotAdecuado(){
+		return this.hePreguntadoARobotsYNoHayValido;
+	}
      
 
      

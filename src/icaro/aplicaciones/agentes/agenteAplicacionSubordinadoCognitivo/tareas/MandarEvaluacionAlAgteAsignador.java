@@ -42,6 +42,10 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 
 	@Override
 	public void ejecutar(Object... params) {
+		if(this.identAgente.equalsIgnoreCase("Jerarquicorobotsubordinado2")){
+			@SuppressWarnings("unused")
+			int x=1;
+			}
 		trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
 		Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
 		//       infoDecision = (InfoParaDecidirQuienVa)params[1];
@@ -116,7 +120,7 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 	}
 	private int calcularCosteEstimadoVictima(){
 		/*     
-          try{    		   
+          try{
                 ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
                 ItfUsoRecursoMorse morseResourceRef;
        		    morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
@@ -129,10 +133,14 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
        	          }  
 		 * 
 		 */
-	if(this.identAgente.equalsIgnoreCase("Jerarquicorobotsubordinado2")){
+		if(this.identAgente.equalsIgnoreCase("Jerarquicorobotsubordinado2")){
 		@SuppressWarnings("unused")
 		int x=1;
-	}
+		}
+		if(this.identAgente.equalsIgnoreCase("Jerarquicorobotsubordinado1")){
+			@SuppressWarnings("unused")
+			int x=1;
+			}
 		robotLocation = robot.getRobotCoordinate();//En esta llamada hay un delay hasta que el maldito robot se para
 		Coste coste = new Coste();
 		

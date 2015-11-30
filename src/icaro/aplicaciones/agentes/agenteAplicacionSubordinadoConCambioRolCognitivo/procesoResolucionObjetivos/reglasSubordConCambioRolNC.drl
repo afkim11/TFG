@@ -294,3 +294,14 @@ then
 	tarea.ejecutar(mensaje);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
+rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
+when
+informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
+ayudarvictima : AyudarVictima(victimId == nombreVictima)
+then
+recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+modify(ayudarvictima){
+	setSolved()
+}
+retract(informe);
+end

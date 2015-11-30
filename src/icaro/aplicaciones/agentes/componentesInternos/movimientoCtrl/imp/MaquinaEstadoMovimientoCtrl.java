@@ -170,7 +170,8 @@ public class MaquinaEstadoMovimientoCtrl {
 		//        estadoActual = this.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
 		//        this.estadoActual.identDestino = identDest;
 		Informe informeLlegada = new Informe (identComponente,identDest, VocabularioRosace.MsgeLlegadaDestino);
-		Temporizador informeTemp = new Temporizador (500,itfProcObjetivos,informeLlegada);
+		Temporizador informeTemp = new Temporizador (1,itfProcObjetivos,informeLlegada);
+		informeTemp.start();
 		//        robotposicionActual = monitorizacionLlegadaDestino.getCoordDestino();
 		estadoActual = this.cambiarEstado(EstadoMovimientoRobot.RobotParado);
 		//        this.itfProcObjetivos.insertarHecho(informeLlegada);   
