@@ -287,11 +287,12 @@ no-loop true
     obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == idVict )
     focoActual:Focus(foco == obj )
     misObjs : MisObjetivos()
+    v2r: VictimsToRescue(victims2Rescue!=null)
     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict, heInformadoAlmejorParaQueAsumaElObjetivo == false, hanLlegadoTodasLasEvaluaciones == true)
 //    evalRecibida:EvaluacionAgente(identAgente != agentId,objectEvaluationId ==idVict )
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaAlMejorParaQueRealiceObjetivo.class);
-    tarea.ejecutar(obj,infoDecision,victimaCC, misObjs);
+    tarea.ejecutar(obj,infoDecision,victimaCC, misObjs, v2r);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
  //   depuracion4(agentId,idVict, drools.getRule().getName(), recursoTrazas);     
@@ -319,13 +320,14 @@ rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo"
      victimaCC:Victim(idVict:name)   
      obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == idVict)
      Focus(foco == obj)
+     v2r:VictimsToRescue(victims2Rescue!=null)
      misObjs : MisObjetivos()
      infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
      informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2, contenidoInforme==idVict )              
  then
     // Les pido a  los agentes que me faltan  su evaluacion
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaAlMejorParaQueRealiceObjetivo.class);
-    tarea.ejecutar(obj,infoDecision,victimaCC,misObjs ); 
+    tarea.ejecutar(obj,infoDecision,victimaCC,misObjs, v2r); 
     retract (informeTarea2);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );

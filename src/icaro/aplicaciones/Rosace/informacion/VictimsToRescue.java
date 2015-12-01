@@ -4,6 +4,7 @@
  */
 package icaro.aplicaciones.Rosace.informacion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +15,11 @@ import java.util.Map;
 public class VictimsToRescue {
     private Map<String, Victim> victims2Rescue;
     private Victim lastVictimToRescue;
+    private static ArrayList<Victim> victimasNoAsignadas;
 
 public VictimsToRescue(){
        victims2Rescue = new HashMap <String, Victim>();
+       victimasNoAsignadas = new ArrayList<Victim>();
 } 
 public synchronized void addVictimToRescue (Victim victim){
     String idVictim = victim.getName();
@@ -39,6 +42,15 @@ public synchronized void addEstimatedCostVictim2Rescue(String victimId,Integer e
     if (victim!= null )victim.setEstimatedCost(estimatedCost);
     
    }
+
+public synchronized ArrayList<Victim> getVictimNoAsignadas(){
+	return victimasNoAsignadas;
+}
+
+public synchronized void addVictimNoAsignadas(Victim v){
+	victimasNoAsignadas.add(v);
+}
+
 public synchronized void setlastVictimToRescue (Victim victim){
     lastVictimToRescue = victim;
 }

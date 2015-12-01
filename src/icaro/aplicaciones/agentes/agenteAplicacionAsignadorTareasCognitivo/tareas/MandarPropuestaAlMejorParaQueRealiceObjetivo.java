@@ -6,6 +6,7 @@
 package icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.tareas;
 import icaro.aplicaciones.Rosace.informacion.PropuestaAgente;
 import icaro.aplicaciones.Rosace.informacion.Victim;
+import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.InfoParaDecidirAQuienAsignarObjetivo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -44,6 +45,7 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 			infoDecision = (InfoParaDecidirAQuienAsignarObjetivo)params[1];
 			Victim victima = (Victim)params[2];
 			MisObjetivos objs = (MisObjetivos)params[3];
+			VictimsToRescue v2r = (VictimsToRescue)params[4];
 			nombreAgenteEmisor = this.getAgente().getIdentAgente();
 			identDeEstaTarea = this.getIdentTarea();
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.debug));
@@ -79,10 +81,11 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 
 				this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutRecibirConfirmacionesRealizacionObjetivo1,objetivoEjecutantedeTarea, 
 						nombreAgenteEmisor,  infoDecision.getidElementoDecision());*/
-
+				
 				infoDecision.setNoHayRobotAdecuado(true);
 				//objs.setVictimaAsignada(nombreAgenteReceptor, victima);
 				this.getEnvioHechos().actualizarHecho(infoDecision);
+				v2r.addVictimNoAsignadas(victima);
 			}
 		}
 		catch(Exception e) {

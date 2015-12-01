@@ -285,6 +285,8 @@ then
 	tarea.ejecutar(agentId,infoequipo,mensaje);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
+
+
 rule "Tratamiento de envio de mensaje por esquivar obstaculo"
 when
 	mensaje:MensajeSimple(inf : contenido)
@@ -294,14 +296,21 @@ then
 	tarea.ejecutar(mensaje);
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
+
+
 rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
 when
-informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
-ayudarvictima : AyudarVictima(victimId == nombreVictima)
+	informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
+	ayudarvictima : AyudarVictima(victimId == nombreVictima)
+	v2r : VictimsToRescue(victims2Rescue !=null)
+	robotS : RobotStatus()
+	misObjs : MisObjetivos()
 then
-recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-modify(ayudarvictima){
-	setSolved()
-}
-retract(informe);
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	modify(ayudarvictima){
+		setSolved()
+	}
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ComprobarVictimasNoAsignadas.class);
+	tarea.ejecutar(v2r, robotS, misObjs);
+	retract(informe);
 end
