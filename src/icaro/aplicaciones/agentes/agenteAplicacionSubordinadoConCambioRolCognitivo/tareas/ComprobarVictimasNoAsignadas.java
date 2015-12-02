@@ -10,6 +10,16 @@ import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
+/**
+ * Tarea encargada de comprobar si se puede asignar una victima que se haya intentado
+ * asignar y no se haya podido. Si el robot que ejecuta esta tarea es capaz de llegar
+ * a la victima entonces se le manda propuesta para que vaya a salvar a la victima.
+ * @author Luis García y Sergio Moreno
+ *
+ */
+
+
+
 
 public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 
@@ -32,6 +42,7 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 					miPropuesta.setJustificacion(v);
 					this.itfProcObjetivos.insertarHecho(miPropuesta);
 					fin = true;
+					victims.remove(i);
 				}
 			}
 		}
