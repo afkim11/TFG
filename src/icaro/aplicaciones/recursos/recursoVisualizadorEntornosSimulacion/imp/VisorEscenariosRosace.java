@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -63,6 +65,8 @@ public class VisorEscenariosRosace extends JFrame {
     private JTextArea textAreaMensaje;
     private JPanelObstaculo panelVisor;
     private Graphics graficosVisor;
+    
+    private NotificadorInfoUsuarioSimulador notifEvts;
 
     //Variables para hacer pruebas en local sin lanzar un descripcion de la organizacion
     //String rutaFicheroRobotsTest = "src/utils/Esc_Igualitario_8Robots_001.xml";
@@ -75,7 +79,6 @@ public class VisorEscenariosRosace extends JFrame {
         String rutaFichero;
             public void run() {
                 try {
-
                    VisorEscenariosRosace visor = new VisorEscenariosRosace(rutaFichero);
                     visor.setVisible(true);
 
@@ -103,8 +106,7 @@ public class VisorEscenariosRosace extends JFrame {
                     visor.cambiarIconoVictimaARescatada("Victim.16");
 
 
-                    visor.escribirEnAreaTexto("hola\n");
-                    visor.escribirEnAreaTexto("hola que tal\n");
+                   
                     visor.escribirEnAreaTexto("La Victim.1 ha sido rescatada\n");
                     visor.escribirEnAreaTexto("La Victim.7 ha sido rescatada\n");
 
@@ -121,8 +123,8 @@ public class VisorEscenariosRosace extends JFrame {
     public VisorEscenariosRosace(String rutaFicheroRobotsTest) throws Exception {
         
     }
-    public VisorEscenariosRosace() throws Exception {
-
+    public VisorEscenariosRosace( NotificadorInfoUsuarioSimulador notifEvt) throws Exception {
+    	this.notifEvts=notifEvt;
         robotslabel = new HashMap<String, JLabel>();
         victimaslabel = new HashMap<String, JLabel>();
 
@@ -174,28 +176,41 @@ public class VisorEscenariosRosace extends JFrame {
         //---------------------------------------------------------------------------------------------
         //JTextArea textAreaMensaje = new JTextArea();
         //textAreaMensaje lo he declarado como variable global para que sea muy sencillo ofrecer un metodo que nos permita escribir texto en el JTextArea
-        textAreaMensaje = new JTextArea();
+        /*textAreaMensaje = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textAreaMensaje,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setSize(dimensionHorizontalJFrame, dimensionVerticalTextArea);
         scrollPane.setAutoscrolls(true);
-        splitPane.setRightComponent(scrollPane);
-
-
+        splitPane.setRightComponent(scrollPane);*/
+        JPanel panelAccionesRobots=new JPanel();
+        JButton botonRobot1 = new JButton("Romper Robot1");
+        botonRobot1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				notifEvts.enviarInfoAotroAgente("rompete cabron", VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + 1);
+			}
+		});
+        panelAccionesRobots.add(botonRobot1);
+        JButton botonRobot2 = new JButton("Romper Robot2");
+        botonRobot2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				notifEvts.enviarInfoAotroAgente("rompete cabron", VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + 2);
+			}
+		});
+        panelAccionesRobots.add(botonRobot2);
+        splitPane.setRightComponent(panelAccionesRobots);
+        
+        
+        
+        
+        
         //Colocar la posicion del divisor
         splitPane.setDividerLocation(dimensionVerticalJFrame - dimensionVerticalTextArea - 3 * excesoY);
 
         splitPane.setOneTouchExpandable(false);
-        splitPane.setEnabled(false);              //No permitir al usuario cambiar de tamanio el JSplitPane
-
-        //System.out.println("Tamanio del splitPane ->" + splitPane.getSize().width + " , " +  
-        //        splitPane.getSize().height);
-
-        //System.out.println("Tamanio del scrollPane (incluye TextArea)->" + scrollPane.getSize().width + " , " +  
-        //		                                         scrollPane.getSize().height);
-
-
+        splitPane.setEnabled(false);             
         //Leo la ruta de los ficheros
         directorioTrabajo = System.getProperty("user.dir");  //Obtener directorio de trabajo
 
