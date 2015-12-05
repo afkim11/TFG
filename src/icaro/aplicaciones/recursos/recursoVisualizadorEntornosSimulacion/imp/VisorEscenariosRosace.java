@@ -1,6 +1,7 @@
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
+import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.ItfUsoRepositorioInterfaces;
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.ClaseGeneradoraRepositorioInterfaces;
@@ -68,54 +69,7 @@ public class VisorEscenariosRosace extends JFrame {
     
     private NotificadorInfoUsuarioSimulador notifEvts;
 
-    //Variables para hacer pruebas en local sin lanzar un descripcion de la organizacion
-    //String rutaFicheroRobotsTest = "src/utils/Esc_Igualitario_8Robots_001.xml";
-    //String rutaFicheroVictimasTest = "src/utils/Esc_16Victimas_0IP_001.xml";
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-        String rutaFichero;
-            public void run() {
-                try {
-                   VisorEscenariosRosace visor = new VisorEscenariosRosace(rutaFichero);
-                    visor.setVisible(true);
-
-                    //Ejemplos para cambiar de posicion, en el visor del escenario, un robot cuando se mueve
-                    //******************************************************************************************
-                    visor.cambiarPosicionRobot("robotIgualitario2", 800, 600);
-
-                    visor.cambiarPosicionRobot("robotIgualitario3", 1070, 650);
-                    //visor.cambiarPosicionRobot("robotIgualitario3", 500, 700);  //en este caso pinta fuera del panel y no se ve el robot
-
-                    for (int i = 0; i <= 8; i++) {
-                        if (i % 2 == 0) {
-                            visor.cambiarPosicionRobot("robotIgualitario7", 484, 401);  //484,401   //Se coloca sobre la victima 10
-                        } else {
-                            visor.cambiarPosicionRobot("robotIgualitario7", 640, 600);
-                        }
-                    }
-
-                    //Ejemplos para cambiar el icono de una victima cuando la victima es rescatada
-                    //******************************************************************************************
-                    visor.cambiarIconoVictimaARescatada("Victim.3");
-                    visor.cambiarIconoVictimaARescatada("Victim.6");
-                    visor.cambiarIconoVictimaARescatada("Victim.12");
-                    visor.cambiarIconoVictimaARescatada("Victim.15");
-                    visor.cambiarIconoVictimaARescatada("Victim.16");
-
-
-                   
-                    visor.escribirEnAreaTexto("La Victim.1 ha sido rescatada\n");
-                    visor.escribirEnAreaTexto("La Victim.7 ha sido rescatada\n");
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+  
 
     /**
      * Create the frame.
@@ -184,22 +138,45 @@ public class VisorEscenariosRosace extends JFrame {
         scrollPane.setAutoscrolls(true);
         splitPane.setRightComponent(scrollPane);*/
         JPanel panelAccionesRobots=new JPanel();
-        JButton botonRobot1 = new JButton("Romper Robot1");
+        JButton botonRobot1 = new JButton("Romper Robot 1");
         botonRobot1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				notifEvts.enviarInfoAotroAgente("rompete cabron", VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + 1);
+				notifEvts.enviarInfoAotroAgente(new Informacion(VocabularioRosace.MsgRomperRobot), VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + "1");
 			}
 		});
         panelAccionesRobots.add(botonRobot1);
-        JButton botonRobot2 = new JButton("Romper Robot2");
+        
+        JButton botonRobot2 = new JButton("Romper Robot 2");
         botonRobot2.addActionListener(new ActionListener() {
 			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
-				notifEvts.enviarInfoAotroAgente("rompete cabron", VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + 2);
+				notifEvts.enviarInfoAotroAgente(new Informacion(VocabularioRosace.MsgRomperRobot), VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados+"2");
 			}
 		});
         panelAccionesRobots.add(botonRobot2);
+        
+        JButton botonRobot3 = new JButton("Romper Robot 3");
+        botonRobot3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				notifEvts.enviarInfoAotroAgente(new Informacion(VocabularioRosace.MsgRomperRobot), VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + "3");
+			}
+		});
+        panelAccionesRobots.add(botonRobot3);
+        
+        JButton botonRobot4 = new JButton("Romper Robot 4");
+        botonRobot4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				notifEvts.enviarInfoAotroAgente(new Informacion(VocabularioRosace.MsgRomperRobot), VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + "4");
+			}
+		});
+        panelAccionesRobots.add(botonRobot4);
+        
+        
+        
         splitPane.setRightComponent(panelAccionesRobots);
         
         

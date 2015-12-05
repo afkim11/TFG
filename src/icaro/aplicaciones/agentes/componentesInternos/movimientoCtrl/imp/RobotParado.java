@@ -78,7 +78,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
         }
     @Override
         public void parar(){
-        if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.finalizar();
+        if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.pararRobot();
         Informe informeParada = new Informe (identComponente,this.identDestino, VocabularioRosace.MsgeRobotParado);
         this.itfProcObjetivos.insertarHecho(informeParada);
         trazas.trazar(identAgente, "Se informa de una orden de parada: " +informeParada + " El robot esta en el estado :"+ identEstadoActual, InfoTraza.NivelTraza.debug);

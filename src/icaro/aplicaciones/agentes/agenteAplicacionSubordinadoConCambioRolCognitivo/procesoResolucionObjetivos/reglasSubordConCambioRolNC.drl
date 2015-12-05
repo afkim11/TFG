@@ -314,3 +314,16 @@ then
 	tarea.ejecutar(v2r, robotS, misObjs);
 	retract(informe);
 end
+
+rule "Regla para tratar que el robot se va a romper"
+when
+	inf : Informacion( contenido == VocabularioRosace.MsgRomperRobot)
+	misObjs : MisObjetivos()
+	v2r : VictimsToRescue(victims2Rescue !=null)
+	 infoComMov :InfoCompMovimiento()
+then
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaRomperRobot.class);
+	tarea.ejecutar(misObjs,v2r,infoComMov);
+	retract(inf);
+end

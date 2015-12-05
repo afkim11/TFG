@@ -91,6 +91,9 @@ public class MisObjetivos {
 		return this.victimasAsignadas.get(emisor);
 		
 	}
+	public void eliminarObjetivoDeMisObjetivosPriorizados(Objetivo obj) {
+		this.misObjetivosPriorizados.remove(obj);		
+	}
     
 }
      

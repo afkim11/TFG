@@ -127,7 +127,10 @@ public class HebraMonitorizacionLlegada extends Thread {
 		distanciaRecorridaEnIntervaloInformes = 1;
 	}
 
-
+	public void pararRobot(){
+		this.finalizar=true;
+	}
+	
 	/**
 	 * Termina la monitorizacin
 	 */
@@ -186,7 +189,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 					if(ruta!=null){		
 						//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
 						while(!enDestino){
-							for(int i=0;i<ruta.size();i++){
+							for(int i=0;i<ruta.size() && !this.finalizar ;i++){
 								Thread.sleep(intervaloEnvioInformesMs);
 								Coordinate punto=ruta.get(i);
 								this.coordActuales.setY(punto.getY());

@@ -127,5 +127,6 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String NombreFicheroSerieAsignacion = "serieAsignacionVictimas";
 	public static  final String MsgRobotBloqueadoObstaculo = "robotBloqueadoPorObstaculo";
 	static public final String MsgEsquivaObstaculo = "He esquivado el obstaculo";
+	public static final String MsgRomperRobot = "elRobotSeVaARomper";
 	static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo}
 }
