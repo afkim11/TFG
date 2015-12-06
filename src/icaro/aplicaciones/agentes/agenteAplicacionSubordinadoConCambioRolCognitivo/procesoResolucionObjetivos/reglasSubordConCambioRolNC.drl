@@ -306,13 +306,13 @@ when
 	robotS : RobotStatus()
 	misObjs : MisObjetivos()
 then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName() + nombreVictima);
 	modify(ayudarvictima){
 		setSolved()
 	}
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ComprobarVictimasNoAsignadas.class);
-	tarea.ejecutar(v2r, robotS, misObjs);
-	retract(informe);
+	tarea.ejecutar(v2r, robotS, misObjs,informe);
+	
 end
 
 rule "Regla para tratar que el robot se va a romper"

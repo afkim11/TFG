@@ -8,6 +8,7 @@ import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 /**
@@ -28,6 +29,8 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 		VictimsToRescue v2r = (VictimsToRescue) params[0];
 		RobotStatus robotS = (RobotStatus) params[1];
 		MisObjetivos misObjs = (MisObjetivos) params[2];
+		Informe informe =(Informe) params[3];
+		this.itfProcObjetivos.eliminarHechoWithoutFireRules(informe);
 		ArrayList<Victim> victims = v2r.getVictimNoAsignadas();
 		Coste c = new Coste();
 		boolean fin = false;
@@ -42,7 +45,7 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 					miPropuesta.setJustificacion(v);
 					this.itfProcObjetivos.insertarHecho(miPropuesta);
 					fin = true;
-					victims.remove(i);
+					v2r.getVictimNoAsignadas().remove(i);
 				}
 			}
 		}
