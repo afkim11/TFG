@@ -385,17 +385,6 @@ rule "Proceso el  timeout aceptacion propuesta doy por  asignado el objetivo"
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
-
-rule "Procesamiento del robot bloqueado por un obstaculo"
-     when
-        mensaje : MensajeBloqueoObstaculo(idRobot:emisor)
-     then
-        recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-        System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(TratamientoRobotBloqueadoPorObstaculo.class);
-		tarea.ejecutar(mensaje);
-end
-
 rule "Proceso timeout para saber si esquivo el obstaculo"
 	when
        informacion : Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)
@@ -404,38 +393,3 @@ rule "Proceso timeout para saber si esquivo el obstaculo"
         System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
         retract(informacion);
 end
-
-
-/*rule "Proceso timeout cuando el robot no me ha contestado"
-when   
-    infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
-    not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
- 	informacion : Informacion(origen : contenido)
-    objs : MisObjetivos()
-    focoActual:Focus()
-    info: InfoEquipo(identAgentePropietario == agentId)
-then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ReasignarVictima.class);
-    tarea.ejecutar(origen, info,  objs, focoActual);
-    retract (infoTarea);
-    retract (informacion);
-end*/
-/*
-rule "Proceso timeout cuando el robot no me ha contestado"
-when   
-    //infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
-    //not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
- 	informacion : Informacion(origen : contenido)
-    objs : MisObjetivos()
-    foco : Focus()
-    info: InfoEquipo(identAgentePropietario == agentId)
-then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ReasignarVictima.class);
-    tarea.ejecutar(origen, info,  objs, foco);
-    //retract (infoTarea);
-    retract (informacion);
-end*/
