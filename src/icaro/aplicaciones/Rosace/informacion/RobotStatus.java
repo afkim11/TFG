@@ -33,10 +33,13 @@ public class RobotStatus {
     private final double limiteDespalzamiento = 0.5;
     private List<Integer> robotCapabilities = new ArrayList<Integer>();
     private InfoCompMovimiento infoCompMovt;
+    private boolean bloqueado;
         
 	//Constructor sin argumentos
-	public void RobotStatus(){
+	public RobotStatus(){
 		robotCoordinateAnterior = new Coordinate(0,0,0);
+		
+		this.bloqueado = false;
 	}
 		
 	public void setIdRobot(String id){
@@ -65,10 +68,9 @@ public class RobotStatus {
     }
     
     public synchronized Coordinate getRobotCoordinate(){
-        if ( sinMovimientoSignificativo()||infoCompMovt == null )return robotCoordinateActual;
-//        if (infoCompMovt != null)
-        return this.robotCoordinateActual= infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
-//        else return robotCoordinateActual;
+        if (infoCompMovt != null && infoCompMovt.itfAccesoComponente.getHebraMonitorizacionLlegadaDestino() != null)
+        	this.robotCoordinateActual = infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
+       return robotCoordinateActual;
     }
     public void setInfoCompMovt(InfoCompMovimiento compInfo){
         this.infoCompMovt = compInfo;    	
@@ -116,6 +118,14 @@ public class RobotStatus {
     			" ; engergylevel->" + this.getAvailableEnergy() + 
     			" ; coordinate->" + this.getRobotCoordinate() + 
     			" ; healrange->" + this.getHealRange() ;    	    	    	     	
+    }
+    
+    public boolean getBloqueado(){
+    	return this.bloqueado;
+    }
+    
+    public void setBloqueado(boolean b){
+    	this.bloqueado = b;
     }
 }
 /*

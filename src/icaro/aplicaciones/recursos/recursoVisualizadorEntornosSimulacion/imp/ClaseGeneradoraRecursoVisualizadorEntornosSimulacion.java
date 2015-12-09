@@ -43,7 +43,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
             notifEvt = new NotificadorInfoUsuarioSimulador(recursoId, identAgenteaReportar);
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
 //            visorEscenarios = new VisorEscenariosRosace3();
-            visorEscenarios = new VisorEscenariosRosace();
+            visorEscenarios = new VisorEscenariosRosace(notifEvt);
             ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
         } catch (Exception e) {
             this.trazas.trazar(recursoId, " Se ha producido un error en la creación del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
@@ -188,7 +188,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     public void mostrarEscenario() throws Exception {
          if (visorEscenarios == null) {
             try {
-                visorEscenarios = new VisorEscenariosRosace ();
+                visorEscenarios = new VisorEscenariosRosace (this.notifEvt);
             } catch (Exception ex) {
                 Logger.getLogger(ClaseGeneradoraRecursoVisualizadorEntornosSimulacion.class.getName()).log(Level.SEVERE, null, ex);
             }

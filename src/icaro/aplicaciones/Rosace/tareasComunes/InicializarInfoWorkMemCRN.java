@@ -46,6 +46,7 @@ public class InicializarInfoWorkMemCRN extends Tarea{
              RobotStatus miStatus = getRobotStatusInicial ( identRolAgte);        
                 if (  miStatus != null){
                     ItfUsoMovimientoCtrl itfCompMov = (ItfUsoMovimientoCtrl) infoCompmov.getitfAccesoComponente();
+                    miStatus.setInfoCompMovt(infoCompmov);
                     itfCompMov.inicializarInfoMovimiento(miStatus.getRobotCoordinate(), velocidadCruceroPorDefecto);
                     InfoEquipo miEquipo = new InfoEquipo(miIdentAgte, identEquipo);
                     miEquipo.setTeamMemberStatus(miIdentAgte, miStatus); 

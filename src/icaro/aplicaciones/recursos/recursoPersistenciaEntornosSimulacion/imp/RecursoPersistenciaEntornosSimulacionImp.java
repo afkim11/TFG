@@ -87,7 +87,7 @@ public class RecursoPersistenciaEntornosSimulacionImp extends ImplRecursoSimple{
    
     public Document getDocumentVictimas(ReadXMLTestSequence rXMLTSeq) throws Exception{        
     	if (rXMLTSeq!=null)    	
-    	    return rXMLTSeq.getDocument(rXMLTSeq.gettestFilePaht());
+    	    return rXMLTSeq.getDocument(rXMLTSeq.gettestFilePath());
     	else    
     	    return null;
     }
@@ -106,7 +106,7 @@ public class RecursoPersistenciaEntornosSimulacionImp extends ImplRecursoSimple{
      }
     
     public void setNumeroVictimasDiferentesSimulacion() throws Exception{
-    	Document doc = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePaht());
+    	Document doc = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePath());
     	NodeList nodeLst = rXMLTSeq.getVictimsXMLStructure(doc, "victim");  		//Obtain all the victims
     	int numItemsVictim = rXMLTSeq.getNumberOfVictimsInSequence(nodeLst); //El numero de items Victim que hay en el xml
     	Victim victima;
@@ -236,7 +236,7 @@ RobotStatus getRobotStatus ( String robotId)throws Exception{
 }
 public ArrayList<RobotStatus> getTeamRobotStatus ( )throws Exception{
             ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(rutaFicheroRobotsTest);
-            Document doc = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePaht());
+            Document doc = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePath());
 		//Obtain all the robots
 		NodeList nodeLst = rXMLTRobots.getRobotsXMLStructure(doc, "robot");
 		ArrayList<RobotStatus> robotsDefinidos = new ArrayList();

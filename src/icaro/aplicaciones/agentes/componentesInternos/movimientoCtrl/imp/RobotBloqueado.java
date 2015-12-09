@@ -67,5 +67,9 @@ public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMov
     @Override
     public  Coordinate getCoordenadasActuales(){
         return this.monitorizacionLlegadaDestino.getCoordRobot();
-    } 
+    }
+	@Override
+	public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
+		return null;
+	} 
 }

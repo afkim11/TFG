@@ -78,7 +78,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
         }
     @Override
         public void parar(){
-        if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.finalizar();
+        if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.pararRobot();
         Informe informeParada = new Informe (identComponente,this.identDestino, VocabularioRosace.MsgeRobotParado);
         this.itfProcObjetivos.insertarHecho(informeParada);
         trazas.trazar(identAgente, "Se informa de una orden de parada: " +informeParada + " El robot esta en el estado :"+ identEstadoActual, InfoTraza.NivelTraza.debug);
@@ -99,7 +99,13 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
             this.trazas.trazar (this.identAgente +"."+this.getClass().getSimpleName(), " ignoro la operacion porque estoy parado ", InfoTraza.NivelTraza.debug); 
         }
         @Override
-    public  Coordinate getCoordenadasActuales(){
-        return this.monitorizacionLlegadaDestino.getCoordRobot();
-    }
+        public  Coordinate getCoordenadasActuales(){
+        	return this.monitorizacionLlegadaDestino.getCoordRobot();
+        }
+
+		@Override
+		public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
+			return this.monitorizacionLlegadaDestino;
+		}
+		
 }

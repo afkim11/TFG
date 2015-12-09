@@ -6,6 +6,7 @@ package icaro.aplicaciones.Rosace.informacion;
 
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -129,17 +130,17 @@ public class InfoEquipo {
          return teamRobotIdsWithMyRol;        
      }
      public synchronized ArrayList<String> getTeamMemberIDs (){
-         return this.teamRobotIds;
+    	 ArrayList<String> members = new ArrayList<String>();
+         for(int i = 0; i < this.numberOfTeamMembers; i++){
+        	 if(this.teamInfoAgentStatus.get(this.teamRobotIds.get(i)) == null ||
+        	 	!this.teamInfoAgentStatus.get(this.teamRobotIds.get(i)).getBloqueado()) members.add(this.teamRobotIds.get(i));
+         }
+         return members;
      }
      public synchronized RobotStatus getTeamMemberStatus(String identMember){ 
          return teamInfoAgentStatus.get(identMember);
      }
- /*    
-     public synchronized void setTeamMemberRol(String robtId, String rolId){ 
-         teamInfoAgentStatus.put(robtId,rolId);
-     }
-     * 
-     */
+
       public synchronized boolean getinicioContactoConEquipo(){ 
          return inicioContactoConEquipo;
      }
@@ -177,4 +178,9 @@ public class InfoEquipo {
      public void  setidentMiRolEnEsteEquipo(String idRolAgte){ 
          identMiRolEnEsteEquipo = idRolAgte ;
      }
+
+	public void setBloqueado(String emisor) {
+		this.teamInfoAgentStatus.get(emisor).setBloqueado(true);
+		
+	}
 }

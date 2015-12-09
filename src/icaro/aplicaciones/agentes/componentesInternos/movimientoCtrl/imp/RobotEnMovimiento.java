@@ -75,4 +75,9 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
     public  Coordinate getCoordenadasActuales(){
         return this.monitorizacionLlegadaDestino.getCoordRobot();
     }
+		@Override
+		public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

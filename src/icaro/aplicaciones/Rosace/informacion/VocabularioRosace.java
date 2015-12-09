@@ -55,6 +55,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String ResEjTaskConsensoParaIrYo = "TengoAcuerdoDeTodosParaIrYo";
     static public  final String ResEjTaskDebenLlegarMasConfirmacionesParaIrYo="DebenLlegarMasRespuestasDeAcuerdoParaIrYo";
     static public  final String MsgTimeoutRecibirPropuestaDesempate = "ExpiroElTimeoutPropuestaDesempate";
+    static public  final String MsgTimeoutEsquivarObstaculo = "EsquivarObstaculo";
     static public  final String MsgTimeoutRecibirRespPropuestasIrYo = "ExpiroElTimeoutRespuestaPropuestasParaIrYo";
     static public  final String MsgTimeoutRecibirEvaluaciones = "ExpiradoTiempoEsperaEvaluaciones";
     static public  final String MsgTimeoutComunicacionConJefe = "ExpiroTimeoutReaccionJefe";
@@ -76,6 +77,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String IdentTareaTimeOutRecibirEstatusComunicacionConJefe ="TimeOutRecibirEstatusComunicacionConJefe";
     static public  final String IdentTareaTimeOutRecibirRespuestasEquipo ="TimeOutRecibirRespuestasEquipo";
     static public  final String IdentTareaTimeOutContactarMiembrosEquipo ="TimeOutContactarMiembrosEquipo";
+    static public  final String IdentTareaTimeOutEsquivarObstaculo ="TimeOutEsquivarObstaculo";    
     static public  final String IdentTareaTimeOutReaccionJefeAmsgeCC ="TimeOutReaccionJefeAmsgeCC";
     static public  final String IdentTareaTimeOutRespuestaJefe = "TimeOutRespuestaJefe";
     static public  final String PrefijoMsgTimeout = "Expiro timeout";
@@ -89,6 +91,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     
     static public  final String rutaFicheroVictimasTest  = "rutaFicheroVictimasTest";
     static public  final String rutaFicheroRobotsTest    = "rutaFicheroRobotsTest";
+	static public  final String rutaFicheroObstaculosTest    = "rutaFicheroObstaculosTest";
     static public  final String rutaPruebaFicheroVictimasTest  = "src/utils/Escenario_0IP_V001_6Victims.xml" ;
     static public  final String rutaPruebaFicheroRobotsTest    = "src/utils/Escenario_Jerarquico_001_4Robots.xml";
     static public  final String intervaloMilisegundosEnvioCCMensajes = "intervaloMilisegundosEnvioMensajesDesdeCC"; 
@@ -122,5 +125,8 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String NombreFicheroSeriePeticionVictimas = "seriePeticionVictimas";
     static public  final String NombreFicheroSerieLlegadaYasignacion = "serieLlegadaYasignacionVictimas";
     static public  final String NombreFicheroSerieAsignacion = "serieAsignacionVictimas";
-    static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo};
+	public static  final String MsgRobotBloqueadoObstaculo = "robotBloqueadoPorObstaculo";
+	static public final String MsgEsquivaObstaculo = "He esquivado el obstaculo";
+	public static final String MsgRomperRobot = "elRobotSeVaARomper";
+	static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo}
 }

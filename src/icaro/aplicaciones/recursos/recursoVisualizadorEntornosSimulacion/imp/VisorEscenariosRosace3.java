@@ -69,10 +69,26 @@ public class VisorEscenariosRosace3 extends javax.swing.JFrame {
     private WidgetAction moveAction = ActionFactory.createMoveAction ();
     private Point punto = new Point(1,1);
     private SceneAnimator animator ;
-//    public VisorEscenariosRosace3() {
-//        initComponents();
-//    }
 
+    
+    public VisorEscenariosRosace3() throws Exception {
+//      super("visor Escenario ");
+      initComponents();
+      initEscena();
+      
+//      scene = new RobotAnimatorTest();
+//      jScrollPane1.setName("visor Escenario ");
+      jScrollPane1.setViewportView(scene.createView());
+      leerInfoEscenario();
+        
+      //*********************************************************************************************
+      //Aniadir al panel panelVisor los componentes label que representan los robots leidos del xml
+      //*********************************************************************************************
+     
+//      SceneSupport.show(scene);
+  }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,29 +161,11 @@ public class VisorEscenariosRosace3 extends javax.swing.JFrame {
                 visor.setVisible(true);
                 RobotSceneListenerTest visor2 = new RobotSceneListenerTest();
                 SceneSupport.show(visor2.getScene());
-//                    for (int i = 0; i <= 400; i++) {
-//                    visor.moverRobot("Robot3", 800+i, 600);
-//                    visor.cambiarPosicionRobot("Robot4", 300+i, 600);
-//                    visor.addNotify();
-//                    visor.moverRobot("Robot2", 900, 700+i);
-//                    visor.moverRobot("Robot1", 300+i, 700+i);
-                    
-//                    visor.cambiarPosicionRobot("robotIgualitario2", 800, 600);
-//
-//                    visor.cambiarPosicionRobot("robotIgualitario3", 1070, 650);
-                    //visor.cambiarPosicionRobot("robotIgualitario3", 500, 700);  //en este caso pinta fuera del panel y no se ve el robot
-//                    }
-//                visor.cambiarPosicionRobot("Robot4", 800, 600);
-//                visor.cambiarPosicionRobot("robot3", 1070, 650);
-//                visor.cambiarPosicionRobot("robot1", 507, 650);
-//                visor.cambiarPosicionRobot("robot2", 1080, 650);
-//                visor.cambiarPosicionRobot("robot2", 10, 65);
                 visor2.addNode ("Robot1");
                 visor2.addNode ("Robot2");
                 visor2.addNode ("Robot3");
                 visor2.addNode ("Robot4");
-                visor.moverRobot("Robot2", 900, 700);
-                
+                visor.moverRobot("Robot2", 900, 700);   
                 visor2.moveTo("Robot2", new Point( 950,700));
                 visor2.moveTo("Robot1", new Point( 250,800));
                 visor2.moveTo("Robot4", new Point( 950,500));
@@ -183,22 +181,7 @@ public class VisorEscenariosRosace3 extends javax.swing.JFrame {
     public VisorEscenariosRosace3(String rutaFicheroRobotsTest) throws Exception {
         
     }
-    public VisorEscenariosRosace3() throws Exception {
-//        super("visor Escenario ");
-        initComponents();
-        initEscena();
-        
-//        scene = new RobotAnimatorTest();
-//        jScrollPane1.setName("visor Escenario ");
-        jScrollPane1.setViewportView(scene.createView());
-        leerInfoEscenario();
-          
-        //*********************************************************************************************
-        //Aniadir al panel panelVisor los componentes label que representan los robots leidos del xml
-        //*********************************************************************************************
-       
-//        SceneSupport.show(scene);
-    }
+    
     private void initEscena(){
         String rutaIconoRobot =   rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
         IMAGErobot = Utilities.loadImage (rutaIconoRobot);
@@ -273,10 +256,10 @@ public class VisorEscenariosRosace3 extends javax.swing.JFrame {
         IMAGEmujerRes = Utilities.loadImage ( rutapaqueteConstructorEscenariosROSACE +imageniconoMujerRescatada); 
         ReadXMLTestSequence rXMLTSeq = new ReadXMLTestSequence(VocabularioRosace.rutaPruebaFicheroVictimasTest);
         ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(VocabularioRosace.rutaPruebaFicheroRobotsTest);
-        Document docRobots = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePaht());
+        Document docRobots = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePath());
         NodeList nodeLstRobots = rXMLTRobots.getRobotsXMLStructure(docRobots, "robot");   //Obtain all the robots		
         int nroRobots = rXMLTRobots.getNumberOfRobots(nodeLstRobots);
-        Document docVictimas = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePaht());
+        Document docVictimas = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePath());
         NodeList nodeLstVictimas = rXMLTSeq.getVictimsXMLStructure(docVictimas, "victim");   //Obtain all the victims
         int nroVictimas = rXMLTSeq.getNumberOfVictimsInSequence(nodeLstVictimas);
 

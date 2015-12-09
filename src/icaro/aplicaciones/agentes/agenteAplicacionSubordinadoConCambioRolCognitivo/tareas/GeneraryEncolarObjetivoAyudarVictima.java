@@ -66,6 +66,7 @@ public class GeneraryEncolarObjetivoAyudarVictima extends TareaSincrona{
             this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);  
                 AyudarVictima nuevoObj = new AyudarVictima(refVictima);
                 nuevoObj.setSolving() ;
+                this.agente.setVictima(victima);
                  
            //      newObjetivo.setvictimId(idVictim);
                  nuevoObj.setPriority(victima.getPriority());      

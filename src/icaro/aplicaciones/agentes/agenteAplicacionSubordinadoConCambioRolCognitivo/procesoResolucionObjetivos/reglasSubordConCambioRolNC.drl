@@ -14,6 +14,7 @@ import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.*;
 // se utilizan los objetivos y las tareas del Agente Subordinado y se incorporan nuevos objetivos, tareas y clases
 import java.util.ArrayList;
 import java.lang.String;
+import icaro.infraestructura.entidadesBasicas.comunicacion.*;
 
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
@@ -270,6 +271,59 @@ when
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConseguirObjetivoActualizarFocoOpcional.class);
     tarea.ejecutar(misObjs,obj1,null);
- recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
   
+end
+
+rule "Tratamiento de bloqueo por obstaculo"
+when
+	infoequipo:InfoEquipo(identAsignador:identAgenteJefeEquipo)
+    mensaje : MensajeBloqueoObstaculo(VocabularioRosace.MsgRobotBloqueadoObstaculo == contenido, destino : receptor)
+	
+then
+	TareaSincrona tarea=gestorTareas.crearTareaSincrona(EnviarMensajeAlJefePorBloqueoPorObstaculo.class);
+	tarea.ejecutar(agentId,infoequipo,mensaje);
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+
+rule "Tratamiento de envio de mensaje por esquivar obstaculo"
+when
+	mensaje:MensajeSimple(inf : contenido)
+	
+then
+	TareaSincrona tarea=gestorTareas.crearTareaSincrona(MandarEstatusEsquivarObstaculo.class);
+	tarea.ejecutar(mensaje);
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+
+rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
+when
+	informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
+	ayudarvictima : AyudarVictima(victimId == nombreVictima)
+	v2r : VictimsToRescue(victims2Rescue !=null)
+	robotS : RobotStatus()
+	misObjs : MisObjetivos()
+then
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName() + nombreVictima);
+	modify(ayudarvictima){
+		setSolved()
+	}
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ComprobarVictimasNoAsignadas.class);
+	tarea.ejecutar(v2r, robotS, misObjs,informe);
+	
+end
+
+rule "Regla para tratar que el robot se va a romper"
+when
+	inf : Informacion( contenido == VocabularioRosace.MsgRomperRobot)
+	misObjs : MisObjetivos()
+	v2r : VictimsToRescue(victims2Rescue !=null)
+	 infoComMov :InfoCompMovimiento()
+then
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaRomperRobot.class);
+	tarea.ejecutar(misObjs,v2r,infoComMov);
+	retract(inf);
 end

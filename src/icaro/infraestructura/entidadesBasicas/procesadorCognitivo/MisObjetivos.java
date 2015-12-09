@@ -3,8 +3,12 @@
  * and open the template in the editor.
  */
 package icaro.infraestructura.entidadesBasicas.procesadorCognitivo;
+import icaro.aplicaciones.Rosace.informacion.Victim;
+
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -20,9 +24,11 @@ public class MisObjetivos {
     protected PriorityBlockingQueue <Objetivo> misObjetivosPriorizados;
     protected SortedSet<String> setOfIGoalRefIds ; // idetificadores de los objetos a los que se refieren los objetivos ej Identif de vicitmas
     public Objetivo objetivoMasPrioritario;
+    protected Map<String,Victim> victimasAsignadas;
     protected  Comparator c ;
   
     public MisObjetivos (){ 
+    	
             c = new Comparator<Objetivo>() {
            @Override
             public int compare(Objetivo o1, Objetivo o2) {
@@ -34,6 +40,7 @@ public class MisObjetivos {
         misObjetivosPriorizados = new PriorityBlockingQueue <Objetivo> (11,c);
         setOfIGoalRefIds = new TreeSet<String>();
         objetivoMasPrioritario=null;
+        victimasAsignadas = new HashMap<String, Victim>();
     }
     public void addObjetivo ( Objetivo obj){
         //if (misObjetivosPriorizados == null) misObjetivosPriorizados = new PriorityBlockingQueue <Objetivo> (11,c);
@@ -42,8 +49,8 @@ public class MisObjetivos {
         String goalRefId = obj.getobjectReferenceId();
         if(goalRefId==null)goalRefId= obj.getgoalId();
         if (! existeObjetivoConEsteIdentRef(goalRefId)){    
-                    misObjetivosPriorizados.add((Objetivo)obj);
-                    setOfIGoalRefIds.add(goalRefId);
+                    this.misObjetivosPriorizados.add((Objetivo)obj);
+                    this.setOfIGoalRefIds.add(goalRefId);
         }
     }
     public Objetivo getobjetivoMasPrioritario ( ){
@@ -61,8 +68,8 @@ public class MisObjetivos {
         
     }
     public PriorityBlockingQueue <Objetivo> getMisObjetivosPriorizados ( ){
-
-        return misObjetivosPriorizados;      
+    	
+        return this.misObjetivosPriorizados;      
     }
     public void deleteObjetivosSolved(){
     	Iterator<Objetivo> it = misObjetivosPriorizados.iterator();    	    	
@@ -76,6 +83,17 @@ public class MisObjetivos {
               }
         }
     }
+    
+    public void setVictimaAsignada(String agente, Victim v){
+    	this.victimasAsignadas.put(agente, v);
+    }
+	public Victim getVictimaAsignada(String emisor) {
+		return this.victimasAsignadas.get(emisor);
+		
+	}
+	public void eliminarObjetivoDeMisObjetivosPriorizados(Objetivo obj) {
+		this.misObjetivosPriorizados.remove(obj);		
+	}
     
 }
      

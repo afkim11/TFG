@@ -17,11 +17,11 @@ public class MensajeSimple implements Serializable {
 
 	private static final long serialVersionUID = 1624889937599726865L;
 
-	private Object contenido;
-	private Object emisor;
-	private Object receptor;
+	protected Object contenido;
+	protected Object emisor;
+	protected Object receptor;
         private boolean iscontentColection= false;
-        private ArrayList contenidoColeccion= null;
+        private ArrayList<Object> contenidoColeccion= null;
 
     public MensajeSimple() {
 
@@ -32,7 +32,7 @@ public class MensajeSimple implements Serializable {
 		this.emisor=emisor;
 		this.receptor = receptor;
 	}
-        public MensajeSimple(ArrayList contenido, Object emisor, Object receptor) {
+        public MensajeSimple(ArrayList<Object> contenido, Object emisor, Object receptor) {
             this.contenidoColeccion = contenido;
 		this.emisor=emisor;
 		this.receptor = receptor;
