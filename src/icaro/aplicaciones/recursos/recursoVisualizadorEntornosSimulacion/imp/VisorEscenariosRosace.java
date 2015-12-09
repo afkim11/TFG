@@ -150,8 +150,9 @@ public class VisorEscenariosRosace extends JFrame {
 		ArrayList<JButton> listaDeBotones=new ArrayList<JButton>();
 		for(int i=1;i<nroRobots;i++){
 			
-
-			panelAccionesRobots.add(new Boton("Romper robot " + i,VocabularioRosace.IdentEquipoJerarquico + VocabularioRosace.IdentRolAgtesSubordinados + i
+			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, i);
+			String nombreRobot = rXMLTRobots.getRobotIDValue(info, "id");
+			panelAccionesRobots.add(new Boton("Romper robot " + nombreRobot.charAt(nombreRobot.length()-1),nombreRobot
 					,VocabularioRosace.MsgRomperRobot,notifEvts));
 		}
 
