@@ -1,6 +1,6 @@
 package icaro.infraestructura.entidadesBasicas.comunicacion;
 
-public class Informacion {
+public class Informacion implements Cloneable{
 	protected Object contenido;
 	
 	public Informacion(Object cont){
@@ -15,4 +15,13 @@ public class Informacion {
 	public void setContenido(Object cont){
 		this.contenido=cont;
 	}
+	public Informacion clone(){
+		try { 
+			return (Informacion) super.clone(); 
+		} catch(CloneNotSupportedException e) { 
+			System.out.println("Cloning not allowed."); 
+			return this; 
+		} 
+	}
+		
 }

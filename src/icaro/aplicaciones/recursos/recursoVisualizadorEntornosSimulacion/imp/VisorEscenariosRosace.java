@@ -145,9 +145,9 @@ public class VisorEscenariosRosace extends JFrame {
 		int nroRobots = rXMLTRobots.getNumberOfRobots(nodeLstRobots);
 
 		JPanel panelAccionesRobots=new JPanel();
-		final String[] nombres= new String [nroRobots];
 		
-		ArrayList<JButton> listaDeBotones=new ArrayList<JButton>();
+		
+		
 		for(int i=1;i<nroRobots;i++){
 			
 			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, i);

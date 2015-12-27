@@ -19,13 +19,11 @@ public class Boton extends JButton{
 	public Boton(String nombreBoton,final String robot,final String mensageAEnviar,NotificadorInfoUsuarioSimulador notifEvts2){
 		super(nombreBoton);
 		this.notifEvts=notifEvts2;
-		
 		this.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				notifEvts.enviarInfoAotroAgente(new Informacion(mensageAEnviar), robot);
-				
+				Informacion x=new Informacion(mensageAEnviar);
+				notifEvts.enviarInfoAotroAgente(x.clone(), robot);
 			}
 			
 		});

@@ -176,7 +176,7 @@ when
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 end
-
+/*
 rule "Movimiento hacia una nueva victima tras conseguir salvar a la victima mas prioritaria"
 salience 20
 when
@@ -193,7 +193,7 @@ when
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-end
+end*/
 //==========================================================================
 //   Reglas de  consecucion  del objetivo AyudarVictima  : Condiciones para que se consiga
 //           
