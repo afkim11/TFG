@@ -249,13 +249,11 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
          /*
           * Mostramos un mensaje emergente avisando de que se ha asignado una victima sin tener evaluaciones
           */
-         if(mejor_eval == Integer.MAX_VALUE || mejor_eval==-5){
+         /*if(mejor_eval == Integer.MAX_VALUE || mejor_eval==-5){
         	 JFrame frame = new JFrame();
         	 JOptionPane.showMessageDialog(frame,"Se han asignado una victima" + this.idElementoDecision + " sin evaluaciones: " +mejor_eval + " al agente " + mejorAgente,"Aviso",JOptionPane.WARNING_MESSAGE);
-         }
-         if(mejorAgente==null){
-        	 
-         }
+         }*/
+         
          return mejorAgente;
      }
      
