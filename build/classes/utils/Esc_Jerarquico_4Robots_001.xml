@@ -26,8 +26,8 @@
 		<id>JerarquicorobotSubordinado2</id>
 		<initialenergy>2500</initialenergy>		
 		<initialcoordinate>
-			<x>300.5</x>
-			<y>300.4</y>
+			<x>67.5</x>
+			<y>80.4</y>
 			<z>0.5</z>
 		</initialcoordinate>		
 		<healrange>4.2</healrange>
@@ -37,8 +37,8 @@
 		<id>JerarquicorobotSubordinado3</id>
 		<initialenergy>2500</initialenergy>		
 		<initialcoordinate>
-			<x>70.5</x>
-			<y>120.5</y>
+			<x>40.5</x>
+			<y>100.5</y>
 			<z>0.5</z>
 		</initialcoordinate>		
 		<healrange>4.2</healrange>
@@ -48,8 +48,8 @@
 		<id>JerarquicorobotSubordinado4</id>
 		<initialenergy>2500</initialenergy>		
 		<initialcoordinate>
-			<x>125.5</x>
-			<y>200.5</y>
+			<x>67.5</x>
+			<y>100.5</y>
 			<z>0.5</z>
 		</initialcoordinate>		
 		<healrange>4.2</healrange>

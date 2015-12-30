@@ -114,9 +114,10 @@ salience 10
                                  identAgente == VocabularioRosace.IdentAgteDistribuidorTareas,victimaCC:justificacion)
   then
      TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarEvaluacionAlAgteAsignador.class);
-     tarea.ejecutar(null,peticionAgte,misObjs,robot,victims2R); 
+     tarea.ejecutar(null,peticionAgte,misObjs,robot,victims2R);
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
      System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+     
 end
 
 rule "Procesar propuesta para que asuma el objetivo cuando no tengo objetivo focalizado "
@@ -130,9 +131,10 @@ rule "Procesar propuesta para que asuma el objetivo cuando no tengo objetivo foc
       not( exists ( AceptacionPropuesta(propuestaAceptada == propuesta  )))
    then
       TareaSincrona tarea = gestorTareas.crearTareaSincrona(ProcesarPropuestaParaAsumirObjetivo.class);
-      tarea.ejecutar(null,miStatus,misObjs,victims2R,propuesta );
+     
       recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-      System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );                     
+      System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );    
+      tarea.ejecutar(null,miStatus,misObjs,victims2R,propuesta );                 
 end
 
 rule "Si he aceptado la propuesta para asumir el objetivo lo genero y encolo"
@@ -148,12 +150,13 @@ no-loop true
      victims2R:VictimsToRescue()
       acPropuesta:AceptacionPropuesta (identAgente == agentId,identObjectRefAcetPropuesta == idVict)
    then
- //     TareaSincrona tarea = gestorTareas.crearTareaSincrona(GeneraryEncolarObjetivoAyudarVictima.class);
-      gestorTareas.ejecutar(GeneraryEncolarObjetivoActualizarFocoNC.class,misObjs,focoActual,victimaCC,acPropuesta,infoComMov,victims2R );
+      TareaSincrona tarea = gestorTareas.crearTareaSincrona(GeneraryEncolarObjetivoActualizarFocoNC.class);
+     
       recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-      System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );                     
+      System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" ); 
+      tarea.ejecutar(misObjs,focoActual,victimaCC,acPropuesta,infoComMov,victims2R );                    
 end
-
+/*
 rule "Focalizacion en el objetivo ayudar a la victima mas prioritaria"
 salience 10
 no-loop true
@@ -175,7 +178,7 @@ when
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-end
+end*/
 /*
 rule "Movimiento hacia una nueva victima tras conseguir salvar a la victima mas prioritaria"
 salience 20
@@ -224,7 +227,7 @@ when
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
   
 end
-
+/*
 rule "Fin de la simulacion"
   when    
     robot:RobotStatus()
@@ -237,7 +240,7 @@ rule "Fin de la simulacion"
      tarea.ejecutar(robot,victims2R,misObjs,finSimu);
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 
-end
+end*/
 //==========================================================================
 //   Reglas   del objetivo Parar Robot  : Ciclo de vida
 //           
