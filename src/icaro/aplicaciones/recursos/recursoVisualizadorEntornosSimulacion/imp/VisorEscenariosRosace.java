@@ -441,4 +441,32 @@ public class VisorEscenariosRosace extends JFrame {
 	public static  ArrayList<LineaObstaculo> getObstaculos(){
 		return obstaculos;
 	}
+	public void cambiarIconoVictimaADesasignada(String refVictima) {
+
+		String numeroVictima = getNumeroVictima(refVictima);
+
+		int numeroIdVictima = Integer.parseInt(numeroVictima);
+
+		JLabel jlabelVictima = new JLabel();
+
+		jlabelVictima = victimaslabel.get(numeroVictima);
+
+		if (jlabelVictima != null) {
+
+			//String rutaAbsolutaIconoVictima = jlabelVictima.getIcon().toString();			
+			//System.out.println("victima " + numeroVictima + "  , " + jlabelVictima.getIcon().toString());
+
+			if (numeroIdVictima % 2 == 0) {
+				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "HombreReasignado.png"));
+				//System.out.println("Es un hombre");
+			} else {
+				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "MujerReasignada.png"));
+				//System.out.println("Es una mujer");
+			}
+
+		} else {
+			System.out.println("jlabelVictima nulo");
+		}
+		
+	}
 }

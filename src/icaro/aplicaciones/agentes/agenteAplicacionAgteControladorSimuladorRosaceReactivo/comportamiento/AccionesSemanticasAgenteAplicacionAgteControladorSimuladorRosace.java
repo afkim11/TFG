@@ -265,13 +265,21 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
             infoCasoSimul.addAsignacionVictima(infoAsigVictima);
             if (infoCasoSimul.todasLasVictimasAsgnadas()) {
                 notificarFinSimulacion();
-                visualizarYguardarResultadosCaso();
+                //visualizarYguardarResultadosCaso();
             }
         } catch (Exception ex) {
             Logger.getLogger(AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+	public void desasignarVictima(String refVictima){
+    	try {
+			itfUsoRecursoVisualizadorEntornosSimulacion.quitarVictimaRescatada(refVictima);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     private void notificarFinSimulacion() {
 
         try {

@@ -51,7 +51,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 				this.robotposicionActual = this.maquinaEstados.getCoordenadasActuales();
 				//           this.robotposicionActual = this.getCoordenadasActuales();  
 				if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.finalizar();
-				trazas.trazar(identComponente, "Estoy parado en la posicion : "+robotposicionActual + "  Me muevo al destino  : " + identDestino +" Coordenadas:  " + destinoCoord, InfoTraza.NivelTraza.error);
+				//trazas.trazar(identComponente, "Estoy parado en la posicion : "+robotposicionActual + "  Me muevo al destino  : " + identDestino +" Coordenadas:  " + destinoCoord, InfoTraza.NivelTraza.error);
 				this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,maquinaEstados,this.itfusoRecVisSimulador);       
 				monitorizacionLlegadaDestino.inicializarDestino(this.identDestino,robotposicionActual,this.destinoCoord,this.velocidadCrucero); 
 				monitorizacionLlegadaDestino.run();

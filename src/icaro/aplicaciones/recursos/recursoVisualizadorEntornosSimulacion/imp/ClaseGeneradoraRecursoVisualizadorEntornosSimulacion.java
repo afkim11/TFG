@@ -287,4 +287,10 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     public void mostrarIdentsEquipoRobots(ArrayList identList){
         this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
     }
+
+	public void quitarVictimaRescatada(String refVictima) {
+		 visorEscenarios.setVisible(true);
+	        visorEscenarios.cambiarIconoVictimaADesasignada(refVictima);
+		
+	}
 }
