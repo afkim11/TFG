@@ -234,6 +234,10 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
                         ex.printStackTrace();
                     }
                 }// fin del while
+                while(!infoCasoSimul.todasRescatadas()){
+                	
+                };
+                visualizarYguardarResultadosCaso();
 
                 // Se han enviado todas las victimas
                 // Cerrar el fichero de estadistica en el fichero de llegada de victimas
@@ -265,7 +269,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
             infoCasoSimul.addAsignacionVictima(infoAsigVictima);
             if (infoCasoSimul.todasLasVictimasAsgnadas()) {
                 notificarFinSimulacion();
-                //visualizarYguardarResultadosCaso();
+               // visualizarYguardarResultadosCaso();
             }
         } catch (Exception ex) {
             Logger.getLogger(AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace.class.getName()).log(Level.SEVERE, null, ex);

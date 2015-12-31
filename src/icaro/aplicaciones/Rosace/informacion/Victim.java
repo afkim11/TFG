@@ -12,6 +12,7 @@ public class Victim implements Serializable{
        public List<Integer> RequiredCompetencies = new ArrayList<Integer>();  
        private int priority; //victim severity
        private int estimatedCost;
+       private boolean isRescued = false;
        private boolean isCostEstimated = false;
 
        public Victim(){
@@ -54,6 +55,14 @@ public class Victim implements Serializable{
    	   public synchronized void setPriority(int priority){
 		   this.priority = priority;
 	   }
+   	   
+   	   public synchronized boolean getRescued(){
+   		   return this.isRescued;
+   	   }
+   	   
+   	   public synchronized void setRescued(){
+   		   this.isRescued = true;
+   	   }
 
    	   public List<Integer> getRequirements(){
 		   return this.RequiredCompetencies ;

@@ -78,12 +78,28 @@ public class InfoCasoSimulacion {
        tiempoInicialDeLaSimulacion=tiempoInicio;
    }
    public void addEnvioVictima(InfoAsignacionVictima infoAsign){
-      if( infoVictims2Rescue.put(infoAsign.getVictima().getName(), infoAsign)!= null) numeroVictimasEntorno ++ ;
+ 	  victims2Rescue.put(infoAsign.getVictima().getName(), infoAsign.getVictima());
+      if( infoVictims2Rescue.put(infoAsign.getVictima().getName(), infoAsign)!= null){
+    	  numeroVictimasEntorno ++ ;
+      }
    
    }
     public InfoAsignacionVictima getInfoAsignacionVictima(String idVictim){
       return  infoVictims2Rescue.get(idVictim);
    }
+   
+   private int getRescatadas(){
+	   int rescatadas = 0;
+	   Collection<Victim> victimas = this.victims2Rescue.values();
+	   Iterator<Victim> i = victimas.iterator();
+	   while(i.hasNext()){
+		   if(i.next().getRescued()){
+			   rescatadas++;
+		   }
+	   }
+	   return rescatadas;
+   }
+    
    public void addAsignacionVictima(InfoAsignacionVictima infoAsign){
        valoresSerieInfoAsignacionVictimas.add(infoAsign);
        infoAsignacionVictima = infoAsign;
@@ -143,6 +159,10 @@ public class InfoCasoSimulacion {
         seriePuntosElapsed.setserieResultadosSimulacion(valoresSeriePuntosElapsed);
         seriePuntosElapsed.setnrovictimastotalasignadas(numeroVictimasAsignadas);
        return seriePuntosElapsed;
+   }
+   
+   public synchronized boolean todasRescatadas(){
+	   return getRescatadas() == numeroVictimasDiferentesSimulacion;
    }
    
    public boolean todasLasVictimasAsgnadas(){ 

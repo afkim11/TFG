@@ -313,6 +313,9 @@ then
 	modify(ayudarvictima){
 		setSolved()
 	}
+	modify(v2r){
+		setRescued(nombreVictima)
+	}
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ComprobarVictimasNoAsignadas.class);
 	tarea.ejecutar(v2r, robotS, misObjs,informe);
 	
