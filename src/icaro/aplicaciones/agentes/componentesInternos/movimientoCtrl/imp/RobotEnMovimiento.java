@@ -5,6 +5,7 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 
@@ -14,7 +15,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  */
 // public class RobotEnMovimiento extends MovimientoCtrlImp implements ItfUsoMovimientoCtrl{
   public class RobotEnMovimiento extends EstadoAbstractoMovRobot implements ItfUsoMovimientoCtrl{
-    
+	private RobotStatus robotStatus;
     public  RobotEnMovimiento (MaquinaEstadoMovimientoCtrl maquinaEstados){
  //       this.inicializarMovimientoCtrl(robotId);
      super (maquinaEstados,MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotEnMovimiento);
@@ -36,7 +37,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
                this.destinoCoord = coordDestino;
                this.identDestino = identdest;
                this.robotposicionActual = this.monitorizacionLlegadaDestino.getCoordRobot();
-               this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,maquinaEstados,this.itfusoRecVisSimulador);       
+				this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,maquinaEstados,this.itfusoRecVisSimulador, this.robotStatus);        
                monitorizacionLlegadaDestino.inicializarDestino(identdest,this.robotposicionActual,coordDestino,velocidadCrucero);
                monitorizacionLlegadaDestino.start();
                   }
@@ -79,5 +80,9 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
 		public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+		@Override
+		public void setRobotStatus(RobotStatus robotStatus) {
+			this.robotStatus = robotStatus;
 		}
 }

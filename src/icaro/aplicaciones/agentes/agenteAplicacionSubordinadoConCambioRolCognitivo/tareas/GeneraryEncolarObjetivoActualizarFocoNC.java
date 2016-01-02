@@ -5,6 +5,7 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas;
 
 import icaro.aplicaciones.Rosace.informacion.AceptacionPropuesta;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
@@ -12,6 +13,7 @@ import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoEstadistica.ItfUsoRecursoEstadistica;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Focus;
@@ -43,6 +45,7 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			//           InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
 			Focus focoActual = (Focus)params[1];
 			victima = (Victim) params[2];
+			RobotStatus robotStatus = (RobotStatus) params[6];
 			AceptacionPropuesta propuestaAceptada = (AceptacionPropuesta) params[3];
 			InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[4];
 			VictimsToRescue victimas = (VictimsToRescue)params[5];
@@ -75,7 +78,7 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			valoresParametrosAccion[2] = nombreAgenteEmisor;
 			valoresParametrosAccion[3] = miEvaluacion;
 			InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("victimaAsignadaARobot", valoresParametrosAccion);
-			this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);  
+			this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
 			AyudarVictima nuevoObj = new AyudarVictima(refVictima);
 			nuevoObj.setSolving() ;
 			this.agente.setVictima(victima);
@@ -84,7 +87,8 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			focoActual.setFocusToObjetivoMasPrioritario(misObjs);
 			Objetivo objActual = focoActual.getFoco();
 			// victima = victimas.getVictimToRescue(objActual.getobjectReferenceId());
-			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();			
+			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();	
+			itfcompMov.setRobotStatus(robotStatus);
 			Thread t = new Thread(){
 				
 				public void run(){

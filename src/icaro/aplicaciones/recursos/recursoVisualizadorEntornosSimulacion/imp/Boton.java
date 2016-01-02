@@ -23,7 +23,7 @@ public class Boton extends JButton{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Informacion x=new Informacion(mensageAEnviar);
-				notifEvts.enviarInfoAotroAgente(x.clone(), robot);
+				notifEvts.enviarInfoAotroAgente(x, robot);
 			}
 			
 		});

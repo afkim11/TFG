@@ -56,7 +56,7 @@ public class MaquinaEstadoMovimientoCtrl {
 	protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
 	ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
 	private static ArrayList<LineaObstaculo> obstaculos;
-	private ArrayList<LineaObstaculo> obstaculosDescubiertos; //Necesita volatile?
+	private ArrayList<LineaObstaculo> obstaculosDescubiertos;
 
 	public  MaquinaEstadoMovimientoCtrl (){
 		this.obstaculos=VisorEscenariosRosace.getObstaculos();

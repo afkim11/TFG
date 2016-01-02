@@ -1,10 +1,11 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 
 public class RobotBloqueadoPorObstaculo extends EstadoAbstractoMovRobot implements ItfUsoMovimientoCtrl{
-
+	 private RobotStatus robotStatus;
     protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
 
 	public RobotBloqueadoPorObstaculo(MaquinaEstadoMovimientoCtrl maquinaEstds,
@@ -45,6 +46,12 @@ public class RobotBloqueadoPorObstaculo extends EstadoAbstractoMovRobot implemen
 	public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setRobotStatus(RobotStatus robotStatus) {
+		this.robotStatus = robotStatus;
+		
 	}
 
 }

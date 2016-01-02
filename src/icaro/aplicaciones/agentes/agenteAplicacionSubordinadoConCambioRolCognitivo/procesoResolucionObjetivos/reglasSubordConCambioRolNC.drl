@@ -148,13 +148,14 @@ no-loop true
       misObjs: MisObjetivos()
   //    RobotStatus()
      victims2R:VictimsToRescue()
+         robot:RobotStatus()
       acPropuesta:AceptacionPropuesta (identAgente == agentId,identObjectRefAcetPropuesta == idVict)
    then
       TareaSincrona tarea = gestorTareas.crearTareaSincrona(GeneraryEncolarObjetivoActualizarFocoNC.class);
      
       recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
       System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" ); 
-      tarea.ejecutar(misObjs,focoActual,victimaCC,acPropuesta,infoComMov,victims2R );                    
+      tarea.ejecutar(misObjs,focoActual,victimaCC,acPropuesta,infoComMov,victims2R,robot);                    
 end
 /*
 rule "Focalizacion en el objetivo ayudar a la victima mas prioritaria"

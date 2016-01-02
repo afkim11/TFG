@@ -4,6 +4,7 @@ package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.Coste;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
@@ -39,7 +40,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 	 * @uml.property  name="finalizar"
 	 */
 	protected volatile boolean finalizar = false;
-	protected boolean bloqueado = false;
 
 	/**
 	 * Agente reactivo al que se pasan los eventos de monitorizacin
@@ -65,12 +65,14 @@ public class HebraMonitorizacionLlegada extends Thread {
 	private boolean pendienteInfinita = false ;
 	private volatile boolean parar = false ;
 	private volatile boolean enDestino = false ;
+	private boolean energia = true;
 	private float distanciaArecorrer ;
 	private float b ; // punto corte recta con eje Y
 	private int dirX =0, dirY=0,incrementoDistancia=0;
 	private int intervaloEnvioInformesMs ;
 	private int distanciaRecorridaEnIntervaloInformes ;
 	private long tiempoParaAlcanzarDestino = 2000;
+	private RobotStatus robotStatus;
 	public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
 
 	private int contadorAuxiliar=0;
@@ -86,6 +88,13 @@ public class HebraMonitorizacionLlegada extends Thread {
 		controladorMovimiento =contrMovimiento;
 		this.itfusoRecVisSimulador = itfRecVisSimulador;
 		identRobot = idRobot;
+	}
+	public HebraMonitorizacionLlegada(String idRobot,MaquinaEstadoMovimientoCtrl contrMovimiento,  ItfUsoRecursoVisualizadorEntornosSimulacion itfRecVisSimulador, RobotStatus robotStatus) {
+		super("HebraMonitorizacion "+idRobot);  
+		controladorMovimiento =contrMovimiento;
+		this.itfusoRecVisSimulador = itfRecVisSimulador;
+		identRobot = idRobot;
+		this.robotStatus = robotStatus;
 	}
 	public synchronized void inicializarDestino (String idDestino,Coordinate coordRobot,Coordinate coordDest, double velocidad ){    
 		//      this.finalizar= false;
@@ -117,12 +126,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 		this.b = (float) (coordActuales.y -pendienteRecta * coordActuales.x ) ;
 
 		}
-		//        this.incrementoDistancia= (int)distanciaArecorrer/numeroPuntos;
-		//        tiempoParaAlcanzarDestino = (long)(distanciaArecorrer/velocidadRobot); // en milisegundos
-		//       int intervaloEnvioInformesMs = (int)tiempoParaAlcanzarDestino/numeroPuntos;
-		//       intervaloEnvioInformesMs = 40;
-		//        distanciaRecorridaEnIntervaloInformes = (long)(1+velocidadRobot*intervaloEnvioInformesMs/50);
-		//       coordIncremento = this.calcularIncrementosCoordenadasAvelocidadConstante(intervaloEnvioInformacion);
 		intervaloEnvioInformesMs = (int)velocidadRobot* 12;
 		distanciaRecorridaEnIntervaloInformes = 1;
 	}
@@ -163,21 +166,8 @@ public class HebraMonitorizacionLlegada extends Thread {
 		log.debug ("Coord Robot " + identRobot + " destino -> ("+this.coordDestino.getX() + " , " + this.coordDestino.getY() + ")");
 		//       System.out.println("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");
 		//      this.itfusoRecVisSimulador.mostrarMovimientoAdestino(identRobot,identDestino, coordActuales,velocidadRobot);
-		this.bloqueado=true;
 		while (!this.finalizar && (!enDestino)) {
 			try {
-				if(!this.bloqueado){
-					Thread.sleep(intervaloEnvioInformesMs);
-
-					calcularNuevasCoordenadas (distanciaRecorridaEnIntervaloInformes);                      
-					log.debug("Coord Robot " + identRobot + " calculadas -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");  
-					enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
-					finalizar = (coordActuales.x<0.5 || coordActuales.y<0.5 );
-					if (itfusoRecVisSimulador != null)
-						this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
-					this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-				}
-				else{
 					boolean[][] visitados= new boolean[VisorEscenariosRosace.ancho][VisorEscenariosRosace.alto];
 					for(int i =0;i<VisorEscenariosRosace.ancho;i++)
 						for(int j=0;j<VisorEscenariosRosace.alto;j++)
@@ -188,8 +178,8 @@ public class HebraMonitorizacionLlegada extends Thread {
 					ruta=calculaRuta(visitados,this.coordActuales,0,ruta);
 					if(ruta!=null){		
 						//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
-						while(!enDestino){
-							for(int i=0;i<ruta.size() && !this.finalizar ;i++){
+						while(!enDestino && this.energia){
+							for(int i=0;i<ruta.size() && !this.finalizar && this.energia ;i++){
 								Thread.sleep(intervaloEnvioInformesMs);
 								Coordinate punto=ruta.get(i);
 								this.coordActuales.setY(punto.getY());
@@ -198,7 +188,14 @@ public class HebraMonitorizacionLlegada extends Thread {
 								if (itfusoRecVisSimulador != null)
 									this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
 								this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+								if(this.robotStatus.getAvailableEnergy() > 0){
+									this.robotStatus.setAvailableEnergy(this.robotStatus.getAvailableEnergy()-1);
+								}
+								else energia = false;
 							}
+						}
+						if(!energia){
+							this.controladorMovimiento.itfProcObjetivos.insertarHecho(new Informacion(VocabularioRosace.MsgRomperRobot));
 						}
 					}
 					else {
@@ -206,7 +203,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 						finalizar=true;
 						enDestino=false;
 					}
-				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -347,7 +343,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 		}		
 		return cola;
 	}
-
+/*
 	private void calcularNuevasCoordenadas (long incrementoDistancia){
 		// suponemos avance en linea recta 
 		// formula aplicada x1 = xo + sqrt( espacioRecorrido**2 / (1 + pendienteRecta**2))
@@ -367,7 +363,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 				this.coordActuales.setX(nuevaVariableX);
 			}
 			else {
-				this.bloqueado = true;
 				this.controladorMovimiento.bloqueadoPorObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()));
 				
 				//ArrayList<Object> array = new ArrayList<Object>();
@@ -376,6 +371,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 				//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeBloqueoObstaculo(array,this.identRobot,"Jefe"));      		
 			}
 		}
-	}
+	}*/
 
 }

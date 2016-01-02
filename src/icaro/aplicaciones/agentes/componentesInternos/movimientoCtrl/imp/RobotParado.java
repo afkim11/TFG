@@ -5,6 +5,7 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  * @author FGarijo
  */
 public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimientoCtrl{
-
+	 private RobotStatus robotStatus;
 	public  RobotParado (MaquinaEstadoMovimientoCtrl maquinaEstados){
 
 		// this.Inicializar(itfProcObjetivos);
@@ -52,7 +53,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 				//           this.robotposicionActual = this.getCoordenadasActuales();  
 				if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.finalizar();
 				//trazas.trazar(identComponente, "Estoy parado en la posicion : "+robotposicionActual + "  Me muevo al destino  : " + identDestino +" Coordenadas:  " + destinoCoord, InfoTraza.NivelTraza.error);
-				this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,maquinaEstados,this.itfusoRecVisSimulador);       
+				this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,maquinaEstados,this.itfusoRecVisSimulador, this.robotStatus);       
 				monitorizacionLlegadaDestino.inicializarDestino(this.identDestino,robotposicionActual,this.destinoCoord,this.velocidadCrucero); 
 				monitorizacionLlegadaDestino.run();
 				this.maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotEnMovimiento);
@@ -108,6 +109,11 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 	@Override
 	public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
 		return this.monitorizacionLlegadaDestino;
+	}
+
+	@Override
+	public void setRobotStatus(RobotStatus robotStatus) {
+		this.robotStatus = robotStatus;		
 	}
 
 }
