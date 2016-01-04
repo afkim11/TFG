@@ -147,8 +147,8 @@ public class Coste {
 
 	public int CalculoCosteAyudarVictima (String nombreAgenteEmisor, Coordinate robotLocation,RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
 		int aux;
-		this.contadorAuxiliar=0;
-		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima,robot)) != -1){
+		this.contadorAuxiliar=robot.getAvailableEnergy();
+		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima)) != -1){
 			funcionEvaluacion =  aux;
 			return aux;
 		}
@@ -217,7 +217,7 @@ public class Coste {
 		return tiempo;
 	}
 
-	public int prototipo(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima,RobotStatus robot){
+	public int prototipo(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima){
 		PriorityBlockingQueue<Objetivo> cola=misObjs.getMisObjetivosPriorizados();
 		Iterator<Objetivo> it=cola.iterator();
 		int time = 0;
@@ -235,7 +235,7 @@ public class Coste {
 				ruta.add(actual);
 				ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
 				try{
-					arrayAux = this.calculaCoste(visitados, actual, 0,ruta, v.getCoordinateVictim(),robot);}
+					arrayAux = this.calculaCoste(visitados, actual, 0,ruta, v.getCoordinateVictim());}
 				catch(Exception e){
 					System.out.println("");
 				}
@@ -254,7 +254,7 @@ public class Coste {
 		visitados[(int)actual.getX()][(int)actual.getY()]=true;
 		ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 		ruta.add(actual);
-		ArrayList<Coordinate> arrayAux = this.calculaCoste(visitados, actual, 0,ruta, nuevaVictima.getCoordinateVictim(),robot);
+		ArrayList<Coordinate> arrayAux = this.calculaCoste(visitados, actual, 0,ruta, nuevaVictima.getCoordinateVictim());
 		if(arrayAux != null){
 			time += arrayAux.size();
 			return time;
@@ -269,9 +269,9 @@ public class Coste {
 				visitados[i][j]=false;
 		return visitados;
 	}
-	private ArrayList<Coordinate> calculaCoste(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora, Coordinate coordDestino,RobotStatus robot) {
-		contadorAuxiliar++;
-		if(contadorAuxiliar>robot.getAvailableEnergy())return null;
+	private ArrayList<Coordinate> calculaCoste(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora, Coordinate coordDestino) {
+		contadorAuxiliar--;
+		if(contadorAuxiliar<=0)return null;
 		
 		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(coordDestino)){
 			return rutaHastaAhora;
@@ -279,12 +279,12 @@ public class Coste {
 		else{
 			try{
 				PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior, coordDestino); 
-				while(!colaNodos.isEmpty() && contadorAuxiliar<robot.getAvailableEnergy()){
+				while(!colaNodos.isEmpty() && contadorAuxiliar>0){
 					Coordinate coor=colaNodos.poll();
 					int x=(int)coor.getX(),y=(int)coor.getY();
 					visitados[x][y]=true;
 					rutaHastaAhora.add(coor);
-					ArrayList<Coordinate> posible_sol=calculaCoste(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora, coordDestino,robot);
+					ArrayList<Coordinate> posible_sol=calculaCoste(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora, coordDestino);
 					if(posible_sol!=null)return posible_sol;	
 					rutaHastaAhora.remove(rutaHastaAhora.size()-1);
 					visitados[x][y]=false;
