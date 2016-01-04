@@ -229,7 +229,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 
                     i++;
                     try {
-                        this.sleep(interv);
+                        Thread.sleep(interv);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }

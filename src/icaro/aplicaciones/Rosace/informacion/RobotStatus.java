@@ -55,10 +55,10 @@ public class RobotStatus {
 	public String getIdRobotRol(){
 		return this.idRobotRol;
 	}		
-	public void setAvailableEnergy(int energy){
+	public synchronized void setAvailableEnergy(int energy){
 		this.availableEnergy = energy;
 	}	
-	public int getAvailableEnergy(){
+	public synchronized int getAvailableEnergy(){
 		return this.availableEnergy;
 	}	
     public synchronized void setRobotCoordinate(Coordinate coord){
@@ -70,7 +70,7 @@ public class RobotStatus {
     public synchronized Coordinate getRobotCoordinate(){
         if (infoCompMovt != null && infoCompMovt.itfAccesoComponente.getHebraMonitorizacionLlegadaDestino() != null)
         	this.robotCoordinateActual = infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
-       return robotCoordinateActual;
+       return new Coordinate(robotCoordinateActual.getX(),robotCoordinateActual.getY(),robotCoordinateActual.z);
     }
     public void setInfoCompMovt(InfoCompMovimiento compInfo){
         this.infoCompMovt = compInfo;    	

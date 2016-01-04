@@ -147,42 +147,19 @@ public class Coste {
 
 	public int CalculoCosteAyudarVictima (String nombreAgenteEmisor, Coordinate robotLocation,RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
 		int aux;
-		this.contadorAuxiliar=robot.getAvailableEnergy();
-		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima)) != -1){
+		int energia=robot.getAvailableEnergy();
+		this.contadorAuxiliar=0;
+		if(victima.getName().equalsIgnoreCase("Victim.3") && robot.getIdRobot().equalsIgnoreCase("jerarquicorobotsubordinado1")){
+			@SuppressWarnings("unused")
+			int pollas=0;
+		}
+		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima,energia)) != -1){
 			funcionEvaluacion =  aux;
 			return aux;
 		}
 		else{
 			return Integer.MAX_VALUE;
 		}
-
-		/*double distanciaCamino = this.CalculaDistanciaCamino(nombreAgenteEmisor, robotLocation, victima, victims2R, misObjs);
-            double tiempoAtencionVictimas = this.CalculaTiempoAtencion(3.0, victima, victims2R, misObjs);
-
-            if (identFuncEval.equalsIgnoreCase("FuncionEvaluacion1"))
-                funcionEvaluacion = this.FuncionEvaluacion1(distanciaCamino, 10.0,  robot, victima);
-            else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion2"))
-                funcionEvaluacion = this.FuncionEvaluacion2(distanciaCamino, 10.0, robot, victima);
-            else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion3"))
-                funcionEvaluacion = this.FuncionEvaluacion3(distanciaCamino, 10.0, tiempoAtencionVictimas, 3.0, robot, victima);
-
-            else {
-//                trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", "FuncionEvaluacion Especificada no existe sobre Victima(" + victima.getName() + ")"  +
-//		          ": robot " + robot.getIdRobot() + "-> -1.0"	    		   
-//	    		   , InfoTraza.NivelTraza.error)); 
-            }
-
-           int mi_eval = (int)funcionEvaluacion;   //convierto de double a int porque la implementación inicial de Paco usaba int                                  
-
-            if (mi_eval>=0){            
-
-//              mi_eval_nueva = cotaMaxima; 
-                //como va el que menor rango tiene, lo inicializamos a la peor                        
-            	//Para que gane el que mayor valor tiene de evaluación le resto el valor de la distancia obtenida al valor máximo de Integer
-            	//El que este más cercano hará decrecer menos ese valor y por tanto es el MEJOR
-            	mi_eval = Integer.MAX_VALUE - mi_eval;
-            }
-            return mi_eval;*/
 	}
 
 	//Calcula el tiempo que tardara en atender todas las victimas que tiene asignadas actualmente, mas el tiempo que tardara en atender a la nueva victima
@@ -216,8 +193,7 @@ public class Coste {
 		tiempo = tiempo + (factorMultiplicativo*prioridadNuevaVictima);
 		return tiempo;
 	}
-
-	public int prototipo(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima){
+	public int prototipo(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima,int energia){
 		PriorityBlockingQueue<Objetivo> cola=misObjs.getMisObjetivosPriorizados();
 		Iterator<Objetivo> it=cola.iterator();
 		int time = 0;
@@ -257,9 +233,10 @@ public class Coste {
 		ArrayList<Coordinate> arrayAux = this.calculaCoste(visitados, actual, 0,ruta, nuevaVictima.getCoordinateVictim());
 		if(arrayAux != null){
 			time += arrayAux.size();
-			return time;
+			if(time<energia)
+				return time;
 		}
-		else return -1;
+		return -1;
 	}
 
 	private boolean[][] matrizBooleanos(int ancho, int alto) {
@@ -270,16 +247,16 @@ public class Coste {
 		return visitados;
 	}
 	private ArrayList<Coordinate> calculaCoste(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora, Coordinate coordDestino) {
-		contadorAuxiliar--;
-		if(contadorAuxiliar<=0)return null;
-		
+		contadorAuxiliar++;
+		if(contadorAuxiliar>4500)return null;
+
 		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(coordDestino)){
 			return rutaHastaAhora;
 		}
 		else{
 			try{
 				PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior, coordDestino); 
-				while(!colaNodos.isEmpty() && contadorAuxiliar>0){
+				while(!colaNodos.isEmpty() && contadorAuxiliar<4500){
 					Coordinate coor=colaNodos.poll();
 					int x=(int)coor.getX(),y=(int)coor.getY();
 					visitados[x][y]=true;
