@@ -34,4 +34,5 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
  public  void inicializarDestinoRobot(String idRobot,Coordinate coordInicial,Coordinate coordDestino, double velocidadInicial)throws Exception;;
  public void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, double velocidadCrucero) throws Exception;
  public void mostrarIdentsEquipoRobots(ArrayList identList)throws Exception;
+ public void quitarVictimaRescatada(String refVictima)throws Exception;
 }

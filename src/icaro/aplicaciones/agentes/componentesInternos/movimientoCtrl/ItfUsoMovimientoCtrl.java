@@ -1,6 +1,7 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.HebraMonitorizacionLlegada;
 
 public interface ItfUsoMovimientoCtrl {
@@ -17,5 +18,6 @@ public interface ItfUsoMovimientoCtrl {
         public boolean estamosEnDestino(String identDestino);
         public void imposibleAvanzarADestino();
 		public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino();
+		public void setRobotStatus(RobotStatus robotStatus);
         
 }

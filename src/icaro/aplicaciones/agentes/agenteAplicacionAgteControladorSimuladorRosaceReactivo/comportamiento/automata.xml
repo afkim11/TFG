@@ -27,6 +27,7 @@
   <estado idIntermedio="simulando">
 
      <transicion input="victimaAsignadaARobot" accion="VictimaAsignadaARobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="desasignarVictima" accion="desasignarVictima" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
 
      <transicion input="finSimulacion" accion="FinSimulacion" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>
 

@@ -5,6 +5,7 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas;
 
 import icaro.aplicaciones.Rosace.informacion.AceptacionPropuesta;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
@@ -12,6 +13,7 @@ import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoEstadistica.ItfUsoRecursoEstadistica;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Focus;
@@ -25,17 +27,25 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  * @author FGarijo
  */
 public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
-
+	
+	
+	private ItfUsoMovimientoCtrl itfcompMov;
+	private Victim victima;
+	
+	private int velocidadCruceroPordefecto;
+	
+	
 	@Override
 	public void ejecutar(Object... params) {
-		int	velocidadCruceroPordefecto = 1;
+		velocidadCruceroPordefecto = 1;
 		//       ItfUsoRecursoEstadistica itfUsoRecursoEstadistica=null;    //Para recoger estadisticas del instante de envio de victimas desde el centro de contro    	
 		try {
 			MisObjetivos misObjs = (MisObjetivos) params[0];
 			//         Objetivo obj1 = (Objetivo)params[1];
 			//           InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
 			Focus focoActual = (Focus)params[1];
-			Victim victima = (Victim) params[2];
+			victima = (Victim) params[2];
+			RobotStatus robotStatus = (RobotStatus) params[6];
 			AceptacionPropuesta propuestaAceptada = (AceptacionPropuesta) params[3];
 			InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[4];
 			VictimsToRescue victimas = (VictimsToRescue)params[5];
@@ -68,7 +78,7 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			valoresParametrosAccion[2] = nombreAgenteEmisor;
 			valoresParametrosAccion[3] = miEvaluacion;
 			InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("victimaAsignadaARobot", valoresParametrosAccion);
-			this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);  
+			this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
 			AyudarVictima nuevoObj = new AyudarVictima(refVictima);
 			nuevoObj.setSolving() ;
 			this.agente.setVictima(victima);
@@ -77,8 +87,19 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			focoActual.setFocusToObjetivoMasPrioritario(misObjs);
 			Objetivo objActual = focoActual.getFoco();
 			// victima = victimas.getVictimToRescue(objActual.getobjectReferenceId());
-			ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
-			itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); // se pondra la verlocidad por defecto 
+			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();	
+			itfcompMov.setRobotStatus(robotStatus);
+			Thread t = new Thread(){
+				
+				public void run(){
+					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); 
+				}
+			};
+			t.start();
+			
+			
+			
+			
 			trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea : " + identTarea + " Se genera el  objetivo:  "+ nuevoObj+
 					" Se actualiza el  foco al objetivo:  " + focoActual + "\n");
 			trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se da orden al comp Movimiento  para salvar a la victima :  " + victima + "\n");

@@ -33,21 +33,27 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 		this.itfProcObjetivos.eliminarHechoWithoutFireRules(informe);
 		ArrayList<Victim> victims = v2r.getVictimNoAsignadas();
 		Coste c = new Coste();
-		boolean fin = false;
-		for(int i = 0; i < victims.size() && !fin; i++){
+		double temp=Integer.MAX_VALUE;
+		int pos=-1;
+		
+		for(int i = 0; i < victims.size(); i++){
 			Victim v = victims.get(i);
 			if (v != null){
 				double eval = c.CalculoCosteAyudarVictima(this.identAgente, robotS.getRobotCoordinate(), robotS, v, v2r, misObjs, null);
-				if (eval != Integer.MAX_VALUE){
-					PropuestaAgente miPropuesta = new PropuestaAgente (this.identAgente);
-					miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);
-					miPropuesta.setIdentObjectRefPropuesta(v.getName());
-					miPropuesta.setJustificacion(v);
-					this.itfProcObjetivos.insertarHecho(miPropuesta);
-					fin = true;
-					v2r.getVictimNoAsignadas().remove(i);
+				if (eval != Integer.MAX_VALUE && eval<temp){
+					pos=i;
+					temp=eval;
 				}
 			}
+		}
+		if(pos!=-1){
+			Victim v=victims.get(pos);
+			PropuestaAgente miPropuesta = new PropuestaAgente (this.identAgente);
+			miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);
+			miPropuesta.setIdentObjectRefPropuesta(v.getName());
+			miPropuesta.setJustificacion(v);
+			this.itfProcObjetivos.insertarHecho(miPropuesta);
+			v2r.getVictimNoAsignadas().remove(pos);
 		}
 	}
 

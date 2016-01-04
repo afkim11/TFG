@@ -56,7 +56,7 @@ public class MaquinaEstadoMovimientoCtrl {
 	protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
 	ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
 	private static ArrayList<LineaObstaculo> obstaculos;
-	private ArrayList<LineaObstaculo> obstaculosDescubiertos; //Necesita volatile?
+	private ArrayList<LineaObstaculo> obstaculosDescubiertos;
 
 	public  MaquinaEstadoMovimientoCtrl (){
 		this.obstaculos=VisorEscenariosRosace.getObstaculos();
@@ -178,8 +178,7 @@ public class MaquinaEstadoMovimientoCtrl {
 		this.robotposicionActual = destinoCoord;
 		this.estadoActual.identDestino = identDest;
 		//        this.estadoActual.setCoordenadasActuales(destinoCoord);
-		trazas.trazar(identAgente, "Se informa de llegada al  destino: " +informeLlegada + " El robot esta en el estado :"+ identEstadoActual
-				+ " CoordActuales =  "+destinoCoord.toString() , InfoTraza.NivelTraza.error);
+		//trazas.trazar(identAgente, "Se informa de llegada al  destino: " +informeLlegada + " El robot esta en el estado :"+ identEstadoActual	+ " CoordActuales =  "+destinoCoord.toString() , InfoTraza.NivelTraza.error);
 
 
 	}

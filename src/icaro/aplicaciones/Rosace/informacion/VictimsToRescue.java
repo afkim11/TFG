@@ -51,6 +51,10 @@ public synchronized void addVictimNoAsignadas(Victim v){
 	victimasNoAsignadas.add(v);
 }
 
+public synchronized void setRescued(String victimId){
+	this.victims2Rescue.get(victimId).setRescued();
+}
+
 public synchronized void setlastVictimToRescue (Victim victim){
     lastVictimToRescue = victim;
 }

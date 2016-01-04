@@ -5,6 +5,7 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 
@@ -13,8 +14,9 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  * @author FGarijo
  */
 public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMovimientoCtrl{
-  
- //   public MaquinaEstadoMovimientoCtrl maquinaEstados;
+
+	 private RobotStatus robotStatus;
+//   public MaquinaEstadoMovimientoCtrl maquinaEstados;
     public  RobotBloqueado (MaquinaEstadoMovimientoCtrl maquinaEstados){
        // en este estado se puede simular que el robot no avanza, pero que esta intentando salir del atasco
         // esto puede durar un tiempo. al final o ha salido del atasco para continuar hacia el destino o se queda
@@ -71,5 +73,10 @@ public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMov
 	@Override
 	public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
 		return null;
+	}
+	@Override
+	public void setRobotStatus(RobotStatus robotStatus) {
+		this.robotStatus = robotStatus;
+		
 	} 
 }

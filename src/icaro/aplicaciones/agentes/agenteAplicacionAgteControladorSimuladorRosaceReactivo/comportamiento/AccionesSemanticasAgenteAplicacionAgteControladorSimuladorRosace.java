@@ -13,9 +13,11 @@ import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfigurac
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza.NivelTraza;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -52,6 +54,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
     private int numeroRobotsSimulacion = 0;         //Numero de robots diferentes que van a intervenir en el proceso de simulacion
     private int intervaloSecuencia;                 //Intervalo uniforme de envio de la secuencia de victimas
     private ArrayList<Victim> victimasDefinidas;     //Victimas definidas en la simulacion 
+    private PriorityQueue<Victim> victimasDefinidas2;
+    private int modoEnvioVictimas=2;
     private Map<String, Victim> victims2Rescue = new HashMap<String, Victim>();      //Victimas que han sido enviadas al equipo   
     private Map<String, String> victimasAsignadas = new HashMap<String, String>();   //Victimas que han sido asignadas a algun robot, es decir, algun robot se ha hecho responsable para salvarla
     private Map<String, InfoAsignacionVictima> infoVictimasAsignadas;
@@ -156,6 +160,19 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
             e.printStackTrace();
         }
 
+        victimasDefinidas2=new PriorityQueue<Victim>(new Comparator<Victim>(){
+
+			@Override
+			public int compare(Victim arg0, Victim arg1) {
+				if(arg0.getPriority()<arg1.getPriority())return 1;
+				else if(arg0.getPriority()>arg1.getPriority())return -1;
+				else return 0;
+			}
+        	
+        });
+        for(int i =0;i<victimasDefinidas.size();i++)victimasDefinidas2.add(victimasDefinidas.get(i));
+        
+        
         //----------------------------------------------------------------------------------------------------------------	
         // Crear hilo responsable de realizar el envio de la secuencia de victimas a intervalos regulares de tiempo
         //----------------------------------------------------------------------------------------------------------------	
@@ -170,7 +187,9 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
                 Victim victima;
                 while ((i < numeroVictimasDiferentesSimulacion) && (stop == false)) {
                     //      victima = createNewVictim(rXMLTSeq, nodeLst, i);
-                    victima = victimasDefinidas.get(i);
+                    if(modoEnvioVictimas==1)victima = victimasDefinidas.get(i);
+                    else victima=victimasDefinidas2.poll();
+                    
                     OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
                     // Escribir nueva linea de estadistica en el fichero de llegada de victimas					
                     try {
@@ -215,6 +234,10 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
                         ex.printStackTrace();
                     }
                 }// fin del while
+                while(!infoCasoSimul.todasRescatadas()){
+                	
+                };
+                visualizarYguardarResultadosCaso();
 
                 // Se han enviado todas las victimas
                 // Cerrar el fichero de estadistica en el fichero de llegada de victimas
@@ -246,13 +269,21 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
             infoCasoSimul.addAsignacionVictima(infoAsigVictima);
             if (infoCasoSimul.todasLasVictimasAsgnadas()) {
                 notificarFinSimulacion();
-                visualizarYguardarResultadosCaso();
+               // visualizarYguardarResultadosCaso();
             }
         } catch (Exception ex) {
             Logger.getLogger(AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+	public void desasignarVictima(String refVictima){
+    	try {
+			itfUsoRecursoVisualizadorEntornosSimulacion.quitarVictimaRescatada(refVictima);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     private void notificarFinSimulacion() {
 
         try {
