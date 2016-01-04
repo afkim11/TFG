@@ -80,18 +80,20 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("victimaAsignadaARobot", valoresParametrosAccion);
 			this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
 			AyudarVictima nuevoObj = new AyudarVictima(refVictima);
-			nuevoObj.setSolving() ;
+			nuevoObj.setSolving();
 			this.agente.setVictima(victima);
 			victimas.addVictimToRescue(victima);
 			misObjs.addObjetivo(nuevoObj);
 			focoActual.setFocusToObjetivoMasPrioritario(misObjs);
-			Objetivo objActual = focoActual.getFoco();
+			//Objetivo objActual = focoActual.getFoco();
 			// victima = victimas.getVictimToRescue(objActual.getobjectReferenceId());
-			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();	
+			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
 			itfcompMov.setRobotStatus(robotStatus);
+					
 			Thread t = new Thread(){
 				
 				public void run(){
+					
 					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); 
 				}
 			};

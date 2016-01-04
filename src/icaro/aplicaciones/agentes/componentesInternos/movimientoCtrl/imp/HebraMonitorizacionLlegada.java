@@ -160,7 +160,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 
 	@Override
 	public synchronized void run() {
-
+		int energiaActual=this.robotStatus.getAvailableEnergy();
 		//       double espacioRecorridoEnIntervalo = velocidadRobot*intervaloEnvioInformacion;
 		log.debug ("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
 		log.debug ("Coord Robot " + identRobot + " destino -> ("+this.coordDestino.getX() + " , " + this.coordDestino.getY() + ")");
@@ -188,8 +188,9 @@ public class HebraMonitorizacionLlegada extends Thread {
 								if (itfusoRecVisSimulador != null)
 									this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
 								this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-								if(this.robotStatus.getAvailableEnergy() > 0){
-									this.robotStatus.setAvailableEnergy(this.robotStatus.getAvailableEnergy()-1);
+								if(energiaActual > 0){
+									energiaActual--;
+									this.robotStatus.setAvailableEnergy(energiaActual);
 								}
 								else energia = false;
 							}

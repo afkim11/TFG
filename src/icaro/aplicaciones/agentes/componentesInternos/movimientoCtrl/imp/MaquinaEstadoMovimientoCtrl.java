@@ -175,7 +175,7 @@ public class MaquinaEstadoMovimientoCtrl {
 		//        robotposicionActual = monitorizacionLlegadaDestino.getCoordDestino();
 		estadoActual = this.cambiarEstado(EstadoMovimientoRobot.RobotParado);
 		//        this.itfProcObjetivos.insertarHecho(informeLlegada);   
-		this.robotposicionActual = destinoCoord;
+		this.robotposicionActual = new Coordinate(destinoCoord.getX(),destinoCoord.getY(),destinoCoord.getZ());
 		this.estadoActual.identDestino = identDest;
 		//        this.estadoActual.setCoordenadasActuales(destinoCoord);
 		//trazas.trazar(identAgente, "Se informa de llegada al  destino: " +informeLlegada + " El robot esta en el estado :"+ identEstadoActual	+ " CoordActuales =  "+destinoCoord.toString() , InfoTraza.NivelTraza.error);
