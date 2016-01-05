@@ -16,30 +16,32 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  * @author FGarijo
  */
 public class EliminarObjetivoyDecisionInfoActualizarFoco extends TareaSincrona{
-    @Override
-   public void ejecutar(Object... params) {
-	   try {
-             trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
-             MisObjetivos misObjs = (MisObjetivos) params[0];
-             Objetivo ayudarVictima = (Objetivo)params[1];
-             InfoParaDecidirAQuienAsignarObjetivo infoDecision = (InfoParaDecidirAQuienAsignarObjetivo)params[2];
-             Focus focoActual = (Focus)params[3];
-             String identTarea = this.getIdentTarea();
-             String nombreAgenteEmisor = this.getIdentAgente();
-                this.getEnvioHechos().eliminarHechoWithoutFireRules(infoDecision);
-                this.getEnvioHechos().eliminarHechoWithoutFireRules(ayudarVictima);
-                focoActual.setFocusToObjetivoMasPrioritario(misObjs);
-       //       this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
-                this.getEnvioHechos().actualizarHecho(focoActual);
-            trazas.aceptaNuevaTrazaEjecReglas(nombreAgenteEmisor, "Se ejecuta la tarea " + this.getIdentTarea()+
-                                              " Se actualiza el  objetivo:  "+ ayudarVictima);
-            System.out.println("\n"+nombreAgenteEmisor +"Se ejecuta la tarea " + this.getIdentTarea()+ " Se actualiza el  objetivo:  "+ ayudarVictima+"\n\n" );
-                          
-             
-       } catch (Exception e) {
-			 e.printStackTrace();
-       }
-   }
+	@Override
+	public void ejecutar(Object... params) {
+		try {
+			trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
+			MisObjetivos misObjs = (MisObjetivos) params[0];
+			Objetivo ayudarVictima = (Objetivo)params[1];
+			InfoParaDecidirAQuienAsignarObjetivo infoDecision = (InfoParaDecidirAQuienAsignarObjetivo)params[2];
+			Focus focoActual = (Focus)params[3];
+			Objetivo decidirQuienVa=(Objetivo) params[4];
+			String identTarea = this.getIdentTarea();
+			String nombreAgenteEmisor = this.getIdentAgente();
+			this.getEnvioHechos().eliminarHechoWithoutFireRules(infoDecision);
+			this.getEnvioHechos().eliminarHechoWithoutFireRules(ayudarVictima);
+			this.getEnvioHechos().eliminarHechoWithoutFireRules(decidirQuienVa);
+			focoActual.setFocusToObjetivoMasPrioritario(misObjs);
+			//       this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
+			this.getEnvioHechos().actualizarHecho(focoActual);
+			trazas.aceptaNuevaTrazaEjecReglas(nombreAgenteEmisor, "Se ejecuta la tarea " + this.getIdentTarea()+
+					" Se actualiza el  objetivo:  "+ ayudarVictima);
+			System.out.println("\n"+nombreAgenteEmisor +"Se ejecuta la tarea " + this.getIdentTarea()+ " Se actualiza el  objetivo:  "+ ayudarVictima+"\n\n" );
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
 

@@ -3,6 +3,7 @@ package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognit
 import java.rmi.RemoteException;
 import java.util.Iterator;
 
+import icaro.aplicaciones.Rosace.informacion.OrdenCentroControl;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
@@ -33,7 +34,10 @@ public class TareaRomperRobot extends TareaSincrona{
 				valoresParametrosAccion[0]=nombreVictima;
 				InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("desasignarVictima", valoresParametrosAccion);
 				this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
-				victims2Resc.addVictimNoAsignadas(v);
+				//victims2Resc.addVictimNoAsignadas(v);
+				victims2Resc.eliminarVictima(nombreVictima);
+				OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, v);
+				this.getComunicator().enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
 				misObjs.eliminarObjetivoDeMisObjetivosPriorizados(obj);
 			}
 		}

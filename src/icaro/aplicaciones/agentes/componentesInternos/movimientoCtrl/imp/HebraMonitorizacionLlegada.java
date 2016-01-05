@@ -199,7 +199,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 						}
 					}
 					else {
-						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(this.identRobot),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
 						finalizar=true;
 						enDestino=false;
 					}

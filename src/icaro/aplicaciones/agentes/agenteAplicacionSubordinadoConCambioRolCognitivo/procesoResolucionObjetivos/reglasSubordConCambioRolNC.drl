@@ -289,19 +289,6 @@ then
 	tarea.ejecutar(agentId,infoequipo,mensaje);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
-
-
-rule "Tratamiento de envio de mensaje por esquivar obstaculo"
-when
-	mensaje:MensajeSimple(inf : contenido)
-	
-then
-	TareaSincrona tarea=gestorTareas.crearTareaSincrona(MandarEstatusEsquivarObstaculo.class);
-	tarea.ejecutar(mensaje);
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-end
-
-
 rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
 when
 	informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
