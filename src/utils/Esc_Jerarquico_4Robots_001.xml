@@ -13,7 +13,7 @@
 	</robot>
 	<robot>
 		<id>JerarquicorobotSubordinado1</id>
-		<initialenergy>2500</initialenergy>		
+		<initialenergy>1200</initialenergy>		
 		<initialcoordinate>
 			<x>40.5</x>
 			<y>80.4</y>
@@ -24,7 +24,7 @@
 	</robot>
 	<robot>
 		<id>JerarquicorobotSubordinado2</id>
-		<initialenergy>2500</initialenergy>		
+		<initialenergy>700</initialenergy>		
 		<initialcoordinate>
 			<x>67.5</x>
 			<y>80.4</y>
@@ -35,7 +35,7 @@
 	</robot>
 	<robot>
 		<id>JerarquicorobotSubordinado3</id>
-		<initialenergy>2500</initialenergy>		
+		<initialenergy>500</initialenergy>		
 		<initialcoordinate>
 			<x>40.5</x>
 			<y>100.5</y>
@@ -46,7 +46,7 @@
 	</robot>
 	<robot>
 		<id>JerarquicorobotSubordinado4</id>
-		<initialenergy>2500</initialenergy>		
+		<initialenergy>500</initialenergy>		
 		<initialcoordinate>
 			<x>67.5</x>
 			<y>100.5</y>
