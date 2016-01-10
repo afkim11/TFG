@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.Iterator;
 
 import icaro.aplicaciones.Rosace.informacion.OrdenCentroControl;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
@@ -22,6 +23,8 @@ public class TareaRomperRobot extends TareaSincrona{
 		VictimsToRescue victims2Resc = (VictimsToRescue)params[1];
 		InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[2];
 		ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
+		RobotStatus robotStatus=(RobotStatus) params[3];
+		robotStatus.setBloqueado(true);
 		itfcompMov.parar();
 		
 		Iterator<Objetivo> it = misObjs.getMisObjetivosPriorizados().iterator();

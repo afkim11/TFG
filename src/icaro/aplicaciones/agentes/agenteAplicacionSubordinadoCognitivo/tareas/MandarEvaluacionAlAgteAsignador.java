@@ -42,10 +42,6 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 
 	@Override
 	public void ejecutar(Object... params) {
-		if(this.identAgente.equalsIgnoreCase("Jerarquicorobotsubordinado2")){
-			@SuppressWarnings("unused")
-			int x=1;
-			}
 		trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
 		Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
 		//       infoDecision = (InfoParaDecidirQuienVa)params[1];
@@ -59,10 +55,10 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 		String identTarea = this.getIdentTarea();
 		//             agentesEquipo = infoDecision.ObtenerNombreAgentesDelEquipo("robotMasterIA", nombreAgenteEmisor);
 		//        agentesEquipo = infoDecision.getNombreAgentesEquipoDefinidos(nombreAgenteEmisor, VocabularioRosace.IdentComunAgtesSubordinados);
-		
+
 		identObjEvaluacion = peticionRecibida.getidentObjectRefPeticion();
 		nombreAgenteQuePideLaEvaluacion= peticionRecibida.getIdentAgente();
-		
+
 		try {
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identTarea , InfoTraza.NivelTraza.debug));
 			// si el identificador esta entre mis objetivos es que esta resuelto , le mando un valor para que se desanime
@@ -70,25 +66,26 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 			// si no tengo noticias del objetivo le mando un valor pequeno para que vaya él
 			// si coincide con el que estoy trabajando le mando el valor 
 			//     if (identObjEvaluacion.equals(infoDecision.idElementoDecision)) miEvalDeRespuesta = infoDecision.getMi_eval();
-			//      else 
+			//      else
+
 			if( misObjtvs.existeObjetivoConEsteIdentRef(identObjEvaluacion))miEvalDeRespuesta = valorDisuasorioParaElquePideAcepteQueSoyYoElResponsable;
 			else { // Miro en la tabla de vicitimas si tengo la victima, 
-				
-				
-				
+
+
+
 				victimEnPeticion = victimasRecibidas.getVictimToRescue(identObjEvaluacion);
-				if(victimEnPeticion != null){ // tengo la victima miro si tengo el valor estimado
-					if (victimEnPeticion.isCostEstimated()) miEvalDeRespuesta = victimEnPeticion.getEstimatedCost();
-					else{ // calculo el coste y lo guardo en la victima
-						miEvalDeRespuesta= calcularCosteEstimadoVictima();
-						victimEnPeticion.setEstimatedCost(miEvalDeRespuesta);
-						this.getEnvioHechos().actualizarHechoWithoutFireRules(victimEnPeticion);
-					}
+				if(victimEnPeticion != null){ 
+					//if (victimEnPeticion.isCostEstimated()) miEvalDeRespuesta = victimEnPeticion.getEstimatedCost();
+					//else{ // calculo el coste y lo guardo en la victima
+					miEvalDeRespuesta= calcularCosteEstimadoVictima();
+					victimEnPeticion.setEstimatedCost(miEvalDeRespuesta);
+					this.getEnvioHechos().actualizarHechoWithoutFireRules(victimEnPeticion);
+					//}
 				}
 				else {// la victima no existe -> no se ha recibido el mensaje del CC. Calculo el coste y  meto los objetivos y la victima
-					
+
 					victimEnPeticion = (Victim) peticionRecibida.getJustificacion();
-					
+
 					miEvalDeRespuesta= calcularCosteEstimadoVictima();
 					victimEnPeticion.setEstimatedCost(miEvalDeRespuesta);
 					//      AyudarVictima newAyudarVictima = new AyudarVictima (identObjEvaluacion);
@@ -101,7 +98,7 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 					//      this.getEnvioHechos().insertarHechoWithoutFireRules(newAyudarVictima);
 					//      this.getEnvioHechos().insertarHechoWithoutFireRules(newDecision);
 				}
-				
+
 			}
 			this.getEnvioHechos().eliminarHecho(peticionRecibida);
 			EvaluacionAgente miEvaluacion = new EvaluacionAgente (nombreAgenteEmisor, miEvalDeRespuesta );
@@ -113,38 +110,17 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "EvaluacionEnviadaAlAgente : "+ nombreAgenteQuePideLaEvaluacion, InfoTraza.NivelTraza.info));
 			//            tiempoSinRecibirRespuesta.start();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	private int calcularCosteEstimadoVictima(){
-		/*     
-          try{
-                ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
-                ItfUsoRecursoMorse morseResourceRef;
-       		    morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
-       				                      "RecursoMorse1");
-       		    robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
 
-       	          }
-   	              catch (Exception ex){
-       		              ex.printStackTrace();
-       	          }  
-		 * 
-		 */
-		if(this.identAgente.equalsIgnoreCase("Jerarquicorobotsubordinado2")){
-		@SuppressWarnings("unused")
-		int x=1;
-		}
-		if(this.identAgente.equalsIgnoreCase("Jerarquicorobotsubordinado1")){
-			@SuppressWarnings("unused")
-			int x=1;
-			}
-		robotLocation = robot.getRobotCoordinate();//En esta llamada hay un delay hasta que el maldito robot se para
+		robotLocation = robot.getRobotCoordinate();
 		Coste coste = new Coste();
-		
-		return coste.CalculoCosteAyudarVictima(nombreAgenteEmisor, robotLocation, robot, victimEnPeticion, victimasRecibidas, misObjtvs, "FuncionEvaluacion3");
+		if(this.robot.getBloqueado())return Integer.MAX_VALUE;
+		else return coste.CalculoCosteAyudarVictima(nombreAgenteEmisor, robotLocation, robot, victimEnPeticion, victimasRecibidas, misObjtvs, "FuncionEvaluacion3");
 
 	}
 

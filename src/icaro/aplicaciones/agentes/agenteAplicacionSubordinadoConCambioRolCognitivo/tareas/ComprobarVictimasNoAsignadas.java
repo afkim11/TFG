@@ -32,13 +32,14 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 		Informe informe =(Informe) params[3];
 		this.itfProcObjetivos.eliminarHechoWithoutFireRules(informe);
 		ArrayList<Victim> victims = v2r.getVictimNoAsignadas();
-		Coste c = new Coste();
+		
 		double temp=Integer.MAX_VALUE;
 		int pos=-1;
 		
 		for(int i = 0; i < victims.size(); i++){
 			Victim v = victims.get(i);
 			if (v != null){
+				Coste c = new Coste();
 				double eval = c.CalculoCosteAyudarVictima(this.identAgente, robotS.getRobotCoordinate(), robotS, v, v2r, misObjs, null);
 				if (eval != Integer.MAX_VALUE && eval<temp){
 					pos=i;
