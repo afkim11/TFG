@@ -25,6 +25,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 
     private ControlCenterGUI4 ventanaControlCenterGUI;
     private VisorEscenariosRosace visorEscenarios;
+    private ControladorVisualizacionSimulRosace controlador;
     private VisualizacionJfreechart visualizadorJFchart;
     private NotificadorInfoUsuarioSimulador notifEvt;
     private String recursoId;
@@ -44,7 +45,8 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
 //            visorEscenarios = new VisorEscenariosRosace3();
             visorEscenarios = new VisorEscenariosRosace(notifEvt);
-            ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
+            this.controlador=new ControladorVisualizacionSimulRosace(notifEvt);
+           // ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
         } catch (Exception e) {
             this.trazas.trazar(recursoId, " Se ha producido un error en la creación del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
             this.itfAutomata.transita("error");
@@ -54,8 +56,9 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 
     @Override
     public void mostrarVentanaControlSimulador()throws Exception{
-    ventanaControlCenterGUI.setVisible(true);
-}
+    	controlador.setVisibleControlGUI(true);
+    }
+
     @Override
     public void crearEInicializarVisorGraficaEstadisticas(String tituloVentanaVisor,
             String tituloLocalGrafico,
@@ -285,7 +288,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //     }
     @Override
     public void mostrarIdentsEquipoRobots(ArrayList identList){
-        this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
+        controlador.visualizarIdentsEquipoRobot(identList);
     }
 
 	public void quitarVictimaRescatada(String refVictima) {

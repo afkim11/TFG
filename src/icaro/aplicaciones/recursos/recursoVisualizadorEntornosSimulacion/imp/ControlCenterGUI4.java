@@ -11,6 +11,8 @@
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
+
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -22,6 +24,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 
     /** Creates new form ControlCenterGui2 */
     private NotificadorInfoUsuarioSimulador notifEvts;
+    private ControladorVisualizacionSimulRosace controladorEscSim;
     private int intervaloSecuencia = 100; // valor por defecto. Eso deberia ponerse en otro sitio
     private int numMensajesEnviar = 3;
     private boolean primeraVictima = true;
@@ -31,8 +34,8 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
         initComponents();
        
     }
-    public ControlCenterGUI4( NotificadorInfoUsuarioSimulador notifEvt) {
-        this.notifEvts = notifEvt;
+    public ControlCenterGUI4( ControladorVisualizacionSimulRosace controlador) {
+        this.controladorEscSim = controlador;
         this.identsRobotsEquipo =identsRobotsEquipo;
  //       this.cgen = cgenRec;
  //       this.visorSc = visorScn;
@@ -154,7 +157,9 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
         jButtonMostrarEscenarioActual.setText("Mostrar Escenario actual");
         jButtonMostrarEscenarioActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //jButtonMostrarEscenarioActualActionPerformed(evt);
+                jButtonMostrarEscenarioActualActionPerformed(evt);
+            	
+            	
             }
         });
 
@@ -337,14 +342,14 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
         pack();
     }
 
-    private void sendVictimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimButtonActionPerformed
+    protected void jButtonMostrarEscenarioActualActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	controladorEscSim.peticionMostrarEscenario();
+		
+	}
+    
+	private void sendVictimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimButtonActionPerformed
           
-  //        notifEvts.sendInitialRobotCoordenates();
-            notifEvts.sendPeticionSimulacionVictimToRobotTeam();
-   //         primeraVictima = false;
-  //          sendVictimButton.setEnabled(false); 
-           
-           
     }//GEN-LAST:event_sendVictimButtonActionPerformed
 
     private void sendVictimsSequenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimsSequenceActionPerformed
@@ -404,8 +409,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         // TODO add your handling code here:
-         
-        notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
+    	this.controladorEscSim.peticionComenzarSimulacion("", this.intervaloSecuencia);
     }//GEN-LAST:event_jButtonStartActionPerformed
 
     private void jStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStopActionPerformed

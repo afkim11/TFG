@@ -29,7 +29,7 @@ public class ControladorVisualizacionSimulRosace {
     private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
     private int numMensajesEnviar = 3;
     private boolean primeraVictima = true;
-    private VisorControlSimuladorRosace visorControlSim;
+    private ControlCenterGUI4 visorControlSim;
     private ArrayList identsRobotsEquipo ;
     private javax.swing.JLabel jLabelAux;
     private String directorioTrabajo;
@@ -68,18 +68,20 @@ public class ControladorVisualizacionSimulRosace {
     
     public  ControladorVisualizacionSimulRosace (NotificadorInfoUsuarioSimulador NotificadorInfoUsuarioSimulador){
         notifEvts=NotificadorInfoUsuarioSimulador;
+        initModelosYvistas();
     }
     public void initModelosYvistas(){
        String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
 //            VisorControlSimuladorRosace visorSc;
+       
              persistencia= new PersistenciaVisualizadorEscenarios();
              gestionEscComp= new GestionEscenariosSimulacion();
             gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
                 try {
                     gestionEscComp = new GestionEscenariosSimulacion();
                     gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-//        escenarioActualComp = gestionEscComp.crearEscenarioSimulación();
-                    visorControlSim = new VisorControlSimuladorRosace(this);
+//       			escenarioActualComp = gestionEscComp.crearEscenarioSimulación();
+                    visorControlSim = new ControlCenterGUI4(this);
                    
              
 //                    persistencia= new PersistenciaVisualizadorEscenarios();
@@ -88,7 +90,7 @@ public class ControladorVisualizacionSimulRosace {
 //                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulación());
 //                    visor.setIdentEquipoActual()
 //                    visor.actualizarInfoEquipoEnEscenario();
-                    visorControlSim.setVisible(true);
+                   // visorControlSim.setVisible(true);
                 } catch (Exception ex) {
                     Exceptions.printStackTrace(ex);
                 }
@@ -97,10 +99,11 @@ public class ControladorVisualizacionSimulRosace {
 
   public  void peticionComenzarSimulacion(String identEquipoActual, int intervaloSecuencia) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    if ( escenarioActualComp ==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido,mensajeEscenarioNoDefinido,recomendacionDefinirEscenario);
-    else if (identEquipoActual== null)visorControlSim.setIdentEquipo(escenarioActualComp.getIdentEscenario());
-    else if (intervaloSecuencia <=0)visorControlSim.solicitarDefinicionItervaloSecuencia();
-        else notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
+   // if ( escenarioActualComp ==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido,mensajeEscenarioNoDefinido,recomendacionDefinirEscenario);
+   // else if (identEquipoActual== null)visorControlSim.setIdentEquipo(escenarioActualComp.getIdentEscenario());
+   // else if (intervaloSecuencia <=0)visorControlSim.solicitarDefinicionItervaloSecuencia();
+        //else 
+        	notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
     }
 
   public  void peticionCrearEscenario() {
@@ -109,7 +112,7 @@ public class ControladorVisualizacionSimulRosace {
 
    public  void peticionAbrirEscenario() {
 //        throw new UnsupportedOperationException("Not supported yet."); 
-    File ficheroSeleccionado=   visorControlSim.solicitarSeleccionFichero(directorioPersistencia);
+   /* File ficheroSeleccionado=   visorControlSim.solicitarSeleccionFichero(directorioPersistencia);
     if (ficheroSeleccionado==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido, mensajeEscenarioNoSeleccionado,recomendacionDefinirEscenario);
     else{
         escenarioActualComp = persistencia.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
@@ -118,29 +121,30 @@ public class ControladorVisualizacionSimulRosace {
         visorControlSim.setIdentEquipo(identEquipoActual);
         identsRobotsEquipo=escenarioActualComp.getListIdentsRobots();
         if( identsRobotsEquipo!=null) visorControlSim.visualizarIdentsEquipoRobot(identsRobotsEquipo);
-    }
+    }*/
     }
 
-   public  void peticionEliminarEscenario() {
+   	public  void peticionEliminarEscenario() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-  public   void peticionPararRobot(String identRobotSeleccionado) {
+   	public   void peticionPararRobot(String identRobotSeleccionado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-// private void consejoUsuario(String mensajeConsejo, String recomendacion) {
-////        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//     visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido,mensajeConsejo,recomendacion);
-// }
-     public static void main(String args[]) {
-        
-        new ControladorVisualizacionSimulRosace(new NotificadorInfoUsuarioSimulador("prueba1", "agente2")).initModelosYvistas();
-      
-     }
 
     void peticionPararSimulacion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+	public void peticionMostrarEscenario() {
+		notifEvts.sendPeticionMostrarEscenarioSimulacion();
+		
+	}
+	public void setVisibleControlGUI(boolean b) {
+		this.visorControlSim.setVisible(true);
+		
+	}
+	public void visualizarIdentsEquipoRobot(ArrayList identList) {
+		this.visorControlSim.visualizarIdentsEquipoRobot(identList);
+		
+	}
 }
