@@ -50,141 +50,292 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
-        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
-        sendVictimButton = new javax.swing.JButton();
-        sendVictimsSequence = new javax.swing.JButton();
-        intervalTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+    	listaComponentes = new javax.swing.JList();
+    	
+        jPopupMenuAcionesRobots = new javax.swing.JPopupMenu();
+        jMenuItemParar = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemVerEstado = new javax.swing.JMenuItem();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        jButtonSendVictim = new javax.swing.JButton();
+        jButtonSendVictimsSequence = new javax.swing.JButton();
+        jtextTextFieldIntervaloEnvioMensajes = new javax.swing.JTextField();
         jButtonStart = new javax.swing.JButton();
-        jStop = new javax.swing.JButton();
-        jstopRobot = new javax.swing.JButton();
-        showScenariojButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        listaComponentes = new javax.swing.JList();
+        jPararEnvioMensajes = new javax.swing.JButton();
+        jButtonMostrarEscenarioActual = new javax.swing.JButton();
+        jScrollPanelistaIdentsVictimas = new javax.swing.JScrollPane();
+        jListIdentsVictims = new javax.swing.JList();
+        jScrollPaneIdentsRobots = new javax.swing.JScrollPane();
+        jlistIdentsRobots = new javax.swing.JList();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldIdentEscenarioActual = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jMenuBarEditorEsc = new javax.swing.JMenuBar();
+        jMenuEditarEscenario = new javax.swing.JMenu();
+        jMenuItemAbrirEscenario = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemCrearEscenario = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemEliminarEscenario = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemSalir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
 
-        jLabel2.setText("jLabel2");
+        jPopupMenuAcionesRobots.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                //jPopupMenuAcionesRobotsPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+        jMenuItemParar.setText("jMenuItem3");
+        jMenuItemParar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // jMenuItemPararActionPerformed(evt);
+            }
+        });
+        jPopupMenuAcionesRobots.add(jMenuItemParar);
+        jPopupMenuAcionesRobots.add(jSeparator2);
 
-        jCheckBoxMenuItem2.setSelected(true);
-        jCheckBoxMenuItem2.setText("jCheckBoxMenuItem2");
+        jMenuItemVerEstado.setText("jMenuItem3");
+        jPopupMenuAcionesRobots.add(jMenuItemVerEstado);
+
+        jFileChooser1.setDialogTitle("Seleccion de escenario");
+        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // jFileChooser1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Centro de Control");
 
-        sendVictimButton.setText("Send Victim");
-        sendVictimButton.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSendVictim.setText("Salvar Victima");
+        jButtonSendVictim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendVictimButtonActionPerformed(evt);
+               // jButtonSendVictimActionPerformed(evt);
             }
         });
 
-        sendVictimsSequence.setText("Send Victims Sequence");
-        sendVictimsSequence.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSendVictimsSequence.setText("Salvar Victimas del escenario");
+        jButtonSendVictimsSequence.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendVictimsSequenceActionPerformed(evt);
+              //  jButtonSendVictimsSequenceActionPerformed(evt);
+            	sendVictimsSequenceActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Intervalo (ms)");
 
         jButtonStart.setText("Start");
-        jButtonStart.setNextFocusableComponent(jStop);
+        jButtonStart.setNextFocusableComponent(jPararEnvioMensajes);
         jButtonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartActionPerformed(evt);
+                //jButtonComenzarActionPerformed(evt);
+            	jButtonStartActionPerformed(evt);
             }
         });
 
-        jStop.setText("Stop");
-        jStop.addActionListener(new java.awt.event.ActionListener() {
+        jPararEnvioMensajes.setText("Parar");
+        jPararEnvioMensajes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jStopActionPerformed(evt);
+                //jPararEnvioMensajesActionPerformed(evt);
             }
         });
 
-        jstopRobot.setBackground(new java.awt.Color(204, 255, 153));
-        jstopRobot.setText("Stop Robot");
-        jstopRobot.addActionListener(new java.awt.event.ActionListener() {
+        jButtonMostrarEscenarioActual.setText("Mostrar Escenario actual");
+        jButtonMostrarEscenarioActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jstopRobotActionPerformed(evt);
+                //jButtonMostrarEscenarioActualActionPerformed(evt);
             }
         });
 
-        showScenariojButton2.setBackground(new java.awt.Color(204, 255, 153));
-        showScenariojButton2.setText("Show Scenario");
-        showScenariojButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showScenariojButton2ActionPerformed(evt);
-            }
-        });
-
-        listaComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+        jListIdentsVictims.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaComponentesMouseClicked(evt);
+                //jListIdentsVictimsMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(listaComponentes);
+        jScrollPanelistaIdentsVictimas.setViewportView(jListIdentsVictims);
 
+        jlistIdentsRobots.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //jlistIdentsRobotsMouseClicked(evt);
+            }
+        });
+        jScrollPaneIdentsRobots.setViewportView(jlistIdentsRobots);
+        jlistIdentsRobots.getAccessibleContext().setAccessibleDescription("");
+
+        jLabel3.setText("Robots ");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel4.setText("Ident Escenario de Simulación:");
+
+        jTextFieldIdentEscenarioActual.setEditable(false);
+        jTextFieldIdentEscenarioActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //jTextFieldIdentEscenarioActualActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Centro de Control");
+
+        jLabel6.setText("<html><body>Intervalo de envio  (ms)  <br>de mensajes </body></html>");
+
+        jLabel7.setText("Victimas");
+
+        jMenuEditarEscenario.setText("Editor Escenarios");
+
+        jMenuItemAbrirEscenario.setText("Abrir Escenario");
+        jMenuItemAbrirEscenario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //jMenuItemAbrirEscenarioActionPerformed(evt);
+            }
+        });
+        jMenuEditarEscenario.add(jMenuItemAbrirEscenario);
+        jMenuEditarEscenario.add(jSeparator5);
+
+        jMenuItemCrearEscenario.setText("Crear Escenario");
+        jMenuItemCrearEscenario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //jMenuItemCrearEscenarioActionPerformed(evt);
+            }
+        });
+        jMenuEditarEscenario.add(jMenuItemCrearEscenario);
+        jMenuEditarEscenario.add(jSeparator6);
+
+        jMenuItemEliminarEscenario.setText("Eliminar este Escenario");
+        jMenuItemEliminarEscenario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //jMenuItemEliminarEscenarioActionPerformed(evt);
+            }
+        });
+        jMenuEditarEscenario.add(jMenuItemEliminarEscenario);
+        jMenuEditarEscenario.add(jSeparator8);
+        jMenuEditarEscenario.add(jSeparator1);
+
+        jMenuItemSalir.setText("Salir");
+        jMenuEditarEscenario.add(jMenuItemSalir);
+
+        jMenuBarEditorEsc.add(jMenuEditarEscenario);
+
+        jMenu2.setText("Simulador");
+
+        jMenuItem1.setText("Mostrar Resultados simulacion");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Guardar resultados simulacion");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBarEditorEsc.add(jMenu2);
+
+        jMenu3.setText("Trazas");
+        jMenuBarEditorEsc.add(jMenu3);
+
+        setJMenuBar(jMenuBarEditorEsc);
+        
+        
+        
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonStart)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jStop))
-                    .addComponent(intervalTextField)
-                    .addComponent(sendVictimsSequence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sendVictimButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonStart))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPararEnvioMensajes)
+                            .addComponent(jtextTextFieldIntervaloEnvioMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonMostrarEscenarioActual)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel4))
+                    .addComponent(jButtonSendVictim)
+                    .addComponent(jButtonSendVictimsSequence))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addComponent(jScrollPaneIdentsRobots, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIdentEscenarioActual))
+                .addGap(58, 58, 58))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jstopRobot)
-                            .addComponent(showScenariojButton2))
-                        .addGap(42, 42, 42))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(274, 274, 274))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPanelistaIdentsVictimas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                        .addGap(120, 120, 120)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(showScenariojButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jstopRobot)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(sendVictimButton)
-                        .addGap(30, 30, 30)
-                        .addComponent(sendVictimsSequence)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldIdentEscenarioActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonMostrarEscenarioActual))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(intervalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jScrollPaneIdentsRobots))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPanelistaIdentsVictimas)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 107, Short.MAX_VALUE)
+                        .addComponent(jButtonSendVictim)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonStart)
-                            .addComponent(jStop))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jButtonSendVictimsSequence)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jtextTextFieldIntervaloEnvioMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(106, 106, 106))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButtonStart)
+                                    .addComponent(jPararEnvioMensajes))
+                                .addGap(55, 55, 55))))))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void sendVictimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimButtonActionPerformed
           
@@ -214,7 +365,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
           if(valor!=null){
                  try{
                     intervaloSecuencia = Integer.parseInt(valor);
-                    intervalTextField.setText(""+intervaloSecuencia);
+                    jtextTextFieldIntervaloEnvioMensajes.setText(""+intervaloSecuencia);
                  }catch(Exception e){
                      System.out.println("El valor debe ser  un numero entero");
                      intervaloSecuencia = 0;
@@ -228,7 +379,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
              if(valor!=null){
                  try{
                     intervaloSecuencia = Integer.parseInt(valor);
-                    intervalTextField.setText(""+intervaloSecuencia);
+                    jtextTextFieldIntervaloEnvioMensajes.setText(""+intervaloSecuencia);
                  }catch(Exception e){
                      System.out.println("El valor debe ser  un numero entero");
                      intervaloSecuencia = 0;
@@ -297,43 +448,8 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
         listaComponentes.setVisible(true);
 }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ControlCenterGUI4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ControlCenterGUI4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ControlCenterGUI4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ControlCenterGUI4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new ControlCenterGUI4().setVisible(true);
-            }
-        });
-    }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField intervalTextField;
     private javax.swing.JButton jButtonStart;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
@@ -347,5 +463,43 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
     private javax.swing.JButton sendVictimButton;
     private javax.swing.JButton sendVictimsSequence;
     private javax.swing.JButton showScenariojButton2;
+    
+    
+    
+    private javax.swing.JButton jButtonComenzar;
+    private javax.swing.JButton jButtonMostrarEscenarioActual;
+    private javax.swing.JButton jButtonSendVictim;
+    private javax.swing.JButton jButtonSendVictimsSequence;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JList jListIdentsVictims;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBarEditorEsc;
+    private javax.swing.JMenu jMenuEditarEscenario;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemAbrirEscenario;
+    private javax.swing.JMenuItem jMenuItemCrearEscenario;
+    private javax.swing.JMenuItem jMenuItemEliminarEscenario;
+    private javax.swing.JMenuItem jMenuItemParar;
+    private javax.swing.JMenuItem jMenuItemSalir;
+    private javax.swing.JMenuItem jMenuItemVerEstado;
+    private javax.swing.JButton jPararEnvioMensajes;
+    private javax.swing.JPopupMenu jPopupMenuAcionesRobots;
+    private javax.swing.JScrollPane jScrollPaneIdentsRobots;
+    private javax.swing.JScrollPane jScrollPanelistaIdentsVictimas;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JTextField jTextFieldIdentEscenarioActual;
+    private javax.swing.JList jlistIdentsRobots;
+    private javax.swing.JTextField jtextTextFieldIntervaloEnvioMensajes;
     // End of variables declaration//GEN-END:variables
 }
