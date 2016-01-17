@@ -57,11 +57,11 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
     public void setIdentAgenteAReportar(String identAgenteAReportar) {
         identificadorAgenteaReportar =identAgenteAReportar ;
     }
-    public void sendPeticionSimulacionVictimToRobotTeam (){
+    public void sendPeticionSimulacionVictimToRobotTeam (String identVictimaSeleccionada){
         
         // se manda la peticion al agente para que decida lo que hay que hacer
      
-            this.informaraOtroAgenteReactivo(peticionEnvioVictimaSimulada, identificadorAgenteaReportar);
+            this.informaraOtroAgenteReactivo(new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionSimulacionVictima,identVictimaSeleccionada), identificadorAgenteaReportar);
       //      comunicacion.enviarInfoAotroAgente(initialOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
     }
     public void sendPeticionSimulacionSecuenciaVictimasToRobotTeam (int intervaloSecuencia){

@@ -45,7 +45,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
 //            visorEscenarios = new VisorEscenariosRosace3();
             visorEscenarios = new VisorEscenariosRosace(notifEvt);
-            this.controlador=new ControladorVisualizacionSimulRosace(notifEvt);
+            this.controlador=new ControladorVisualizacionSimulRosace(notifEvt,visorEscenarios);
            // ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
         } catch (Exception e) {
             this.trazas.trazar(recursoId, " Se ha producido un error en la creación del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
@@ -289,6 +289,9 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
     @Override
     public void mostrarIdentsEquipoRobots(ArrayList identList){
         controlador.visualizarIdentsEquipoRobot(identList);
+    }
+    public void mostrarIdentsVictims(ArrayList identList){
+        controlador.visualizarIdentsVictims(identList);
     }
 
 	public void quitarVictimaRescatada(String refVictima) {

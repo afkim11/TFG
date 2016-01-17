@@ -63,11 +63,13 @@ public class ControladorVisualizacionSimulRosace {
     private volatile GestionEscenariosSimulacion gestionEscComp;
     private volatile EscenarioSimulacionRobtsVictms escenarioActualComp;
     private volatile PersistenciaVisualizadorEscenarios persistencia;
+    private volatile VisorEscenariosRosace visorEscenarioRosace;
     private String modeloOrganizativo;
     private String identEquipoActual;
     
-    public  ControladorVisualizacionSimulRosace (NotificadorInfoUsuarioSimulador NotificadorInfoUsuarioSimulador){
+    public  ControladorVisualizacionSimulRosace (NotificadorInfoUsuarioSimulador NotificadorInfoUsuarioSimulador,VisorEscenariosRosace visorEscenariosRosace){
         notifEvts=NotificadorInfoUsuarioSimulador;
+        this.visorEscenarioRosace=visorEscenariosRosace;
         initModelosYvistas();
     }
     public void initModelosYvistas(){
@@ -145,6 +147,14 @@ public class ControladorVisualizacionSimulRosace {
 	}
 	public void visualizarIdentsEquipoRobot(ArrayList identList) {
 		this.visorControlSim.visualizarIdentsEquipoRobot(identList);
+		
+	}
+	public void visualizarIdentsVictims(ArrayList identList) {
+		this.visorControlSim.visualizarIdentsEquipoVictims(identList);
+		
+	}
+	public void victimaSeleccionadaParaSimulacion(String identVictimaSeleccionada) {
+		notifEvts.sendPeticionSimulacionVictimToRobotTeam(identVictimaSeleccionada);
 		
 	}
 }

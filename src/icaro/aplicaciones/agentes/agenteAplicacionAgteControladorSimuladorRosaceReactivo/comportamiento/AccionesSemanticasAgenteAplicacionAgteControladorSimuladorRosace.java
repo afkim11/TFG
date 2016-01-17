@@ -100,6 +100,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
             itfUsoRecursoVisualizadorEntornosSimulacion.setIdentAgenteAReportar(this.nombreAgente);
             itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador();
             itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsEquipoRobots(identsAgtesEquipo);
+            itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsVictims(getVictimsName(this.itfUsoRecursoPersistenciaEntornosSimulacion.getVictimasArescatar()));
             comunicator = this.getComunicator();
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,7 +110,15 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
         trazas.trazar(this.nombreAgente, "Accion AccionComenzar completada ....", NivelTraza.debug);
     }
 
-    //Esta accion semantica se ejecuta cuando se envia el input "sendSequenceOfSimulatedVictimsToRobotTeam" en el 
+    private ArrayList getVictimsName(ArrayList<Victim> victimasArescatar) {
+    	ArrayList<String> victimsID = new ArrayList<String>();
+		for(int i=0; i < victimasArescatar.size(); i++){
+			victimsID.add(victimasArescatar.get(i).getName());
+		}
+		return victimsID;
+	}
+
+	//Esta accion semantica se ejecuta cuando se envia el input "sendSequenceOfSimulatedVictimsToRobotTeam" en el 
     //metodo sendSequenceOfSimulatedVictimsToRobotTeam de la clase NotificacionEventosRecursoGUI3	
     public void SendSequenceOfSimulatedVictimsToRobotTeam(Integer intervaloSecuencia) {
         this.intervaloSecuencia = intervaloSecuencia;
@@ -247,6 +256,23 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
         t.start();
     }
 
+    public void SendSimulatedVictimToRobotTeam(String idVictima){
+    	trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Accion SendVictimToRobotTeam  .... "
+                + idVictima, InfoTraza.NivelTraza.debug));
+    
+    if(victims2Rescue == null || victims2Rescue.isEmpty()){
+    	try {
+			this.victimasDefinidas=this.itfUsoRecursoPersistenciaEntornosSimulacion.getVictimasArescatar();
+			for(int i=0;i<this.victimasDefinidas.size();i++)victims2Rescue.put(victimasDefinidas.get(i).getName(), victimasDefinidas.get(i));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    }
+    Victim victima = victims2Rescue.get(idVictima);
+    OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
+    comunicator.informaraGrupoAgentes(ccOrder, identsAgtesEquipo);
+    }
     //Esta accion semantica se ejecuta cuando se envia el input "victimaAsignadaARobot" en la  
     //tarea sincrona GeneraryEncolarObjetivoActualizarFoco del agente Subordinado
     //Esta accion semantica se ejecuta cuando se envia el input "victimaAsignadaARobot" en la  

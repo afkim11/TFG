@@ -2,6 +2,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
+import icaro.infraestructura.entidadesBasicas.excepciones.ExcepcionEnComponente;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.ItfUsoRepositorioInterfaces;
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.ClaseGeneradoraRepositorioInterfaces;
@@ -14,6 +15,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -66,6 +68,8 @@ public class VisorEscenariosRosace extends JFrame {
 	private JTextArea textAreaMensaje;
 	private JPanelObstaculo panelVisor;
 	private Graphics graficosVisor;
+	private ArrayList<String> identRobots;
+	private ArrayList<String> identVictims;
 
 	private NotificadorInfoUsuarioSimulador notifEvts;
 
@@ -79,6 +83,9 @@ public class VisorEscenariosRosace extends JFrame {
 	}
 	public VisorEscenariosRosace( NotificadorInfoUsuarioSimulador notifEvt) throws Exception {
 		this.notifEvts=notifEvt;
+		init();
+	}
+	private void init() throws Exception{
 		robotslabel = new HashMap<String, JLabel>();
 		victimaslabel = new HashMap<String, JLabel>();
 
@@ -147,11 +154,12 @@ public class VisorEscenariosRosace extends JFrame {
 		JPanel panelAccionesRobots=new JPanel();
 		
 		
-		
+		this.identRobots=new ArrayList<String>();
 		for(int i=1;i<nroRobots;i++){
 			
 			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, i);
 			String nombreRobot = rXMLTRobots.getRobotIDValue(info, "id");
+			this.identRobots.add(nombreRobot);
 			panelAccionesRobots.add(new Boton("Romper robot " + nombreRobot.charAt(nombreRobot.length()-1),nombreRobot
 					,VocabularioRosace.MsgRomperRobot,notifEvts));
 		}
@@ -272,15 +280,17 @@ public class VisorEscenariosRosace extends JFrame {
 		}
 
 		System.out.println("");
-
+		this.identVictims=new ArrayList<String>();
 
 		//*********************************************************************************************        
 		//Aniadir al panel panelVisor los componentes label que representan las victimas leidas del xml
 		//*********************************************************************************************                
+		
 		for (int j = 0; j < nroVictimas; j++) {
 			//Obtain info about first victim located at the test sequence 
 			Element info = rXMLTSeq.getVictimElement(nodeLstVictimas, j);
 			String valueid = rXMLTSeq.getVictimIDValue(info, "id");
+			this.identVictims.add(valueid);
 			Coordinate valueInitialCoordinate = rXMLTSeq.getVictimCoordinate(info);
 			int coordinateX = (int) valueInitialCoordinate.x;
 			int coordinateY = (int) valueInitialCoordinate.y;
@@ -335,7 +345,6 @@ public class VisorEscenariosRosace extends JFrame {
 
 		System.out.println("");
 	}
-
 	public synchronized void cambiarPosicionRobot(String valor_idRobot, int nueva_coordx, int nueva_coordy) {
 
 		String numeroRobot = getNumeroRobot(valor_idRobot);

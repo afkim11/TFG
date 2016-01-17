@@ -13,6 +13,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -29,7 +30,9 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
     private int numMensajesEnviar = 3;
     private boolean primeraVictima = true;
     private VisorEscenariosRosace visorSc;
-    private ArrayList identsRobotsEquipo ;
+    private ArrayList<String> identsRobotsEquipo ;
+	private ArrayList<String> identsVictimsEquipo;
+	private String identVictimaSeleccionada;
     public ControlCenterGUI4() {
         initComponents();
        
@@ -165,7 +168,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 
         jListIdentsVictims.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                //jListIdentsVictimsMouseClicked(evt);
+                jListIdentsVictimsMouseClicked(evt);
             }
         });
         jScrollPanelistaIdentsVictimas.setViewportView(jListIdentsVictims);
@@ -342,7 +345,18 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
         pack();
     }
 
-    protected void jButtonMostrarEscenarioActualActionPerformed(ActionEvent evt) {
+    protected void jListIdentsVictimsMouseClicked(MouseEvent evt) {
+		if(evt.getClickCount()==2){
+			
+			int index = jListIdentsVictims.locationToIndex(evt.getPoint());
+//	        notifEvts.sendPeticionPararAgente ((String)identsRobotsEquipo.get(index));
+	       //      clasificadorV.muestraVentanaEspecifica(listaComponentes.getSelectedValue().toString());
+                identVictimaSeleccionada = (String)this.identsVictimsEquipo.get(index);
+               controladorEscSim.victimaSeleccionadaParaSimulacion(identVictimaSeleccionada);
+		}
+		
+	}
+	protected void jButtonMostrarEscenarioActualActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
     	controladorEscSim.peticionMostrarEscenario();
 		
@@ -448,8 +462,14 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
     public void visualizarIdentsEquipoRobot ( ArrayList<String> equipoIds){
 //        eqipoIds = eqipoIds.toArray();
         identsRobotsEquipo = equipoIds;
-        this.listaComponentes.setListData(identsRobotsEquipo.toArray());
-        listaComponentes.setVisible(true);
+        this.jlistIdentsRobots.setListData(identsRobotsEquipo.toArray());
+        jlistIdentsRobots.setVisible(true);
+}
+    public void visualizarIdentsEquipoVictims ( ArrayList<String> equipoIds){
+//      eqipoIds = eqipoIds.toArray();
+      identsVictimsEquipo = equipoIds;
+      this.jListIdentsVictims.setListData(this.identsVictimsEquipo.toArray());
+      jListIdentsVictims.setVisible(true);
 }
     
 
