@@ -10,6 +10,7 @@
  */
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 
 import java.awt.event.ActionEvent;
@@ -32,7 +33,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
     private VisorEscenariosRosace visorSc;
     private ArrayList<String> identsRobotsEquipo ;
 	private ArrayList<String> identsVictimsEquipo;
-	private String identVictimaSeleccionada;
+	private String identVictimaSeleccionada=null;
     public ControlCenterGUI4() {
         initComponents();
        
@@ -129,7 +130,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
         jButtonSendVictim.setText("Salvar Victima");
         jButtonSendVictim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // jButtonSendVictimActionPerformed(evt);
+               jButtonSendVictimActionPerformed(evt);
             }
         });
 
@@ -345,14 +346,17 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
         pack();
     }
 
-    protected void jListIdentsVictimsMouseClicked(MouseEvent evt) {
+    protected void jButtonSendVictimActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	controladorEscSim.victimaSeleccionadaParaSimulacion(identVictimaSeleccionada);
+	}
+	protected void jListIdentsVictimsMouseClicked(MouseEvent evt) {
 		if(evt.getClickCount()==2){
 			
 			int index = jListIdentsVictims.locationToIndex(evt.getPoint());
 //	        notifEvts.sendPeticionPararAgente ((String)identsRobotsEquipo.get(index));
 	       //      clasificadorV.muestraVentanaEspecifica(listaComponentes.getSelectedValue().toString());
                 identVictimaSeleccionada = (String)this.identsVictimsEquipo.get(index);
-               controladorEscSim.victimaSeleccionadaParaSimulacion(identVictimaSeleccionada);
 		}
 		
 	}

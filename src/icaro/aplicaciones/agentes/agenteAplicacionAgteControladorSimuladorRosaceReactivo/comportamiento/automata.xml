@@ -25,12 +25,11 @@
 
 
   <estado idIntermedio="simulando">
-
+  	 <transicion input="sendSequenceOfSimulatedVictimsToRobotTeam" accion="SendSequenceOfSimulatedVictimsToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="peticionSimulacionVictima" accion="SendSimulatedVictimToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
      <transicion input="victimaAsignadaARobot" accion="VictimaAsignadaARobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
      <transicion input="desasignarVictima" accion="desasignarVictima" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-
      <transicion input="finSimulacion" accion="FinSimulacion" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>
-
      <transicion input="mostrarEscenarioActualSimulado" accion="MostrarEscenarioActualSimulado" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
     <transicion input="enviarIdentsEquipo" accion="MostrarRobotsActivos" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
     <transicion input="pararRobot" accion="PararRobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
