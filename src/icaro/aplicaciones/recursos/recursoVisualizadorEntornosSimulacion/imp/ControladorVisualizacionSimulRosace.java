@@ -131,11 +131,11 @@ public class ControladorVisualizacionSimulRosace {
     }
 
    	public   void peticionPararRobot(String identRobotSeleccionado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   		this.notifEvts.sendPeticionPararAgente(identRobotSeleccionado);
+   	}
 
     void peticionPararSimulacion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	throw new UnsupportedOperationException("Not supported yet.");
     }
 	public void peticionMostrarEscenario() {
 		notifEvts.sendPeticionMostrarEscenarioSimulacion();

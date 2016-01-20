@@ -8,6 +8,7 @@ import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoR
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestSequence;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
+import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import icaro.infraestructura.patronAgenteReactivo.control.acciones.AccionesSemanticasAgenteReactivo;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
@@ -434,9 +435,12 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		}
 	}
 	public void  PararRobot (String idRobot){
-		OrdenParada orden = new OrdenParada(nombreAgente);
+		/*OrdenParada orden = new OrdenParada(nombreAgente);
 		//        orden.setMensajePeticion(VocabularioRosace.MsgePeticionParar);
-		this.comunicator.enviarInfoAotroAgente(orden, idRobot);
+		this.comunicator.enviarInfoAotroAgente(orden, idRobot);*/
+
+		Informacion x=new Informacion(VocabularioRosace.MsgRomperRobot);
+		this.comunicator.enviarInfoAotroAgente(x, idRobot);
 	}
 
 	// Include in this section other (private) methods used in this agent

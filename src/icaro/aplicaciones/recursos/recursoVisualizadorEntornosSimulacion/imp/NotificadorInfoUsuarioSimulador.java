@@ -78,8 +78,8 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
             Object[] infoDefinidaPorUsuario = new Object[]{idAgente};
             peticionPararAgente = new InfoContEvtMsgAgteReactivo (VocabularioRosace.PeticionAgteControlSimul.pararRobot.name());
             peticionPararAgente.setvaloresParametrosAccion(infoDefinidaPorUsuario);
-            this.informaraOtroAgenteReactivo(peticionPararAgente, identificadorAgenteaReportar);
-      //      comunicacion.enviarInfoAotroAgente(initialOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
+            
+    	 this.informaraOtroAgenteReactivo(peticionPararAgente, identificadorAgenteaReportar);
     }
     public void sendPeticionPararSimulacion (){
         
