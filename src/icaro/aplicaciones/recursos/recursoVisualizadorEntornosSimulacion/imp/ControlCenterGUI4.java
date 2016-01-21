@@ -219,7 +219,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		jMenuItemCrearEscenario.setText("Crear Escenario");
 		jMenuItemCrearEscenario.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				//jMenuItemCrearEscenarioActionPerformed(evt);
+				jMenuItemCrearEscenarioActionPerformed(evt);
 			}
 		});
 		jMenuEditarEscenario.add(jMenuItemCrearEscenario);
@@ -350,6 +350,10 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		pack();
 	}
 
+	protected void jMenuItemCrearEscenarioActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		controladorEscSim.peticionCrearEscenario();
+	}
 	protected void jMenuItemPararActionPerformed(ActionEvent evt) {
 		
 		this.controladorEscSim.peticionPararRobot(identRobotSeleccionado);

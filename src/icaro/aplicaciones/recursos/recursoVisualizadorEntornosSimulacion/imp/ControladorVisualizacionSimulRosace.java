@@ -61,9 +61,10 @@ public class ControladorVisualizacionSimulRosace {
     private boolean entidadSeleccionadaParaMover;
     private int numeroRobots, mumeroVictimas;
     private volatile GestionEscenariosSimulacion gestionEscComp;
-    private volatile EscenarioSimulacionRobtsVictms escenarioActualComp;
+    private volatile EscenarioSimulacionRobtsVictms escenarioEdicionComp;
     private volatile PersistenciaVisualizadorEscenarios persistencia;
     private volatile VisorEscenariosRosace visorEscenarioRosace;
+    private VisorCreacionEscenarios visorEditorEscen;
     private String modeloOrganizativo;
     private String identEquipoActual;
     
@@ -82,7 +83,7 @@ public class ControladorVisualizacionSimulRosace {
                 try {
                     gestionEscComp = new GestionEscenariosSimulacion();
                     gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-//       			escenarioActualComp = gestionEscComp.crearEscenarioSimulación();
+					visorEditorEscen= new VisorCreacionEscenarios(this);
                     visorControlSim = new ControlCenterGUI4(this);
                    
              
@@ -109,8 +110,13 @@ public class ControladorVisualizacionSimulRosace {
     }
 
   public  void peticionCrearEscenario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	  escenarioEdicionComp = gestionEscComp.crearEscenarioSimulacion();
+      escenarioEdicionComp.initEscenario(); 
+      
+      visorEditorEscen.visualizarEscenario(escenarioEdicionComp);
+      visorEditorEscen.setVisible(true);
+  }
 
    public  void peticionAbrirEscenario() {
 //        throw new UnsupportedOperationException("Not supported yet."); 

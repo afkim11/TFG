@@ -43,7 +43,7 @@ public class GestionEscenariosSimulacion {
      public void  setIdentsEscenariosSimulacion ( HashSet setIdentsEscenarios){
          identsEscenarios = setIdentsEscenarios;
      }
-     public EscenarioSimulacionRobtsVictms crearEscenarioSimulación(){
+     public EscenarioSimulacionRobtsVictms crearEscenarioSimulacion(){
          EscenarioSimulacionRobtsVictms escenarioSim = new EscenarioSimulacionRobtsVictms();
          escenarioSim.setGestorEscenarios(this);
          escenarioSim.setIdentEscenario(getIdentEscenario (orgModeloInicial,0, 0));

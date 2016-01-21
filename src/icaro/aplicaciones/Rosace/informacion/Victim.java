@@ -1,5 +1,6 @@
 package icaro.aplicaciones.Rosace.informacion;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,10 @@ public class Victim implements Serializable{
        //In our first scenario (1 injured group, 1 new injured) this constructor was used.
        public Victim(Coordinate coorVictim){
     	   this.coordinateVictim = coorVictim;
-       } 
+       }
+       public Victim(String nombre){
+    	   this.name=nombre;
+       }
 
        public Victim(String name, Coordinate coorVictim, int priority, List<Integer> requirements){
            this.name = name;
@@ -91,5 +95,15 @@ public class Victim implements Serializable{
    		   return "Victim: " + " name->" + this.getName() + " ; coordinate->" + this.getCoordinateVictim() + 
    		          " ; priority->" + this.getPriority() + " ; requirements->" + this.getRequirements();
    	   }
+
+	public void setLocPoint(Point punto) {
+		// TODO Auto-generated method stub
+		this.coordinateVictim=new Coordinate(punto.getX(),punto.getY(),0.5);
+	}
+
+	public Point getLocPoint() {
+		// TODO Auto-generated method stub
+		return new Point((int)this.coordinateVictim.getX(),(int)this.coordinateVictim.getY());
+	}
    	      	   
 }
