@@ -13,7 +13,9 @@ public class LineaObstaculo {
 		this.fin = fin;
 		this.valueid = valueid;
 	}
-	
+	public String getId(){
+		return valueid;
+	}
 	public Coordinate getCoordenadaIni(){
 		return this.ini;
 	}
