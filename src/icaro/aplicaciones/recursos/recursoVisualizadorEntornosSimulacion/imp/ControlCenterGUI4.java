@@ -556,4 +556,9 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	private javax.swing.JList jlistIdentsRobots;
 	private javax.swing.JTextField jtextTextFieldIntervaloEnvioMensajes;
 	// End of variables declaration//GEN-END:variables
+
+	public void setIdentEscenarioActual(String identEscenario) {
+		this.jTextFieldIdentEscenarioActual.setText(identEscenario);
+		
+	}
 }

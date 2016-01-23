@@ -22,17 +22,26 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RobotStatus {
-
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+@Root
+public class RobotStatus{
+	@Element
 	private String idRobot;
-	private String idRobotRol;
+	@Element
+	private String idRobotRol="indefinido";
+	@Element
 	private int availableEnergy;
-	private Coordinate robotCoordinateActual,robotCoordinateAnterior ;
+	@Element
+	private Coordinate robotCoordinateActual;
+	private Coordinate robotCoordinateAnterior ;
 	private float healRange;  
 	//Actualmente en nuestra implementacion no se utilizan los atributos rangeProximity y robotCapabilities.
 	//No obstante esta clase ya ofrece metodos para poder considerarlos en el futuro 
 	private float rangeProximity;
 	private final double limiteDespalzamiento = 0.5;
+	@ElementList(entry="robotCapability")
 	private List<RobotCapability> robotCapabilities;
 	private InfoCompMovimiento infoCompMovt;
 	private boolean bloqueado;

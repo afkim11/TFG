@@ -5,12 +5,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Victim implements Serializable{
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 
+public class Victim implements Serializable{
+	@Element
        private String name;
+	@Element
        private volatile Coordinate coordinateVictim;
 	   //Requirements. Robot abilities should cover these requirements to heal the victim.
-       public List<Integer> RequiredCompetencies = new ArrayList<Integer>();  
+       @ElementList(entry="competency")
+       public List<Integer> RequiredCompetencies = new ArrayList<Integer>(); 
+       @Element
        private int priority; //victim severity
        private int estimatedCost;
        private boolean isRescued = false;

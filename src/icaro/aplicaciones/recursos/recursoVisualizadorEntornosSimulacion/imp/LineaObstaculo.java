@@ -1,10 +1,16 @@
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
-import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+import icaro.aplicaciones.Rosace.informacion.Coordinate;
+@Root
 public class LineaObstaculo {
+	@Element
 	private Coordinate ini;
+	@Element
 	private Coordinate fin;
+	@Element
 	private String valueid;
 	
 	public LineaObstaculo(Coordinate ini, Coordinate fin, String valueid)

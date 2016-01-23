@@ -2,6 +2,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.PuntoEstadistica;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.infraestructura.patronRecursoSimple.ItfUsoRecursoSimple;
 import java.util.ArrayList;
 
@@ -36,4 +37,5 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
  public void mostrarIdentsEquipoRobots(ArrayList identList)throws Exception;
  public void mostrarIdentsVictims(ArrayList identList)throws Exception;
  public void quitarVictimaRescatada(String refVictima)throws Exception;
+ public void setItfUsoPersistenciaSimulador(ItfUsoRecursoPersistenciaEntornosSimulacion itfUsoRecursoPersistenciaEntornosSimulacion) throws Exception;
 }

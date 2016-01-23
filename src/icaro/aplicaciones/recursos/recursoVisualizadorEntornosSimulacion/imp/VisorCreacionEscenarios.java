@@ -612,7 +612,9 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private void jMenuItemGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarEscenarioActionPerformed
 		// TODO add your handling code here:
 		// TODO add your handling code here:
+		System.out.println("Ha pulsado el botón Guardar Escenario");
 		actualizarCoordenadasEntidades();
+		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 		//controladorSim.peticionGuardarEscenario (escenarioActualComp);
 
 
@@ -631,7 +633,9 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	}//GEN-LAST:event_jMenuItemGuardarEscenarioActionPerformed
 
 	private void jButtonGuardarEscenarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioMousePressed
-		// TODO add your handling code here:
+		System.out.println("Ha pulsado el botón Guardar Escenario");
+		actualizarCoordenadasEntidades();
+		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 	}//GEN-LAST:event_jButtonGuardarEscenarioMousePressed
 
 	private void intervalNumVictimasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intervalNumVictimasActionPerformed
@@ -673,7 +677,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		// TODO add your handling code here:
 		System.out.println("Ha pulsado el botón Guardar Escenario");
 		actualizarCoordenadasEntidades();
-		//controladorSim.peticionGuardarEscenario(escenarioActualComp);
+		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
 		//        String valor ;
 		//        setLocationRelativeTo(this);

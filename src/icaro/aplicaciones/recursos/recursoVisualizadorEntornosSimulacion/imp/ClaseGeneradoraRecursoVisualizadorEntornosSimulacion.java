@@ -4,6 +4,7 @@ import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.PuntoEstadistica;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoEstadistica.imp.visualizacionEstadisticas.VisualizacionJfreechart;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.InfoTraza.NivelTraza;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
@@ -299,4 +300,13 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 	        visorEscenarios.cambiarIconoVictimaADesasignada(refVictima);
 		
 	}
+
+	@Override
+	public void setItfUsoPersistenciaSimulador(
+			ItfUsoRecursoPersistenciaEntornosSimulacion itfUsoRecursoPersistenciaEntornosSimulacion)  throws Exception{
+		this.controlador.setIftRecPersistencia(itfUsoRecursoPersistenciaEntornosSimulacion);
+		
+	}
+	
+	
 }

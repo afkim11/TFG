@@ -40,8 +40,9 @@ public class EscenarioSimulacionRobtsVictms {
 	@ElementMap(entry="robots", key="key", attribute=true, inline=true)
 	private Map<String, RobotStatus> infoRobots;     
 	@ElementMap(entry="victimas", key="key", attribute=true, inline=true)
-	//    private Map<String, Point> victimasLoc;
+	//    private Map<String, Point> victmasLoc;
 	private Map<String, Victim> infoVictimas;
+	@ElementMap(entry="obstaculos", key="key", attribute=true, inline=true)
 	private Map<String,LineaObstaculo> infoObstaculos;
 	private String robotInicialId = "initRobot";
 	private String victimInicialId = "initVictim";

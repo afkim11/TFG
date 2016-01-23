@@ -1,6 +1,7 @@
 package icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion;
 
 import icaro.aplicaciones.Rosace.informacion.*;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.patronRecursoSimple.ItfUsoRecursoSimple;
 import java.util.ArrayList;
 
@@ -59,4 +60,5 @@ import java.util.ArrayList;
     public void finSimulacion()throws Exception;
     public String getIdentEscenarioSimulacion()throws Exception;
     public RobotStatus getRobotStatus ( String robotId)throws Exception;
+	public boolean guardarInfoEscenarioSimulacion(EscenarioSimulacionRobtsVictms escenarioEdicionComp) throws Exception;
 }

@@ -97,6 +97,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			equipo = new InfoEquipo(this.nombreAgente, identificadorEquipo);  //el primer parametro es una cadena con un caracter en blanco, asi obtengo el equipo correctamente
 			identsAgtesEquipo = equipo.getTeamMemberIDs();
 			this.numeroRobotsSimulacion = identsAgtesEquipo.size();
+		//	itfUsoRecursoVisualizadorEntornosSimulacion.setItfUsoPersistenciaSimulador(itfUsoRecursoPersistenciaEntornosSimulacion);
 			itfUsoRecursoVisualizadorEntornosSimulacion = (ItfUsoRecursoVisualizadorEntornosSimulacion) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoVisualizadorEntornosSimulacion1");
 			itfUsoRecursoVisualizadorEntornosSimulacion.setIdentAgenteAReportar(this.nombreAgente);
 			itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador();
