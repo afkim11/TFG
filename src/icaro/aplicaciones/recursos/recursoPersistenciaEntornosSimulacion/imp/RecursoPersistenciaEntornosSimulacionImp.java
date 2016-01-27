@@ -61,24 +61,24 @@ public class RecursoPersistenciaEntornosSimulacionImp extends ImplRecursoSimple{
     }
      public  void  inicializarRecursoPersistenciaEntornosSimulacion (){
         try {
-//            ItfUsoConfiguracion   itfconfig = (ItfUsoConfiguracion) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
-//               rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.identRutaFicheroEscenarioSimulacion);
-//               rutaFicheroRobotsTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroRobotsTest);
-//               rXMLTSeq = new ReadXMLTestSequence(rutaFicheroVictimasTest);
-//               Document doc = this.getDocumentVictimas(rXMLTSeq);
-//               nodeLst    =   this.getListaNodosVictima(rXMLTSeq, doc);
+            ItfUsoConfiguracion   itfconfig = (ItfUsoConfiguracion) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
+               rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroVictimasTest);
+               rutaFicheroRobotsTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroRobotsTest);
+               rXMLTSeq = new ReadXMLTestSequence(rutaFicheroVictimasTest);
+               Document doc = this.getDocumentVictimas(rXMLTSeq);
+               nodeLst    =   this.getListaNodosVictima(rXMLTSeq, doc);
                victimasDefinidas = new ArrayList ();
-//               if ((rXMLTSeq!=null) && (nodeLst!=null))
-//                                numeroVictimasDiferentesSimulacion = rXMLTSeq.getNumberOfVictimsInSequence(nodeLst);
-//                                // se obtienen tambien el conjunto de vicitmas definidas
-//           //    String nombreFicheroAsignVictim = "asigVictimasObjetos";
+               if ((rXMLTSeq!=null) && (nodeLst!=null))
+                                numeroVictimasDiferentesSimulacion = rXMLTSeq.getNumberOfVictimsInSequence(nodeLst);
+                                // se obtienen tambien el conjunto de vicitmas definidas
+           //    String nombreFicheroAsignVictim = "asigVictimasObjetos";
                  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaSimulacion+File.separator;
                 identFicheroInfoAsigVictimasObj = directorioPersistencia+VocabularioRosace.NombreFicheroSerieInfoAsignacionVictimas+".tmp";
                 identFicheroInfoAsigVictimasXML = directorioPersistencia+VocabularioRosace.NombreFicheroSerieInfoAsignacionVictimas+".xml";
                 File dirFicherosPersistencia = new File(directorioPersistencia);
                 if(!dirFicherosPersistencia.exists())dirFicherosPersistencia.mkdir();
                 infoVictimasAsigandas = new ArrayList<InfoAsignacionVictima>();
-//                robotsDefinidos = getTeamRobotStatus();
+                robotsDefinidos = getTeamRobotStatus();
         } catch (Exception ex) {
             Logger.getLogger(RecursoPersistenciaEntornosSimulacionImp1.class.getName()).log(Level.SEVERE, null, ex);
  //           return null;
