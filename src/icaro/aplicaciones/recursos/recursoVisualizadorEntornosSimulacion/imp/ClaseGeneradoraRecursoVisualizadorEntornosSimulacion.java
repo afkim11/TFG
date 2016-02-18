@@ -307,6 +307,12 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 		this.controlador.setIftRecPersistencia(itfUsoRecursoPersistenciaEntornosSimulacion);
 		
 	}
+
+	@Override
+	public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception {
+		visorEscenarios = new VisorEscenariosRosace(escenarioNuevo);
+		
+	}
 	
 	
 }

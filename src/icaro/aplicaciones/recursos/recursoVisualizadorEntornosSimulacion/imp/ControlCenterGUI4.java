@@ -17,9 +17,13 @@ import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -37,6 +41,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	private ArrayList<String> identsVictimsEquipo;
 	private String identVictimaSeleccionada=null;
 	private String identRobotSeleccionado=null;
+	private String identEquipo="indefinido";
 	
 	public ControlCenterGUI4() {
 		initComponents();
@@ -210,7 +215,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		jMenuItemAbrirEscenario.setText("Abrir Escenario");
 		jMenuItemAbrirEscenario.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				//jMenuItemAbrirEscenarioActionPerformed(evt);
+				jMenuItemAbrirEscenarioActionPerformed(evt);
 			}
 		});
 		jMenuEditarEscenario.add(jMenuItemAbrirEscenario);
@@ -350,6 +355,10 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		pack();
 	}
 
+	protected void jMenuItemAbrirEscenarioActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		controladorEscSim.peticionAbrirEscenario();
+	}
 	protected void jMenuItemCrearEscenarioActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
 		controladorEscSim.peticionCrearEscenario();
@@ -560,5 +569,25 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	public void setIdentEscenarioActual(String identEscenario) {
 		this.jTextFieldIdentEscenarioActual.setText(identEscenario);
 		
+	}
+	public File solicitarSeleccionFichero(String directorioPersistencia){
+	      FileNameExtensionFilter filter = new FileNameExtensionFilter("ficheros xml","xml","txt" );
+	      jFileChooser1.setFileFilter(filter);
+	      File dir = new File(directorioPersistencia);
+	      jFileChooser1.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	      jFileChooser1.setCurrentDirectory(dir);
+	     int returnVal = jFileChooser1.showOpenDialog(this);
+	      
+//	       int returnVal = jFileChooser1.showOpenDialog(this);
+	    if (returnVal == JFileChooser.APPROVE_OPTION) {
+	        return jFileChooser1.getSelectedFile();
+	     }else return null; // no ha seleccionado nada
+	     }
+	public void visualizarConsejo(String tituloAvisoEscenarioNoDefinido, String mensajeEscenarioNoSeleccionado,String recomendacionDefinirEscenario) {
+		JOptionPane.showMessageDialog(rootPane,mensajeEscenarioNoSeleccionado + "  "+ recomendacionDefinirEscenario, tituloAvisoEscenarioNoDefinido,2);
+	}
+	public void setIdentEquipo(String identEquipoActual) {
+		// TODO Auto-generated method stub
+		this.identEquipo=identEquipoActual;
 	}
 }

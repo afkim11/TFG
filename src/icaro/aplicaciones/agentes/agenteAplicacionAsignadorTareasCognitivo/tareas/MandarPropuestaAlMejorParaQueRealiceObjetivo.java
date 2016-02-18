@@ -63,7 +63,7 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 				this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutRecibirConfirmacionesRealizacionObjetivo1,objetivoEjecutantedeTarea, 
 						nombreAgenteEmisor,  infoDecision.getidElementoDecision());
 				infoDecision.setheInformadoAlmejorParaQueAsumaElObjetivo(true);
-				objs.setVictimaAsignada(nombreAgenteReceptor, victima);
+				//objs.setVictimaAsignada(nombreAgenteReceptor, victima);
 				this.getEnvioHechos().actualizarHecho(infoDecision);
 				trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,"IdentObjetoPropuesta: " +infoDecision.getidElementoDecision()+ "Enviamos la propuesta: " + VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo + "  Al agente " +nombreAgenteReceptor  , InfoTraza.NivelTraza.debug));
 			}

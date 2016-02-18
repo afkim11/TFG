@@ -132,17 +132,17 @@ public class ControladorVisualizacionSimulRosace {
   }
 
    public  void peticionAbrirEscenario() {
-//        throw new UnsupportedOperationException("Not supported yet."); 
-   /* File ficheroSeleccionado=   visorControlSim.solicitarSeleccionFichero(directorioPersistencia);
+    File ficheroSeleccionado=   visorControlSim.solicitarSeleccionFichero(directorioPersistencia);
     if (ficheroSeleccionado==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido, mensajeEscenarioNoSeleccionado,recomendacionDefinirEscenario);
     else{
-        escenarioActualComp = persistencia.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
-        escenarioActualComp.setGestorEscenarios(gestionEscComp);
-        identEquipoActual=escenarioActualComp.getIdentEscenario();
+        this.escenarioEdicionComp = persistencia.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
+        this.escenarioEdicionComp.setGestorEscenarios(gestionEscComp);
+        identEquipoActual= this.escenarioEdicionComp.getIdentEscenario();
         visorControlSim.setIdentEquipo(identEquipoActual);
-        identsRobotsEquipo=escenarioActualComp.getListIdentsRobots();
+        identsRobotsEquipo= this.escenarioEdicionComp.getListIdentsRobots();
         if( identsRobotsEquipo!=null) visorControlSim.visualizarIdentsEquipoRobot(identsRobotsEquipo);
-    }*/
+        this.notifEvts.sendPeticionCambioEscenario(this.escenarioEdicionComp);
+    }
     }
 
    	public  void peticionEliminarEscenario() {
@@ -164,11 +164,11 @@ public class ControladorVisualizacionSimulRosace {
 		this.visorControlSim.setVisible(true);
 		
 	}
-	public void visualizarIdentsEquipoRobot(ArrayList identList) {
+	public void visualizarIdentsEquipoRobot(ArrayList<String> identList) {
 		this.visorControlSim.visualizarIdentsEquipoRobot(identList);
 		
 	}
-	public void visualizarIdentsVictims(ArrayList identList) {
+	public void visualizarIdentsVictims(ArrayList<String> identList) {
 		this.visorControlSim.visualizarIdentsEquipoVictims(identList);
 		
 	}

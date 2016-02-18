@@ -35,7 +35,7 @@ public class RobotStatus{
 	private int availableEnergy;
 	@Element
 	private Coordinate robotCoordinateActual;
-	private Coordinate robotCoordinateAnterior ;
+	private Coordinate robotCoordinateAnterior;
 	private float healRange;  
 	//Actualmente en nuestra implementacion no se utilizan los atributos rangeProximity y robotCapabilities.
 	//No obstante esta clase ya ofrece metodos para poder considerarlos en el futuro 

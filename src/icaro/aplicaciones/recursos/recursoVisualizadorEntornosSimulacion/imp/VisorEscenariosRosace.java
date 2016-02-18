@@ -23,6 +23,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestObstacles;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestRobots;
@@ -84,6 +86,11 @@ public class VisorEscenariosRosace extends JFrame {
 	public VisorEscenariosRosace( NotificadorInfoUsuarioSimulador notifEvt) throws Exception {
 		this.notifEvts=notifEvt;
 		init();
+	}
+	public VisorEscenariosRosace(EscenarioSimulacionRobtsVictms escenario){
+		init2(escenario);
+		
+		
 	}
 	private void init() throws Exception{
 		robotslabel = new HashMap<String, JLabel>();
@@ -194,7 +201,6 @@ public class VisorEscenariosRosace extends JFrame {
 		//----------------------------------------------
 		// Leer xml simulacion localizacion de victimas
 		//----------------------------------------------
-
 		//Recuperar la ruta del fichero de victimas del escenario
 		//        ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
 
@@ -345,6 +351,233 @@ public class VisorEscenariosRosace extends JFrame {
 
 		System.out.println("");
 	}
+	
+	private void init2(EscenarioSimulacionRobtsVictms escenario){
+		robotslabel = new HashMap<String, JLabel>();
+		victimaslabel = new HashMap<String, JLabel>();
+
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 649, 409);
+		contentPaneRoot = new JPanel();
+		contentPaneRoot.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPaneRoot);
+
+		//CONFIGURANDO EL VISOR
+		//---------------------------------------------------------------------------
+		this.setTitle(tituloVentanaVisor);
+
+		//Desactivar el boton de maximizar
+		this.setResizable(false);
+
+		//Fijar las dimensiones del JFrame
+		Dimension dimension = new Dimension();
+		dimension.setSize(dimensionHorizontalJFrame, dimensionVerticalJFrame);
+		this.setSize(dimension);
+
+		//Posicionar el JFrame en la esquina superior izquierda de la pantalla
+		this.setLocation(posicionXInicialJFrame, posicionYInicialJFrame);
+
+		//this.setVisible(true);
+
+
+		//this.setExtendedState(JFrame.ICONIFIED);  //Mostrar el JFrame minimizado
+
+
+		//contentPaneRoot.setBackground(Color.WHITE);   //Poner en blanco el color del fondo del JPanel
+		contentPaneRoot.setLayout(null);
+
+
+		//Colocar un JSplitPane en el componente raiz
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);  //Los componentes se colocan verticalmente en el JSplitPane
+		splitPane.setSize(dimensionHorizontalJFrame, dimensionVerticalJFrame - excesoY);
+		contentPaneRoot.add(splitPane);
+
+		//Poner en la parte superior del JSplitPane un JPanel para mostrar los elementos del escenarios
+		//---------------------------------------------------------------------------------------------
+		//JPanel panelVisor = new JPanel();
+
+
+
+
+		//Poner en la parte inferior del JSplitPane un JTextArea para mostrar mensajes
+		//---------------------------------------------------------------------------------------------
+		//JTextArea textAreaMensaje = new JTextArea();
+		//textAreaMensaje lo he declarado como variable global para que sea muy sencillo ofrecer un metodo que nos permita escribir texto en el JTextArea
+		/*textAreaMensaje = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textAreaMensaje,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setSize(dimensionHorizontalJFrame, dimensionVerticalTextArea);
+        scrollPane.setAutoscrolls(true);
+        splitPane.setRightComponent(scrollPane);*/
+			
+		int nroRobots = escenario.getNumRobots();
+
+		JPanel panelAccionesRobots=new JPanel();
+		
+		
+		this.identRobots=new ArrayList<String>();
+		
+			
+			
+			this.identRobots=escenario.getListIdentsRobots();
+			for(int i=0;i<nroRobots;i++){
+			String nombreRobot=this.identRobots.get(i);
+			panelAccionesRobots.add(new Boton("Romper robot " + nombreRobot.charAt(nombreRobot.length()-1),nombreRobot
+					,VocabularioRosace.MsgRomperRobot,notifEvts));
+			}
+
+
+
+		splitPane.setRightComponent(panelAccionesRobots);
+
+
+
+
+
+		//Colocar la posicion del divisor
+		splitPane.setDividerLocation(dimensionVerticalJFrame - dimensionVerticalTextArea - 3 * excesoY);
+
+		splitPane.setOneTouchExpandable(false);
+		splitPane.setEnabled(false);             
+		//Leo la ruta de los ficheros
+		directorioTrabajo = System.getProperty("user.dir");  //Obtener directorio de trabajo
+
+
+		//--------------------------------------------
+		// Leer xml simulacion localizacion de robots
+		//--------------------------------------------
+		//        String rutaFicheroRobotsTest = AccesoPropiedadesGlobalesRosace.getRutaFicheroRobotsTest();
+		//        ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(rutaFicheroRobotsTest);
+
+		//        Document docRobots = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePaht());
+		//        NodeList nodeLstRobots = rXMLTRobots.getRobotsXMLStructure(docRobots, "robot");   //Obtain all the robots		
+		//        int nroRobots = rXMLTRobots.getNumberOfRobots(nodeLstRobots);
+
+		//----------------------------------------------
+		// Leer xml simulacion localizacion de victimas
+		//----------------------------------------------
+		//Recuperar la ruta del fichero de victimas del escenario
+		//        ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
+
+		int nroVictimas = escenario.getNumVictimas();
+		
+		int nroObstaculos = escenario.getListObstacles().size();
+		obstaculos = escenario.getListObstacles();
+		panelVisor = new JPanelObstaculo(obstaculos);
+
+		panelVisor.setBackground(Color.WHITE);
+		panelVisor.setSize(dimensionHorizontalJFrame, dimensionVerticalJFrame);
+		panelVisor.setLayout(null);
+
+		System.out.println("Tamanio del visor -> " + panelVisor.size());
+		splitPane.setLeftComponent(panelVisor);
+
+		System.out.println("Escenario actual simulado con " + nroRobots + " robots y " + nroVictimas + " victimas, teniendo el mapa " + nroObstaculos + " obstaculos.");
+		System.out.println("Los elementos estan localizados en el escenario como sigue ......\n");
+
+
+
+		//*********************************************************************************************
+		//Aniadir al panel panelVisor los componentes label que representan los robots leidos del xml
+		//*********************************************************************************************
+		for (int j = 0; j < nroRobots; j++){
+			Coordinate valueInitialCoordinate = escenario.getRobotInfo(this.identRobots.get(j)).getRobotCoordinate();
+			int coordinateX = (int) valueInitialCoordinate.x;
+			int coordinateY = (int) valueInitialCoordinate.y;
+			//coordinateX = Math.abs(coordinateX);
+			//coordinateY = Math.abs(coordinateY);
+
+			//crear el label y posicionarlo en el JPanel
+			JLabel label = new JLabel("");
+			String rutaIconoRobot = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
+
+			//System.out.println("Ruta->" + rutaIconoRobot);
+
+			label.setIcon(new javax.swing.ImageIcon(rutaIconoRobot));
+
+			//El texto que se pone en el label NO es el nombre completo del robot, solo ponemos el numero. 
+			//Por ejemplo, de robotIgualitario2 nos quedaria 2, y 2 sería el texto que ponemos en el label
+			String robotId=this.identRobots.get(j);
+			String idNumero = robotId.charAt(robotId.length()-1) + "";
+			label.setText(idNumero);
+			label.setEnabled(true);
+			label.setVisible(true);
+
+			Dimension size = label.getPreferredSize();
+			label.setBounds(coordinateX, coordinateY, size.width, size.height);
+			panelVisor.add(label);
+
+			robotslabel.put(idNumero, label);   //Lo anoto en el Map: la clave es el numero del robot y contenido es el label creado
+
+			System.out.println("Localizacion del robot " + label.getText() + "-> (" + label.getLocation().x + "," + label.getLocation().y + ")");
+		}
+
+		System.out.println("");
+		this.identVictims=escenario.getListIdentsVictims();
+
+		//*********************************************************************************************        
+		//Aniadir al panel panelVisor los componentes label que representan las victimas leidas del xml
+		//*********************************************************************************************                
+		Map<String,Victim> victimas=escenario.getVictims();
+		for (int j = 0; j < nroVictimas; j++) {
+			String victimID=this.identVictims.get(j);
+			//Obtain info about first victim located at the test sequence 
+			Coordinate valueInitialCoordinate = victimas.get(victimID).getCoordinateVictim();
+			int coordinateX = (int) valueInitialCoordinate.x;
+			int coordinateY = (int) valueInitialCoordinate.y;
+			//coordinateX = Math.abs(coordinateX);
+			//coordinateY = Math.abs(coordinateY);
+
+			
+			String idNumero = victimID.charAt(victimID.length()-1) + "";
+
+			//System.out.println("idNumero->" + idNumero);
+
+			int indexVictima;
+
+			if (idNumero.equals("")) {
+				indexVictima = 0;
+				idNumero = "0";
+				//System.out.println("El valor de idNumero es vacio");
+			} else {
+				int aux = utilsCadenaComponente.getNumberStartIndexPrimerDigitoDistintoCero(idNumero);
+				idNumero = utilsCadenaComponente.getNumberSinCerosAlaIzquierda(idNumero, aux);
+				//System.out.println("El valor de idNumero ahora es " + idNumero);           	
+				indexVictima = Integer.parseInt(idNumero);
+			}
+
+
+			//Las victimas con identificador IMPAR se representaran con el icono de mujer. Por ejemplo, Victim.1, Victim.3, Victim.5, ....
+			//Las victimas con identificador PAR se representaran con el icono de hombre.  Por ejemplo, Victim.2, Victim.4, Victim.6, ....
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			int numero = indexVictima % 2;
+			String rutaIconoVictima = "";
+			if (numero == 0) {
+				rutaIconoVictima = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoHombre;
+			} else {
+				rutaIconoVictima = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoMujer;
+			}
+
+			//crear el label para la victima y posicionarlo
+			JLabel label = new JLabel("");
+			label.setIcon(new javax.swing.ImageIcon(rutaIconoVictima));
+			//El texto que se pone en el label NO es el nombre completo de la victima, solo ponemos el numero. 
+			//Por ejemplo, de Victim.3 nos quedaria 3, y 3 sería el texto que ponemos en el label
+			label.setText(idNumero);
+			Dimension size = label.getPreferredSize();
+			label.setBounds(coordinateX, coordinateY, size.width, size.height);
+			panelVisor.add(label);
+
+			victimaslabel.put(idNumero, label);   //Lo anoto en el Map: la clave es el numero de la victima y contenido es el label creado
+
+			System.out.println("Localizacion de la victima " + label.getText() + "-> (" + label.getLocation().x + "," + label.getLocation().y + ")");
+		}
+
+
+		System.out.println("");
+	}
 	public synchronized void cambiarPosicionRobot(String valor_idRobot, int nueva_coordx, int nueva_coordy) {
 
 		String numeroRobot = getNumeroRobot(valor_idRobot);
@@ -393,7 +626,6 @@ public class VisorEscenariosRosace extends JFrame {
 		//        System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getBounds());
 		//System.out.println("Localizacion del robot " + jlabelRobot.getText() + "-> " + jlabelRobot.getLocationOnScreen());
 	}
-
 	public void cambiarIconoVictimaARescatada(String valor_idVictima) {
 
 		String numeroVictima = getNumeroVictima(valor_idVictima);
@@ -421,7 +653,6 @@ public class VisorEscenariosRosace extends JFrame {
 			System.out.println("jlabelVictima nulo");
 		}
 	}
-
 	public void escribirEnAreaTexto(String texto) {
 
 		textAreaMensaje.append(texto);
@@ -439,7 +670,6 @@ public class VisorEscenariosRosace extends JFrame {
 
 		return idNumero;
 	}
-
 	private String getNumeroVictima(String valor_idVictima) {
 
 		int index = utilsCadenaComponente.getNumberStartIndex(valor_idVictima);

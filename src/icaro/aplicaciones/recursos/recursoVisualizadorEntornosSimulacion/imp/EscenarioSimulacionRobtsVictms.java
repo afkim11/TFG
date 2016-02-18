@@ -23,6 +23,8 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
 
+import fr.laas.openrobots.jmorse.components.destination.Coordinate;
+
 /**
  *
  * @author FGarijo
@@ -57,7 +59,7 @@ public class EscenarioSimulacionRobtsVictms {
 
 	public  EscenarioSimulacionRobtsVictms (){
 		migestor=null;
-
+		
 		infoRobots = new HashMap<String,RobotStatus >();
 		//        infoRobots.put(robotInfo.getIdRobot(),robotInfo);
 		//        infoRobots.put(robotInicialId, robotInfo);
