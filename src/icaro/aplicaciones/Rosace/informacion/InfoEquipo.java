@@ -8,8 +8,11 @@ import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -105,6 +108,14 @@ public class InfoEquipo {
               teamInfoAgentStatus.put(idAgte, estatusAgte);
           }
       }
+      public synchronized void addAgteAmiEquipo(String idAgte,RobotStatus status){
+          if (teamInfoAgentStatus.get(idAgte)== null){
+        	  this.teamRobotIds.add(idAgte);
+        	  if(status.getIdRobotRol() == this.identMiRolEnEsteEquipo)
+        		  this.teamRobotIdsWithMyRol.add(idAgte);
+        	  this.teamInfoAgentStatus.put(idAgte, status);
+          }
+      }
      public synchronized ArrayList<String> getTeamMemberIDsWithThisRol(String rolId){
          ArrayList<String> agtesConMismoRol = new ArrayList();
        //  int indiceagtesConMirol=0;
@@ -181,6 +192,31 @@ public class InfoEquipo {
 
 	public void setBloqueado(String emisor) {
 		this.teamInfoAgentStatus.get(emisor).setBloqueado(true);
+		
+	}
+
+/*	public void clearMembers() {
+		this.teamRobotIds.clear();
+		//this.teamRobotIdsWithMyRol.clear();
+		this.teamInfoAgentStatus.clear();
+		
+	}*/
+
+	public void updateAgtes(Map<String, RobotStatus> robotsWithIds) {
+		Set<String> set = this.teamInfoAgentStatus.keySet();
+		Collection<RobotStatus> values = this.teamInfoAgentStatus.values();
+		Iterator<String> old_names = set.iterator();
+		Iterator<RobotStatus> old_status = values.iterator();
+		Iterator<String> new_names = robotsWithIds.keySet().iterator();
+		Iterator<RobotStatus> new_status = robotsWithIds.values().iterator();
+		while(old_names.hasNext() && old_status.hasNext()){
+			RobotStatus status = old_status.next();
+			String name = old_names.next();
+			name = new_names.next();
+			if (status == null) status = new RobotStatus();
+			status.update(new_status.next());
+		}
+		
 		
 	}
 }

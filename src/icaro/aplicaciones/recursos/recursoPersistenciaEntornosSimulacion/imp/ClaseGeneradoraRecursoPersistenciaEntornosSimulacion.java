@@ -61,7 +61,7 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
     @Override
     public ArrayList<Victim> getVictimasArescatar ()throws Exception{
         if (victimasDefinidas == null)
-        victimasDefinidas = this.impPersistenciaXML.getVictimsArescatar ();
+        victimasDefinidas = this.impPersistenciaXML.getVictimsArescatar();
         return victimasDefinidas;
         
     }

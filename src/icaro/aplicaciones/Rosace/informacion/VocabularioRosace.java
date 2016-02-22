@@ -116,6 +116,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String peticionPararSimulacion = "peticionPararSimulacion";
     static public  final String peticionSimulacionSecuenciaVictimas = "sendSequenceOfSimulatedVictimsToRobotTeam";
     static public  final String peticionMostrarEscenarioActualSimulado = "mostrarEscenarioActualSimulado";
+    static public  final String peticionActualizarEscenario = "actualizarEscenarioActual";
     static public  final String peticionTerminarSimulacion = "TerminarSimulacion";
     static public  final String peticionTerminarSimulacionUsuario = "peticionTerminarSimulacion";
     static public  final String peticionPararSimulacionUsuario ="peticionPararSimulacionUsuario" ;

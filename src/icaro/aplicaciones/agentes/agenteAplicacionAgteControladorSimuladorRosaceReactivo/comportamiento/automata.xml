@@ -17,6 +17,7 @@
 
   <estado idIntermedio="esperandoIniciarSimulacion">
 
+     <transicion input="actualizarEscenarioActual" accion="updateEscenario" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
      <transicion input="sendSequenceOfSimulatedVictimsToRobotTeam" accion="SendSequenceOfSimulatedVictimsToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
       <transicion input="peticionSimulacionVictima" accion="SendSimulatedVictimToRobotTeam" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
      <transicion input="mostrarEscenarioActualSimulado" accion="MostrarEscenarioActualSimulado" estadoSiguiente="esperandoIniciarSimulacion" modoDeTransicion="bloqueante"/>

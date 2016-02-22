@@ -153,4 +153,21 @@ public class RobotStatus{
 	public Point getLocPoint() {
 		return new Point((int)this.robotCoordinateActual.getX(),(int)this.robotCoordinateActual.getY());
 	}
+
+	public void update(RobotStatus next) {
+		this.idRobot = next.getIdRobot();
+		this.idRobotRol = next.getIdRobotRol();
+		this.availableEnergy = next.getAvailableEnergy();
+		this.robotCoordinateActual = next.getRobotCoordinate();
+		this.robotCoordinateAnterior = next.getRobotCoordinateAnterior();
+		this.healRange = (float) next.getHealRange();
+		this.rangeProximity = (float) next.getRangeProximity();
+		this.robotCapabilities = next.getRobotCapabilities();
+		this.infoCompMovt = next.getInfoCompMovt();
+		this.bloqueado = next.getBloqueado();
+	}
+
+	private Coordinate getRobotCoordinateAnterior() {
+		return this.robotCoordinateAnterior;
+	}
 }

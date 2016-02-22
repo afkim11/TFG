@@ -36,7 +36,7 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
 	protected Integer victimOrder = 0;
 	protected boolean stop = false;
 	private InfoContEvtMsgAgteReactivo peticionEnvioVictimaSimulada,peticionEnvioSecuenciaVictimas,
-	peticionParar,peticionMostrarEscenario, peticionPararAgente ;
+	peticionParar,peticionMostrarEscenario, peticionPararAgente, peticionActualizarEscenario ;
 
 
 	private InterfazUsoAgente itfUsoAgenteControlador;
@@ -126,12 +126,14 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
 			}
 		}
 		try {
-
-			this.generadoraVisualizador.updateEscenario(escenarioNuevo);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				Object[] infoDefinidaPorUsuario = new Object[]{escenarioNuevo};
+				peticionActualizarEscenario = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionActualizarEscenario);
+				peticionActualizarEscenario.setvaloresParametrosAccion(infoDefinidaPorUsuario);
+				this.generadoraVisualizador.updateEscenario(escenarioNuevo);
+				this.informaraOtroAgenteReactivo(peticionActualizarEscenario, identificadorAgenteaReportar);
+		} 
+		catch (Exception ex) {
+			Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);}
 
 	}
 }

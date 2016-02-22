@@ -7,6 +7,7 @@ import icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.ItfUsoRecur
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestSequence;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import icaro.infraestructura.patronAgenteReactivo.control.acciones.AccionesSemanticasAgenteReactivo;
@@ -14,11 +15,14 @@ import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfigurac
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza.NivelTraza;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -494,4 +498,35 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			Logger.getLogger(AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo){
+		try {
+			this.rutaFicheroVictimasTest = "PersistenciaEscenariosSimulacion/"+escenarioNuevo.getIdentEscenario();
+			Collection<Victim> collection = escenarioNuevo.getVictims().values();
+			if (this.victimasDefinidas == null) this.victimasDefinidas = new ArrayList<Victim>();
+			else this.victimasDefinidas.clear();
+			for(Victim i : collection)
+					this.victimasDefinidas.add(i);
+			/*this.equipo.clearMembers();
+			Map<String, RobotStatus> robots = escenarioNuevo.getRobotsWithIds();
+			Set<String> ids = robots.keySet();
+			Collection<RobotStatus> statusList = robots.values();
+			Iterator<RobotStatus> i2 = statusList.iterator();
+			Iterator<String> i1 = ids.iterator();
+			for(int i = 0; i < escenarioNuevo.getNumRobots(); i++){
+				String idAgte = i1.next();     
+				RobotStatus status = i2.next();
+				this.equipo.addAgteAmiEquipo(idAgte, status);
+			}*/
+			if(this.equipo.getNumberOfTeamMembers() == escenarioNuevo.getNumRobots())
+				this.equipo.updateAgtes(escenarioNuevo.getRobotsWithIds());
+			else
+				System.out.println("ERROR AL CARGAR: los numeros de los robots no coinciden.");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

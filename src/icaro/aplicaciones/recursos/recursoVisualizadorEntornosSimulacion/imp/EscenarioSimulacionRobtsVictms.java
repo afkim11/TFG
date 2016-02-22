@@ -269,4 +269,9 @@ public class EscenarioSimulacionRobtsVictms {
 	public void addObstaculo(LineaObstaculo obstaculo){
 		infoObstaculos.put(obstaculo.getId(), obstaculo);    	
 	}
+	
+
+	public Map<String, RobotStatus> getRobotsWithIds() {
+		return this.infoRobots;
+	}
 }
