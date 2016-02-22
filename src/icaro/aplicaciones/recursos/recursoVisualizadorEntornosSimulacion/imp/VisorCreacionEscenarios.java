@@ -812,7 +812,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 			//           intervalNumRobots.setText(""+numeroRobots);
 			numeroRobots++;
-			identEntidad=tipoEntidad+numeroRobots;
+			identEntidad= "JerarquicorobotSubordinado" +numeroRobots;
 			escenarioActualComp.addRoboLoc(identEntidad, new Point(coordX,coordY));
 			intervalNumRobots.setText(""+numeroRobots);
 			//           label.setText(tipoEntidad+numeroRobots);

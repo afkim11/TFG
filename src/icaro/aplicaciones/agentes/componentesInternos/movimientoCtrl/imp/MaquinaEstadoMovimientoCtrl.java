@@ -137,7 +137,7 @@ public class MaquinaEstadoMovimientoCtrl {
 	public synchronized void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero) {
 
 		//            this.estadoActual.identDestino = identDest;
-
+		
 		this.destinoCoord = coordDestino;
 		trazas.trazar(identAgente, "Se recibe una  orden de mover a destino."+ identDest + " El robot esta en el estado :"+ identEstadoActual
 				+ " CoordActuales =  "+this.robotposicionActual.toString() + " CoordDestino =  " +this.destinoCoord.toString(), InfoTraza.NivelTraza.debug);
@@ -231,5 +231,10 @@ public class MaquinaEstadoMovimientoCtrl {
 			if(obs.compruebaCoordenada(coordinate))return obs;
 		}
 		return null;
+	}
+
+	public void actualizarObstaculos() {
+		obstaculos = VisorEscenariosRosace.getObstaculos();
+		
 	}
 }

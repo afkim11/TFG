@@ -10,6 +10,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoR
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
+import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.patronAgenteReactivo.control.acciones.AccionesSemanticasAgenteReactivo;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
@@ -101,7 +102,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			equipo = new InfoEquipo(this.nombreAgente, identificadorEquipo);  //el primer parametro es una cadena con un caracter en blanco, asi obtengo el equipo correctamente
 			identsAgtesEquipo = equipo.getTeamMemberIDs();
 			this.numeroRobotsSimulacion = identsAgtesEquipo.size();
-		//	itfUsoRecursoVisualizadorEntornosSimulacion.setItfUsoPersistenciaSimulador(itfUsoRecursoPersistenciaEntornosSimulacion);
+			//	itfUsoRecursoVisualizadorEntornosSimulacion.setItfUsoPersistenciaSimulador(itfUsoRecursoPersistenciaEntornosSimulacion);
 			itfUsoRecursoVisualizadorEntornosSimulacion = (ItfUsoRecursoVisualizadorEntornosSimulacion) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoVisualizadorEntornosSimulacion1");
 			itfUsoRecursoVisualizadorEntornosSimulacion.setIdentAgenteAReportar(this.nombreAgente);
 			itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador();
@@ -498,35 +499,28 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			Logger.getLogger(AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo){
-		try {
-			this.rutaFicheroVictimasTest = "PersistenciaEscenariosSimulacion/"+escenarioNuevo.getIdentEscenario();
-			Collection<Victim> collection = escenarioNuevo.getVictims().values();
-			if (this.victimasDefinidas == null) this.victimasDefinidas = new ArrayList<Victim>();
-			else this.victimasDefinidas.clear();
-			for(Victim i : collection)
-					this.victimasDefinidas.add(i);
-			/*this.equipo.clearMembers();
-			Map<String, RobotStatus> robots = escenarioNuevo.getRobotsWithIds();
-			Set<String> ids = robots.keySet();
-			Collection<RobotStatus> statusList = robots.values();
-			Iterator<RobotStatus> i2 = statusList.iterator();
-			Iterator<String> i1 = ids.iterator();
-			for(int i = 0; i < escenarioNuevo.getNumRobots(); i++){
-				String idAgte = i1.next();     
-				RobotStatus status = i2.next();
-				this.equipo.addAgteAmiEquipo(idAgte, status);
-			}*/
-			if(this.equipo.getNumberOfTeamMembers() == escenarioNuevo.getNumRobots())
-				this.equipo.updateAgtes(escenarioNuevo.getRobotsWithIds());
-			else
-				System.out.println("ERROR AL CARGAR: los numeros de los robots no coinciden.");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(escenarioNuevo.getNumRobots() == this.identsAgtesEquipo.size()-1){
+			Map<String,RobotStatus> robots = escenarioNuevo.getRobotsWithIds();
+			for(int i=0;i<this.identsAgtesEquipo.size();i++){
+				String nombre = (String) this.identsAgtesEquipo.get(i);
+				if(!nombre.equalsIgnoreCase("jerarquicoagenteAsignador")){
+
+					this.comunicator.enviarInfoAotroAgente(new Informacion(VocabularioRosace.CambiarUbicacion,robots.get(nombre)),nombre);		
+				}
+
+			}
 		}
-		
+		this.rutaFicheroVictimasTest = "PersistenciaEscenariosSimulacion/"+escenarioNuevo.getIdentEscenario();
+		Collection<Victim> collection = escenarioNuevo.getVictims().values();
+		if (this.victimasDefinidas == null) this.victimasDefinidas = new ArrayList<Victim>();
+		else this.victimasDefinidas.clear();
+		for(Victim i : collection)
+			this.victimasDefinidas.add(i);
+
+
+
 	}
-	
+
 }

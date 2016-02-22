@@ -10,6 +10,7 @@
  */
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
+import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
@@ -19,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,7 +39,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	private int numMensajesEnviar = 3;
 	private boolean primeraVictima = true;
 	private VisorEscenariosRosace visorSc;
-	private ArrayList<String> identsRobotsEquipo ;
+	private ArrayList<String> identsRobotsEquipo;
 	private ArrayList<String> identsVictimsEquipo;
 	private String identVictimaSeleccionada=null;
 	private String identRobotSeleccionado=null;

@@ -102,7 +102,16 @@ then
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());     
 end
-
+rule "Si me llega un mensaje de cambio de coordenadas, cambio mi coordenada"
+	when
+		mensaje : Informacion( contenido == VocabularioRosace.CambiarUbicacion )
+		robotStatus : RobotStatus()
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(CambiarCoordenadas.class);
+    	tarea.ejecutar(robotStatus,mensaje);
+    	System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
+    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());  
+end
 rule "Si me llega una peticion de envio de mi evaluacion del Agte Asignador  la calculo y se la mando"
 salience 10
  when    

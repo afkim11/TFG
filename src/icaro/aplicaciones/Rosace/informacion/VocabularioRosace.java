@@ -131,4 +131,5 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static final String MsgRomperRobot = "elRobotSeVaARomper";
 	static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo}
 	static public  final String rutaPersistenciaEscenarios    = "src/PersistenciaEscenariosSimulacion";
+	public static final String CambiarUbicacion = "La ubicacion de los robots ha sido modificada";
 }

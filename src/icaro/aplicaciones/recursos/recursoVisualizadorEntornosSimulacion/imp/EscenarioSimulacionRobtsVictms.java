@@ -5,6 +5,7 @@
  */
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
+import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotCapability;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
@@ -22,8 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
-
-import fr.laas.openrobots.jmorse.components.destination.Coordinate;
 
 /**
  *
@@ -68,6 +67,7 @@ public class EscenarioSimulacionRobtsVictms {
 		//        victimasLoc = new HashMap<String, Point>();
 		infoVictimas = new HashMap<String, Victim>();
 		infoObstaculos=new HashMap<String,LineaObstaculo>();
+		infoObstaculos.put("inicial", new LineaObstaculo(new Coordinate(0,0,0.5),new Coordinate(0,0,0.5),"inicial"));
 
 
 	}
