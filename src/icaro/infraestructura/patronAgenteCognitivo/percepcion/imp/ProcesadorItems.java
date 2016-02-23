@@ -7,7 +7,6 @@ import icaro.infraestructura.patronAgenteCognitivo.factoriaEInterfacesPatCogn.Ag
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.InterpreteEventosSimples;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.InterpreteMensajesSimples;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeACLSimple;
-import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeBloqueoObstaculo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.ExtractedInfo;
 import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaEInterfacesPrObj.ItfProcesadorObjetivos;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
@@ -136,11 +135,6 @@ public class ProcesadorItems implements ItfProcesadorItems {
 			if (interpreteMsgS == null)
 				interpreteMsgS = new InterpreteMensajesSimples(agente.getIdentAgente());
 
-		}else if (item instanceof MensajeBloqueoObstaculo) {
-			MensajeBloqueoObstaculo mensaje = (MensajeBloqueoObstaculo) item;
-			if (interpreteMsgS == null )
-				interpreteMsgS = new InterpreteMensajesSimples(agente.getIdentAgente());
-			infoExtracted =  interpreteMsgS.extractInfo(mensaje);
 		}else if (item instanceof MensajeSimple) {
 			MensajeSimple mensaje = (MensajeSimple) item;
 			if (interpreteMsgS == null )

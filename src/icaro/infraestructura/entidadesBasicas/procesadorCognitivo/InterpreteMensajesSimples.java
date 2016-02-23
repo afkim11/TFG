@@ -8,7 +8,6 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.PerformativaUsuario;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeACLSimple;
-import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeBloqueoObstaculo;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
@@ -82,22 +81,6 @@ return  inforExtracted ;
  }
 */
 
-public ExtractedInfo extractInfo(MensajeBloqueoObstaculo mensaje){
-	 	Object contenido =  mensaje;
-	    emisorMensaje = (String ) mensaje.getEmisor();
-	   
-	    inforExtracted = new  ExtractedInfo ( );
-	    inforExtracted.setOrigen(emisorMensaje);
-	    inforExtracted.setCreador(propietario);
-//	    if (contenido.getClass().isArray()){
-//	        inforExtracted.setContentCollection((Array)contenido);
-//	    }
-	    if ( mensaje.isContenidoColection())
-	    inforExtracted.setContentCollection(mensaje.getColeccionContenido());
-	    else inforExtracted.setContenido(contenido);
-
-	return  inforExtracted ;
-}
 
 public ExtractedInfo extractInfo(MensajeSimple mensaje) {
 

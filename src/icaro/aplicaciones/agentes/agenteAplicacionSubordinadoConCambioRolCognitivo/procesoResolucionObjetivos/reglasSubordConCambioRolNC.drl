@@ -288,16 +288,7 @@ when
   
 end
 
-rule "Tratamiento de bloqueo por obstaculo"
-when
-	infoequipo:InfoEquipo(identAsignador:identAgenteJefeEquipo)
-    mensaje : MensajeBloqueoObstaculo(VocabularioRosace.MsgRobotBloqueadoObstaculo == contenido, destino : receptor)
-	
-then
-	TareaSincrona tarea=gestorTareas.crearTareaSincrona(EnviarMensajeAlJefePorBloqueoPorObstaculo.class);
-	tarea.ejecutar(agentId,infoequipo,mensaje);
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-end
+
 rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
 when
 	informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
