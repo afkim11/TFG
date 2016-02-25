@@ -2,6 +2,7 @@ package icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp;
 
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
     @Override
     public ArrayList<Victim> getVictimasArescatar ()throws Exception{
         if (victimasDefinidas == null)
-        victimasDefinidas = this.impPersistenciaXML.getVictimsArescatar ();
+        victimasDefinidas = this.impPersistenciaXML.getVictimsArescatar();
         return victimasDefinidas;
         
     }
@@ -111,6 +112,13 @@ public  class ClaseGeneradoraRecursoPersistenciaEntornosSimulacion extends ImplR
         return impPersistenciaXML.getRobotStatus (  robotId);
         
     }
+
+
+	@Override
+	public boolean guardarInfoEscenarioSimulacion(EscenarioSimulacionRobtsVictms escenarioEdicionComp) {
+		return this.impPersistenciaXML.guardarInfoEscenarioSimulacion(escenarioEdicionComp);
+		
+	}
 }
             
 

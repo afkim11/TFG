@@ -61,4 +61,7 @@ public synchronized void setlastVictimToRescue (Victim victim){
 public synchronized Victim getlastVictimToRescue (){
    return  lastVictimToRescue;
 }
+public void eliminarVictima(String nombreVictima) {
+	victims2Rescue.remove(nombreVictima);
+}
 }

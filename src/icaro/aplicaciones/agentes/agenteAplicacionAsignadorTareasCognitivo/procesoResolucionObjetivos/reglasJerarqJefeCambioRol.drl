@@ -123,7 +123,7 @@ salience 10
     focoActual : Focus(foco == null)
     misObjs: MisObjetivos()
     victims2R:VictimsToRescue(victims2Rescue!=null)
-    ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenCCAyudarVictima,victim:justificacion )
+    ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenCCAyudarVictima,victim:justificacion)
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea el  objetivo ayudar victima
     tarea.ejecutar(misObjs,null,ccOrden,victims2R ); 
@@ -177,7 +177,7 @@ end
 //-------------------------------------------------------
 rule "Focalizacion inicial en el  objectivo  para decidir quien se hace cargo de la ayuda"
  when
-    focoActual : Focus(foco == null)   
+    focoActual : Focus(foco == null)
     victimaCC:Victim($idVict:name)
     obj1 : AyudarVictima(state == Objetivo.PENDING, victimId == $idVict) 
     obj :DecidirQuienVa(state == Objetivo.SOLVING, objectReferenceId == $idVict) 
@@ -221,10 +221,11 @@ rule "Re-focalizacion  en el  ultimo objetivo despues de conseguir decidirQuienV
     focoActual:Focus(foco == obj)
  then // se eliminan el objetivo ayudar victima y el infoDecision,  y se refocaliza en el ultimo
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(EliminarObjetivoyDecisionInfoActualizarFoco.class); ;
-    tarea.ejecutar(misObjs,obj1,infoDecision,focoActual );
+    
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+	tarea.ejecutar(misObjs,obj1,infoDecision,focoActual,obj );
 end
 
 //==========================================================================
@@ -272,7 +273,7 @@ no-loop true
     obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == idVict )
     focoActual:Focus(foco == obj )
     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict, peticionEvaluacionEnviadaAtodos == true, hanLlegadoTodasLasEvaluaciones == false)
-    evalRecibida:EvaluacionAgente(agente : identAgente != agentId,objectEvaluationId ==idVict )
+    evalRecibida:EvaluacionAgente(agente : identAgente != agentId,objectEvaluationId == idVict )
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ProcesarEvaluacionRecibida.class); ;
     tarea.ejecutar(obj,infoDecision,evalRecibida );
@@ -386,56 +387,4 @@ rule "Proceso el  timeout aceptacion propuesta doy por  asignado el objetivo"
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
 
-rule "Procesamiento del robot bloqueado por un obstaculo"
-     when
-        mensaje : MensajeBloqueoObstaculo(idRobot:emisor)
-     then
-        recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-        System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-		TareaSincrona tarea = gestorTareas.crearTareaSincrona(TratamientoRobotBloqueadoPorObstaculo.class);
-		tarea.ejecutar(mensaje);
-end
 
-rule "Proceso timeout para saber si esquivo el obstaculo"
-	when
-       informacion : Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)
-	then 
-	   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-        System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-        retract(informacion);
-end
-
-
-/*rule "Proceso timeout cuando el robot no me ha contestado"
-when   
-    infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
-    not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
- 	informacion : Informacion(origen : contenido)
-    objs : MisObjetivos()
-    focoActual:Focus()
-    info: InfoEquipo(identAgentePropietario == agentId)
-then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ReasignarVictima.class);
-    tarea.ejecutar(origen, info,  objs, focoActual);
-    retract (infoTarea);
-    retract (informacion);
-end*/
-/*
-rule "Proceso timeout cuando el robot no me ha contestado"
-when   
-    //infoTarea: InformeDeTarea(identTarea==VocabularioRosace.IdentTareaTimeOutEsquivarObstaculo)
-    //not (exists(Informacion(contenido==VocabularioRosace.MsgEsquivaObstaculo)))
- 	informacion : Informacion(origen : contenido)
-    objs : MisObjetivos()
-    foco : Focus()
-    info: InfoEquipo(identAgentePropietario == agentId)
-then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ReasignarVictima.class);
-    tarea.ejecutar(origen, info,  objs, foco);
-    //retract (infoTarea);
-    retract (informacion);
-end*/

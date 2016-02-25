@@ -160,6 +160,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 
 	@Override
 	public synchronized void run() {
+		this.controladorMovimiento.actualizarObstaculos();
 		int energiaActual=this.robotStatus.getAvailableEnergy();
 		//       double espacioRecorridoEnIntervalo = velocidadRobot*intervaloEnvioInformacion;
 		log.debug ("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
@@ -200,7 +201,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 						}
 					}
 					else {
-						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(this.identRobot),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
 						finalizar=true;
 						enDestino=false;
 					}

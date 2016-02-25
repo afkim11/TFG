@@ -116,6 +116,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String peticionPararSimulacion = "peticionPararSimulacion";
     static public  final String peticionSimulacionSecuenciaVictimas = "sendSequenceOfSimulatedVictimsToRobotTeam";
     static public  final String peticionMostrarEscenarioActualSimulado = "mostrarEscenarioActualSimulado";
+    static public  final String peticionActualizarEscenario = "actualizarEscenarioActual";
     static public  final String peticionTerminarSimulacion = "TerminarSimulacion";
     static public  final String peticionTerminarSimulacionUsuario = "peticionTerminarSimulacion";
     static public  final String peticionPararSimulacionUsuario ="peticionPararSimulacionUsuario" ;
@@ -129,4 +130,6 @@ public class VocabularioRosace extends NombresPredefinidos{
 	static public final String MsgEsquivaObstaculo = "He esquivado el obstaculo";
 	public static final String MsgRomperRobot = "elRobotSeVaARomper";
 	static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo}
+	static public  final String rutaPersistenciaEscenarios    = "src/PersistenciaEscenariosSimulacion";
+	public static final String CambiarUbicacion = "La ubicacion de los robots ha sido modificada";
 }

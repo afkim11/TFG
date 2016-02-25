@@ -1,19 +1,35 @@
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
-import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import java.io.Serializable;
 
-public class LineaObstaculo {
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
+import icaro.aplicaciones.Rosace.informacion.Coordinate;
+@Root
+public class LineaObstaculo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Element
 	private Coordinate ini;
+	@Element
 	private Coordinate fin;
+	@Element
 	private String valueid;
-	
+	public LineaObstaculo(){
+		
+	}
 	public LineaObstaculo(Coordinate ini, Coordinate fin, String valueid)
 	{
 		this.ini = ini;
 		this.fin = fin;
 		this.valueid = valueid;
 	}
-	
+	public String getId(){
+		return valueid;
+	}
 	public Coordinate getCoordenadaIni(){
 		return this.ini;
 	}

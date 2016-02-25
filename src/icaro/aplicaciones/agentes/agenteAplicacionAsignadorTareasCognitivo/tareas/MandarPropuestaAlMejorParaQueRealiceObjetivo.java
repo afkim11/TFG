@@ -58,17 +58,12 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 				miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);
 				miPropuesta.setIdentObjectRefPropuesta(infoDecision.getidElementoDecision());
 				miPropuesta.setJustificacion(victima);
+				trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se asigna la victima: " + victima.getName() + " al agente " + nombreAgenteReceptor);
 				this.getComunicator().enviarInfoAotroAgente(miPropuesta,nombreAgenteReceptor );
-
 				this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutRecibirConfirmacionesRealizacionObjetivo1,objetivoEjecutantedeTarea, 
 						nombreAgenteEmisor,  infoDecision.getidElementoDecision());
-
-				//                   this.generarInformeTemporizado(configConstantesSimulacion.TimeTimeoutRecibirEvaluaciones ,            		  
-				//                           VocabularioRosace.IdentTareaTimeOutRecibirConfirmacionesRealizacionObjetivo1,objetivoEjecutantedeTarea, 
-				//                           nombreAgenteEmisor,  infoDecision.getidElementoDecision());
-
 				infoDecision.setheInformadoAlmejorParaQueAsumaElObjetivo(true);
-				objs.setVictimaAsignada(nombreAgenteReceptor, victima);
+				//objs.setVictimaAsignada(nombreAgenteReceptor, victima);
 				this.getEnvioHechos().actualizarHecho(infoDecision);
 				trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,"IdentObjetoPropuesta: " +infoDecision.getidElementoDecision()+ "Enviamos la propuesta: " + VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo + "  Al agente " +nombreAgenteReceptor  , InfoTraza.NivelTraza.debug));
 			}

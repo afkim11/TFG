@@ -149,10 +149,7 @@ public class Coste {
 		int aux;
 		int energia=robot.getAvailableEnergy();
 		this.contadorAuxiliar=0;
-		if(victima.getName().equalsIgnoreCase("Victim.3") && robot.getIdRobot().equalsIgnoreCase("jerarquicorobotsubordinado1")){
-			@SuppressWarnings("unused")
-			int pollas=0;
-		}
+
 		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima,energia)) != -1){
 			funcionEvaluacion =  aux;
 			return aux;

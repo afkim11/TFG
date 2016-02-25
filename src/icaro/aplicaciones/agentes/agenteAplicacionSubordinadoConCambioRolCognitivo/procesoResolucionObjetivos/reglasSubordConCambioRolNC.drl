@@ -102,7 +102,16 @@ then
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());     
 end
-
+rule "Si me llega un mensaje de cambio de coordenadas, cambio mi coordenada"
+	when
+		mensaje : Informacion( contenido == VocabularioRosace.CambiarUbicacion )
+		robotStatus : RobotStatus()
+	then
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(CambiarCoordenadas.class);
+    	tarea.ejecutar(robotStatus,mensaje);
+    	System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
+    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());  
+end
 rule "Si me llega una peticion de envio de mi evaluacion del Agte Asignador  la calculo y se la mando"
 salience 10
  when    
@@ -279,28 +288,6 @@ when
   
 end
 
-rule "Tratamiento de bloqueo por obstaculo"
-when
-	infoequipo:InfoEquipo(identAsignador:identAgenteJefeEquipo)
-    mensaje : MensajeBloqueoObstaculo(VocabularioRosace.MsgRobotBloqueadoObstaculo == contenido, destino : receptor)
-	
-then
-	TareaSincrona tarea=gestorTareas.crearTareaSincrona(EnviarMensajeAlJefePorBloqueoPorObstaculo.class);
-	tarea.ejecutar(agentId,infoequipo,mensaje);
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-end
-
-
-rule "Tratamiento de envio de mensaje por esquivar obstaculo"
-when
-	mensaje:MensajeSimple(inf : contenido)
-	
-then
-	TareaSincrona tarea=gestorTareas.crearTareaSincrona(MandarEstatusEsquivarObstaculo.class);
-	tarea.ejecutar(mensaje);
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-end
-
 
 rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
 when
@@ -327,10 +314,11 @@ when
 	inf : Informacion( contenido == VocabularioRosace.MsgRomperRobot)
 	misObjs : MisObjetivos()
 	v2r : VictimsToRescue(victims2Rescue !=null)
-	 infoComMov :InfoCompMovimiento()
+	infoComMov :InfoCompMovimiento()
+	robotS : RobotStatus()
 then
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaRomperRobot.class);
-	tarea.ejecutar(misObjs,v2r,infoComMov);
+	tarea.ejecutar(misObjs,v2r,infoComMov,robotS);
 	retract(inf);
 end

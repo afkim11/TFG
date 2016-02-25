@@ -4,6 +4,7 @@ import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.PuntoEstadistica;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoEstadistica.imp.visualizacionEstadisticas.VisualizacionJfreechart;
+import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.InfoTraza.NivelTraza;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
@@ -25,6 +26,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 
     private ControlCenterGUI4 ventanaControlCenterGUI;
     private VisorEscenariosRosace visorEscenarios;
+    private ControladorVisualizacionSimulRosace controlador;
     private VisualizacionJfreechart visualizadorJFchart;
     private NotificadorInfoUsuarioSimulador notifEvt;
     private String recursoId;
@@ -44,7 +46,8 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
             // un agente debe decirle al recurso a quien debe reportar . Se puede poner el agente a reportar fijo
 //            visorEscenarios = new VisorEscenariosRosace3();
             visorEscenarios = new VisorEscenariosRosace(notifEvt);
-            ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
+            this.controlador=new ControladorVisualizacionSimulRosace(notifEvt,visorEscenarios);
+           // ventanaControlCenterGUI = new ControlCenterGUI4(notifEvt);
         } catch (Exception e) {
             this.trazas.trazar(recursoId, " Se ha producido un error en la creación del recurso : " + e.getMessage(), InfoTraza.NivelTraza.error);
             this.itfAutomata.transita("error");
@@ -54,8 +57,9 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 
     @Override
     public void mostrarVentanaControlSimulador()throws Exception{
-    ventanaControlCenterGUI.setVisible(true);
-}
+    	controlador.setVisibleControlGUI(true);
+    }
+
     @Override
     public void crearEInicializarVisorGraficaEstadisticas(String tituloVentanaVisor,
             String tituloLocalGrafico,
@@ -285,7 +289,10 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 //     }
     @Override
     public void mostrarIdentsEquipoRobots(ArrayList identList){
-        this.ventanaControlCenterGUI.visualizarIdentsEquipoRobot(identList);
+        controlador.visualizarIdentsEquipoRobot(identList);
+    }
+    public void mostrarIdentsVictims(ArrayList identList){
+        controlador.visualizarIdentsVictims(identList);
     }
 
 	public void quitarVictimaRescatada(String refVictima) {
@@ -293,4 +300,18 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 	        visorEscenarios.cambiarIconoVictimaADesasignada(refVictima);
 		
 	}
+
+	@Override
+	public void setItfUsoPersistenciaSimulador(
+			ItfUsoRecursoPersistenciaEntornosSimulacion itfUsoRecursoPersistenciaEntornosSimulacion)  throws Exception{
+		this.controlador.setIftRecPersistencia(itfUsoRecursoPersistenciaEntornosSimulacion);
+		
+	}
+
+	@Override
+	public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception {
+		visorEscenarios = new VisorEscenariosRosace(escenarioNuevo);
+	}
+	
+	
 }

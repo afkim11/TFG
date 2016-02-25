@@ -129,7 +129,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         sendVictimButton.setText("Salvar Victima");
         sendVictimButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendVictimButtonActionPerformed(evt);
+                //sendVictimButtonActionPerformed(evt);
             }
         });
 
@@ -317,7 +317,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/*
     private void sendVictimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimButtonActionPerformed
           
   //        notifEvts.sendInitialRobotCoordenates();
@@ -327,7 +327,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
            
            
     }//GEN-LAST:event_sendVictimButtonActionPerformed
-
+*/
     private void sendVictimsSequenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendVictimsSequenceActionPerformed
          // Se deja al visualizador que obtenga el intervalo en ms . Si no hay valor definido lo pide
         // por medio del Joptionpane. Le manda lo obtenido al controlador que debe verificarlo

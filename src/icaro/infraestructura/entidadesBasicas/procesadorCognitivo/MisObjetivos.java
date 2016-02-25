@@ -20,11 +20,10 @@ import java.util.concurrent.PriorityBlockingQueue;
  * Se utiliza una cola de prioridad donde se insertan los objetivos pendientes y se eliminan cuando estan realizados
  * @author FGarijo
  */
-public class MisObjetivos {
+public class MisObjetivos{
     protected PriorityBlockingQueue <Objetivo> misObjetivosPriorizados;
     protected SortedSet<String> setOfIGoalRefIds ; // idetificadores de los objetos a los que se refieren los objetivos ej Identif de vicitmas
     public Objetivo objetivoMasPrioritario;
-    protected Map<String,Victim> victimasAsignadas;
     protected  Comparator c ;
   
     public MisObjetivos (){ 
@@ -40,7 +39,6 @@ public class MisObjetivos {
         misObjetivosPriorizados = new PriorityBlockingQueue <Objetivo> (11,c);
         setOfIGoalRefIds = new TreeSet<String>();
         objetivoMasPrioritario=null;
-        victimasAsignadas = new HashMap<String, Victim>();
     }
     public void addObjetivo ( Objetivo obj){
         //if (misObjetivosPriorizados == null) misObjetivosPriorizados = new PriorityBlockingQueue <Objetivo> (11,c);
@@ -84,13 +82,6 @@ public class MisObjetivos {
         }
     }
     
-    public void setVictimaAsignada(String agente, Victim v){
-    	this.victimasAsignadas.put(agente, v);
-    }
-	public Victim getVictimaAsignada(String emisor) {
-		return this.victimasAsignadas.get(emisor);
-		
-	}
 	public void eliminarObjetivoDeMisObjetivosPriorizados(Objetivo obj) {
 		this.misObjetivosPriorizados.remove(obj);		
 	}
