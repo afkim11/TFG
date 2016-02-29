@@ -2,6 +2,7 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 
+import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.Coste;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
@@ -160,7 +161,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 
 	@Override
 	public synchronized void run() {
-		this.controladorMovimiento.actualizarObstaculos();
+		
 		int energiaActual=this.robotStatus.getAvailableEnergy();
 		//       double espacioRecorridoEnIntervalo = velocidadRobot*intervaloEnvioInformacion;
 		log.debug ("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
@@ -174,9 +175,12 @@ public class HebraMonitorizacionLlegada extends Thread {
 						for(int j=0;j<VisorEscenariosRosace.alto;j++)
 							visitados[i][j]=false;
 					visitados[(int)this.coordActuales.getX()][(int)this.coordActuales.getY()]=true;
+					AlgoritmoRuta alg=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
+					
 					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 					ruta.add(coordActuales);
-					ruta=calculaRuta(visitados,this.coordActuales,0,ruta);
+					
+					ruta=alg.calculaRuta(visitados,this.coordActuales,0,ruta);
 					if(ruta!=null){		
 						//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
 						while(!enDestino && this.energia){
@@ -219,131 +223,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 		}
 	}
 
-	private ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora) {
-		this.contadorAuxiliar++;
-		if(this.contadorAuxiliar>=4500)return null;
-		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(this.coordDestino)){
-			return rutaHastaAhora;
-		}
-		else{
-			PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior); 
-			while(!colaNodos.isEmpty() && this.contadorAuxiliar<4500){
-				Coordinate coor=colaNodos.poll();
-				int x=(int)coor.getX(),y=(int)coor.getY();
-				visitados[x][y]=true;
-				rutaHastaAhora.add(coor);
-				ArrayList<Coordinate> posible_sol=calculaRuta(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora);
-				if(posible_sol!=null)return posible_sol;			
-				rutaHastaAhora.remove(rutaHastaAhora.size()-1);
-				visitados[x][y]=false;
-			}
-		}
-		return null;
-	}
-	/**
-	 * 
-	 * 123
-	 * 4X5
-	 * 678 
-	 * 
-	 */
-	private int calculaAnterior(Coordinate anterior,Coordinate siguiente){
-		int x1=(int)anterior.getX(),y1=(int)anterior.getY(),x2=(int)siguiente.getX(),y2=(int)siguiente.getY();
-		int restaX = x2 - x1, restaY = y2 - y1;
-		if (restaX == -1 && restaY == -1) return 8;
-		else if (restaX == 0 && restaY == -1) return 7;
-		else if (restaX == 1 && restaY == -1) return 6;
-		else if (restaX == -1 && restaY == 0) return 5;
-		else if (restaX == 1 && restaY == 0) return 4;
-		else if (restaX == -1 && restaY == 1) return 3;
-		else if (restaX == 0 && restaY == 1) return 2;
-		else if (restaX == 1 && restaY == 1) return 1;
-		else return -1;
-		
-		
-		
-	}
-	private PriorityQueue<Coordinate> estimaCoste(boolean[][] visitados, Coordinate coordinadasActuales, int anterior) {
-		PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(new Comparator<Coordinate>(){
-			@Override
-			public int compare(Coordinate o1, Coordinate o2){
-				double coste1=Coste.distanciaC1toC2(o1,coordDestino),coste2=Coste.distanciaC1toC2(o2,coordDestino);
-				if( coste1<coste2 )return -1;
-				else if(coste1 > coste2)return 1;
-				return 0;
-
-
-			}});
-		for(int i=1;i<=8;i++){
-			if(i!=anterior){
-				if(i==1){
-					int x=(int)coordinadasActuales.getX()-1;
-					int y=(int)coordinadasActuales.getY()-1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==2){
-					int x=(int)coordinadasActuales.getX();
-					int y=(int)coordinadasActuales.getY()-1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==3){
-					int x=(int)coordinadasActuales.getX()+1;
-					int y=(int)coordinadasActuales.getY()-1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==4){
-					int x=(int)coordinadasActuales.getX()-1;
-					int y=(int)coordinadasActuales.getY();
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==5){
-					int x=(int)coordinadasActuales.getX()+1;
-					int y=(int)coordinadasActuales.getY();
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==6){
-					int x=(int)coordinadasActuales.getX()-1;
-					int y=(int)coordinadasActuales.getY()+1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==7){
-					int x=(int)coordinadasActuales.getX();
-					int y=(int)coordinadasActuales.getY()+1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==8){
-					int x=(int)coordinadasActuales.getX()+1;
-					int y=(int)coordinadasActuales.getY()+1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !this.controladorMovimiento.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-			}
-		}		
-		return cola;
-	}
+	
 /*
 	private void calcularNuevasCoordenadas (long incrementoDistancia){
 		// suponemos avance en linea recta 
