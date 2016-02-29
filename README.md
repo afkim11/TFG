@@ -5,9 +5,7 @@ Lo que hay que hacer es lo siguiente:
 	2. Seleccionamos la import source "Existing Projects into Workspace" y damos a Next
 	3. Ahora, en la ventana Import Projects, seleccionamos la pestaña Select root directory, y damos a "browse"
 	4. Aquí tenemos que seleccionar la carpeta que contiene el proyecto(la carpeta que contiene las demás carpetas src,config,lib,etc...) 
-	5. Finalmente damos a finalizar. Con esto ya tendriamos importado el proyecto correctamente al eclipse, pero aun faltaría algo más: las librerias. Github no sincroniza al repositorio los archivos de librerias, por lo que los tienes que añadir tu a la carpeta lib manualmente. Se facilitan las librerias que se usan en el siguiente enlace:  https://drive.google.com/file/d/0B1svaDEcqxkaU00wSzJGSHAzX0E/view?usp=sharing 
-
- Es un zip, descomprimimos y contiene una carpeta lib que son todas las librerias, y las copiamos al directorio lib del proyecto.
+	5. Finalmente damos a finalizar. Con esto ya tendriamos importado el proyecto correctamente al eclipse.
  Si se han seguido correctamente estos pasos tendréis el proyecto instalado correctamente en eclipse, y ya solo quedaria la ejecución.
 
 **Ejecución**: Para realizar la ejecución correctamente en eclipse hay que crear un perfil de ejecución del proyecto
