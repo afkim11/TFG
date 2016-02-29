@@ -3,8 +3,10 @@ package icaro.aplicaciones.Rosace.informacion;
  import java.util.ArrayList;
  import java.util.Comparator;
  import java.util.PriorityQueue;
- 
- import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
+
+import com.sun.swing.internal.plaf.synth.resources.synth;
+
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
  import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
  /**
   * Esta clase implementa un algoritmo de vuelta atrás con heurística para resolver la ruta mínima 
@@ -15,8 +17,9 @@ package icaro.aplicaciones.Rosace.informacion;
   *
   */
  public class AlgoritmoRuta {
- 	
- 	
+
+	private static final int width = 27;
+ 	private static final int height = 40;
  	
  	private Coordinate coordenadasDestino;
  	private Coordinate coordenadasIniciales;
@@ -113,7 +116,7 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX()-1;
  					int y=(int)coordinadasActuales.getY()-1;
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(!visitados[x][y] && !checkObstaculo(coor))
+ 					if(!visitados[x][y] && !checkLimites(coor))
  						cola.add(coor);
  
  				}
@@ -121,7 +124,7 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX();
  					int y=(int)coordinadasActuales.getY()-1;
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(visitados[x][y]==false && !checkObstaculo(coor))
+ 					if(visitados[x][y]==false && !checkLimites(coor))
  						cola.add(coor);
  
  				}
@@ -129,7 +132,7 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX()+1;
  					int y=(int)coordinadasActuales.getY()-1;
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(visitados[x][y]==false && !checkObstaculo(coor))
+ 					if(visitados[x][y]==false && !checkLimites(coor))
  						cola.add(coor);
  
  				}
@@ -137,7 +140,7 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX()-1;
  					int y=(int)coordinadasActuales.getY();
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(visitados[x][y]==false && !checkObstaculo(coor))
+ 					if(visitados[x][y]==false && !checkLimites(coor))
  						cola.add(coor);
  
  				}
@@ -145,7 +148,7 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX()+1;
  					int y=(int)coordinadasActuales.getY();
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(visitados[x][y]==false && !checkObstaculo(coor))
+ 					if(visitados[x][y]==false && !checkLimites(coor))
  						cola.add(coor);
  
  				}
@@ -153,7 +156,7 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX()-1;
  					int y=(int)coordinadasActuales.getY()+1;
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(visitados[x][y]==false && !checkObstaculo(coor))
+ 					if(visitados[x][y]==false && !checkLimites(coor))
  						cola.add(coor);
  
  				}
@@ -161,7 +164,7 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX();
  					int y=(int)coordinadasActuales.getY()+1;
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(visitados[x][y]==false && !checkObstaculo(coor))
+ 					if(visitados[x][y]==false && !checkLimites(coor))
  						cola.add(coor);
  
  				}
@@ -169,13 +172,29 @@ package icaro.aplicaciones.Rosace.informacion;
  					int x=(int)coordinadasActuales.getX()+1;
  					int y=(int)coordinadasActuales.getY()+1;
  					Coordinate coor=new Coordinate(x,y,0.5);
- 					if(visitados[x][y]==false && !checkObstaculo(coor))
+ 					if(visitados[x][y]==false && !checkLimites(coor))
  						cola.add(coor);
  
  				}
  			}
  		}		
  		return cola;
+ 	}
+ 	
+ 	public static boolean checkLimites(Coordinate coor){
+ 		boolean obs = false;
+ 		for(int i = 0;(i < height && !obs); i++){
+	 			Coordinate c1 = new Coordinate(coor.getX()+i, coor.getY(), coor.getZ());
+	 			Coordinate c2 = new Coordinate(coor.getX()+i, coor.getY()+width, coor.getZ());
+	 			obs = checkObstaculo(c1) || checkObstaculo(c2);
+	 		}
+ 		
+ 		for(int i = 0;(i < width && !obs); i++){
+	 			Coordinate c1 = new Coordinate(coor.getX(), coor.getY()+i, coor.getZ());
+	 			Coordinate c2 = new Coordinate(coor.getX()+height, coor.getY()+i, coor.getZ());
+	 			obs = checkObstaculo(c1) || checkObstaculo(c2);
+	 		}
+ 		return obs;
  	}
  	/**
  	 * Comprueba si la coordenada está en un obstáculo llamando al método de la clase LineaObstaculo
