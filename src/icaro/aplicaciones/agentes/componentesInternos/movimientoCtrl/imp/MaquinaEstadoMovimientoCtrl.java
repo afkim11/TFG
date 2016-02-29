@@ -54,11 +54,11 @@ public class MaquinaEstadoMovimientoCtrl {
 	public ItfProcesadorObjetivos itfProcObjetivos;
 	protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
 	ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
-	private static ArrayList<LineaObstaculo> obstaculos;
+	
 	private ArrayList<LineaObstaculo> obstaculosDescubiertos;
 
 	public  MaquinaEstadoMovimientoCtrl (){
-		this.obstaculos=VisorEscenariosRosace.getObstaculos();
+		
 		this.obstaculosDescubiertos = new ArrayList<LineaObstaculo>();
 		estadosCreados = new EnumMap<EstadoMovimientoRobot, EstadoAbstractoMovRobot>(EstadoMovimientoRobot.class) ;
 	}
@@ -186,15 +186,7 @@ public class MaquinaEstadoMovimientoCtrl {
 		estadoActual = this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueado);
 	}
 
-	public static synchronized boolean checkObstaculo(Coordinate coor){
-		for(LineaObstaculo obs:obstaculos){
-			if(obs.compruebaCoordenada(coor))return true;
-		}
-		return false;
-	}
-
-
-	public synchronized Coordinate getCoordenadasActuales() {
+		public synchronized Coordinate getCoordenadasActuales() {
 		return this.robotposicionActual;
 	}
 
@@ -215,15 +207,5 @@ public class MaquinaEstadoMovimientoCtrl {
 
 
 	
-	public LineaObstaculo getObstaculo(Coordinate coordinate) {
-		for(LineaObstaculo obs:obstaculos){
-			if(obs.compruebaCoordenada(coordinate))return obs;
-		}
-		return null;
-	}
-
-	public void actualizarObstaculos() {
-		obstaculos = VisorEscenariosRosace.getObstaculos();
-		
-	}
+	
 }
