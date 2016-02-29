@@ -390,6 +390,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	protected void jButtonSendVictimActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
 		controladorEscSim.victimaSeleccionadaParaSimulacion(identVictimaSeleccionada);
+		identVictimaSeleccionada=null;
 	}
 	protected void jListIdentsVictimsMouseClicked(MouseEvent evt) {
 		if(evt.getClickCount()==2){

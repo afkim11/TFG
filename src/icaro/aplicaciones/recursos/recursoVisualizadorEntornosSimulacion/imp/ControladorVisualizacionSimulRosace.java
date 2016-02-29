@@ -175,7 +175,11 @@ public class ControladorVisualizacionSimulRosace {
 
 	}
 	public void victimaSeleccionadaParaSimulacion(String identVictimaSeleccionada) {
-		notifEvts.sendPeticionSimulacionVictimToRobotTeam(identVictimaSeleccionada);
+		if(identVictimaSeleccionada==null)JOptionPane.showMessageDialog(null, "No hay una victima seleccionada\nPara seleccionar una victima debes hacer doble click en el panel de victimas del CC");
+		else {
+			notifEvts.sendPeticionSimulacionVictimToRobotTeam(identVictimaSeleccionada);
+		
+		}
 
 	}
 	public void peticionGuardarEscenario(EscenarioSimulacionRobtsVictms escenarioComp) {

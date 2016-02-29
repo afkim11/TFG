@@ -557,6 +557,17 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		else if(evt.getClickCount()==1 && primerPuntoObstaculoMarcado){
 			primerPuntoObstaculoMarcado=false;
 			Coordinate ini=new Coordinate(ultimoPuntoClic.x,ultimoPuntoClic.y,0.5),fin=new Coordinate(evt.getX(),evt.getY(),0.5);
+			
+			if(Math.abs(ini.getX()-fin.getX())>Math.abs(ini.getY()-fin.getY())){
+				int y1=(int)ini.getY(),y2=(int)fin.getY(),puntoMedio=(y1+y2)/2;
+				ini.setY(puntoMedio);
+				fin.setY(puntoMedio);
+			}
+			else {
+				int x1=(int)ini.getX(),x2=(int)fin.getX(),puntoMedio=(x1+x2)/2;
+				ini.setX(puntoMedio);
+				fin.setX(puntoMedio);
+			}
 			LineaObstaculo obstaculo=new LineaObstaculo(ini, fin, numeroObstaculos+"");
 			numeroObstaculos++;
 			this.escenarioActualComp.addObstaculo(obstaculo);
