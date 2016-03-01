@@ -9,11 +9,11 @@ import com.sun.swing.internal.plaf.synth.resources.synth;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
  import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
  /**
-  * Esta clase implementa un algoritmo de vuelta atrás con heurística para resolver la ruta mínima 
-  * entre 2 coordenadas teniendo en cuenta los posibles obstaculos esquivándolos. Para ello se tiene
-  * en cuenta las coordenadas ya visitadas y la posición de la que viene para no repetir caminos.
+  * Esta clase implementa un algoritmo de vuelta atras con heuristica para resolver la ruta minima 
+  * entre 2 coordenadas teniendo en cuenta los posibles obstaculos esquivandolos. Para ello se tiene
+  * en cuenta las coordenadas ya visitadas y la posicion de la que viene para no repetir caminos.
   *  
-  * @author Luis García Terriza y Sergio Moreno de Pradas
+  * @author Luis Garcia Terriza y Sergio Moreno de Pradas
   *
   */
  public class AlgoritmoRuta {
@@ -24,7 +24,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  	private Coordinate coordenadasDestino;
  	private Coordinate coordenadasIniciales;
  	
- 	private int contador; //Este contador se encarga de que si el algoritmo no ha encontrado una solucion en cierto número de pasos, finalice la ejecución. Se supone en tal caso que no hay solución válida.
+ 	private int contador; //Este contador se encarga de que si el algoritmo no ha encontrado una solucion en cierto numero de pasos, finalice la ejecucion. Se supone en tal caso que no hay solucion valida.
  	private static final int limiteRecursividad=4500;
  	private static ArrayList<LineaObstaculo> obstaculos;
  	
@@ -38,8 +38,8 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  		actualizarObstaculos();
  	}
  	/**
- 	 * Algoritmo de vuelta atrás con heurística que se encarga de comprobar si hay una solución(un camino entre dos puntos).
- 	 * Para limitar su calculabilidad, se hace uso de un contador de recursiones y de un límite de recursividad. 
+ 	 * Algoritmo de vuelta atras con heuristica que se encarga de comprobar si hay una solucion(un camino entre dos puntos).
+ 	 * Para limitar su calculabilidad, se hace uso de un contador de recursiones y de un limite de recursividad. 
  	 * @param visitados
  	 * @param coordenadasActuales
  	 * @param anterior
@@ -68,8 +68,8 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  		return null;
  	}
  	/**
- 	 * En función de la coordenada anterior a la que estoy, se codifica mediante un número la posición anterior.
- 	 * Este esquema muestra como se han representado los números: por ejemplo, en la posición X, si el número que devuelve es "2", entonces viene de arriba.
+ 	 * En funcion de la coordenada anterior a la que estoy, se codifica mediante un numero la posicion anterior.
+ 	 * Este esquema muestra como se han representado los numeros: por ejemplo, en la posicion X, si el numero que devuelve es "2", entonces viene de arriba.
  	 * 
  	 * 123
  	 * 4X5
@@ -93,7 +93,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  		
  	}
  	/**
- 	 * Este método se encarga de calcular los posibles nodos siguientes desde una posición sin tener en cuenta las coordenadas ya visitadas y la posición de la que se viene.
+ 	 * Este metodo se encarga de calcular los posibles nodos siguientes desde una posicion sin tener en cuenta las coordenadas ya visitadas y la posicion de la que se viene.
  	 * @param visitados
  	 * @param coordinadasActuales
  	 * @param anterior
@@ -197,7 +197,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  		return obs;
  	}
  	/**
- 	 * Comprueba si la coordenada está en un obstáculo llamando al método de la clase LineaObstaculo
+ 	 * Comprueba si la coordenada esta en un obstaculo llamando al metodo de la clase LineaObstaculo
  	 * @param coor
  	 * @return
  	 */

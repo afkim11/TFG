@@ -251,7 +251,7 @@ public class AgenteCognitivotImp2 extends AgenteCognitivo implements Serializabl
 	/**
 	 * 
 	 */
-	public boolean añadirObstaculo(LineaObstaculo obstaculo){
+	public boolean anadirObstaculo(LineaObstaculo obstaculo){
 		if(this.identAgente.equals(VocabularioRosace.IdentAgteDistribuidorTareas)){
 			this.obstaculo.add(obstaculo);
 			return true;

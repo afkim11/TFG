@@ -239,7 +239,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		jSeparator2 = new javax.swing.JPopupMenu.Separator();
 		jMenuItemCrearVictima = new javax.swing.JMenuItem();
 
-		jDialogAvisoErrorDefNumEntidades.setTitle("Error: Definición de entidades en el escenario");
+		jDialogAvisoErrorDefNumEntidades.setTitle("Error: Definicion de entidades en el escenario");
 		jDialogAvisoErrorDefNumEntidades.setBounds(new java.awt.Rectangle(20, 20, 335, 88));
 		jDialogAvisoErrorDefNumEntidades.setType(java.awt.Window.Type.POPUP);
 
@@ -306,7 +306,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		});
 		jPopupMenuAcionEntidad.add(jMenuItemGuardar);
 
-		jMenuItemAddRobot.setText("Añadir Robot");
+		jMenuItemAddRobot.setText("Anadir Robot");
 		jMenuItemAddRobot.setActionCommand("AddRobot");
 		jMenuItemAddRobot.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,7 +316,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		jPopupMenuAddEntidades.add(jMenuItemAddRobot);
 		jPopupMenuAddEntidades.add(jSeparator4);
 
-		jMenuItemAddVictima.setText("Añadir Victima");
+		jMenuItemAddVictima.setText("Anadir Victima");
 		jMenuItemAddVictima.setActionCommand("AddVictima");
 		jMenuItemAddVictima.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,7 +325,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		});
 		jPopupMenuAddEntidades.add(jMenuItemAddVictima);
 
-		jMenuItemAddObstacle.setText("Añadir Obstáculo");
+		jMenuItemAddObstacle.setText("Anadir Obstaculo");
 		jMenuItemAddObstacle.setActionCommand("AddObstacle");
 		jMenuItemAddObstacle.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,7 +345,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		});
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Creación de Escenarios");
+		setTitle("Creacion de Escenarios");
 		setMinimumSize(new java.awt.Dimension(30, 30));
 		addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -398,11 +398,11 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			}
 		});
 
-		jLabelOrganizacion.setText("Organización");
+		jLabelOrganizacion.setText("Organizacion");
 
 		jLabelIdentEquipo.setText("Ident Escenario");
 
-		jMenuEditarEscenario.setText("Edición");
+		jMenuEditarEscenario.setText("Edicion");
 
 		jMenuItemNuevoEscenario.setText("Nuevo Escenario");
 		jMenuItemNuevoEscenario.addActionListener(new java.awt.event.ActionListener() {
@@ -468,7 +468,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 		GestionEscenarios.add(jMenuOrganizacion);
 
-		jMenu3.setText("Añadir entidad");
+		jMenu3.setText("Anadir entidad");
 
 		jMenuItemCrearRobot.setText("Robot");
 		jMenuItemCrearRobot.addActionListener(new java.awt.event.ActionListener() {
@@ -586,7 +586,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	private void jButtonGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioActionPerformed
 		// TODO add your handling code here:
-		System.out.println("Ha pulsado el botón Guardar escenario");
+		System.out.println("Ha pulsado el boton Guardar escenario");
 		actualizarCoordenadasEntidades();
 		//controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
@@ -623,14 +623,14 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private void jMenuItemGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarEscenarioActionPerformed
 		// TODO add your handling code here:
 		// TODO add your handling code here:
-		System.out.println("Ha pulsado el botón Guardar Escenario");
+		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 		//controladorSim.peticionGuardarEscenario (escenarioActualComp);
 
 
 
-		//         System.out.println("Ha pulsado el botón Aceptar valores Robots y victimas");
+		//         System.out.println("Ha pulsado el boton Aceptar valores Robots y victimas");
 		//        String valor ;
 		//        setLocationRelativeTo(this);
 		//        escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
@@ -644,7 +644,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	}//GEN-LAST:event_jMenuItemGuardarEscenarioActionPerformed
 
 	private void jButtonGuardarEscenarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioMousePressed
-		System.out.println("Ha pulsado el botón Guardar Escenario");
+		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 	}//GEN-LAST:event_jButtonGuardarEscenarioMousePressed
@@ -686,7 +686,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarActionPerformed
 		// TODO add your handling code here:
-		System.out.println("Ha pulsado el botón Guardar Escenario");
+		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
@@ -740,7 +740,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	private void jMenuItemNuevoEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoEscenarioActionPerformed
 		// Usuario quiere crear un escenario
-		// se abre una  ventana vacia , si tiene otra abierta se le debería avisar de que se guardar
+		// se abre una  ventana vacia , si tiene otra abierta se le deberia avisar de que se guardar
 		// lo que tiene
 		if (escenarioActualComp.getNumRobots()> 0){
 			//            peticionGuardarEscenario();
@@ -1093,13 +1093,13 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 				try {
 					gestionEscComp = new GestionEscenariosSimulacion();
 					gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-					//        escenarioActualComp = gestionEscComp.crearEscenarioSimulación();
+					//        escenarioActualComp = gestionEscComp.crearEscenarioSimulacion();
 					//                    visor = new VisorCreacionEscenarios1(new ControladorVisualizacionSimulRosace(notifEvts));
 					//             
 					////                    persistencia= new PersistenciaVisualizadorEscenarios();
 					//                    visor.setPersistencia(persistencia);
 					//                    visor.setGestorEscenarionComp(gestionEscComp);
-					//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulación());
+					//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulacion());
 					//                    visor.actualizarInfoEquipoEnEscenario();
 					//                    visor.setVisible(true);
 				} catch (Exception ex) {
@@ -1194,7 +1194,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 			//               fileName = selectedFile.getName();
 			// enviariamos el fichero a la persistencia para que nos diera el contenido
-			// se visualiza un escenario a partir de la información almacenada
+			// se visualiza un escenario a partir de la informacion almacenada
 			System.out.println("Ejecuto  accion sobre el fichero "+selectedFile.getAbsolutePath());
 		} else {
 			System.out.println("File access cancelled by user.");

@@ -33,8 +33,8 @@ public class ClaseGeneradoraRecursoDepuracionCognitivo extends ImplRecursoSimple
     //#end_nodeglobalVariables:globalVariables <--globalVariables-- DO NOT REMOVE THIS
 
     
-    //El string finaliza en un n�mero.
-    //Este m�todo devuelve la posici�n en el que empieza el numero.
+    //El string finaliza en un nmero.
+    //Este mtodo devuelve la posicin en el que empieza el numero.
     private int getNumberStartIndex(String s){
     	
     	int index=0;
@@ -53,8 +53,8 @@ public class ClaseGeneradoraRecursoDepuracionCognitivo extends ImplRecursoSimple
     	return index;
     }
     
-    //El string finaliza en un n�mero.
-    //Este m�todo devuelve el substring que contiene el numero.    
+    //El string finaliza en un nmero.
+    //Este mtodo devuelve el substring que contiene el numero.    
     private String getNumber(String s, int index){
     	String stringNumber;
     	stringNumber = s.substring(index);    	    	
@@ -95,7 +95,7 @@ public class ClaseGeneradoraRecursoDepuracionCognitivo extends ImplRecursoSimple
 //	        Font fuente = new Font("Arial", Font.PLAIN, 12);  //cambiar la fuente
 	        Font fuente = new Font("Trebuchet", Font.PLAIN, 12);  //cambiar la fuente
 	        this.ventanaActivationRulesGUI.setFontTextArea(fuente);
-	        //No poermitir cerrar la ventana cuando se hace clic en el bot�n X situado en la parte superior derecha 
+	        //No poermitir cerrar la ventana cuando se hace clic en el botn X situado en la parte superior derecha 
 	        this.ventanaActivationRulesGUI.setDefaultCloseOperation(0);
 	        this.ventanaActivationRulesGUI.setTitle("AR_" + number);
 	  	}

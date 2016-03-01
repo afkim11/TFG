@@ -81,7 +81,7 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
         identRolAnteriorAgte =agentRolId;
     }
     
-    //Actualiza el valor booleano de se ha enviado una propuesta de cambio de rol por el agente (No haria falta el argumento, ¿no?)
+    //Actualiza el valor booleano de se ha enviado una propuesta de cambio de rol por el agente (No haria falta el argumento, no?)
     public void setPropuestaCREnviada(PropuestaAgente propuesta){
         miPropuestaCREnviada = true;
     }
@@ -96,12 +96,12 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
         equipoAceptaPropuestaCR =estatusAceptacion;
     }
     
-    //¿Devuelve el valor booleano de si he enviado mi nuevo rol al equipo?
+    //Devuelve el valor booleano de si he enviado mi nuevo rol al equipo?
      public synchronized boolean getmiNuevoRolEnviadoAlEquipo(){
          return miNuevoRolEnviadoAlEquipo ;
     }
 
-     //¿Actualiza el valor booleano de si he enviado mi nuevo rol al equipo?
+     //Actualiza el valor booleano de si he enviado mi nuevo rol al equipo?
      public synchronized void setmiNuevoRolEnviadoAlEquipo(boolean bvalor){
         miNuevoRolEnviadoAlEquipo =bvalor;
     }
@@ -118,7 +118,7 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
      public boolean getseVerificanLasCondicionesParaCambiarMirolAigualitario(){
          return seVerificanLasCondicionesParaCambiarMirolAigualitario ;
     } 
-    //¿¿¿???
+    //???
     public void setincicioProcesamientoInformesCR(boolean inicioProcInformesCR){
         if(!inicicioProcesamientoInformesCR && inicioProcInformesCR){
             refIteracion = VocabularioRosace.IdentIteracionProcesoInformesCR ;//"procesamientoInformesCR";     
@@ -127,13 +127,13 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
          inicicioProcesamientoInformesCR =inicioProcInformesCR;
     }
     
-    //¿Se actualiza si el equipo acepta mi propuesta?
+    //Se actualiza si el equipo acepta mi propuesta?
     public void procesarPropuestaAceptada ( PropuestaAgente aceptPr){
         this.addAgteAceptaPropuesta(aceptPr); // Se actualiza el valor booleano
         equipoAceptaPropuestaCR = this.getPropuestaAceptada();
     }
     
-    //¿Se actualiza si el equipo rechazo mi propuesta?
+    //Se actualiza si el equipo rechazo mi propuesta?
     public void procesarRechazoPropuesta ( PropuestaAgente rechazoPr){
         this.procesarRechazarPropuesta(rechazoPr);
         equipoAceptaPropuestaCR = this.getPropuestaAceptada();
@@ -145,9 +145,9 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
         return miRolhaCambiado ;
     }
     
-    /* Funcion que obtiene el nombre del agente que ha creado esta tarea de cambio de rol, comprueba que se puede añadir a las respuestas a cambio de rol de este agente con
+    /* Funcion que obtiene el nombre del agente que ha creado esta tarea de cambio de rol, comprueba que se puede anadir a las respuestas a cambio de rol de este agente con
       mi referente de iteracion y se obtiene el estado del agente a cambiar rol; se obtiene el identificador de rol del agente y si es diferente al identificador de rol de
-      el estado del robot que se consiguio antes se actualiza. (¿Imagino que la última comprobación es para no actualizar si es el mismo?) */
+      el estado del robot que se consiguio antes se actualiza. (Imagino que la ultima comprobacion es para no actualizar si es el mismo?) */
     public void procesarInfoCambioRolAgte(InfoRolAgente infoRol){
         String identAgteInformante = infoRol.getAgteIniciadorId();
         if (respuestasCambioRol.addRespuestaAgente(identAgteInformante, refIteracion)){
@@ -171,7 +171,7 @@ public class InfoCambioRolAgente extends InfoPropuestaEquipo{
          return miPropuestaCRreEnviada ;
     }
     
-    //¿Funcion que actualiza valores cuando el equipo va a cambiar de rol? 
+    //Funcion que actualiza valores cuando el equipo va a cambiar de rol? 
     public void verificarCondicionesCambioRolEquipo(){
   // han llegado todas las respuestas esperadas y todos los que tenian el rol antiguo han cambiado al nuevo 
         if(respuestasCambioRol.hanLlegadoTodasLasRespuestasEsperadas()&&

@@ -45,14 +45,14 @@ import java.util.logging.Logger;
  */
 public class AccionesSemanticasGestorNodo extends
 		AccionesSemanticasAgenteReactivo implements Serializable{
-	// Tiempo que fijaremos para las monitorizaciones c�clicas
+	// Tiempo que fijaremos para las monitorizaciones cclicas
 	/**
 	 * @uml.property  name="tiempoParaNuevaMonitorizacion"
 	 */
 	protected long tiempoParaNuevaMonitorizacion;
 
 	/**
-	 * Hebra para que inyecte eventos de monitorizaci�n cada cierto tiempo
+	 * Hebra para que inyecte eventos de monitorizacin cada cierto tiempo
 	 * @uml.property  name="hebra"
 	 * @uml.associationEnd  
 	 */
@@ -247,7 +247,7 @@ public class AccionesSemanticasGestorNodo extends
 						trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente,
 								"Error al crear el agente "
 										+ NombresPredefinidos.NOMBRE_GESTOR_AGENTES
-										+ " en un nodo remoto. Se volver� a intentar en "
+										+ " en un nodo remoto. Se volver a intentar en "
 										+ intentos
 										+ " segundos...\n nodo origen: "
 										+ esteNodo + "\t nodo destino: "
@@ -294,9 +294,9 @@ public class AccionesSemanticasGestorNodo extends
 					InfoTraza.NivelTraza.debug));
 
                 } catch (Exception e) {
-			logger.error("GestorOrganizaci�n: Fue imposible crear los gestores de agentes y recursos en el gestor de la organizaci�n",e);
+			logger.error("GestorOrganizacin: Fue imposible crear los gestores de agentes y recursos en el gestor de la organizacin",e);
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
-					"Fue imposible crear los gestores de agentes y recursos en el gestor de la organizaci�n",
+					"Fue imposible crear los gestores de agentes y recursos en el gestor de la organizacin",
 					InfoTraza.NivelTraza.error));
 			e.printStackTrace();
 			try {
@@ -347,7 +347,7 @@ public class AccionesSemanticasGestorNodo extends
 						trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente,
 								"Error al crear el agente "
 										+ NombresPredefinidos.NOMBRE_GESTOR_AGENTES
-										+ " en un nodo remoto. Se volver� a intentar en "
+										+ " en un nodo remoto. Se volver a intentar en "
 										+ intentos
 										+ " segundos...\n nodo origen: "
 										+ esteNodo + "\t nodo destino: "
@@ -356,7 +356,7 @@ public class AccionesSemanticasGestorNodo extends
 						logger
 								.error("Error al crear el agente "
 										+ NombresPredefinidos.NOMBRE_GESTOR_AGENTES
-										+ " en un nodo remoto. Se volver� a intentar en "
+										+ " en un nodo remoto. Se volver a intentar en "
 										+ intentos
 										+ " segundos...\n nodo origen: "
 										+ esteNodo + "\t nodo destino: "
@@ -377,7 +377,7 @@ public class AccionesSemanticasGestorNodo extends
 			Set<Object> conjuntoEventos = new HashSet<Object>();
 			conjuntoEventos.add(EventoRecAgte.class);
 
-			// indico a qui�n debe reportar
+			// indico a quin debe reportar
 
 		
 			((ItfGestionAgenteReactivo) itfUsoRepositorio
@@ -387,7 +387,7 @@ public class AccionesSemanticasGestorNodo extends
 					.setGestorAReportar(
 							NombresPredefinidos.NOMBRE_GESTOR_ORGANIZACION);
 
-			logger.debug("GestorOrganizaci�n: Creando gestor de recursos ...");
+			logger.debug("GestorOrganizacin: Creando gestor de recursos ...");
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 					"Creando gestor de recursos ...",
 					InfoTraza.NivelTraza.debug));
@@ -418,7 +418,7 @@ public class AccionesSemanticasGestorNodo extends
 						trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 								"Error al crear agente "
 										+ NombresPredefinidos.NOMBRE_GESTOR_RECURSOS
-										+ " en un nodo remoto. Se volver� a intentar en "
+										+ " en un nodo remoto. Se volver a intentar en "
 										+ intentos
 										+ " segundos...\n nodo origen: "
 										+ esteNodo + "\t nodo destino: "
@@ -427,7 +427,7 @@ public class AccionesSemanticasGestorNodo extends
 						logger
 								.error("Error al crear agente "
 										+ NombresPredefinidos.NOMBRE_GESTOR_RECURSOS
-										+ " en un nodo remoto. Se volver� a intentar en "
+										+ " en un nodo remoto. Se volver a intentar en "
 										+ intentos
 										+ " segundos...\n nodo origen: "
 										+ esteNodo + "\t nodo destino: "
@@ -438,12 +438,12 @@ public class AccionesSemanticasGestorNodo extends
 					}
 				}
 			}
-			logger.debug("GestorOrganizaci�n: Gestor de recursos creado.");
+			logger.debug("GestorOrganizacin: Gestor de recursos creado.");
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 					"Gestor de recursos creado.",
 					InfoTraza.NivelTraza.debug));
 
-			// indico a qui�n debe reportar
+			// indico a quin debe reportar
 			((ItfGestionAgenteReactivo) ClaseGeneradoraRepositorioInterfaces
 					.instance()
 					.obtenerInterfaz(
@@ -452,7 +452,7 @@ public class AccionesSemanticasGestorNodo extends
 					.setGestorAReportar(NombresPredefinidos.NOMBRE_GESTOR_ORGANIZACION
 									);
 
-			logger.debug("GestorOrganizaci�n: Gestores registrados correctamente.");
+			logger.debug("GestorOrganizacin: Gestores registrados correctamente.");
 			
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 					"Gestores registrados correctamente.",
@@ -463,9 +463,9 @@ public class AccionesSemanticasGestorNodo extends
 					NombresPredefinidos.NOMBRE_GESTOR_ORGANIZACION));
 
 		} catch (Exception e) {
-			logger.error("GestorOrganizaci�n: Fue imposible crear los gestores de agentes y recursos en el gestor de la organizaci�n",e);
+			logger.error("GestorOrganizacin: Fue imposible crear los gestores de agentes y recursos en el gestor de la organizacin",e);
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
-					"Fue imposible crear los gestores de agentes y recursos en el gestor de la organizaci�n",
+					"Fue imposible crear los gestores de agentes y recursos en el gestor de la organizacin",
 					InfoTraza.NivelTraza.error));
 			e.printStackTrace();
 			try {
@@ -481,7 +481,7 @@ public class AccionesSemanticasGestorNodo extends
 
 	public void arrancarGestorAgentes() {
 
-		logger.debug("GestorOrganizaci�n: Arrancando Gestor de Agentes.");
+		logger.debug("GestorOrganizacin: Arrancando Gestor de Agentes.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 				"Arrancando Gestor de Agentes.",
 				InfoTraza.NivelTraza.debug));
@@ -494,7 +494,7 @@ public class AccionesSemanticasGestorNodo extends
 			// EventoRecAgte("gestor_agentes_arrancado_ok"));
 
 		} catch (Exception e) {
-			logger.error("GestorOrganizaci�n: Fue imposible arrancar el Gestor de Agentes.");
+			logger.error("GestorOrganizacin: Fue imposible arrancar el Gestor de Agentes.");
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 					"Fue imposible arrancar el Gestor de Agentes.",
 					InfoTraza.NivelTraza.error));
@@ -524,7 +524,7 @@ public class AccionesSemanticasGestorNodo extends
 			// this.itfUsoAgente.aceptaEvento(new
 			// EventoRecAgte("gestor_recursos_arrancado_ok"));
 		} catch (Exception e) {
-			logger.error("GestorOrganizaci�n: Fue imposible arrancar el Gestor de Recursos.");
+			logger.error("GestorOrganizacin: Fue imposible arrancar el Gestor de Recursos.");
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 					"Fue imposible arrancar el Gestor de Recursos.",
 					InfoTraza.NivelTraza.error));
@@ -541,7 +541,7 @@ public class AccionesSemanticasGestorNodo extends
 	}
 
 	public void gestoresArrancadosConExito() {
-		// creo hebra de monitorizaci�n
+		// creo hebra de monitorizacin
 		hebra = new HebraMonitorizacion(tiempoParaNuevaMonitorizacion,
 				this.itfUsoPropiadeEsteAgente, "monitorizar");
 		this.hebra.start();
@@ -552,15 +552,15 @@ public class AccionesSemanticasGestorNodo extends
 	}
 
 	/**
-	 * Decide qu� hacer en caso de fallos en el gestor de agentes y/o en el
+	 * Decide qu hacer en caso de fallos en el gestor de agentes y/o en el
 	 * gestor de recursos
 	 */
 	public void decidirTratamientoErrorIrrecuperable() {
             
-		// el tratamiento ser� siempre cerrar todo el chiringuito
-		logger.debug("GestorOrganizaci�n: Se decide cerrar el sistema ante un error cr�tico irrecuperable.");
+		// el tratamiento ser siempre cerrar todo el chiringuito
+		logger.debug("GestorOrganizacin: Se decide cerrar el sistema ante un error crtico irrecuperable.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
-				"Se decide cerrar el sistema ante un error cr�tico irrecuperable.",
+				"Se decide cerrar el sistema ante un error crtico irrecuperable.",
 				InfoTraza.NivelTraza.debug));
                 trazas.mostrarMensajeError("Error irrecuperable. Esperando por su solicitud de terminación");
 		/*
@@ -597,13 +597,13 @@ public class AccionesSemanticasGestorNodo extends
 
 	/**
 	 * Elabora un informe del estado en el que se encuentran el gestor de
-	 * agentes y el gestor de recursos y lo env�a al sistema de trazas.
+	 * agentes y el gestor de recursos y lo enva al sistema de trazas.
 	 */
 	public void generarInformeErrorIrrecuperable() {
 		// Producimos traza de un error
-		logger.debug("GestorOrganizaci�n: Finalizando gestor de la organizaci�n debido a un error irrecuperable.");
+		logger.debug("GestorOrganizacin: Finalizando gestor de la organizacin debido a un error irrecuperable.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
-				"Finalizando gestor de la organizaci�n debido a un error irrecuperable.",
+				"Finalizando gestor de la organizacin debido a un error irrecuperable.",
 				InfoTraza.NivelTraza.debug));
 		try {
 			this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte("informe_generado",
@@ -619,8 +619,8 @@ public class AccionesSemanticasGestorNodo extends
 	 */
 	public void monitorizarGestores() {
 		// monitorizamos los dos gestores en serie
-		// if(DEBUG) System.out.println("GestorOrganizaci�n: Iniciando ciclo de
-		// monitorizaci�n");
+		// if(DEBUG) System.out.println("GestorOrganizacin: Iniciando ciclo de
+		// monitorizacin");
 		boolean errorAlMonitorizar = false;
 		int monitAgentes = 0;
 		int monitRecursos = 0;
@@ -634,26 +634,26 @@ public class AccionesSemanticasGestorNodo extends
 							+ NombresPredefinidos.NOMBRE_GESTOR_RECURSOS))
 					.obtenerEstado();
 
-			// � hay problemas con el gestor de agentes ?
+			//  hay problemas con el gestor de agentes ?
 			errorAlMonitorizar = ((monitAgentes == InterfazGestion.ESTADO_ERRONEO_IRRECUPERABLE)
 					|| (monitAgentes == InterfazGestion.ESTADO_ERRONEO_RECUPERABLE)
 					|| (monitAgentes == InterfazGestion.ESTADO_TERMINADO) || (monitAgentes == InterfazGestion.ESTADO_TERMINANDO));
 
 			if (errorAlMonitorizar) {
 
-				logger.debug("GestorOrganizaci�n: Error al monitorizar gestores");
+				logger.debug("GestorOrganizacin: Error al monitorizar gestores");
 				trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 						"Error al monitorizar gestores",
 						InfoTraza.NivelTraza.debug));
 				if ((monitAgentes == InterfazGestion.ESTADO_ERRONEO_IRRECUPERABLE)
 						|| (monitAgentes == InterfazGestion.ESTADO_ERRONEO_RECUPERABLE)) {
-					logger.error("GestorOrganizaci�n: El GESTOR DE AGENTES ha fallado. Su estado es "+ monitAgentes);
+					logger.error("GestorOrganizacin: El GESTOR DE AGENTES ha fallado. Su estado es "+ monitAgentes);
 					trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 						"El GESTOR DE AGENTES ha fallado. Su estado es "+ monitAgentes,
 						InfoTraza.NivelTraza.error));
 				}
 				else{
-					logger.error("GestorOrganizaci�n: El GESTOR DE RECURSOS ha fallado. Su estado es "+ monitRecursos);
+					logger.error("GestorOrganizacin: El GESTOR DE RECURSOS ha fallado. Su estado es "+ monitRecursos);
 					trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 						"El GESTOR DE RECURSOS ha fallado. Su estado es "+ monitRecursos,
 						InfoTraza.NivelTraza.error));
@@ -667,8 +667,8 @@ public class AccionesSemanticasGestorNodo extends
 				this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte("gestores_ok",
 						NombresPredefinidos.NOMBRE_GESTOR_ORGANIZACION,
 						NombresPredefinidos.NOMBRE_GESTOR_ORGANIZACION));
-				// if(DEBUG) System.out.println("GestorOrganizaci�n:
-				// Monitorizaci�n de los gestores ok");
+				// if(DEBUG) System.out.println("GestorOrganizacin:
+				// Monitorizacin de los gestores ok");
 			}
 
 		} catch (Exception ex) {
@@ -686,11 +686,11 @@ public class AccionesSemanticasGestorNodo extends
 	}
 
 	/**
-	 * Da orden de terminaci�n al gestor de agentes si est� activos.
+	 * Da orden de terminacin al gestor de agentes si est activos.
 	 */
 	public void terminarGestorAgentes() {
 		// mandamos la orden de terminar a los gestores
-		logger.debug("GestorOrganizaci�n: Terminando gestor de agentes");
+		logger.debug("GestorOrganizacin: Terminando gestor de agentes");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 				"Terminando gestor de agentes",
 				InfoTraza.NivelTraza.debug));
@@ -722,11 +722,11 @@ public class AccionesSemanticasGestorNodo extends
 	}
 
 	/**
-	 * Da orden de terminaci�n al gestor de recursos si est� activos.
+	 * Da orden de terminacin al gestor de recursos si est activos.
 	 */
 	public void terminarGestorRecursos() {
 		// mandamos la orden de terminar a los gestores
-		logger.debug("GestorOrganizaci�n: Terminando gestor de recursos");
+		logger.debug("GestorOrganizacin: Terminando gestor de recursos");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 				"Terminando gestor de recursos",
 				InfoTraza.NivelTraza.debug));
@@ -748,7 +748,7 @@ public class AccionesSemanticasGestorNodo extends
 					nombreAgente,
 					nombreAgente));
 		} catch (Exception ex) {
-			logger.debug("GestorOrganizaci�n: No se pudo acceder al gestor de recursos.");
+			logger.debug("GestorOrganizacin: No se pudo acceder al gestor de recursos.");
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
 					"No se pudo acceder al gestor de recursos.",
 					InfoTraza.NivelTraza.debug));
@@ -877,11 +877,11 @@ private void crearUnAgenteCognitivo(String nombreAgente) throws Exception {
 
                             trazas.aceptaNuevaTraza(new InfoTraza(
                                     "GestorAgentes",
-                                    "Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver� a intentar en " + intentos + " segundos...\n nodo origen: " + esteNodo + "\t nodo destino: " + nodoDestino,
+                                    "Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver a intentar en " + intentos + " segundos...\n nodo origen: " + esteNodo + "\t nodo destino: " + nodoDestino,
                                     InfoTraza.NivelTraza.error));
 
 
-                        logger.error("Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver� a intentar en " +
+                        logger.error("Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver a intentar en " +
                                 intentos + " segundos...\n nodo origen: " + esteNodo +
                                 "\t nodo destino: " + nodoDestino);
 
@@ -905,7 +905,7 @@ private void crearUnAgenteCognitivo(String nombreAgente) throws Exception {
             Set<Object> conjuntoEventos = new HashSet<Object>();
             conjuntoEventos.add(EventoRecAgte.class);
 
-            // indico a qui�n debe reportar
+            // indico a quin debe reportar
 //            ((ItfGestionAgenteReactivo) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_GESTION + nombreAgente)).setGestorAReportar(
 //                    NombresPredefinidos.NOMBRE_GESTOR_AGENTES, conjuntoEventos);
 
@@ -1247,9 +1247,9 @@ public void arrancarRecurso(String identRecurso) {
 //				.elementAt(indice.intValue());
 		try {
 			// recuperamos el interfaz de gestion del recurso
-			logger.debug("GestorRecursos: Es necesario arrancar el recurso "+ identRecurso + ", recuperando interfaz de gesti�n.");
+			logger.debug("GestorRecursos: Es necesario arrancar el recurso "+ identRecurso + ", recuperando interfaz de gestin.");
 			trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-					"Es necesario arrancar el recurso "+ identRecurso + ", recuperando interfaz de gesti�n.",
+					"Es necesario arrancar el recurso "+ identRecurso + ", recuperando interfaz de gestin.",
 					InfoTraza.NivelTraza.debug));
 			InterfazGestion itfGesAg = (InterfazGestion) this.itfUsoRepositorio
 					.obtenerInterfaz(NombresPredefinidos.ITF_GESTION + identRecurso);
@@ -1279,7 +1279,7 @@ public void arrancarRecurso(String identRecurso) {
 			ex.printStackTrace();
 			errorEnArranque = true;
 		}
-		if (errorEnArranque) { // ha ocurrido alg�n problema en el arranque del
+		if (errorEnArranque) { // ha ocurrido algn problema en el arranque del
 								// recurso
 			try {
 				this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(
@@ -1308,7 +1308,7 @@ public void arrancarRecurso(String identRecurso) {
 						"Gestor de recursos esperando peticiones.",
 						InfoTraza.NivelTraza.debug));
 
-				// creo hebra de monitorizaci�n
+				// creo hebra de monitorizacin
 				hebra = new HebraMonitorizacion(tiempoParaNuevaMonitorizacion,
 						this.itfUsoPropiadeEsteAgente, "monitorizar");
 				this.hebra.start();
@@ -1368,32 +1368,32 @@ public void arrancarRecurso(String identRecurso) {
 	}
 
 	/**
-	 * Da orden de terminaci�n al gestor de agentes y/o al gestor de recursos si
-	 * est�n activos.
+	 * Da orden de terminacin al gestor de agentes y/o al gestor de recursos si
+	 * estn activos.
 	 */
 	/*
 	 * public void terminarGestoresActivos() { // mandamos la orden de terminar
-	 * a los gestores logger.debug("GestorOrganizaci�n: Terminando los
+	 * a los gestores logger.debug("GestorOrganizacin: Terminando los
 	 * gestores"); try {
 	 * ((InterfazGestion)this.itfUsoRepositorio.obtenerInterfaz(NombresInterfaces.ITF_GES_GESTOR_AGENTES)).termina(); }
-	 * catch (Exception ex) { logger.debug("GestorOrganizaci�n: No se pudo
+	 * catch (Exception ex) { logger.debug("GestorOrganizacin: No se pudo
 	 * acceder al gestor de agentes."); ex.printStackTrace(); } try {
 	 * ((InterfazGestion)this.itfUsoRepositorio.obtenerInterfaz(NombresInterfaces.ITF_GES_GESTOR_RECURSOS)).termina(); }
-	 * catch (Exception ex) { logger.debug("GestorOrganizaci�n: No se pudo
+	 * catch (Exception ex) { logger.debug("GestorOrganizacin: No se pudo
 	 * acceder al gestor de recursos."); ex.printStackTrace(); } try {
 	 * this.itfUsoAgente.aceptaEvento(new
 	 * EventoRecAgte("gestores_terminados",null,null)); } catch (Exception e) {
 	 * e.printStackTrace(); } }
 	 */
 	/**
-	 * Intenta recuperar los errores detectados en la monitorizaci�n siguiendo
-	 * la pol�tica definida para cada gestor.
+	 * Intenta recuperar los errores detectados en la monitorizacin siguiendo
+	 * la poltica definida para cada gestor.
 	 */
 	public void recuperarErrorAlMonitorizarGestores() {
-		// por defecto no se implementan pol�ticas de recuperaci�n
-		logger.debug("GestorOrganizaci�n: No se pudo recuperar el error de monitorizaci�n.");
+		// por defecto no se implementan polticas de recuperacin
+		logger.debug("GestorOrganizacin: No se pudo recuperar el error de monitorizacin.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
-				"No se pudo recuperar el error de monitorizaci�n.",
+				"No se pudo recuperar el error de monitorizacin.",
 				InfoTraza.NivelTraza.debug));
 		try {
 			this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(
@@ -1407,21 +1407,21 @@ public void arrancarRecurso(String identRecurso) {
 
 	/**
 	 * destruye los recursos que se crearon a lo largo del ciclo de vida del
-	 * gestor de la organizaci�n-
+	 * gestor de la organizacin-
 	 */
 	public void terminarGestorOrganizacion() {
 		// termina el gestor.
 		// puede esperarse a que terminen los dos gestores para mayor seguridad
-		logger.debug("GestorOrganizacion: Terminando gestor de la organizaci�n y los recursos de la infraestructura.");
+		logger.debug("GestorOrganizacion: Terminando gestor de la organizacin y los recursos de la infraestructura.");
 		trazas.aceptaNuevaTraza(new InfoTraza(nombreAgente,
 				"Terminando gestor de la organizacion y los recursos de la infraestructura.",
 				InfoTraza.NivelTraza.debug));
 		try {
-			// se acaba con los recursos de la organizaci�n que necesiten ser
+			// se acaba con los recursos de la organizacin que necesiten ser
 			// terminados
 			ItfGestionRecTrazas.termina();
 
-			// y a continuaci�n se termina el gestor de organizaci�n
+			// y a continuacin se termina el gestor de organizacin
 			((ItfGestionAgenteReactivo) this.itfUsoRepositorio
 					.obtenerInterfaz(NombresPredefinidos.ITF_GESTION
 							+ this.nombreAgente))
@@ -1449,9 +1449,9 @@ public void arrancarRecurso(String identRecurso) {
 	}
 
 	public void tratarTerminacionNoConfirmada() {
-		logger.debug("Se ha recibido un evento de timeout debido a que un gestor no ha confirmado la terminaci�n. Se procede a continuar la terminaci�n del sistema");
+		logger.debug("Se ha recibido un evento de timeout debido a que un gestor no ha confirmado la terminacin. Se procede a continuar la terminacin del sistema");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorOrganizacion",
-				"Se ha recibido un evento de timeout debido a que un gestor no ha confirmado la terminaci�n. Se procede a continuar la terminaci�n del sistema",
+				"Se ha recibido un evento de timeout debido a que un gestor no ha confirmado la terminacin. Se procede a continuar la terminacin del sistema",
 				InfoTraza.NivelTraza.debug));
 		try {
 			this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(

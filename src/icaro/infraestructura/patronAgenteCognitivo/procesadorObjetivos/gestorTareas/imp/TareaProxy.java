@@ -64,7 +64,7 @@ public class TareaProxy extends Tarea {
     @SuppressWarnings("deprecation")
 	public void terminarTarea() {
     	if (!tarea.terminada()) {
-    		System.out.println("Terminaci�n de tarea forzosa");
+    		System.out.println("Terminacin de tarea forzosa");
     //		this.timeout.forzarTimeout();
                 this.stop();
     	}

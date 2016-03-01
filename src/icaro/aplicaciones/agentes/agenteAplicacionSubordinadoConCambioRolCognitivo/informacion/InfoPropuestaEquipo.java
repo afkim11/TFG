@@ -39,7 +39,7 @@ public class InfoPropuestaEquipo extends InfoInteraccionBasica{
         numMiembrosEquipoParaConsenso = (idsEquipo.size()*2/3); // tomamos dos tercios por defecto
     }
     
-    //Funcion que añade un agente que acepta la pruopuesta aceptPr y actualiza
+    //Funcion que anade un agente que acepta la pruopuesta aceptPr y actualiza
     public void addAgteAceptaPropuesta ( PropuestaAgente aceptPr){
        if ( respuestasEquipo.addRespuestaAgente(aceptPr.identAgente, aceptPr.getMensajePropuesta())){
             agtsEquipoAceptanPropuesta[equipoIds.indexOf(aceptPr.identAgente)]= true;
@@ -58,7 +58,7 @@ public class InfoPropuestaEquipo extends InfoInteraccionBasica{
             }else if (!propuestaAceptada&&getHayConsenso(numMiembrosEquipoParaConsenso))propuestaAceptada = true;
     }
     
-    //Funcion que añade al agente como que rechaza la propuesta rechazoPr y actualiza la informacion de la propuesta y var alguienDiscrepa
+    //Funcion que anade al agente como que rechaza la propuesta rechazoPr y actualiza la informacion de la propuesta y var alguienDiscrepa
     public void procesarRechazarPropuesta ( PropuestaAgente rechazoPr){
         if ( respuestasEquipo.addRespuestaAgente(myId, rechazoPr.getMensajePropuesta())){
             agtsEquipoRechazanPropuesta[equipoIds.indexOf(rechazoPr.identAgente)]= true;

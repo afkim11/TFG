@@ -196,7 +196,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		jLabel3.setText("Robots ");
 
 		jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-		jLabel4.setText("Ident Escenario de Simulación:");
+		jLabel4.setText("Ident Escenario de Simulacion:");
 
 		jTextFieldIdentEscenarioActual.setEditable(false);
 		jTextFieldIdentEscenarioActual.addActionListener(new java.awt.event.ActionListener() {

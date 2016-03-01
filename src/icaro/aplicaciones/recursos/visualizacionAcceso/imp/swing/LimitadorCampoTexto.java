@@ -26,7 +26,7 @@ public class LimitadorCampoTexto extends PlainDocument {
      * Crea una instancia de LimitadorCampoTexto.
      * 
      * @param componenteTexto Componente de Texto en el que se quieren limitar los caracteres.
-     * @param numeroMaximoCaracteres N�mero m�ximo de caracteres que queremos en el editor.
+     * @param numeroMaximoCaracteres Nmero mximo de caracteres que queremos en el editor.
      */
     public LimitadorCampoTexto(JTextField componenteTexto, int numeroMaximoCaracteres) {
         this.componenteTexto = componenteTexto;

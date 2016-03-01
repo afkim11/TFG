@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Produce instancias del patr�n
+ * Produce instancias del patrn
  *
  * @F Garijo
  * @created 20  Mayo  2010
@@ -48,7 +48,7 @@ public class FactoriaAgenteReactivoImp2 extends FactoriaAgenteReactivo {
 
 	/*
 	 * Crea una instancia del patron que crea un agente reactivo a partir de las
-	 * acciones sem�nticas, el aut�mata que define el comportamiento y el nombre
+	 * acciones semnticas, el autmata que define el comportamiento y el nombre
 	 * del agente.
 	 */
      private static final long serialVersionUID = 1L;
@@ -93,7 +93,7 @@ public class FactoriaAgenteReactivoImp2 extends FactoriaAgenteReactivo {
 	 */
 //    protected int estado = InterfazGestion.ESTADO_OTRO;
     /**
-	 * Acciones sem�nticas del agente reactivo
+	 * Acciones semnticas del agente reactivo
 	 * @uml.property  name="accionesSemanticas"
 	 * @uml.associationEnd
 	 */

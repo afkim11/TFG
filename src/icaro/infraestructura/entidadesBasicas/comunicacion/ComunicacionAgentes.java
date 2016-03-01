@@ -34,7 +34,7 @@ public class ComunicacionAgentes {
 	/*
 	 * Recibe un nombre de agente, y busca en la tabla de interfaces si existe. 
 	 * En caso de que exista, asigna la interfaz de uso de agente al atributo itfUsoAgente.
-	 * Es importante que aunque esta función pregunta "existeInterfazDeAgente", en realidad no pregunta, asigna, y además te dice si ha sido satisfactorio o no.
+	 * Es importante que aunque esta funcion pregunta "existeInterfazDeAgente", en realidad no pregunta, asigna, y ademas te dice si ha sido satisfactorio o no.
 	 */
 	public  boolean existItfAgte (String nombreAgente) {
 		try {

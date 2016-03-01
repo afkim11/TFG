@@ -53,9 +53,9 @@ public class ControladorVisualizacionSimulRosace {
 	private String imageniconoRobot = "Robot.png";
 	private String modeloOrganizativoInicial = "Igualitario";
 	private String tituloAvisoEscenarioNoDefinido= "Escenario indefinido";
-	private String mensajeEscenarioNoDefinido= "El esceneraio de simulación no esta definido ";
+	private String mensajeEscenarioNoDefinido= "El esceneraio de simulacion no esta definido ";
 	private String recomendacionDefinirEscenario= " Abrir un escenario con el menu de edicion o crear un escenario nuevo";
-	private String mensajeEscenarioNoSeleccionado= "No se ha seleccionado el esceneraio de simulación ";
+	private String mensajeEscenarioNoSeleccionado= "No se ha seleccionado el esceneraio de simulacion ";
 	private Map<String, JLabel> tablaEntidadesEnEscenario;
 	private ArrayList <JLabel> listaEntidadesEnEscenario;
 	private ItfUsoRecursoPersistenciaEntornosSimulacion itfPersistenciaSimul;
@@ -103,7 +103,7 @@ public class ControladorVisualizacionSimulRosace {
 			//                    persistencia= new PersistenciaVisualizadorEscenarios();
 			//                    visor.setPersistencia(persistencia);
 			//                    visor.setGestorEscenarionComp(gestionEscComp);
-			//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulación());
+			//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulacion());
 			//                    visor.setIdentEquipoActual()
 			//                    visor.actualizarInfoEquipoEnEscenario();
 			// visorControlSim.setVisible(true);

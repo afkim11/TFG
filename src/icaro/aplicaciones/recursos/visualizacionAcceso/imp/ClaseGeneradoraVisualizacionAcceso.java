@@ -20,7 +20,7 @@ public class ClaseGeneradoraVisualizacionAcceso extends ImplRecursoSimple implem
 
 	private static final long serialVersionUID = 1L;
 
-	//Informaci�n del agente controlador de la interfaz
+	//Informacin del agente controlador de la interfaz
 	/**
 	 * @uml.property  name="nombreAgenteAcceso"
 	 */

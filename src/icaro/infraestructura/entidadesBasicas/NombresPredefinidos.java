@@ -4,7 +4,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTra
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.ItfUsoRepositorioInterfaces;
 
 /**
- * Definiciones de los nombres de las interfaces. Se puede heredar de esta clase en cada aplicaci�n
+ * Definiciones de los nombres de las interfaces. Se puede heredar de esta clase en cada aplicacin
  * @author Francisco J Garijo
  * @version 1.0
  */

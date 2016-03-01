@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 /**
  * Proporciona los servicios de acceso a la bbdd con mysql
  *
- * @author �lvaro Rodr�guez P�rez
+ * @author lvaro Rodrguez Prez
  *
  */
 public class PersistenciaAccesoImp {
@@ -42,12 +42,12 @@ public class PersistenciaAccesoImp {
 	static private   String PASSWORD;//= Configuracion.obtenerParametro("MYSQL_PASSWORD");
 	//static private  final String PASSWORD= "adminwww";
 	/**
-	 * Url en d�nde se situa la bbdd
+	 * Url en dnde se situa la bbdd
 	 */
 	static private   String URL_CONEXION;//= Configuracion.obtenerParametro("MYSQL_URL");
 	//static private  final String URL_CONEXION="jdbc:mysql://localhost:3306/";
 	/**
-	 * Objeto resultante de la comunicaci�n establecida con la bbdd
+	 * Objeto resultante de la comunicacin establecida con la bbdd
 	 */
 	private static Connection conn=null;
 
@@ -141,7 +141,7 @@ public class PersistenciaAccesoImp {
 			Class.forName("com.mysql.jdbc.Driver");
         //            Class.forName("org.apache.derby.jdbc.ClientDriver");
 		} catch (ClassNotFoundException e) {
-			// TODO Bloque catch generado autom�ticamente
+			// TODO Bloque catch generado automticamente
 			e.printStackTrace();
 			throw new ErrorEnRecursoException("Ha habido un problema  con la conexion con la base de datos (instanciando el driver connector com.mysql.jdbc.Driver)");
 
@@ -195,7 +195,7 @@ public class PersistenciaAccesoImp {
 	}
 
 	/**
-	 * Realiza una conexion (principio de la comunicaci�n) sobre la bbdd
+	 * Realiza una conexion (principio de la comunicacin) sobre la bbdd
 	 * @throws ErrorEnRecursoException
 	 */
 
@@ -213,13 +213,13 @@ public class PersistenciaAccesoImp {
 //			ejecutable = descRecurso.getValorPropiedad("MYSQL_SCRIPT_ITEMS");
 //		} catch (Exception e) {
 //			e.printStackTrace();
-//			throw new ErrorEnRecursoException("Ha habido un problema al obtener la configuraci�n del recurso de persistencia");
+//			throw new ErrorEnRecursoException("Ha habido un problema al obtener la configuracin del recurso de persistencia");
 //		}
 //		try{
 //			Class.forName("com.mysql.jdbc.Driver");
 //        //            Class.forName("org.apache.derby.jdbc.ClientDriver");
 //		} catch (ClassNotFoundException e) {
-//			// TODO Bloque catch generado autom�ticamente
+//			// TODO Bloque catch generado automticamente
 //			e.printStackTrace();
 //			throw new ErrorEnRecursoException("Ha habido un problema con la conexion con la base de datos (instanciando el driver connector)");
 //
@@ -250,14 +250,14 @@ public class PersistenciaAccesoImp {
 
 			throw new ErrorEnRecursoException("Ha habido un problema con la conexion con la base de datos "+URL_CONEXION+"\nusuario "+LOGIN+
 					"\npassword "+PASSWORD);
-			// TODO Bloque catch generado autom�ticamente
+			// TODO Bloque catch generado automticamente
 
 		}
 
 	}
 
 	/**
-	 * Realiza la desconexion (fin de la comunicaci�n) sobre la bbdd
+	 * Realiza la desconexion (fin de la comunicacin) sobre la bbdd
 	 * @throws ErrorEnRecursoException
 	 */
 
@@ -268,7 +268,7 @@ public class PersistenciaAccesoImp {
 			conn.close();
 		}
 		catch (SQLException e) {
-			System.out.println("\nNo se ha podido cerrar la conexi�n con la base de datos: " + e.getMessage());
+			System.out.println("\nNo se ha podido cerrar la conexin con la base de datos: " + e.getMessage());
 			e.printStackTrace();
 		}
         }
