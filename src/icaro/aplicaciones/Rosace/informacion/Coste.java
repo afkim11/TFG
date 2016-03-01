@@ -1,6 +1,7 @@
 package icaro.aplicaciones.Rosace.informacion;
 
 
+import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta.Anterior;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.MaquinaEstadoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
@@ -208,7 +209,7 @@ public class Coste {
 				ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
 				try{
 					AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
-					 					arrayAux = alg.calculaRuta(visitados, actual, 0, ruta);
+					 					arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
 					 					}
 				catch(Exception e){
 					System.out.println("");
@@ -229,7 +230,7 @@ public class Coste {
 		ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 		ruta.add(actual);
 		AlgoritmoRuta alg2= new AlgoritmoRuta(nuevaVictima.getCoordinateVictim(), actual);
-		ArrayList<Coordinate> arrayAux = alg2.calculaRuta(visitados, actual, 0,ruta);
+		ArrayList<Coordinate> arrayAux = alg2.calculaRuta(visitados, actual, Anterior.MOV_NULO,ruta);
 		if(arrayAux != null){
 			time += arrayAux.size();
 			if(time<energia)

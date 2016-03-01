@@ -3,6 +3,7 @@ package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 
 import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta;
+import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta.Anterior;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.Coste;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
@@ -178,7 +179,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 					AlgoritmoRuta alg=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
 					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 					ruta.add(coordActuales);
-					ruta=alg.calculaRuta(visitados,this.coordActuales,0,ruta);
+					ruta=alg.calculaRuta(visitados,this.coordActuales, Anterior.MOV_NULO,ruta);
 					if(ruta!=null){		
 						//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
 						while(!enDestino && this.energia){
