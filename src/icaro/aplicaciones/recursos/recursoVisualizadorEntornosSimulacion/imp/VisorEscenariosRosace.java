@@ -266,7 +266,7 @@ public class VisorEscenariosRosace extends JFrame {
 		panelVisor.add(asignador);
 		this.robotslabel.put("0",asignador);
 		
-		for (int j = 0; j < nroRobots; j++) {
+		for (int j = 1; j < nroRobots; j++) {
 			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, j);
 			String valueid = rXMLTRobots.getRobotIDValue(info, "id");
 			Coordinate valueInitialCoordinate = rXMLTRobots.getRobotCoordinate(info);

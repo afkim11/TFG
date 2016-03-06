@@ -75,8 +75,7 @@ public class NombresPredefinidos {
   public static final String CARPETA_TAREAS = "tareas";
   public static final String CARPETA_COMPORTAMIENTO = "comportamiento";
   public static final String DESCRIPCION_SCHEMA = "./schemas/DescripcionOrganizacionSchema.xsd";
-  public static final String RUTA_DESCRIPCIONES = "config/icaro/aplicaciones/descripcionOrganizaciones/";
-//  public static final String RUTA_DESCRIPCIONES = "./config/icaro/aplicaciones/descripcionOrganizaciones/";
+  public static final String RUTA_DESCRIPCIONES = "descriptoresOrganizacion/";
   public static final String PAQUETE_JAXB = "icaro.infraestructura.entidadesBasicas.descEntidadesOrganizacion.jaxb";
   public static final String RUTA_LOGS = "./log/";
 // Estados e inputs para el automata del ciclo de vida
