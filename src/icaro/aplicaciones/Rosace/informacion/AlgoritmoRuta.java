@@ -185,6 +185,8 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  	
  	
  	public static boolean checkLimites(Coordinate coor, Anterior anterior){
+ 		if(obstaculos.isEmpty())return false;
+ 		
  		boolean obs = false;
  		boolean izquierda = false, derecha = false, arriba = false, abajo = false;
  		double X = coor.getX();

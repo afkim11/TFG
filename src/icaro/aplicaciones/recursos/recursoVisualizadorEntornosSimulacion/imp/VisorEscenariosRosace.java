@@ -100,7 +100,7 @@ public class VisorEscenariosRosace extends JFrame {
 		
 		robotslabel = new HashMap<String, JLabel>();
 		victimaslabel = new HashMap<String, JLabel>();
-
+		this.coordinadasJerarquico = new Coordinate(50.0,30.0,0.5);
 		
 		setBounds(100, 100, 649, 409);
 		contentPaneRoot = new JPanel();
@@ -256,6 +256,16 @@ public class VisorEscenariosRosace extends JFrame {
 		//*********************************************************************************************
 		//Aniadir al panel panelVisor los componentes label que representan los robots leidos del xml
 		//*********************************************************************************************
+		
+		String rutaIconoRobot = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
+		JLabel asignador = new JLabel("JerarquicoAsignador");
+		asignador.setIcon(new javax.swing.ImageIcon(rutaIconoRobot));
+		asignador.setBounds((int)this.coordinadasJerarquico.getX(),(int)this.coordinadasJerarquico.getY(),asignador.getPreferredSize().width,asignador.getPreferredSize().height);
+		asignador.setEnabled(true);
+		asignador.setVisible(true);
+		panelVisor.add(asignador);
+		this.robotslabel.put("0",asignador);
+		
 		for (int j = 0; j < nroRobots; j++) {
 			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, j);
 			String valueid = rXMLTRobots.getRobotIDValue(info, "id");
@@ -267,7 +277,7 @@ public class VisorEscenariosRosace extends JFrame {
 
 			//crear el label y posicionarlo en el JPanel
 			JLabel label = new JLabel("");
-			String rutaIconoRobot = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
+			
 
 			//System.out.println("Ruta->" + rutaIconoRobot);
 
@@ -360,7 +370,7 @@ public class VisorEscenariosRosace extends JFrame {
 	private void init2(EscenarioSimulacionRobtsVictms escenario){
 		robotslabel = new HashMap<String, JLabel>();
 		victimaslabel = new HashMap<String, JLabel>();
-		this.coordinadasJerarquico = new Coordinate(10.0,10.0,0.5);
+		this.coordinadasJerarquico = new Coordinate(50.0,30.0,0.5);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 649, 409);
 		contentPaneRoot = new JPanel();
@@ -681,7 +691,7 @@ public class VisorEscenariosRosace extends JFrame {
 
 		int index = utilsCadenaComponente.getNumberStartIndex(valor_idRobot);
 		String idNumero = utilsCadenaComponente.getNumber(valor_idRobot, index);
-
+		if(valor_idRobot.equalsIgnoreCase("jerarquicoagenteasignador"))return "0";
 		return idNumero;
 	}
 	private String getNumeroVictima(String valor_idVictima) {

@@ -11,6 +11,9 @@ import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
  * @author FGarijo
  */
 public class VocabularioRosace extends NombresPredefinidos{
+	
+	public static final String JerarquicoAsignadorRescatando = "AsignadorRescatandoAVictimas";
+	
     public static final String NombrePropiedadGlobalIdentEquipo= "identificadorEquipo";
     public static final String IdentMisionEquipo = "mision1";
     public static final String IdentEquipoIgualitario= "robotMasterIA";
