@@ -50,7 +50,8 @@ public class PedirEvalAtodos extends TareaSincrona {
 					infoDecision.anadirAgenteAInformacion(this.identAgente);
 					numAgtesEnEquipo++;
 					agentesEquipo.add(this.identAgente);
-				}
+				}			
+				
 				if(numAgtesEnEquipo ==0) trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,
 						"  En la tarea : " +identTarea + " No se puede enviar la peticion porque el grupo de agentes a los que hay que enviar la informacion esta vacio ", InfoTraza.NivelTraza.error));
 				else{

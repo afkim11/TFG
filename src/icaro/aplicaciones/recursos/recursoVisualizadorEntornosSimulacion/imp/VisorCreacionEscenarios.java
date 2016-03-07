@@ -571,7 +571,6 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			LineaObstaculo obstaculo=new LineaObstaculo(ini, fin, numeroObstaculos+"");
 			numeroObstaculos++;
 			this.escenarioActualComp.addObstaculo(obstaculo);
-			repaint();
 		}
 		else if(evt.getClickCount()==2){
 			String tipoEntidad=null;
@@ -581,7 +580,12 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 				this.crearIconoRobVict(tipoEntidad,evt.getX(),evt.getY());
 			}
+			
+			
+			
+			
 		}
+		repaint();
 	}//GEN-LAST:event_formMouseClicked
 
 	private void jButtonGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioActionPerformed

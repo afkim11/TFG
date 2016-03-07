@@ -317,10 +317,10 @@ public class VisorEscenariosRosace extends JFrame {
 			int coordinateY = (int) valueInitialCoordinate.y;
 			//coordinateX = Math.abs(coordinateX);
 			//coordinateY = Math.abs(coordinateY);
-
+			
 			int index = utilsCadenaComponente.getNumberStartIndex(valueid);
-			String idNumero = utilsCadenaComponente.getNumber(valueid, index);
-
+			
+			String idNumero =valueid.substring(index, valueid.length());
 			//System.out.println("idNumero->" + idNumero);
 
 			int indexVictima;
@@ -555,7 +555,8 @@ public class VisorEscenariosRosace extends JFrame {
 			//coordinateY = Math.abs(coordinateY);
 
 
-			String idNumero = victimID.charAt(victimID.length()-1) + "";
+			String idNumero =victimID.substring(7, victimID.length());
+			
 
 			//System.out.println("idNumero->" + idNumero);
 

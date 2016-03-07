@@ -164,7 +164,7 @@ public class ControladorVisualizacionSimulRosace {
 
 	}
 	public void setVisibleControlGUI(boolean b) {
-		this.visorControlSim.setVisible(true);
+		this.visorControlSim.setVisible(b);
 
 	}
 	public void visualizarIdentsEquipoRobot(ArrayList<String> identList) {
