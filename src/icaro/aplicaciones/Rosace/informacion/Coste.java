@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 
 
 public class Coste {
-
+	public static int tiempoAtencionVictima = 100;
 	private double funcionEvaluacion=0;
 	//    ItfUsoRecursoTrazas trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ; //Para depurar por la ventana de trazas de ICARO los calculos de costes
 
@@ -201,7 +201,6 @@ public class Coste {
 			if(x.getState()==Objetivo.SOLVING){
 				String nombreVictima=x.getobjectReferenceId();
 				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
-
 				visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
 				visitados[(int)actual.getX()][(int)actual.getY()]=true;
 				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
@@ -216,7 +215,7 @@ public class Coste {
 				}
 
 				if(arrayAux != null){
-					time = time + arrayAux.size();
+					time = time + arrayAux.size() + tiempoAtencionVictima;
 					actual = v.getCoordinateVictim();
 				}
 				else return -1;
@@ -233,6 +232,7 @@ public class Coste {
 		ArrayList<Coordinate> arrayAux = alg2.calculaRuta(visitados, actual, Anterior.MOV_NULO,ruta);
 		if(arrayAux != null){
 			time += arrayAux.size();
+			time += tiempoAtencionVictima;
 			if(time<energia)
 				return time;
 		}

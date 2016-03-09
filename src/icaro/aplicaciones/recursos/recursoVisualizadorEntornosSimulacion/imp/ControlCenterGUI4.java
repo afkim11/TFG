@@ -117,7 +117,8 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 				//jPopupMenuAcionesRobotsPopupMenuWillBecomeVisible(evt);
 			}
 		});
-		jButtonActivarJerarquico.setText("Desactivar(Actual: On)");
+		if(ControladorVisualizacionSimulRosace.asignadorSeMueve)jButtonActivarJerarquico.setText("Desactivar(Actual: On)");
+		else jButtonActivarJerarquico.setText("Activar(Actual: Off)");
 		jButtonActivarJerarquico.addActionListener(new ActionListener() {
 			
 			@Override

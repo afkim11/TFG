@@ -6,6 +6,7 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.Coste;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
@@ -170,6 +171,14 @@ public class MaquinaEstadoMovimientoCtrl {
 		//        this.estadoActual.identDestino = identDest;
 		Informe informeLlegada = new Informe (identComponente,identDest, VocabularioRosace.MsgeLlegadaDestino);
 		Temporizador informeTemp = new Temporizador (1,itfProcObjetivos,informeLlegada);
+		
+		//Tiempo de rescate de la victima. Hemos decido que sea equivalente a moverse 100 pixeles--> esto es entonces 12 ms de espera entre cada pixel por 100 = 1200ms 
+		try {
+			Thread.sleep(Coste.tiempoAtencionVictima*12);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		informeTemp.start();
 		//        robotposicionActual = monitorizacionLlegadaDestino.getCoordDestino();
 		estadoActual = this.cambiarEstado(EstadoMovimientoRobot.RobotParado);

@@ -31,7 +31,7 @@ import org.openide.util.Exceptions;
  * @author FGarijo
  */
 public class ControladorVisualizacionSimulRosace {
-	public static boolean asignadorSeMueve = true;
+	public static boolean asignadorSeMueve = false;
 	private NotificadorInfoUsuarioSimulador notifEvts;
 	private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
 	private int numMensajesEnviar = 3;
