@@ -54,4 +54,10 @@ public class RobotBloqueadoPorObstaculo extends EstadoAbstractoMovRobot implemen
 		
 	}
 
+	@Override
+	public Coordinate getCoordenasDestino() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

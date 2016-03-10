@@ -78,5 +78,9 @@ public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMov
 	public void setRobotStatus(RobotStatus robotStatus) {
 		this.robotStatus = robotStatus;
 		
+	}
+	@Override
+	public Coordinate getCoordenasDestino() {
+		return this.destinoCoord;
 	} 
 }

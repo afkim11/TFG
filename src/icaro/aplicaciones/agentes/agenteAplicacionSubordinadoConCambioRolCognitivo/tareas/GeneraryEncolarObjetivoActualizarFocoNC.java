@@ -45,6 +45,7 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			//           InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
 			Focus focoActual = (Focus)params[1];
 			victima = (Victim) params[2];
+			victima.setIdRobotEncargadoDeMi(this.identAgente);
 			RobotStatus robotStatus = (RobotStatus) params[6];
 			AceptacionPropuesta propuestaAceptada = (AceptacionPropuesta) params[3];
 			InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[4];

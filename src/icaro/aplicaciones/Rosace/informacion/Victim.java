@@ -27,6 +27,9 @@ public class Victim implements Serializable{
 	private int priority; //victim severity
 	@Element
 	private int tiempoDeVida;
+	
+	
+	private String robotIdEncargadoDeMi = null;
 	private int estimatedCost;
 	private boolean isRescued = false;
 	private boolean isCostEstimated = false;
@@ -58,6 +61,14 @@ public class Victim implements Serializable{
 
 	public synchronized void setName(String victimName){
 		this.name = victimName;
+	}
+
+	public synchronized String getIdRobotEncargadoDeMi() {
+		return robotIdEncargadoDeMi;
+	}
+
+	public synchronized void setIdRobotEncargadoDeMi(String robotID) {
+		this.robotIdEncargadoDeMi = robotID;
 	}
 
 	public Coordinate getCoordinateVictim(){

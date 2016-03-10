@@ -9,6 +9,7 @@ public interface ItfUsoMovimientoCtrl {
         public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero) ;
         public void cambiaVelocidad( float nuevaVelocidadCrucero) ;
         public void cambiaDestino(String identDest,Coordinate coordDestino) ;
+        public Coordinate getCoordenasDestino();
  //       public void actualizarCoordenadas(Coordinate nuevasCoordenadas) ;
         public Coordinate getCoordenadasActuales() ;
         public  void setCoordenadasActuales(Coordinate nuevasCoordenadas) ;

@@ -162,7 +162,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 
 	@Override
 	public synchronized void run() {
-		
 		int energiaActual=this.robotStatus.getAvailableEnergy();
 		//       double espacioRecorridoEnIntervalo = velocidadRobot*intervaloEnvioInformacion;
 		log.debug ("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
