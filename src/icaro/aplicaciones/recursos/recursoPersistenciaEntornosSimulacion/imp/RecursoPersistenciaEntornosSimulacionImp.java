@@ -53,6 +53,8 @@ public class RecursoPersistenciaEntornosSimulacionImp extends ImplRecursoSimple{
     private String directorioPersistencia;
     private String identFicheroInfoAsigVictimasObj;
     private String identFicheroInfoAsigVictimasXML;
+    private static final int tiempoDeVidaVictimaPorDefecto = 10000;
+    
 //    private ObjectOutputStream  oPersAsignVictima;
 //    private ObjectInputStream  inPersAsignVictima;
     private  ArrayList<InfoAsignacionVictima> infoVictimasAsigandas  ;
@@ -241,7 +243,7 @@ public class RecursoPersistenciaEntornosSimulacionImp extends ImplRecursoSimple{
 		List<Integer> victimRequirements = new ArrayList<Integer>();
 		victimRequirements = rXMLTSeq.getVictimRequirements(info);                    
 		Coordinate valueCoordinate = rXMLTSeq.getVictimCoordinate(info);
-		return new Victim(valueid, valueCoordinate, valueseverity, victimRequirements);  
+		return new Victim(valueid, valueCoordinate, valueseverity, victimRequirements,tiempoDeVidaVictimaPorDefecto);  
 	}
                               	
     //obtener valor en segundos con nrodecimales decimales a partir de long que expresa el tiempo en milisegundos

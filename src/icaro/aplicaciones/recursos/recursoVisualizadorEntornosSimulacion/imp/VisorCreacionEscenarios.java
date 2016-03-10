@@ -66,6 +66,7 @@ import com.sun.javafx.tk.Toolkit;
  */
 public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
+	public static final int tiempoDeVidaVictimaPorDefecto = 10000;
 	/** Creates new form ControlCenterGui2 */
 	private NotificadorInfoUsuarioSimulador notifEvts;
 	private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
@@ -812,10 +813,10 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	public JLabel crearIconoRobVict(String tipoEntidad, int coordX, int coordY){
 
 		JLabel label = new JLabel();
-		int correccionX=-30;
-		int correccionY=-93;
-		//        int correccionX=0;
-		//        int correccionY=0;
+		//int correccionX=-30;
+		//int correccionY=-93;
+		int correccionX=0;
+		int correccionY=0;
 		coordX=coordX+correccionX;
 		coordY=coordY+correccionY;
 		String rutaImagen;
@@ -1050,69 +1051,6 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	}
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
-				VisorCreacionEscenarios visor;
-				PersistenciaVisualizadorEscenarios persistencia= new PersistenciaVisualizadorEscenarios();
-				GestionEscenariosSimulacion gestionEscComp= new GestionEscenariosSimulacion();
-				gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-				try {
-					gestionEscComp = new GestionEscenariosSimulacion();
-					gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-					//        escenarioActualComp = gestionEscComp.crearEscenarioSimulacion();
-					//                    visor = new VisorCreacionEscenarios1(new ControladorVisualizacionSimulRosace(notifEvts));
-					//             
-					////                    persistencia= new PersistenciaVisualizadorEscenarios();
-					//                    visor.setPersistencia(persistencia);
-					//                    visor.setGestorEscenarionComp(gestionEscComp);
-					//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulacion());
-					//                    visor.actualizarInfoEquipoEnEscenario();
-					//                    visor.setVisible(true);
-				} catch (Exception ex) {
-					Exceptions.printStackTrace(ex);
-				}
-
-			}
-		});
-	}
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JMenuBar GestionEscenarios;
 	private javax.swing.JTextField intervalNumRobots;

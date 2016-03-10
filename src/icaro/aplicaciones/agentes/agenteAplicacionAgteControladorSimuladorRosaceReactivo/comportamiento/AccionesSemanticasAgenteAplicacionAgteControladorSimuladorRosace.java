@@ -11,6 +11,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Esc
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Temporizador;
 import icaro.infraestructura.patronAgenteReactivo.control.acciones.AccionesSemanticasAgenteReactivo;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
@@ -191,6 +192,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 					//      victima = createNewVictim(rXMLTSeq, nodeLst, i);
 					if(modoEnvioVictimas==1)victima = victimasDefinidas.get(i);
 					else victima=victimasDefinidas2.poll();
+					
+					
 					if(!victima.getRescued() && !victima.isCostEstimated()){
 						OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
 						// Escribir nueva linea de estadistica en el fichero de llegada de victimas					
@@ -228,7 +231,11 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 						} else {
 							comunicator.informaraGrupoAgentes(ccOrder, identsAgtesEquipo);
 						}
-
+						
+						victima.lanzarHebraTiempoDeVida(comunicator);
+						
+						
+						
 						i++;
 						try {
 							Thread.sleep(interv);
@@ -343,10 +350,17 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			Logger.getLogger(AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-
 	public void desasignarVictima(String refVictima){
 		try {
 			itfUsoRecursoVisualizadorEntornosSimulacion.quitarVictimaRescatada(refVictima);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void victimaMuerta(String refVictima){
+		try {
+			itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVictimaMuerta(refVictima);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -364,7 +378,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			e.printStackTrace();
 		}
 	}
-
 	private void visualizarYguardarResultadosCaso() {
 		try {
 			// ArrayList<PuntoEstadistica> llegada = new ArrayList();
@@ -383,7 +396,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			e1.printStackTrace();
 		}
 	}
-
 	public void procesarInfoAsignacionVictima(Long tiempoAsignacion, String refVictima, String nombreAgenteEmisor, Integer miEvaluacion) {
 		// el robot que se ha quedado con la victima informa sobre los detalles de la asingnacion
 		// este agente incorpora el contexto de asigancion de la victima

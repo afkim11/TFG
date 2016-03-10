@@ -126,6 +126,7 @@ public class EscenarioSimulacionRobtsVictms {
 				numVictimas++;
 			}
 			ultimaVictimaModificada.setLocPoint(puntoEnEscenario);
+			ultimaVictimaModificada.setTiempoDeVida(VisorCreacionEscenarios.tiempoDeVidaVictimaPorDefecto);
 		}
 
 	}

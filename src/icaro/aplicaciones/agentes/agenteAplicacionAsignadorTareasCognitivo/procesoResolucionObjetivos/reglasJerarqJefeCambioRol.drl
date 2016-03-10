@@ -338,13 +338,6 @@ rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo"
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
 
-
-
-
-
-
-
-
 rule " Si el agente de mejor evaluacion acepta la propuesta resuelvo el objetivo"
  when
     victimaCC:Victim(idVict:name)
@@ -376,13 +369,6 @@ when
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA " + drools.getRule().getName()+  " " + mensaje + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
-
-
-
-
-
-
-
 
 
 rule "Si no hay agente que pueda llegar a la victima la reservo para despues"
@@ -420,6 +406,19 @@ rule "Proceso el  timeout aceptacion propuesta doy por  asignado el objetivo"
 
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+end
+
+
+rule "Una victima no ha sido rescatada a tiempo"
+
+ when
+ 	informe : Informe(idVict:identEntidadEmisora,idVict == referenciaContexto,contenidoInforme == VocabularioRosace.VictimaFallecida)
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaNoRescatadaATiempo.class);
+ 	tarea.ejecutar(informe);
+ 	retract(informe)
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+
 end
 
 //==========================================================================

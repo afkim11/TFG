@@ -8,6 +8,9 @@ import java.util.List;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 
+import icaro.infraestructura.entidadesBasicas.comunicacion.ComunicacionAgentes;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
+
 public class Victim implements Serializable{
 	/**
 	 * 
@@ -22,6 +25,8 @@ public class Victim implements Serializable{
 	public List<Integer> RequiredCompetencies = new ArrayList<Integer>(); 
 	@Element
 	private int priority; //victim severity
+	@Element
+	private int tiempoDeVida;
 	private int estimatedCost;
 	private boolean isRescued = false;
 	private boolean isCostEstimated = false;
@@ -37,10 +42,11 @@ public class Victim implements Serializable{
 		this.name=nombre;
 	}
 
-	public Victim(String name, Coordinate coorVictim, int priority, List<Integer> requirements){
+	public Victim(String name, Coordinate coorVictim, int priority, List<Integer> requirements,int tiempoDeVida){
 		this.name = name;
 		this.coordinateVictim = coorVictim;
 		this.priority = priority;
+		this.tiempoDeVida=tiempoDeVida;
 		for(int i=0;i<requirements.size();i++){
 			this.RequiredCompetencies.add(requirements.get(i));
 		}
@@ -61,7 +67,12 @@ public class Victim implements Serializable{
 	public void setCoordinateVictim(Coordinate coorVictim){
 		this.coordinateVictim = coorVictim;
 	}
-
+	public synchronized int getTiempoDeVida(){
+		return this.tiempoDeVida;
+	}
+	public synchronized void setTiempoDeVida(int t){
+		this.tiempoDeVida =  t;
+	}
 	public synchronized int getPriority(){
 		return this.priority;
 	}
@@ -114,6 +125,32 @@ public class Victim implements Serializable{
 	public Point getLocPoint() {
 		// TODO Auto-generated method stub
 		return new Point((int)this.coordinateVictim.getX(),(int)this.coordinateVictim.getY());
+	}
+
+	public void lanzarHebraTiempoDeVida(final ComunicacionAgentes comunicator) {
+		Thread t = new Thread(){
+			@SuppressWarnings("static-access")
+			@Override
+			public void run(){
+				
+				try {
+					this.sleep(tiempoDeVida);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(!getRescued()){
+					Informe informe = new Informe(name,name,VocabularioRosace.VictimaFallecida);
+					comunicator.enviarInfoAotroAgente(informe, VocabularioRosace.IdentAgteDistribuidorTareas);
+				}
+				else 
+					System.out.println("Hola Francis");
+			}
+			
+			
+		};
+		t.start();
+		
 	}
 
 }

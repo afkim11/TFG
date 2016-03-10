@@ -663,21 +663,43 @@ public class VisorEscenariosRosace extends JFrame {
 
 		if (jlabelVictima != null) {
 
-			//String rutaAbsolutaIconoVictima = jlabelVictima.getIcon().toString();			
-			//System.out.println("victima " + numeroVictima + "  , " + jlabelVictima.getIcon().toString());
+
 
 			if (numeroIdVictima % 2 == 0) {
 				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "HombreRescatado.png"));
-				//System.out.println("Es un hombre");
 			} else {
 				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "MujerRescatada.png"));
-				//System.out.println("Es una mujer");
 			}
 
 		} else {
 			System.out.println("jlabelVictima nulo");
 		}
 	}
+	
+	public void cambiarIconoVictimaMuerta(String refVictima) {
+		// TODO Auto-generated method stub
+		String numeroVictima = getNumeroVictima(refVictima);
+
+		int numeroIdVictima = Integer.parseInt(numeroVictima);
+
+		JLabel jlabelVictima = new JLabel();
+
+		jlabelVictima = victimaslabel.get(numeroVictima);
+		
+		if (jlabelVictima != null) {
+			if (numeroIdVictima % 2 == 0) {
+				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "HombreMuerto.png"));
+				
+			} else {
+				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "MujerMuerta.png"));
+				
+			}
+
+		} else {
+			System.out.println("jlabelVictima nulo");
+		}
+	}
+	
 	public void escribirEnAreaTexto(String texto) {
 
 		textAreaMensaje.append(texto);
@@ -733,4 +755,5 @@ public class VisorEscenariosRosace extends JFrame {
 		}
 
 	}
+	
 }
