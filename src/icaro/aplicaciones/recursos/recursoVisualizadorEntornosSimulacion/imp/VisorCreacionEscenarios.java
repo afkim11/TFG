@@ -112,6 +112,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private JMenuItem jMenuItemAddObstacle;
 	private Point primerPuntoObstaculo;
 	private boolean primerPuntoObstaculoMarcado=false;
+	
 
 
 	public VisorCreacionEscenarios(ControladorVisualizacionSimulRosace controlador) throws Exception {
@@ -239,6 +240,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		jMenuItemCrearRobot = new javax.swing.JMenuItem();
 		jSeparator2 = new javax.swing.JPopupMenu.Separator();
 		jMenuItemCrearVictima = new javax.swing.JMenuItem();
+		jMenuItemVictimaTiempo = new javax.swing.JMenuItem();
 
 		jDialogAvisoErrorDefNumEntidades.setTitle("Error: Definicion de entidades en el escenario");
 		jDialogAvisoErrorDefNumEntidades.setBounds(new java.awt.Rectangle(20, 20, 335, 88));
@@ -296,6 +298,13 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 				jMenuItemEliminarActionPerformed(evt);
 			}
 		});
+		jMenuItemVictimaTiempo.setText("Modificar tiempo de vida");
+		jMenuItemVictimaTiempo.setToolTipText("");
+		jMenuItemVictimaTiempo.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItemVictimaTiempoActionPerformed(evt);
+			}
+		});
 		jPopupMenuAcionEntidad.add(jMenuItemEliminar);
 		jPopupMenuAcionEntidad.add(jSeparator3);
 
@@ -306,6 +315,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			}
 		});
 		jPopupMenuAcionEntidad.add(jMenuItemGuardar);
+		
+		jPopupMenuAcionEntidad.add(jMenuItemVictimaTiempo);
 
 		jMenuItemAddRobot.setText("Anadir Robot");
 		jMenuItemAddRobot.setActionCommand("AddRobot");
@@ -543,7 +554,15 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	protected void jMenuItemAddObstacleActionPerformed(ActionEvent evt) {
+	private void jMenuItemVictimaTiempoActionPerformed(ActionEvent evt) {
+		JLabel entidadAcambiar=   (JLabel) moverComp.getUltimoComponenteSeleccionado();
+		escenarioActualComp.actualizarTiempodeVida(entidadAcambiar.getText());
+		System.out.println( "Se actualiza el tiempo de la entidad : "+entidadAcambiar.getText()+ " Coordenadas : X =" + entidadAcambiar.getX() +" , Y = " +entidadAcambiar.getY() );
+		actualizarInfoEquipoEnEscenario ();
+		
+	}
+
+	private void jMenuItemAddObstacleActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
 		this.primerPuntoObstaculo=new Point(ultimoPuntoClic.x,ultimoPuntoClic.y);
 		this.primerPuntoObstaculoMarcado=true;
@@ -1094,6 +1113,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private javax.swing.JTextField jTextFieldModeloOrganizacion;
 	private javax.swing.JLabel robotIcon;
 	private javax.swing.JLabel victimaIcon1;
+	private JMenuItem jMenuItemVictimaTiempo;
 	// End of variables declaration//GEN-END:variables
 
 	public void setGestorEscenarionComp(GestionEscenariosSimulacion gestEscComp ) {

@@ -26,7 +26,7 @@ public class Victim implements Serializable{
 	@Element
 	private int priority; //victim severity
 	@Element
-	private int tiempoDeVida;
+	private Integer tiempoDeVida =null;
 	
 	
 	private String robotIdEncargadoDeMi = null;
@@ -78,10 +78,10 @@ public class Victim implements Serializable{
 	public void setCoordinateVictim(Coordinate coorVictim){
 		this.coordinateVictim = coorVictim;
 	}
-	public synchronized int getTiempoDeVida(){
+	public synchronized Integer getTiempoDeVida(){
 		return this.tiempoDeVida;
 	}
-	public synchronized void setTiempoDeVida(int t){
+	public synchronized void setTiempoDeVida(Integer t){
 		this.tiempoDeVida =  t;
 	}
 	public synchronized int getPriority(){
@@ -125,7 +125,7 @@ public class Victim implements Serializable{
 	@Override
 	public String toString(){
 		return "Victim: " + " name->" + this.getName() + " ; coordinate->" + this.getCoordinateVictim() + 
-				" ; priority->" + this.getPriority() + " ; requirements->" + this.getRequirements();
+				" ; priority->" + this.getPriority() + " ; requirements->" + this.getRequirements() + " tiempo de vida-> " + this.tiempoDeVida;
 	}
 
 	public void setLocPoint(Point punto) {
@@ -154,8 +154,6 @@ public class Victim implements Serializable{
 					Informe informe = new Informe(name,name,VocabularioRosace.VictimaFallecida);
 					comunicator.enviarInfoAotroAgente(informe, VocabularioRosace.IdentAgteDistribuidorTareas);
 				}
-				else 
-					System.out.println("Hola Francis");
 			}
 			
 			

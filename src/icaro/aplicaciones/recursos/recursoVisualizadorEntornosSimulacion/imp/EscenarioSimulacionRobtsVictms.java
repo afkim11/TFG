@@ -9,6 +9,7 @@ import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotCapability;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +18,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.jar.JarInputStream;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
@@ -58,7 +63,7 @@ public class EscenarioSimulacionRobtsVictms {
 
 	public  EscenarioSimulacionRobtsVictms (){
 		migestor=null;
-		
+
 		infoRobots = new HashMap<String,RobotStatus >();
 		//        infoRobots.put(robotInfo.getIdRobot(),robotInfo);
 		//        infoRobots.put(robotInicialId, robotInfo);
@@ -126,7 +131,7 @@ public class EscenarioSimulacionRobtsVictms {
 				numVictimas++;
 			}
 			ultimaVictimaModificada.setLocPoint(puntoEnEscenario);
-			ultimaVictimaModificada.setTiempoDeVida(VisorCreacionEscenarios.tiempoDeVidaVictimaPorDefecto);
+			if(ultimaVictimaModificada.getTiempoDeVida() == null)ultimaVictimaModificada.setTiempoDeVida(VisorCreacionEscenarios.tiempoDeVidaVictimaPorDefecto);
 		}
 
 	}
@@ -270,9 +275,25 @@ public class EscenarioSimulacionRobtsVictms {
 	public void addObstaculo(LineaObstaculo obstaculo){
 		infoObstaculos.put(obstaculo.getId(), obstaculo);    	
 	}
-	
+
 
 	public Map<String, RobotStatus> getRobotsWithIds() {
 		return this.infoRobots;
+	}
+	public void actualizarTiempodeVida(String text) {
+		Victim v = infoVictimas.get(text);
+		String time = JOptionPane.showInputDialog("Introduce el tiempo de vida de " + text + " en ms: ");
+		int timeMS;
+		
+		try {
+			timeMS=Integer.parseInt(time);
+			if(timeMS <0)throw new NumberFormatException("Negative Value not allowed");
+			v.setTiempoDeVida(timeMS);
+			this.infoVictimas.put(text, v);
+		}
+		catch(NumberFormatException e){
+			System.err.println(e.getStackTrace() + e.getMessage());
+		}
+		
 	}
 }
