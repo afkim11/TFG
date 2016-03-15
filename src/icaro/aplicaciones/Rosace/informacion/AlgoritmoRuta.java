@@ -4,8 +4,6 @@ package icaro.aplicaciones.Rosace.informacion;
  import java.util.Comparator;
  import java.util.PriorityQueue;
 
-import com.sun.swing.internal.plaf.synth.resources.synth;
-
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
  import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
  /**
@@ -19,6 +17,14 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  public class AlgoritmoRuta {
 	private static final int width = 40;
  	private static final int height = 27;
+ 	private final Comparator<Coordinate> comparador = new Comparator<Coordinate>(){
+ 			public int compare(Coordinate o1, Coordinate o2){
+ 				double coste1=Coste.distanciaC1toC2(o1,coordenadasDestino),coste2=Coste.distanciaC1toC2(o2,coordenadasDestino);
+ 				if( coste1<coste2 )return -1;
+ 				else if(coste1 > coste2)return 1;
+ 				return 0;
+
+ 			}};
  	
  	private Coordinate coordenadasDestino;
  	private Coordinate coordenadasIniciales;
@@ -101,16 +107,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  	 * @return
  	 */
  	private PriorityQueue<Coordinate> estimaCoste(boolean[][] visitados, Coordinate coordinadasActuales, Anterior anterior) {
- 		PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(new Comparator<Coordinate>(){
- 			@Override
- 			public int compare(Coordinate o1, Coordinate o2){
- 				double coste1=Coste.distanciaC1toC2(o1,coordenadasDestino),coste2=Coste.distanciaC1toC2(o2,coordenadasDestino);
- 				if( coste1<coste2 )return -1;
- 				else if(coste1 > coste2)return 1;
- 				return 0;
- 
- 
- 			}});
+ 		PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(comparador);
  		for(int i=1;i<=8;i++){
  			if(i!=anterior.ordinal()){
  				if(i==Anterior.NOROESTE.ordinal()){

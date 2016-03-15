@@ -10,8 +10,6 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoR
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
-import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
-import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Temporizador;
 import icaro.infraestructura.patronAgenteReactivo.control.acciones.AccionesSemanticasAgenteReactivo;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
@@ -20,15 +18,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 //This agent class need the next imports in order to use resources
 
@@ -162,8 +156,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		}
 
 		iniciliarFicheroEstadisticas();
-
-		victimasDefinidas2=new PriorityQueue<Victim>(new Comparator<Victim>(){
+		Comparator<Victim> comp = new Comparator<Victim>(){
 
 			@Override
 			public int compare(Victim arg0, Victim arg1) {
@@ -172,7 +165,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 				else return 0;
 			}
 
-		});
+		};
+		victimasDefinidas2=new PriorityQueue<Victim>(comp);
 		for(int i =0;i<victimasDefinidas.size();i++)victimasDefinidas2.add(victimasDefinidas.get(i));
 
 
