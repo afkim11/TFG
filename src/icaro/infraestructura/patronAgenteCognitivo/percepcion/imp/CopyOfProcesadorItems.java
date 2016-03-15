@@ -96,7 +96,7 @@ public class CopyOfProcesadorItems implements ItfProcesadorItems {
 				        return true;
 		} else {
 			  log.error("Item " + item + " no reconocido");
-			  trazas.aceptaNuevaTraza(new InfoTraza (this.agente.getIdentAgente(),"Percepci�n: Item "+ item + " no reconocido",InfoTraza.NivelTraza.debug));
+			  trazas.aceptaNuevaTraza(new InfoTraza (this.agente.getIdentAgente(),"Percepcin: Item "+ item + " no reconocido",InfoTraza.NivelTraza.debug));
 			  return false;
 		}		
 	}

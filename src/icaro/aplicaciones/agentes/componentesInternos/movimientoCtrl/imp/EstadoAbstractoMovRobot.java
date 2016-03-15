@@ -125,5 +125,5 @@ public abstract class EstadoAbstractoMovRobot  {
     public EstadoAbstractoMovRobot getEstadoActual (){
         return this.estadoActual;
     }
-    
+
 }

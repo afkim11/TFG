@@ -124,7 +124,7 @@ public class VisualizacionJfreechart extends JFrame{
     
     
     public void inicializacionJFreeChart(){    	
-        // Creates a SegmentedTimeline instance, the time scope is "09:30-11:30，13:00-15:00".
+        
           chart1 = ChartFactory.createXYLineChart(
           "Victim's Notification and Assignment to Team members ",      // chart title Titulo local del grafico
           "Victim's Notification",                      // x axis label
@@ -250,7 +250,7 @@ public class VisualizacionJfreechart extends JFrame{
     public void VisualizarEstadisticasLLegadayAsignacionVictimas(XYDataset dataset){
   //       XYDataset xyDataset = new XYSeriesCollection(serieDatos);
         
-        // Creates a SegmentedTimeline instance, the time scope is "09:30-11:30，13:00-15:00".
+      
           JFreeChart  chart = ChartFactory.createXYLineChart(
             "Victim's Notification and Assignment to Team members ",      // chart title
             "Victim's Notification",                      // x axis label

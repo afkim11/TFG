@@ -1,15 +1,15 @@
 /*
  *
- * Clase para gestionar las caracter�sticas del robot:
+ * Clase para gestionar las caractersticas del robot:
  * 
  *    -  idRobot -> Identificador del robot
- *    -  availableEnergy -> Energ�a disponible
- *    -  robotCoordinate -> Coordenada inicial. Tambi�n se podr�a utilizar para poner la coordenada actual del robot en un instante dado.
- *    -  healRange -> Rango para poder aplicar con �xito la curaci�n de una victima
+ *    -  availableEnergy -> Energa disponible
+ *    -  robotCoordinate -> Coordenada inicial. Tambin se podra utilizar para poner la coordenada actual del robot en un instante dado.
+ *    -  healRange -> Rango para poder aplicar con xito la curacin de una victima
  *    -  rangeProximity -> Rango de proximidad para poder ver a otros robots que estan a una distancia dentro del rango especificado.
  *    -  robotCapabilities -> Capacidades. Identifica las habilidades que tiene el robot para curar a una victima. Las capacidades estan relacionadas con los requisitos de la victima. 
  *                            Deben emparejar totalmente con los requisitos de una victima para que el robot pueda curarla totalmente. En caso de no emparejar totalmente
- *                            entonces solo permitir� eliminar los requisitos que emparejan, y la victima todav�a requiere de otros robots para poder compensar los requisitos
+ *                            entonces solo permitir eliminar los requisitos que emparejan, y la victima todava requiere de otros robots para poder compensar los requisitos
  *                            que no emparejaron con las capacidades del robot. 
  *
  */

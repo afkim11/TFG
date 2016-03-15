@@ -8,6 +8,9 @@ import java.util.List;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 
+import icaro.infraestructura.entidadesBasicas.comunicacion.ComunicacionAgentes;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
+
 public class Victim implements Serializable{
 	/**
 	 * 
@@ -22,6 +25,11 @@ public class Victim implements Serializable{
 	public List<Integer> RequiredCompetencies = new ArrayList<Integer>(); 
 	@Element
 	private int priority; //victim severity
+	@Element
+	private Integer tiempoDeVida =null;
+	
+	
+	private String robotIdEncargadoDeMi = null;
 	private int estimatedCost;
 	private boolean isRescued = false;
 	private boolean isCostEstimated = false;
@@ -37,10 +45,11 @@ public class Victim implements Serializable{
 		this.name=nombre;
 	}
 
-	public Victim(String name, Coordinate coorVictim, int priority, List<Integer> requirements){
+	public Victim(String name, Coordinate coorVictim, int priority, List<Integer> requirements,int tiempoDeVida){
 		this.name = name;
 		this.coordinateVictim = coorVictim;
 		this.priority = priority;
+		this.tiempoDeVida=tiempoDeVida;
 		for(int i=0;i<requirements.size();i++){
 			this.RequiredCompetencies.add(requirements.get(i));
 		}
@@ -54,6 +63,14 @@ public class Victim implements Serializable{
 		this.name = victimName;
 	}
 
+	public synchronized String getIdRobotEncargadoDeMi() {
+		return robotIdEncargadoDeMi;
+	}
+
+	public synchronized void setIdRobotEncargadoDeMi(String robotID) {
+		this.robotIdEncargadoDeMi = robotID;
+	}
+
 	public Coordinate getCoordinateVictim(){
 		return this.coordinateVictim;
 	}
@@ -61,7 +78,12 @@ public class Victim implements Serializable{
 	public void setCoordinateVictim(Coordinate coorVictim){
 		this.coordinateVictim = coorVictim;
 	}
-
+	public synchronized Integer getTiempoDeVida(){
+		return this.tiempoDeVida;
+	}
+	public synchronized void setTiempoDeVida(Integer t){
+		this.tiempoDeVida =  t;
+	}
 	public synchronized int getPriority(){
 		return this.priority;
 	}
@@ -103,7 +125,7 @@ public class Victim implements Serializable{
 	@Override
 	public String toString(){
 		return "Victim: " + " name->" + this.getName() + " ; coordinate->" + this.getCoordinateVictim() + 
-				" ; priority->" + this.getPriority() + " ; requirements->" + this.getRequirements();
+				" ; priority->" + this.getPriority() + " ; requirements->" + this.getRequirements() + " tiempo de vida-> " + this.tiempoDeVida;
 	}
 
 	public void setLocPoint(Point punto) {
@@ -114,6 +136,30 @@ public class Victim implements Serializable{
 	public Point getLocPoint() {
 		// TODO Auto-generated method stub
 		return new Point((int)this.coordinateVictim.getX(),(int)this.coordinateVictim.getY());
+	}
+
+	public void lanzarHebraTiempoDeVida(final ComunicacionAgentes comunicator) {
+		Thread t = new Thread(){
+			@SuppressWarnings("static-access")
+			@Override
+			public void run(){
+				
+				try {
+					this.sleep(tiempoDeVida);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(!getRescued()){
+					Informe informe = new Informe(name,name,VocabularioRosace.VictimaFallecida);
+					comunicator.enviarInfoAotroAgente(informe, VocabularioRosace.IdentAgteDistribuidorTareas);
+				}
+			}
+			
+			
+		};
+		t.start();
+		
 	}
 
 }

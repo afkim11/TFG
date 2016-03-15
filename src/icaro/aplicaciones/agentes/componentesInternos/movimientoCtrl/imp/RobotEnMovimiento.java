@@ -85,4 +85,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
 		public void setRobotStatus(RobotStatus robotStatus) {
 			this.robotStatus = robotStatus;
 		}
+		public Coordinate getCoordenasDestino() {
+			return this.destinoCoord;
+		} 
 }

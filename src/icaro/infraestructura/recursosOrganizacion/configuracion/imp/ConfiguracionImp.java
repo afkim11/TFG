@@ -252,7 +252,7 @@ public void interpretarDescripOrganizacion(String rutaDescrOrganizacion)throws E
 //				return desc;
 //		}
 //		throw new UsoRecursoException("La descripcion de recurso de aplicacion de nombre "+ nombre
-//						+ "no se encuentra en la descripcion de comportamiento de recursos de aplicaci�n");
+//						+ "no se encuentra en la descripcion de comportamiento de recursos de aplicacin");
 	}
 
     @Override

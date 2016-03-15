@@ -38,6 +38,7 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
  public void mostrarIdentsEquipoRobots(ArrayList identList)throws Exception;
  public void mostrarIdentsVictims(ArrayList identList)throws Exception;
  public void quitarVictimaRescatada(String refVictima)throws Exception;
+ public void mostrarVictimaMuerta(String refVictima)throws Exception;
  public void setItfUsoPersistenciaSimulador(ItfUsoRecursoPersistenciaEntornosSimulacion itfUsoRecursoPersistenciaEntornosSimulacion) throws Exception;
  public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception;
 }

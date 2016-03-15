@@ -11,6 +11,9 @@ import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
  * @author FGarijo
  */
 public class VocabularioRosace extends NombresPredefinidos{
+	
+	public static final String JerarquicoAsignadorRescatando = "AsignadorRescatandoAVictimas";
+	
     public static final String NombrePropiedadGlobalIdentEquipo= "identificadorEquipo";
     public static final String IdentMisionEquipo = "mision1";
     public static final String IdentEquipoIgualitario= "robotMasterIA";
@@ -132,4 +135,7 @@ public class VocabularioRosace extends NombresPredefinidos{
 	static public  enum PeticionAgteControlSimul{TerminarSimulacion,mostrarEscenarioActualSimulado,pararRobot,sendSequenceOfSimulatedVictimsToRobotTeam,enviarIdentsEquipo}
 	static public  final String rutaPersistenciaEscenarios    = "src/PersistenciaEscenariosSimulacion";
 	public static final String CambiarUbicacion = "La ubicacion de los robots ha sido modificada";
+	public static final String VictimaFallecida = "El tiempo de vida de la victima finalizó";
+
+	public static final Object MsgVictimaMuertaASubordinado = "La victima ha muerto y no hay que salvarla";
 }

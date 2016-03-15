@@ -27,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
- * Implementacion por defecto de las acciones que se ejecutar�n por parte del gestor de agentes.
+ * Implementacion por defecto de las acciones que se ejecutarn por parte del gestor de agentes.
  * @author     
  */
 public class AccionesSemanticasIniciador extends AccionesSemanticasAgenteReactivo {
@@ -409,15 +409,15 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
      * enume = configEspecifica.getListaAgentes().enumerateAgente(); while
      * (enume.hasMoreElements()) { Agente item = (Agente)enume.nextElement(); if
      * (nombreAgente.equals(item.getNombre())) return
-     * item.getHayQueArrancarlo(); } logger.error("GestorAgentes: No se encontr�
-     * ning�n agente con nombre "+nombreAgente+" dentro de la lista de objetos
+     * item.getHayQueArrancarlo(); } logger.error("GestorAgentes: No se encontr
+     * ningn agente con nombre "+nombreAgente+" dentro de la lista de objetos
      * gestionados."); throw new NullPointerException(); }
      */
     /**
      * Decide que hacer en caso de fallos en los agentes.
      */
     public void decidirTratamientoErrorIrrecuperable() {
-        // el tratamiento ser� siempre cerrar todo el chiringuito
+        // el tratamiento ser siempre cerrar todo el chiringuito
         logger.debug("GestorAgentes: Se decide cerrar el sistema ante un error critico irrecuperable.");
         try {
             
@@ -453,7 +453,7 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
      * problemas.
      */
     public void recuperarErrorArranqueAgentes() {
-        // por defecto no se implementan pol�ticas de recuperaci�n
+        // por defecto no se implementan polticas de recuperacin
         //logger.debug("GestorAgentes: Fue imposible recuperar el error en el arranque de los agentes.");
         try {
              
@@ -476,7 +476,7 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
 
     /**
      * Elabora un informe del estado en el que se encuentran los agentes y lo
-     * env�a al sistema de trazas.
+     * enva al sistema de trazas.
      */
     public void generarInformeErrorIrrecuperable() {
         // Producimos traza de un error
@@ -507,8 +507,8 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
 
     
     /**
-     * Crea y arranca un agente. Es necesario pasar las caracter�sticas del
-     * agente a crear por par�metro.
+     * Crea y arranca un agente. Es necesario pasar las caractersticas del
+     * agente a crear por parmetro.
      */
     public void crearAgente() {
         // esto hay que recuperarlo de los parametros
@@ -526,15 +526,15 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
     }
 
     /**
-     * Monitoriza secuencialmente todos los agentes activos que est�n definidos
-     * como necesarios en la configuraci�n.
+     * Monitoriza secuencialmente todos los agentes activos que estn definidos
+     * como necesarios en la configuracin.
      */
     public void monitorizarAgentes() {
         // if(DEBUG) System.out.println("GestorAgentes:Comienza ciclo
-        // monitorizaci�n.");
+        // monitorizacin.");
 
         boolean errorEncontrado = false;
-        // recuperar todos los interfaces de gesti�n del repositorio que estamos
+        // recuperar todos los interfaces de gestin del repositorio que estamos
         // gestionando
         Enumeration enume = nombresAgentesGestionados.elements();
         while (enume.hasMoreElements() && !errorEncontrado) {
@@ -547,7 +547,7 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
                 int monitoriz = itfGes.obtenerEstado();
                 if (monitoriz == InterfazGestion.ESTADO_ERRONEO_IRRECUPERABLE || monitoriz == InterfazGestion.ESTADO_ERRONEO_RECUPERABLE || monitoriz == InterfazGestion.ESTADO_TERMINADO || monitoriz == InterfazGestion.ESTADO_TERMINANDO) {
                     errorEncontrado = true;
-                    logger.debug("GestorAgentes:Agente " + nombre + " est� en estado err�neo o terminado.");
+                    logger.debug("GestorAgentes:Agente " + nombre + " est en estado errneo o terminado.");
                     try {
                         ItfUsoRecursoTrazas trazas = (ItfUsoRecursoTrazas) ClaseGeneradoraRepositorioInterfaces.instance().obtenerInterfaz(
                                 NombresPredefinidos.ITF_USO + NombresPredefinidos.RECURSO_TRAZAS);
@@ -561,7 +561,7 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
                 }
             /*
              * else if(DEBUG) System.out.println("GestorAgentes:Agente
-             * "+nombre+" est� ok.");
+             * "+nombre+" est ok.");
              */
             } catch (Exception ex) {
                 errorEncontrado = true;
@@ -592,8 +592,8 @@ public void crearRecursosNucleoOrganizacion () throws Exception {
 
     
     /**
-     * Intenta recuperar los errores detectados en la monitorizaci�n siguiendo
-     * la pol�tica definida para cada agente.
+     * Intenta recuperar los errores detectados en la monitorizacin siguiendo
+     * la poltica definida para cada agente.
      */
     
 

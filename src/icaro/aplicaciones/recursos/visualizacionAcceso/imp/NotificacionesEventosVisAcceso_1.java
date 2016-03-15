@@ -122,7 +122,7 @@ public class NotificacionesEventosVisAcceso_1 {
             Logger.getLogger(NotificacionesEventosVisAcceso.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-        //provoca la petici�n de autentificaci�n
+        //provoca la peticin de autentificacin
     	
        //  String[] InfoAutenticacion = new String[]{username, password};
         InfoAccesoSinValidar InfoAutenticacion = new  InfoAccesoSinValidar(username,password);

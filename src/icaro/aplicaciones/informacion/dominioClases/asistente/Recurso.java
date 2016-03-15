@@ -7,7 +7,7 @@ package icaro.aplicaciones.informacion.dominioClases.asistente;
 
 /**
  *
- * @author álvaro
+ * @author alvaro
  */
 public class Recurso {
 

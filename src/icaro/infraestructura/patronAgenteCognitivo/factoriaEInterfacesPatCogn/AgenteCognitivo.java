@@ -30,5 +30,5 @@ public abstract class AgenteCognitivo extends UnicastRemoteObject implements Itf
     public abstract void aceptaEvento(EventoRecAgte evento);
 	public abstract void setVictima(Victim refVictima);
 	public abstract Victim getVictima();
-	public abstract boolean añadirObstaculo(LineaObstaculo obstaculo);
+	public abstract boolean anadirObstaculo(LineaObstaculo obstaculo);
 }

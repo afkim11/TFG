@@ -33,12 +33,12 @@ public class InfoInteraccionBasica {
         agteIniciadorId =agentId;
     }
     
-    //Devuelve el ¿tema?
+    //Devuelve el tema?
     public String getTema(){
          return tema ;
     }
     
-    //Actualiza el ¿tema?
+    //Actualiza el tema?
     public void setTema(String identTema){
         tema =identTema;
     }

@@ -79,7 +79,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
 	 */
     protected int estado = InterfazGestion.ESTADO_OTRO;
     /**
-	 * Acciones sem�nticas del agente reactivo
+	 * Acciones semnticas del agente reactivo
 	 * @uml.property  name="accionesSemanticas"
 	 * @uml.associationEnd  
 	 */
@@ -108,7 +108,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
     /**
      *  Crea un instancia del agente reactivo
      *
-     *@param  objetoContenedorAcciones   Objeto que contiene la implementaci�n de todos los m�todos referidos en la tabla
+     *@param  objetoContenedorAcciones   Objeto que contiene la implementacin de todos los mtodos referidos en la tabla
      *@param  nombreFicheroTablaEstados  Nombre Fichero que contene la tabla de estados XML
      *@param  nombreDelAgente            Nombre del agente
      *@todo propagar el nivel de traza hasta el constructor para poder ser modificado sin tocar el componente
@@ -148,7 +148,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
     }
 
     /**
-     * Constructor sin par�metros: HAY QUE UTILIZAR INMEDIATAMENTE DESPU�S EL M�TODO
+     * Constructor sin parmetros: HAY QUE UTILIZAR INMEDIATAMENTE DESPUS EL MTODO
      * setParametrosAgReactivo
      * @throws RemoteException
      */
@@ -157,8 +157,8 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
     }
 
     /**
-     * Fija los par�metros necesarios del agente reactivo para permitir la creaci�n de las clases
-     * herederas de esta en 2 pasos y facilitar la obtenci�n de la clase que implementa las acciones
+     * Fija los parmetros necesarios del agente reactivo para permitir la creacin de las clases
+     * herederas de esta en 2 pasos y facilitar la obtencin de la clase que implementa las acciones
      * @param objetoContenedorAcciones
      * @param nombreFicheroTablaEstados
      * @param nombreDelAgente
@@ -168,7 +168,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
         nombre = nombreDelAgente;
  
         accionesSemanticasEspecificas.setLogger(logger);
-        // crea las Acciones sem�nticas referidas al contenedor de acciones
+        // crea las Acciones semnticas referidas al contenedor de acciones
      //   this.accionesSemanticas = new AccionesSemanticasImp(accionesSemanticasEspecificas);
         // crea el automata de control
      //   AutomataEFEAbstracto ac = null;
@@ -215,7 +215,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
  //       itfConsumidorPercepcion = itfConsumPercepcion;
     }
     /**
-     *  Introduce un nuevo evento en la percepci�n
+     *  Introduce un nuevo evento en la percepcin
      *
      *@param  evento  Evento que llega nuevo
      */
@@ -225,7 +225,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
 
     
     /**
-     *  Inicializa los recursos necesarios para la ejecuci�n del componente agente reactivo
+     *  Inicializa los recursos necesarios para la ejecucin del componente agente reactivo
      *
      */
     public synchronized void arranca() {
@@ -288,7 +288,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
 
 
     /**
-     *  Detiene la ejecuci�n actual, descarta nuevos eventos.
+     *  Detiene la ejecucin actual, descarta nuevos eventos.
      *
      */
     public synchronized void para() {
@@ -343,7 +343,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
     }
 
     /**
-     *  Libera los recursos que se ocuparon en la creaci�n
+     *  Libera los recursos que se ocuparon en la creacin
      *
      */
     public synchronized void termina() {
@@ -365,7 +365,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
     }
 
     /**
-     * Despacha el evento para tratarlo de forma diferente seg�n su tipo
+     * Despacha el evento para tratarlo de forma diferente segn su tipo
      *@param  ev  Description of Parameter
      */
     public synchronized void aceptaEvento(EventoRecAgte evento) {
@@ -459,7 +459,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
      *  @param nombreGestor nombre del gestor a reportar
      *  @param listaEventos lista de posibles eventos que le puede enviar.
      *  
-     *  El gestionador obtendr� las interfaces del gestor a partir del repositorio de interfaces y podr� validar la informaci�n.
+     *  El gestionador obtendr las interfaces del gestor a partir del repositorio de interfaces y podr validar la informacin.
      *
      */
     public void setGestorAReportar(String nombreGestor) {
@@ -468,7 +468,7 @@ public class AgenteReactivoImp extends AgenteReactivoAbstracto {
             trazas.aceptaNuevaTraza(new InfoTraza(nombre,
                     "Estableciendo gestor a reportar. Agente: " + this.nombre + ". Gestor: " + nombreGestor,
                     InfoTraza.NivelTraza.info));
-            // listaEventos: a�n no se va a utilizar.
+            // listaEventos: an no se va a utilizar.
             itfUsoGestorAReportar = (ItfUsoAgenteReactivo) ClaseGeneradoraRepositorioInterfaces.instance().obtenerInterfaz(
                     NombresPredefinidos.ITF_USO + nombreGestor);
             itfControlAgteReactivo.setGestorAReportar(itfUsoGestorAReportar);

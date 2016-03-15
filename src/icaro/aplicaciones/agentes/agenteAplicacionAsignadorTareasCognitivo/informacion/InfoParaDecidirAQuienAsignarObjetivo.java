@@ -131,7 +131,7 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
          }
          return agentesEquipo; 
      }
-     public  ArrayList getIdentsAgentesEquipo(){
+     public  ArrayList<String> getIdentsAgentesEquipo(){
          if (identEquipo != null) return agentesEquipo;
          else return null;
      }
@@ -290,7 +290,13 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
                     tengoAcuerdoDeTodos = true;
           }           
       }
-
+     /**
+      * Este metodo se encarga de cambiar los datos correspondientes para que se tenga en cuenta la evaluacion de este agente.
+      * Se usara normalmente para anadir al asignador al conjunto de los robots encargados de salvar a victimas. 
+      */
+     public synchronized void anadirAgenteAInformacion(String identAgente){
+    	 this.evaluacionesRecibidas.add(-5);
+     }
       public synchronized void addNuevaEvaluacion(EvaluacionAgente evaluacion) {
 							  //          ArrayList p = paquete;
 							  //          String eval = (String)p.get(0);

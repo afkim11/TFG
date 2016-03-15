@@ -15,7 +15,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
  * Tarea encargada de comprobar si se puede asignar una victima que se haya intentado
  * asignar y no se haya podido. Si el robot que ejecuta esta tarea es capaz de llegar
  * a la victima entonces se le manda propuesta para que vaya a salvar a la victima.
- * @author Luis García y Sergio Moreno
+ * @author Luis Garcia y Sergio Moreno
  *
  */
 

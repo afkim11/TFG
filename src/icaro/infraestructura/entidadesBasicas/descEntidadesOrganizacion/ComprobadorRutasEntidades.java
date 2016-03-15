@@ -88,6 +88,10 @@ public String buscarDescOrganizacion(String identFicherodescripcion){
         identFicherodescripcion = identFicherodescripcion.substring(posSeparadorDirect);
     }
     rutaBusqueda = rutaBusqueda.replace(".", File.separator);
+    File config = new File(rutaBusqueda);
+    String absolutePath = config.getAbsolutePath();
+    config=new File(absolutePath);
+    rutaBusqueda = config.getParent();
     identFicherodescripcion = identFicherodescripcion+".xml";
        String rutaFicheroVisitado = null;
 //       String rutaBusqueda = utils.Constantes.rutassrc + rutaComportamiento;

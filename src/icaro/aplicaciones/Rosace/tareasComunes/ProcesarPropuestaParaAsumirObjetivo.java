@@ -7,7 +7,9 @@ package icaro.aplicaciones.Rosace.tareasComunes;
 
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
+import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.CausaTerminacionTarea;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -59,11 +61,20 @@ public class ProcesarPropuestaParaAsumirObjetivo extends TareaSincrona {
 					aceptacionAsignacion.setidentObjectRefAcetPropuesta(propuestaRecibida.getIdentObjectRefPropuesta());
 					victima.setEstimatedCost(costeAyudaVictima);
 					victimasRecibidas.addVictimToRescue(victima);
-					this.getComunicator().enviarInfoAotroAgente(aceptacionAsignacion, propuestaRecibida.getIdentAgente());
+					
+					if(this.identAgente.equalsIgnoreCase("jerarquicoagenteasignador")){
+						this.getComunicator().enviarInfoAotroAgente(new Informacion(VocabularioRosace.JerarquicoAsignadorRescatando), propuestaRecibida.getIdentAgente());
+					}
+					else {
+						this.getComunicator().enviarInfoAotroAgente(aceptacionAsignacion, propuestaRecibida.getIdentAgente());
+					}
+					
+					
+					
 					this.getEnvioHechos().eliminarHechoWithoutFireRules(propuestaRecibida);
 					this.getEnvioHechos().actualizarHechoWithoutFireRules(victima);
 					this.getEnvioHechos().actualizarHechoWithoutFireRules(victimasRecibidas);
-					this.getEnvioHechos().insertarHecho(aceptacionAsignacion);
+					this.getEnvioHechos().insertarHecho(aceptacionAsignacion);	
 					trazas.aceptaNuevaTrazaEjecReglas(nombreAgenteEmisor, "Se acepta la propuesta:  "+ propuestaRecibida );
 				}else { // no se acepta la propuesta por no disponer de recursos - como lo indica la evaluacion
 					RechazarPropuesta rechazoAsignacion = new RechazarPropuesta (nombreAgenteEmisor,VocabularioRosace.MsgAceptacionPropuesta, propuestaRecibida);

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * Implementaci�n por defecto de las acciones que se ejecutar�n por parte del
+ * Implementacin por defecto de las acciones que se ejecutarn por parte del
  * gestor de recursos.
  * 
  * @author Felipe Polo
@@ -41,14 +41,14 @@ public class AccionesSemanticasGestorRecursos extends
 		AccionesSemanticasAgenteReactivo {
 //	public static final int intentosCreacion = 3;
 	/**
-	 * Almac�n de los nombres de los agentes que este gestor debe gestionar
+	 * Almacn de los nombres de los agentes que este gestor debe gestionar
 	 * @uml.property  name="nombresRecursosGestionados"
 	 * @uml.associationEnd  multiplicity="(0 -1)" elementType="java.lang.String"
 	 */
 	private Vector<String> nombresRecursosGestionados = new Vector<String>();
 
 	/**
-	 * Hebra para la monitorizaci�n
+	 * Hebra para la monitorizacin
 	 * @uml.property  name="hebra"
 	 * @uml.associationEnd  
 	 */
@@ -165,9 +165,9 @@ public class AccionesSemanticasGestorRecursos extends
 							InfoTraza.NivelTraza.debug));
 					this.nombresRecursosGestionados.add(nombre);
 				} catch (Exception ex) {
-					logger.error("GestorRecursos: Hubo problemas al crear el recurso "+ nombre+ " desde la configuracion. Recuperando errores de creaci�n.");
+					logger.error("GestorRecursos: Hubo problemas al crear el recurso "+ nombre+ " desde la configuracion. Recuperando errores de creacin.");
 					trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-							"Hubo problemas al crear el recurso "+ nombre+ " desde la configuracion. Recuperando errores de creaci�n.",
+							"Hubo problemas al crear el recurso "+ nombre+ " desde la configuracion. Recuperando errores de creacin.",
 							InfoTraza.NivelTraza.error));
 					ex.printStackTrace();
 					error = true;
@@ -266,7 +266,7 @@ public class AccionesSemanticasGestorRecursos extends
 //						logger
 //								.error("Error al crear el recurso "
 //										+ recurso.getId()
-//										+ " en un nodo remoto. Se volver� a intentar en "
+//										+ " en un nodo remoto. Se volver a intentar en "
 //										+ intentos
 //										+ " segundos...\n nodo origen: "
 //										+ esteNodo + "\t nodo destino: "
@@ -447,9 +447,9 @@ public class AccionesSemanticasGestorRecursos extends
 						InfoTraza.NivelTraza.debug));
 				this.nombresRecursosGestionados.add(idRecurso);
 			} catch (Exception ex) {
-				logger.error("GestorRecursos: Hubo problemas al crear el recurso "+ idRecurso+ " desde la configuraci�n. Recuperando errores de creaci�n.");
+				logger.error("GestorRecursos: Hubo problemas al crear el recurso "+ idRecurso+ " desde la configuracin. Recuperando errores de creacin.");
 				trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-						"Hubo problemas al crear el recurso "+ idRecurso+ " desde la configuracion. Recuperando errores de creaci�n.",
+						"Hubo problemas al crear el recurso "+ idRecurso+ " desde la configuracion. Recuperando errores de creacin.",
 						InfoTraza.NivelTraza.error));
 				ex.printStackTrace();
 				error = true;
@@ -460,9 +460,9 @@ public class AccionesSemanticasGestorRecursos extends
 			if (fin_reintentos) { // ya hay que decidir que se va a hacer una
 									// vez que se sabe que no se puede crear el
 									// recurso
-				logger.debug("GestorRecursos: Agotados los intentos de crear el recurso "+ idRecurso + ". Continuando con la creaci�n.");
+				logger.debug("GestorRecursos: Agotados los intentos de crear el recurso "+ idRecurso + ". Continuando con la creacin.");
 				trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-						"Agotados los intentos de crear el recurso "+ idRecurso + ". Continuando con la creaci�n.",
+						"Agotados los intentos de crear el recurso "+ idRecurso + ". Continuando con la creacin.",
 						InfoTraza.NivelTraza.debug));
 				parametros = new Object[] { lista, recurso,
 						new Integer((reintento.intValue() - 1)), indice };
@@ -576,7 +576,7 @@ public class AccionesSemanticasGestorRecursos extends
 			ex.printStackTrace();
 			errorEnArranque = true;
 		}
-		if (errorEnArranque) { // ha ocurrido alg�n problema en el arranque del
+		if (errorEnArranque) { // ha ocurrido algn problema en el arranque del
 								// recurso
 			try {
 				this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(
@@ -595,13 +595,13 @@ public class AccionesSemanticasGestorRecursos extends
 			if (indice.intValue() == (this.nombresRecursosGestionados.size() - 1)) { // ya
 																						// no
 																						// hay
-																						// m�s
+																						// ms
 																						// recursos
 																						// que
 																						// arrancar
 				logger.debug("GestorRecursos: Terminado proceso de arranque automatico de recursos.");
 				trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-						"Terminado proceso de arranque autom�tico de recursos.",
+						"Terminado proceso de arranque automtico de recursos.",
 						InfoTraza.NivelTraza.debug));
 				try {
 					this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(
@@ -620,7 +620,7 @@ public class AccionesSemanticasGestorRecursos extends
 						"Gestor de recursos esperando peticiones.",
 						InfoTraza.NivelTraza.debug));
 
-				// creo hebra de monitorizaci�n
+				// creo hebra de monitorizacin
 				hebra = new HebraMonitorizacion(tiempoParaNuevaMonitorizacion,
 						this.itfUsoPropiadeEsteAgente, "monitorizar");
 				this.hebra.start();
@@ -654,17 +654,17 @@ public class AccionesSemanticasGestorRecursos extends
 	 * (enume.hasMoreElements()) { Recurso item = (Recurso)enume.nextElement();
 	 * if (nombreRecurso.equals(item.getNombre())) return
 	 * item.getHayQueArrancarlo(); } logger.error("GestorRecursos: No se
-	 * encontr� ning�n recurso con nombre "+nombreRecurso+" dentro de la lista
+	 * encontr ningn recurso con nombre "+nombreRecurso+" dentro de la lista
 	 * de objetos gestionados."); throw new NullPointerException(); }
 	 */
 	/**
-	 * Decide qu� hacer en caso de fallos en los recursos.
+	 * Decide qu hacer en caso de fallos en los recursos.
 	 */
 	public void decidirTratamientoErrorIrrecuperable() {
-		// el tratamiento ser� siempre cerrar todo el chiringuito
+		// el tratamiento ser siempre cerrar todo el chiringuito
 		logger.debug("GestorRecursos: Se decide cerrar el sistema ante un error critico irrecuperable.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-				"Se decide cerrar el sistema ante un error cr�tico irrecuperable.",
+				"Se decide cerrar el sistema ante un error crtico irrecuperable.",
 				InfoTraza.NivelTraza.debug));
 		try {
 			this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(
@@ -681,7 +681,7 @@ public class AccionesSemanticasGestorRecursos extends
 	 * problemas.
 	 */
 	public void recuperarErrorArranqueRecurso() {
-		// por defecto no se implementan pol�ticas de recuperaci�n
+		// por defecto no se implementan polticas de recuperacin
 		logger.debug("GestorRecursos: Fue imposible recuperar el error en el arranque de los recursos.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
 				"Fue imposible recuperar el error en el arranque de los recursos.",
@@ -701,7 +701,7 @@ public class AccionesSemanticasGestorRecursos extends
 	}
 
 	/**
-	 * Esta acci�n no hace nada.
+	 * Esta accin no hace nada.
 	 */
     @Override
 	public void vacio() {
@@ -709,7 +709,7 @@ public class AccionesSemanticasGestorRecursos extends
 
 	/**
 	 * Elabora un informe del estado en el que se encuentran los recursos y lo
-	 * env�a al sistema de trazas.
+	 * enva al sistema de trazas.
 	 */
 	public void generarInformeErrorIrrecuperable() {
 		// Producimos traza de un error
@@ -736,7 +736,7 @@ public class AccionesSemanticasGestorRecursos extends
 	 * da orden de terminar a un recurso
 	 */
 	public void finalizarRecurso() {
-		// esto hay que recuperarlo de los par�metros
+		// esto hay que recuperarlo de los parmetros
 		logger.debug("GestorRecursos: finalizarRecurso():Este metodo no esta implementado");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
 				"finalizarRecurso():Este metodo no esta implementado",
@@ -745,27 +745,27 @@ public class AccionesSemanticasGestorRecursos extends
 	}
 
 	/**
-	 * Crea y arranca un recurso. Es necesario pasar las caracter�sticas del
-	 * recurso a crear por par�metro.
+	 * Crea y arranca un recurso. Es necesario pasar las caractersticas del
+	 * recurso a crear por parmetro.
 	 */
 	public void crearRecurso() {
-		// esto hay que recuperarlo de los par�metros
+		// esto hay que recuperarlo de los parmetros
 		logger.debug("GestorRecursos: crearRecurso():Este metodo no esta implementado");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-				"crearRecurso():Este m�todo no est� implementado",
+				"crearRecurso():Este mtodo no est implementado",
 				InfoTraza.NivelTraza.debug));
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * Monitoriza secuencialmente todos los recursos activos que est�n definidos
-	 * como necesarios en la monitorizaci�n.
+	 * Monitoriza secuencialmente todos los recursos activos que estn definidos
+	 * como necesarios en la monitorizacin.
 	 */
 	public void monitorizarRecursos() {
-		System.out.println("GestorRecursos:Comienza ciclo monitorizaci�n.");
+		System.out.println("GestorRecursos:Comienza ciclo monitorizacin.");
 
 		boolean errorEncontrado = false;
-		// recuperar todos los interfaces de gesti�n del repositorio que estamos
+		// recuperar todos los interfaces de gestin del repositorio que estamos
 		// gestionando
 		Enumeration enume = nombresRecursosGestionados.elements();
 		while (enume.hasMoreElements() && !errorEncontrado) {
@@ -782,13 +782,13 @@ public class AccionesSemanticasGestorRecursos extends
 				// TODO poner condiciones de monitorizacion
 				if (monitoriz == 0) {
 					errorEncontrado = true;
-					logger.debug("GestorRecursos:Recurso " + nombre	+ " est� en estado err�neo o terminado.");
+					logger.debug("GestorRecursos:Recurso " + nombre	+ " est en estado errneo o terminado.");
 					trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-							"Recurso " + nombre	+ " est� en estado err�neo o terminado.",
+							"Recurso " + nombre	+ " est en estado errneo o terminado.",
 							InfoTraza.NivelTraza.debug));
 				} else
 					System.out.println("GestorRecursos:Recurso " + nombre
-							+ " est� ok.");
+							+ " est ok.");
 
 			} catch (Exception ex) {
 				errorEncontrado = true;
@@ -820,13 +820,13 @@ public class AccionesSemanticasGestorRecursos extends
 	}
 
 	/**
-	 * Da orden de terminaci�n a todos los recursos que se encuentran
+	 * Da orden de terminacin a todos los recursos que se encuentran
 	 * activos/arrancando
 	 */
 	public void terminarRecursosActivos() {
-		logger.debug("GestorRecursos: Terminando los recursos que est�n activos.");
+		logger.debug("GestorRecursos: Terminando los recursos que estn activos.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-				"Terminando los recursos que est�n activos.",
+				"Terminando los recursos que estn activos.",
 				InfoTraza.NivelTraza.debug));
 		// recorremos todos los recursos gestionados
 		Enumeration enumRecursos = this.nombresRecursosGestionados.elements();
@@ -834,12 +834,12 @@ public class AccionesSemanticasGestorRecursos extends
 		while (enumRecursos.hasMoreElements()) {
 			try {
 				nombre = (String) enumRecursos.nextElement();
-				// s�lo se terminan los recursos que se arranquen desde aqu�.
+				// slo se terminan los recursos que se arranquen desde aqu.
 
 				// para cada recurso, recuperamos su itf de gestion
-				logger.debug("GestorRecursos: Recuperando Itf Gesti�n del recurso "+ nombre + ".");
+				logger.debug("GestorRecursos: Recuperando Itf Gestin del recurso "+ nombre + ".");
 				trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-						"Recuperando Itf Gesti�n del recurso "+ nombre + ".",
+						"Recuperando Itf Gestin del recurso "+ nombre + ".",
 						InfoTraza.NivelTraza.debug));
 				InterfazGestion itfGesRec = (InterfazGestion) this.itfUsoRepositorio
 						.obtenerInterfaz(NombresPredefinidos.ITF_GESTION
@@ -857,16 +857,16 @@ public class AccionesSemanticasGestorRecursos extends
 						InfoTraza.NivelTraza.debug));
                                 }
 			} catch (Exception ex) {
-				logger.error("GestorRecursos: Hubo un problema al acceder a un interfaz remoto mientras se daba orden de terminaci�n al recurso "+ nombre + ".");
+				logger.error("GestorRecursos: Hubo un problema al acceder a un interfaz remoto mientras se daba orden de terminacin al recurso "+ nombre + ".");
 				trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-						"Hubo un problema al acceder a un interfaz remoto mientras se daba orden de terminaci�n al recurso "+ nombre + ".",
+						"Hubo un problema al acceder a un interfaz remoto mientras se daba orden de terminacin al recurso "+ nombre + ".",
 						InfoTraza.NivelTraza.error));
 				ex.printStackTrace();
 			}
 		}
-		logger.debug("GestorRecursos: Finalizado proceso de terminaci�n de todos los recursos.");
+		logger.debug("GestorRecursos: Finalizado proceso de terminacin de todos los recursos.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-				"Finalizado proceso de terminaci�n de todos los recursos.",
+				"Finalizado proceso de terminacin de todos los recursos.",
 				InfoTraza.NivelTraza.debug));
 		try {
 			this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(
@@ -880,14 +880,14 @@ public class AccionesSemanticasGestorRecursos extends
 	}
 
 	/**
-	 * Intenta recuperar los errores detectados en la monitorizaci�n siguiendo
-	 * la pol�tica definida para cada recurso.
+	 * Intenta recuperar los errores detectados en la monitorizacin siguiendo
+	 * la poltica definida para cada recurso.
 	 */
 	public void recuperarErrorAlMonitorizarRecursos() {
-		// por defecto no se implementan pol�ticas de recuperaci�n
-		logger.debug("GestorRecursos: No se pudo recuperar el error de monitorizaci�n.");
+		// por defecto no se implementan polticas de recuperacin
+		logger.debug("GestorRecursos: No se pudo recuperar el error de monitorizacin.");
 		trazas.aceptaNuevaTraza(new InfoTraza("GestorRecursos",
-				"No se pudo recuperar el error de monitorizaci�n.",
+				"No se pudo recuperar el error de monitorizacin.",
 				InfoTraza.NivelTraza.debug));
 		try {
 			this.itfUsoPropiadeEsteAgente.aceptaEvento(new EventoRecAgte(

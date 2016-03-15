@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="urn:icaro:aplicaciones:descripcionOrganizaciones ../../../../schemas/DescripcionOrganizacionSchema.xsd ">
 	<!--******************************************************************************************************
-	******************     Propiedades globales de la organización             				******************
+	******************     Propiedades globales de la organizacion             				******************
 	********************************************************************************************************-->
 	<icaro:PropiedadesGlobales>
 	<icaro:intervaloMonitorizacionGestores>5000</icaro:intervaloMonitorizacionGestores>
@@ -16,7 +16,7 @@
 	<icaro:DescripcionComponentes>
 		<icaro:DescComportamientoAgentes>
 	<!--******************************************************************************************************
-	******************  Descripción del comportamiento de los gestores   					******************
+	******************  Descripcion del comportamiento de los gestores   					******************
 	********************************************************************************************************-->
 			<icaro:DescComportamientoGestores>
 				<icaro:DescComportamientoAgente
@@ -27,7 +27,7 @@
 					nombreComportamiento="GestorRecursos" rol="Gestor" tipo="Reactivo" />
 			</icaro:DescComportamientoGestores>
 	<!--******************************************************************************************************
-	******************   Descripción del comportamiento de los agentes de aplicación   		******************
+	******************   Descripcion del comportamiento de los agentes de aplicacion   		******************
 	********************************************************************************************************-->		
 			<icaro:DescComportamientoAgentesAplicacion>
 				<icaro:DescComportamientoAgente
@@ -36,7 +36,7 @@
 			</icaro:DescComportamientoAgentesAplicacion>
 		</icaro:DescComportamientoAgentes>
 	<!--******************************************************************************************************
-	******************   Descripción de los recursos de aplicación							******************
+	******************   Descripcion de los recursos de aplicacion							******************
 	********************************************************************************************************-->
 		<icaro:DescRecursosAplicacion>
 			<icaro:DescRecursoAplicacion nombre="Persistencia"/>
@@ -68,7 +68,7 @@
 			</icaro:InstanciaGestor>
 		</icaro:Gestores>
 	<!--******************************************************************************************************
-	******************   Instancias de Agentes de aplicación								******************
+	******************   Instancias de Agentes de aplicacion								******************
 	*******************************************************************************************************-->	
 		<icaro:AgentesAplicacion>
 			<icaro:Instancia id="AgenteAplicacionAcceso1" refDescripcion="AgenteAplicacionAcceso">
@@ -78,7 +78,7 @@
 			</icaro:Instancia>		
 		</icaro:AgentesAplicacion>
 	<!--******************************************************************************************************
-	******************   Instancias de Recursos de aplicación								******************
+	******************   Instancias de Recursos de aplicacion								******************
 	********************************************************************************************************-->	
 		<icaro:RecursosAplicacion>
 			<icaro:Instancia id="Persistencia1" refDescripcion="Persistencia" xsi:type="icaro:Instancia">
@@ -92,7 +92,7 @@
 				<icaro:Instancia id="VisualizacionAcceso1" refDescripcion="VisualizacionAcceso" xsi:type="icaro:Instancia"/>
 		</icaro:RecursosAplicacion>
 	<!--******************************************************************************************************
-	******************   Descripción común del nodo en el que se despliegan las instancias	******************
+	******************   Descripcion comun del nodo en el que se despliegan las instancias	******************
 	*******************************************************************************************************-->	
 		<icaro:nodoComun>
 			<icaro:nombreUso>NodoPrincipal</icaro:nombreUso>

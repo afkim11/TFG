@@ -66,6 +66,7 @@ import com.sun.javafx.tk.Toolkit;
  */
 public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
+	public static final int tiempoDeVidaVictimaPorDefecto = 10000;
 	/** Creates new form ControlCenterGui2 */
 	private NotificadorInfoUsuarioSimulador notifEvts;
 	private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
@@ -111,6 +112,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private JMenuItem jMenuItemAddObstacle;
 	private Point primerPuntoObstaculo;
 	private boolean primerPuntoObstaculoMarcado=false;
+	
 
 
 	public VisorCreacionEscenarios(ControladorVisualizacionSimulRosace controlador) throws Exception {
@@ -238,8 +240,9 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		jMenuItemCrearRobot = new javax.swing.JMenuItem();
 		jSeparator2 = new javax.swing.JPopupMenu.Separator();
 		jMenuItemCrearVictima = new javax.swing.JMenuItem();
+		jMenuItemVictimaTiempo = new javax.swing.JMenuItem();
 
-		jDialogAvisoErrorDefNumEntidades.setTitle("Error: Definición de entidades en el escenario");
+		jDialogAvisoErrorDefNumEntidades.setTitle("Error: Definicion de entidades en el escenario");
 		jDialogAvisoErrorDefNumEntidades.setBounds(new java.awt.Rectangle(20, 20, 335, 88));
 		jDialogAvisoErrorDefNumEntidades.setType(java.awt.Window.Type.POPUP);
 
@@ -295,6 +298,13 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 				jMenuItemEliminarActionPerformed(evt);
 			}
 		});
+		jMenuItemVictimaTiempo.setText("Modificar tiempo de vida");
+		jMenuItemVictimaTiempo.setToolTipText("");
+		jMenuItemVictimaTiempo.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItemVictimaTiempoActionPerformed(evt);
+			}
+		});
 		jPopupMenuAcionEntidad.add(jMenuItemEliminar);
 		jPopupMenuAcionEntidad.add(jSeparator3);
 
@@ -305,8 +315,10 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			}
 		});
 		jPopupMenuAcionEntidad.add(jMenuItemGuardar);
+		
+		jPopupMenuAcionEntidad.add(jMenuItemVictimaTiempo);
 
-		jMenuItemAddRobot.setText("Añadir Robot");
+		jMenuItemAddRobot.setText("Anadir Robot");
 		jMenuItemAddRobot.setActionCommand("AddRobot");
 		jMenuItemAddRobot.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,7 +328,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		jPopupMenuAddEntidades.add(jMenuItemAddRobot);
 		jPopupMenuAddEntidades.add(jSeparator4);
 
-		jMenuItemAddVictima.setText("Añadir Victima");
+		jMenuItemAddVictima.setText("Anadir Victima");
 		jMenuItemAddVictima.setActionCommand("AddVictima");
 		jMenuItemAddVictima.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,7 +337,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		});
 		jPopupMenuAddEntidades.add(jMenuItemAddVictima);
 
-		jMenuItemAddObstacle.setText("Añadir Obstáculo");
+		jMenuItemAddObstacle.setText("Anadir Obstaculo");
 		jMenuItemAddObstacle.setActionCommand("AddObstacle");
 		jMenuItemAddObstacle.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,7 +357,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		});
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-		setTitle("Creación de Escenarios");
+		setTitle("Creacion de Escenarios");
 		setMinimumSize(new java.awt.Dimension(30, 30));
 		addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -398,11 +410,11 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			}
 		});
 
-		jLabelOrganizacion.setText("Organización");
+		jLabelOrganizacion.setText("Organizacion");
 
 		jLabelIdentEquipo.setText("Ident Escenario");
 
-		jMenuEditarEscenario.setText("Edición");
+		jMenuEditarEscenario.setText("Edicion");
 
 		jMenuItemNuevoEscenario.setText("Nuevo Escenario");
 		jMenuItemNuevoEscenario.addActionListener(new java.awt.event.ActionListener() {
@@ -468,7 +480,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 		GestionEscenarios.add(jMenuOrganizacion);
 
-		jMenu3.setText("Añadir entidad");
+		jMenu3.setText("Anadir entidad");
 
 		jMenuItemCrearRobot.setText("Robot");
 		jMenuItemCrearRobot.addActionListener(new java.awt.event.ActionListener() {
@@ -542,7 +554,15 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	protected void jMenuItemAddObstacleActionPerformed(ActionEvent evt) {
+	private void jMenuItemVictimaTiempoActionPerformed(ActionEvent evt) {
+		JLabel entidadAcambiar=   (JLabel) moverComp.getUltimoComponenteSeleccionado();
+		escenarioActualComp.actualizarTiempodeVida(entidadAcambiar.getText());
+		System.out.println( "Se actualiza el tiempo de la entidad : "+entidadAcambiar.getText()+ " Coordenadas : X =" + entidadAcambiar.getX() +" , Y = " +entidadAcambiar.getY() );
+		actualizarInfoEquipoEnEscenario ();
+		
+	}
+
+	private void jMenuItemAddObstacleActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
 		this.primerPuntoObstaculo=new Point(ultimoPuntoClic.x,ultimoPuntoClic.y);
 		this.primerPuntoObstaculoMarcado=true;
@@ -557,10 +577,20 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		else if(evt.getClickCount()==1 && primerPuntoObstaculoMarcado){
 			primerPuntoObstaculoMarcado=false;
 			Coordinate ini=new Coordinate(ultimoPuntoClic.x,ultimoPuntoClic.y,0.5),fin=new Coordinate(evt.getX(),evt.getY(),0.5);
+			
+			if(Math.abs(ini.getX()-fin.getX())>Math.abs(ini.getY()-fin.getY())){
+				int y1=(int)ini.getY(),y2=(int)fin.getY(),puntoMedio=(y1+y2)/2;
+				ini.setY(puntoMedio);
+				fin.setY(puntoMedio);
+			}
+			else {
+				int x1=(int)ini.getX(),x2=(int)fin.getX(),puntoMedio=(x1+x2)/2;
+				ini.setX(puntoMedio);
+				fin.setX(puntoMedio);
+			}
 			LineaObstaculo obstaculo=new LineaObstaculo(ini, fin, numeroObstaculos+"");
 			numeroObstaculos++;
 			this.escenarioActualComp.addObstaculo(obstaculo);
-			repaint();
 		}
 		else if(evt.getClickCount()==2){
 			String tipoEntidad=null;
@@ -570,12 +600,17 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 				this.crearIconoRobVict(tipoEntidad,evt.getX(),evt.getY());
 			}
+			
+			
+			
+			
 		}
+		repaint();
 	}//GEN-LAST:event_formMouseClicked
 
 	private void jButtonGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioActionPerformed
 		// TODO add your handling code here:
-		System.out.println("Ha pulsado el botón Guardar escenario");
+		System.out.println("Ha pulsado el boton Guardar escenario");
 		actualizarCoordenadasEntidades();
 		//controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
@@ -612,14 +647,14 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private void jMenuItemGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarEscenarioActionPerformed
 		// TODO add your handling code here:
 		// TODO add your handling code here:
-		System.out.println("Ha pulsado el botón Guardar Escenario");
+		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 		//controladorSim.peticionGuardarEscenario (escenarioActualComp);
 
 
 
-		//         System.out.println("Ha pulsado el botón Aceptar valores Robots y victimas");
+		//         System.out.println("Ha pulsado el boton Aceptar valores Robots y victimas");
 		//        String valor ;
 		//        setLocationRelativeTo(this);
 		//        escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
@@ -633,7 +668,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	}//GEN-LAST:event_jMenuItemGuardarEscenarioActionPerformed
 
 	private void jButtonGuardarEscenarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioMousePressed
-		System.out.println("Ha pulsado el botón Guardar Escenario");
+		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 	}//GEN-LAST:event_jButtonGuardarEscenarioMousePressed
@@ -675,7 +710,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarActionPerformed
 		// TODO add your handling code here:
-		System.out.println("Ha pulsado el botón Guardar Escenario");
+		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
@@ -729,7 +764,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	private void jMenuItemNuevoEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoEscenarioActionPerformed
 		// Usuario quiere crear un escenario
-		// se abre una  ventana vacia , si tiene otra abierta se le debería avisar de que se guardar
+		// se abre una  ventana vacia , si tiene otra abierta se le deberia avisar de que se guardar
 		// lo que tiene
 		if (escenarioActualComp.getNumRobots()> 0){
 			//            peticionGuardarEscenario();
@@ -797,10 +832,10 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	public JLabel crearIconoRobVict(String tipoEntidad, int coordX, int coordY){
 
 		JLabel label = new JLabel();
-		int correccionX=-30;
-		int correccionY=-93;
-		//        int correccionX=0;
-		//        int correccionY=0;
+		//int correccionX=-30;
+		//int correccionY=-93;
+		int correccionX=0;
+		int correccionY=0;
 		coordX=coordX+correccionX;
 		coordY=coordY+correccionY;
 		String rutaImagen;
@@ -1035,69 +1070,6 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	}
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(VisorCreacionEscenarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				String  directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
-				VisorCreacionEscenarios visor;
-				PersistenciaVisualizadorEscenarios persistencia= new PersistenciaVisualizadorEscenarios();
-				GestionEscenariosSimulacion gestionEscComp= new GestionEscenariosSimulacion();
-				gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-				try {
-					gestionEscComp = new GestionEscenariosSimulacion();
-					gestionEscComp.setIdentsEscenariosSimulacion(persistencia.obtenerIdentsEscenarioSimulacion(directorioPersistencia));
-					//        escenarioActualComp = gestionEscComp.crearEscenarioSimulación();
-					//                    visor = new VisorCreacionEscenarios1(new ControladorVisualizacionSimulRosace(notifEvts));
-					//             
-					////                    persistencia= new PersistenciaVisualizadorEscenarios();
-					//                    visor.setPersistencia(persistencia);
-					//                    visor.setGestorEscenarionComp(gestionEscComp);
-					//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulación());
-					//                    visor.actualizarInfoEquipoEnEscenario();
-					//                    visor.setVisible(true);
-				} catch (Exception ex) {
-					Exceptions.printStackTrace(ex);
-				}
-
-			}
-		});
-	}
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JMenuBar GestionEscenarios;
 	private javax.swing.JTextField intervalNumRobots;
@@ -1141,6 +1113,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private javax.swing.JTextField jTextFieldModeloOrganizacion;
 	private javax.swing.JLabel robotIcon;
 	private javax.swing.JLabel victimaIcon1;
+	private JMenuItem jMenuItemVictimaTiempo;
 	// End of variables declaration//GEN-END:variables
 
 	public void setGestorEscenarionComp(GestionEscenariosSimulacion gestEscComp ) {
@@ -1183,7 +1156,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 			//               fileName = selectedFile.getName();
 			// enviariamos el fichero a la persistencia para que nos diera el contenido
-			// se visualiza un escenario a partir de la información almacenada
+			// se visualiza un escenario a partir de la informacion almacenada
 			System.out.println("Ejecuto  accion sobre el fichero "+selectedFile.getAbsolutePath());
 		} else {
 			System.out.println("File access cancelled by user.");

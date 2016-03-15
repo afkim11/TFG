@@ -100,7 +100,7 @@ public class VisorEscenariosRosace extends JFrame {
 		
 		robotslabel = new HashMap<String, JLabel>();
 		victimaslabel = new HashMap<String, JLabel>();
-
+		this.coordinadasJerarquico = new Coordinate(50.0,30.0,0.5);
 		
 		setBounds(100, 100, 649, 409);
 		contentPaneRoot = new JPanel();
@@ -256,7 +256,17 @@ public class VisorEscenariosRosace extends JFrame {
 		//*********************************************************************************************
 		//Aniadir al panel panelVisor los componentes label que representan los robots leidos del xml
 		//*********************************************************************************************
-		for (int j = 0; j < nroRobots; j++) {
+		
+		String rutaIconoRobot = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
+		JLabel asignador = new JLabel("JerarquicoAsignador");
+		asignador.setIcon(new javax.swing.ImageIcon(rutaIconoRobot));
+		asignador.setBounds((int)this.coordinadasJerarquico.getX(),(int)this.coordinadasJerarquico.getY(),asignador.getPreferredSize().width,asignador.getPreferredSize().height);
+		asignador.setEnabled(true);
+		asignador.setVisible(true);
+		panelVisor.add(asignador);
+		this.robotslabel.put("0",asignador);
+		
+		for (int j = 1; j < nroRobots; j++) {
 			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, j);
 			String valueid = rXMLTRobots.getRobotIDValue(info, "id");
 			Coordinate valueInitialCoordinate = rXMLTRobots.getRobotCoordinate(info);
@@ -267,7 +277,7 @@ public class VisorEscenariosRosace extends JFrame {
 
 			//crear el label y posicionarlo en el JPanel
 			JLabel label = new JLabel("");
-			String rutaIconoRobot = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
+			
 
 			//System.out.println("Ruta->" + rutaIconoRobot);
 
@@ -307,10 +317,10 @@ public class VisorEscenariosRosace extends JFrame {
 			int coordinateY = (int) valueInitialCoordinate.y;
 			//coordinateX = Math.abs(coordinateX);
 			//coordinateY = Math.abs(coordinateY);
-
+			
 			int index = utilsCadenaComponente.getNumberStartIndex(valueid);
-			String idNumero = utilsCadenaComponente.getNumber(valueid, index);
-
+			
+			String idNumero =valueid.substring(index, valueid.length());
 			//System.out.println("idNumero->" + idNumero);
 
 			int indexVictima;
@@ -360,7 +370,7 @@ public class VisorEscenariosRosace extends JFrame {
 	private void init2(EscenarioSimulacionRobtsVictms escenario){
 		robotslabel = new HashMap<String, JLabel>();
 		victimaslabel = new HashMap<String, JLabel>();
-		this.coordinadasJerarquico = new Coordinate(10.0,10.0,0.5);
+		this.coordinadasJerarquico = new Coordinate(50.0,30.0,0.5);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 649, 409);
 		contentPaneRoot = new JPanel();
@@ -545,7 +555,8 @@ public class VisorEscenariosRosace extends JFrame {
 			//coordinateY = Math.abs(coordinateY);
 
 
-			String idNumero = victimID.charAt(victimID.length()-1) + "";
+			String idNumero =victimID.substring(7, victimID.length());
+			
 
 			//System.out.println("idNumero->" + idNumero);
 
@@ -652,21 +663,43 @@ public class VisorEscenariosRosace extends JFrame {
 
 		if (jlabelVictima != null) {
 
-			//String rutaAbsolutaIconoVictima = jlabelVictima.getIcon().toString();			
-			//System.out.println("victima " + numeroVictima + "  , " + jlabelVictima.getIcon().toString());
+
 
 			if (numeroIdVictima % 2 == 0) {
 				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "HombreRescatado.png"));
-				//System.out.println("Es un hombre");
 			} else {
 				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "MujerRescatada.png"));
-				//System.out.println("Es una mujer");
 			}
 
 		} else {
 			System.out.println("jlabelVictima nulo");
 		}
 	}
+	
+	public void cambiarIconoVictimaMuerta(String refVictima) {
+		// TODO Auto-generated method stub
+		String numeroVictima = getNumeroVictima(refVictima);
+
+		int numeroIdVictima = Integer.parseInt(numeroVictima);
+
+		JLabel jlabelVictima = new JLabel();
+
+		jlabelVictima = victimaslabel.get(numeroVictima);
+		
+		if (jlabelVictima != null) {
+			if (numeroIdVictima % 2 == 0) {
+				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "HombreMuerto.png"));
+				
+			} else {
+				jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "MujerMuerta.png"));
+				
+			}
+
+		} else {
+			System.out.println("jlabelVictima nulo");
+		}
+	}
+	
 	public void escribirEnAreaTexto(String texto) {
 
 		textAreaMensaje.append(texto);
@@ -681,7 +714,7 @@ public class VisorEscenariosRosace extends JFrame {
 
 		int index = utilsCadenaComponente.getNumberStartIndex(valor_idRobot);
 		String idNumero = utilsCadenaComponente.getNumber(valor_idRobot, index);
-
+		if(valor_idRobot.equalsIgnoreCase("jerarquicoagenteasignador"))return "0";
 		return idNumero;
 	}
 	private String getNumeroVictima(String valor_idVictima) {
@@ -722,4 +755,5 @@ public class VisorEscenariosRosace extends JFrame {
 		}
 
 	}
+	
 }

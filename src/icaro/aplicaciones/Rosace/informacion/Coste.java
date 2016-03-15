@@ -1,6 +1,7 @@
 package icaro.aplicaciones.Rosace.informacion;
 
 
+import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta.Anterior;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.MaquinaEstadoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
@@ -22,9 +23,8 @@ import javax.swing.JOptionPane;
 
 
 public class Coste {
-
+	public static int tiempoAtencionVictima = 100;
 	private double funcionEvaluacion=0;
-	private int contadorAuxiliar=1;
 	//    ItfUsoRecursoTrazas trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ; //Para depurar por la ventana de trazas de ICARO los calculos de costes
 
 	//Constructor
@@ -148,7 +148,7 @@ public class Coste {
 	public int CalculoCosteAyudarVictima (String nombreAgenteEmisor, Coordinate robotLocation,RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
 		int aux;
 		int energia=robot.getAvailableEnergy();
-		this.contadorAuxiliar=0;
+		
 
 		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima,energia)) != -1){
 			funcionEvaluacion =  aux;
@@ -201,20 +201,21 @@ public class Coste {
 			if(x.getState()==Objetivo.SOLVING){
 				String nombreVictima=x.getobjectReferenceId();
 				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
-
 				visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
 				visitados[(int)actual.getX()][(int)actual.getY()]=true;
 				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 				ruta.add(actual);
 				ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
 				try{
-					arrayAux = this.calculaCoste(visitados, actual, 0,ruta, v.getCoordinateVictim());}
+					AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
+					 					arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
+					 					}
 				catch(Exception e){
 					System.out.println("");
 				}
 
 				if(arrayAux != null){
-					time = time + arrayAux.size();
+					time = time + arrayAux.size() + tiempoAtencionVictima;
 					actual = v.getCoordinateVictim();
 				}
 				else return -1;
@@ -227,9 +228,11 @@ public class Coste {
 		visitados[(int)actual.getX()][(int)actual.getY()]=true;
 		ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 		ruta.add(actual);
-		ArrayList<Coordinate> arrayAux = this.calculaCoste(visitados, actual, 0,ruta, nuevaVictima.getCoordinateVictim());
+		AlgoritmoRuta alg2= new AlgoritmoRuta(nuevaVictima.getCoordinateVictim(), actual);
+		ArrayList<Coordinate> arrayAux = alg2.calculaRuta(visitados, actual, Anterior.MOV_NULO,ruta);
 		if(arrayAux != null){
 			time += arrayAux.size();
+			time += tiempoAtencionVictima;
 			if(time<energia)
 				return time;
 		}
@@ -243,129 +246,7 @@ public class Coste {
 				visitados[i][j]=false;
 		return visitados;
 	}
-	private ArrayList<Coordinate> calculaCoste(boolean[][] visitados, Coordinate coordenadasActuales,int anterior,ArrayList<Coordinate> rutaHastaAhora, Coordinate coordDestino) {
-		contadorAuxiliar++;
-		if(contadorAuxiliar>4500)return null;
-
-		if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(coordDestino)){
-			return rutaHastaAhora;
-		}
-		else{
-			try{
-				PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales,anterior, coordDestino); 
-				while(!colaNodos.isEmpty() && contadorAuxiliar<4500){
-					Coordinate coor=colaNodos.poll();
-					int x=(int)coor.getX(),y=(int)coor.getY();
-					visitados[x][y]=true;
-					rutaHastaAhora.add(coor);
-					ArrayList<Coordinate> posible_sol=calculaCoste(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora, coordDestino);
-					if(posible_sol!=null)return posible_sol;	
-					rutaHastaAhora.remove(rutaHastaAhora.size()-1);
-					visitados[x][y]=false;
-				}
-			}
-			catch(Exception e){}
-		}
-		return null;
-	}
-	private int calculaAnterior(Coordinate anterior,Coordinate siguiente){
-		int x1=(int)anterior.getX(),y1=(int)anterior.getY(),x2=(int)siguiente.getX(),y2=(int)siguiente.getY();
-		int restaX = x2 - x1, restaY = y2 - y1;
-		if (restaX == -1 && restaY == -1) return 8;
-		else if (restaX == 0 && restaY == -1) return 7;
-		else if (restaX == 1 && restaY == -1) return 6;
-		else if (restaX == -1 && restaY == 0) return 5;
-		else if (restaX == 1 && restaY == 0) return 4;
-		else if (restaX == -1 && restaY == 1) return 3;
-		else if (restaX == 0 && restaY == 1) return 2;
-		else if (restaX == 1 && restaY == 1) return 1;
-		else return -1;
-
-
-
-	}
-	private PriorityQueue<Coordinate> estimaCoste(boolean[][] visitados, Coordinate coordinadasActuales, int anterior, final Coordinate coordDestino) {
-		PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(new Comparator<Coordinate>(){
-			@Override
-			public int compare(Coordinate o1, Coordinate o2){
-				double coste1=Coste.distanciaC1toC2(o1,coordDestino),coste2=Coste.distanciaC1toC2(o2,coordDestino);
-				if( coste1<coste2 )return -1;
-				else if(coste1 > coste2)return 1;
-				return 0;
-
-
-			}});
-		for(int i=1;i<=8;i++){
-			if(i!=anterior){
-				if(i==1){
-					int x=(int)coordinadasActuales.getX()-1;
-					int y=(int)coordinadasActuales.getY()-1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(!visitados[x][y] && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==2){
-					int x=(int)coordinadasActuales.getX();
-					int y=(int)coordinadasActuales.getY()-1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==3){
-					int x=(int)coordinadasActuales.getX()+1;
-					int y=(int)coordinadasActuales.getY()-1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==4){
-					int x=(int)coordinadasActuales.getX()-1;
-					int y=(int)coordinadasActuales.getY();
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==5){
-					int x=(int)coordinadasActuales.getX()+1;
-					int y=(int)coordinadasActuales.getY();
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==6){
-					int x=(int)coordinadasActuales.getX()-1;
-					int y=(int)coordinadasActuales.getY()+1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==7){
-					int x=(int)coordinadasActuales.getX();
-					int y=(int)coordinadasActuales.getY()+1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-				else if(i==8){
-					int x=(int)coordinadasActuales.getX()+1;
-					int y=(int)coordinadasActuales.getY()+1;
-					Coordinate coor=new Coordinate(x,y,0.5);
-					if(visitados[x][y]==false && !MaquinaEstadoMovimientoCtrl.checkObstaculo(coor))
-						cola.add(coor);
-
-				}
-			}
-		}		
-		return cola;
-	}
-
+	
 
 	//Calcula la distancia del camino que pasa por las victimas actualmente asignadas, incluyendo la nueva victima actual que ha llegado.
 	//El orden de visita de victimas esta determinado por las prioridades de las victimas, es decir, las de mayor prioridad se visitan primero.

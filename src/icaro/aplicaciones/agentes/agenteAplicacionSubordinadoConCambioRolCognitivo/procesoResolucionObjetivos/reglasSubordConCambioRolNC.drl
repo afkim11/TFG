@@ -149,15 +149,12 @@ end
 rule "Si he aceptado la propuesta para asumir el objetivo lo genero y encolo"
 no-loop true
    when
- //     infoComMov :InfoCompMovimiento ()
-      victimaCC:Victim(idVict:name)   
- //     focoActual : Focus(foco == null)
-        focoActual : Focus()
+      victimaCC:Victim(idVict:name)  
+      focoActual : Focus()
       infoComMov :InfoCompMovimiento()
       misObjs: MisObjetivos()
-  //    RobotStatus()
-     victims2R:VictimsToRescue()
-         robot:RobotStatus()
+      victims2R:VictimsToRescue()
+      robot:RobotStatus()
       acPropuesta:AceptacionPropuesta (identAgente == agentId,identObjectRefAcetPropuesta == idVict)
    then
       TareaSincrona tarea = gestorTareas.crearTareaSincrona(GeneraryEncolarObjetivoActualizarFocoNC.class);
@@ -321,4 +318,15 @@ then
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaRomperRobot.class);
 	tarea.ejecutar(misObjs,v2r,infoComMov,robotS);
 	retract(inf);
+end
+rule "La victima que habia que salvar ha muerto"
+when
+	informe : Informe(contenidoInforme == VocabularioRosace.MsgVictimaMuertaASubordinado,victimId:referenciaContexto)
+	victim : Victim(name == victimId)
+	infoComMov : InfoCompMovimiento()
+	misObjs : MisObjetivos()
+then
+	retract(informe)
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaHaMuerto.class);
+	tarea.ejecutar(infoComMov,misObjs,victim);
 end

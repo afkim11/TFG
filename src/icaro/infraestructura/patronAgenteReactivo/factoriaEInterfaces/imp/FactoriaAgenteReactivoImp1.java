@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Produce instancias del patr�n
+ * Produce instancias del patrn
  *
  * @F Garijo
  * @created 20  Mayo  2010
@@ -46,8 +46,8 @@ import org.apache.log4j.Logger;
 public class FactoriaAgenteReactivoImp1 extends FactoriaAgenteReactivo {
 
 	/*
-	 * Crea una instancia del patr�n que crea un agente reactivo a partir de las
-	 * acciones sem�nticas, el aut�mata que define el comportamiento y el nombre
+	 * Crea una instancia del patrn que crea un agente reactivo a partir de las
+	 * acciones semnticas, el autmata que define el comportamiento y el nombre
 	 * del agente.
 	 */
      private static final long serialVersionUID = 1L;
@@ -91,7 +91,7 @@ public class FactoriaAgenteReactivoImp1 extends FactoriaAgenteReactivo {
 	 */
 //    protected int estado = InterfazGestion.ESTADO_OTRO;
     /**
-	 * Acciones sem�nticas del agente reactivo
+	 * Acciones semnticas del agente reactivo
 	 * @uml.property  name="accionesSemanticas"
 	 * @uml.associationEnd
 	 */
@@ -162,7 +162,7 @@ public class FactoriaAgenteReactivoImp1 extends FactoriaAgenteReactivo {
         // Quedan definidos todos los objetos necesarios para implementar el ejemplar creado
         logger.debug(nombreInstanciaAgente + ":Creacion del Agente ...ok");
    //         trazas.aceptaNuevaTraza(new InfoTraza(nombreInstanciaAgente,
-    //                nombreInstanciaAgente + ":Creaci�n del Agente ...ok",
+    //                nombreInstanciaAgente + ":Creacin del Agente ...ok",
     //                NivelTraza.debug));
         // Paso 4 Procedemos a registrar las interfaces de la instancia crada en el repositorio
 
@@ -242,7 +242,7 @@ public void crearAgenteReactivo(String nombreInstanciaAgente, String rutaComport
         // Quedan definidos todos los objetos necesarios para implementar el ejemplar creado
         logger.debug(nombreInstanciaAgente + ":Creacion del Agente ...ok");
    //         trazas.aceptaNuevaTraza(new InfoTraza(nombreInstanciaAgente,
-    //                nombreInstanciaAgente + ":Creaci�n del Agente ...ok",
+    //                nombreInstanciaAgente + ":Creacin del Agente ...ok",
     //                NivelTraza.debug));
 
         // Paso 4 Procedemos a registrar las interfaces de la instancia crada en el repositorio
@@ -315,8 +315,8 @@ public void crearAgenteReactivo(String nombreInstanciaAgente, String rutaComport
     }
 
     private String normalizarRuta(String ruta){
-	/*Esta funci�n cambia la primera letra del nombre y la pone en min�sculas*/
-		String primero = ruta.substring(0,1).toLowerCase(); //obtengo el primer car�cter en min�sculas
+	/*Esta funcin cambia la primera letra del nombre y la pone en minsculas*/
+		String primero = ruta.substring(0,1).toLowerCase(); //obtengo el primer carcter en minsculas
 		String rutaNormalizada = primero + ruta.substring(1, ruta.length());
 
 		return rutaNormalizada;

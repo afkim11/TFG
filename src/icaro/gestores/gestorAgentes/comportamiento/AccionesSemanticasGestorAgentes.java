@@ -40,13 +40,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
- * Implementaci�n por defecto de las acciones que se ejecutar�n por parte del gestor de agentes.
+ * Implementacin por defecto de las acciones que se ejecutarn por parte del gestor de agentes.
  * @author     Felipe Polo
  */
 public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteReactivo {
 
     /**
-     * Almac�n de los nombres de los agentes que este gestor debe gestionar
+     * Almacn de los nombres de los agentes que este gestor debe gestionar
      */
     protected Vector<String> nombresAgentesGestionados = new Vector<String>();
     /**
@@ -119,7 +119,7 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
   
 
     /**
-     * Crea los agentes que se especifiquen en la configuraci�n o los localiza
+     * Crea los agentes que se especifiquen en la configuracin o los localiza
      * si se encuentran remotos
      * 
      */
@@ -195,16 +195,16 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
 //                       }
 //                            else {  trazas.aceptaNuevaTraza(new InfoTraza(
 //                                "GestorAgentes",
-//                                "El subtipo del agente " + identAgenteAcrear + " definido en la configuraci�n no es correcto.",
+//                                "El subtipo del agente " + identAgenteAcrear + " definido en la configuracin no es correcto.",
 //                                InfoTraza.NivelTraza.error));
 //
 //
-//                    logger.error("El subtipo del agente " + identAgenteAcrear + " definido en la configuraci�n no es correcto.");
+//                    logger.error("El subtipo del agente " + identAgenteAcrear + " definido en la configuracin no es correcto.");
 //
-//                    throw new Exception("El subtipo del agente " + identAgenteAcrear + " definido en la configuraci�n no es correcto.");
+//                    throw new Exception("El subtipo del agente " + identAgenteAcrear + " definido en la configuracin no es correcto.");
 //                                }
 //
-//                // si todo ha ido bien, debemos a�adirlo a la lista de objetos
+//                // si todo ha ido bien, debemos aadirlo a la lista de objetos
 //                // gestionados por el gestor
 //
 //                logger.debug("GestorAgentes: Añadiendo agente " +
@@ -229,7 +229,7 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
 //                        InfoTraza.NivelTraza.debug));
 //
       } catch (Exception ex) {
-          logger.error("GestorAgentes: Hubo problemas al crear los agentes desde la configuracion. Recuperando errores de creaci�n.");
+          logger.error("GestorAgentes: Hubo problemas al crear los agentes desde la configuracion. Recuperando errores de creacin.");
            ex.printStackTrace();
           
               trazas.aceptaNuevaTraza(new InfoTraza(
@@ -335,7 +335,7 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
 //
 //            // creamos el reactivo y lo registramos en el repositorio
 //
-//            // Agentes de aplicaci�n: local o remoto?
+//            // Agentes de aplicacin: local o remoto?
 //			DescInstanciaGestor descGestorAgentes = config.getDescInstanciaGestor(NombresPredefinidos.NOMBRE_GESTOR_AGENTES);
 //			String esteNodo = descGestorAgentes.getNodo().getNombreUso();
 //
@@ -357,11 +357,11 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
 //
 //                            trazas.aceptaNuevaTraza(new InfoTraza(
 //                                    "GestorAgentes",
-//                                    "Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver� a intentar en " + intentos + " segundos...\n nodo origen: " + esteNodo + "\t nodo destino: " + nodoDestino,
+//                                    "Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver a intentar en " + intentos + " segundos...\n nodo origen: " + esteNodo + "\t nodo destino: " + nodoDestino,
 //                                    InfoTraza.NivelTraza.error));
 //
 //
-//                        logger.error("Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver� a intentar en " +
+//                        logger.error("Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver a intentar en " +
 //                                intentos + " segundos...\n nodo origen: " + esteNodo +
 //                                "\t nodo destino: " + nodoDestino);
 //
@@ -385,7 +385,7 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
 //            Set<Object> conjuntoEventos = new HashSet<Object>();
 //            conjuntoEventos.add(EventoRecAgte.class);
 
-            // indico a qui�n debe reportar
+            // indico a quin debe reportar
             ((ItfGestionAgenteReactivo) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_GESTION + nombreAgente)).setGestorAReportar(
                     NombresPredefinidos.NOMBRE_GESTOR_AGENTES);
 
@@ -414,7 +414,7 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
      * Class[]{Class.forName("java.lang.String"),Class.forName("java.lang.String"),Class.forName("java.lang.String"),Class.forName("java.lang.String")};
      * Constructor constructorGestorAgCognitivoLocal =
      * claseGeneradoraAgente.getConstructor(signatura); // defino los
-     * par�metros para el constructor String dirRMIGes =
+     * parmetros para el constructor String dirRMIGes =
      * agente.getDireccionAccesoRMIGestion(); String dirRMIUso =
      * agente.getDireccionAccesoRMIUso(); String ficheroReglas =
      * agente.getRutaFicheroReglas(); String nombreAgente =
@@ -423,7 +423,7 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
      * constructorGestorAgCognitivoLocal.newInstance(new Object[]
      * {dirRMIGes, dirRMIUso, ficheroReglas, nombreAgente});
      * 
-     * if(DEBUG) System.out.println("GestorAgentes: Terminada construcci�n
+     * if(DEBUG) System.out.println("GestorAgentes: Terminada construccin
      * del agente cognitivo "+agente.getNombre()+"."); // obtenemos itf
      * gestion remoto InterfazGestion itfGes =
      * (InterfazGestion)this.obtenerItfRemoto(dirRMIGes); // obtenemos itf
@@ -435,7 +435,7 @@ public class AccionesSemanticasGestorAgentes extends AccionesSemanticasAgenteRea
      * this.itfUsoRepositorio.registrarInterfaz(nombreAgente+SUFIJO_GESTION,itfGes);
      * this.itfUsoRepositorio.registrarInterfaz(nombreAgente+SUFIJO_USO,itfUso); }
      * catch (Exception ex){ System.err.println("GestorAgentes: No se pudo
-     * terminar la creaci�n o el registro del agente cognitivo
+     * terminar la creacin o el registro del agente cognitivo
      * "+agente.getNombre()+"."); throw ex; }
      */
 
@@ -454,7 +454,7 @@ private void crearUnAgenteCognitivo(String nombreAgente) throws Exception {
 
             // creamos el agente y lo registramos en el repositorio
 
-            // Agentes de aplicaci�n: local o remoto?
+            // Agentes de aplicacin: local o remoto?
 			DescInstanciaGestor descGestorAgentes = config.getDescInstanciaGestor(NombresPredefinidos.NOMBRE_GESTOR_AGENTES);
 			String esteNodo = descGestorAgentes.getNodo().getNombreUso();
 
@@ -477,11 +477,11 @@ private void crearUnAgenteCognitivo(String nombreAgente) throws Exception {
 
                             trazas.aceptaNuevaTraza(new InfoTraza(
                                     "GestorAgentes",
-                                    "Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver� a intentar en " + intentos + " segundos...\n nodo origen: " + esteNodo + "\t nodo destino: " + nodoDestino,
+                                    "Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver a intentar en " + intentos + " segundos...\n nodo origen: " + esteNodo + "\t nodo destino: " + nodoDestino,
                                     InfoTraza.NivelTraza.error));
 
 
-                        logger.error("Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver� a intentar en " +
+                        logger.error("Error al crear el agente " + nombreAgente + " en un nodo remoto. Se volver a intentar en " +
                                 intentos + " segundos...\n nodo origen: " + esteNodo +
                                 "\t nodo destino: " + nodoDestino);
 
@@ -505,7 +505,7 @@ private void crearUnAgenteCognitivo(String nombreAgente) throws Exception {
             Set<Object> conjuntoEventos = new HashSet<Object>();
             conjuntoEventos.add(EventoRecAgte.class);
 
-            // indico a qui�n debe reportar
+            // indico a quin debe reportar
 //            ((ItfGestionAgenteReactivo) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_GESTION + nombreAgente)).setGestorAReportar(
 //                    NombresPredefinidos.NOMBRE_GESTOR_AGENTES, conjuntoEventos);
 
@@ -645,12 +645,12 @@ public void addDescripcionGN (String identNodoGN, InterfazUsoAgente itfUsoGestor
      * problemas.
      */
     public void recuperarErrorCreacionAgentes() {
-        // por defecto no se implementan pol�ticas de recuperacion
+        // por defecto no se implementan polticas de recuperacion
         logger.debug("GestorAgentes: No es posible recuperar error en creacion de los agentes.");
         
             trazas.aceptaNuevaTraza(new InfoTraza(
                     "GestorAgentes",
-                    "No es posible recuperar error en creaci�n de los agentes. ",
+                    "No es posible recuperar error en creacin de los agentes. ",
                     InfoTraza.NivelTraza.debug));
         
         try {
@@ -797,20 +797,20 @@ public void addDescripcionGN (String identNodoGN, InterfazUsoAgente itfUsoGestor
      * enume = configEspecifica.getListaAgentes().enumerateAgente(); while
      * (enume.hasMoreElements()) { Agente item = (Agente)enume.nextElement(); if
      * (nombreAgente.equals(item.getNombre())) return
-     * item.getHayQueArrancarlo(); } logger.error("GestorAgentes: No se encontr�
-     * ning�n agente con nombre "+nombreAgente+" dentro de la lista de objetos
+     * item.getHayQueArrancarlo(); } logger.error("GestorAgentes: No se encontr
+     * ningn agente con nombre "+nombreAgente+" dentro de la lista de objetos
      * gestionados."); throw new NullPointerException(); }
      */
     /**
-     * Decide qu� hacer en caso de fallos en los agentes.
+     * Decide qu hacer en caso de fallos en los agentes.
      */
     public void decidirTratamientoErrorIrrecuperable() {
-        // el tratamiento ser� siempre cerrar todo el chiringuito
-        logger.debug("GestorAgentes: Se decide cerrar el sistema ante un error cr�tico irrecuperable.");
+        // el tratamiento ser siempre cerrar todo el chiringuito
+        logger.debug("GestorAgentes: Se decide cerrar el sistema ante un error crtico irrecuperable.");
         
             trazas.aceptaNuevaTraza(new InfoTraza(
                     "GestorAgentes",
-                    "Se decide cerrar el sistema ante un error cr�tico irrecuperable.",
+                    "Se decide cerrar el sistema ante un error crtico irrecuperable.",
                     InfoTraza.NivelTraza.debug));
         
         
@@ -835,7 +835,7 @@ public void addDescripcionGN (String identNodoGN, InterfazUsoAgente itfUsoGestor
      * problemas.
      */
     public void recuperarErrorArranqueAgentes() {
-        // por defecto no se implementan pol�ticas de recuperaci�n
+        // por defecto no se implementan polticas de recuperacin
         //logger.debug("GestorAgentes: Fue imposible recuperar el error en el arranque de los agentes.");
         
             trazas.aceptaNuevaTraza(new InfoTraza(
@@ -855,7 +855,7 @@ public void addDescripcionGN (String identNodoGN, InterfazUsoAgente itfUsoGestor
 
     /**
      * Elabora un informe del estado en el que se encuentran los agentes y lo
-     * env�a al sistema de trazas.
+     * enva al sistema de trazas.
      */
     public void generarInformeErrorIrrecuperable() {
         // Producimos traza de un error
@@ -883,7 +883,7 @@ public void addDescripcionGN (String identNodoGN, InterfazUsoAgente itfUsoGestor
      * da orden de terminar a un agente
      */
     public void finalizarAgente() {
-        // esto hay que recuperarlo de los par�metros
+        // esto hay que recuperarlo de los parmetros
         logger.debug("GestorAgentes: finalizarAgente():Este metodo no esta implementado");
         
             trazas.aceptaNuevaTraza(new InfoTraza(
@@ -1072,12 +1072,12 @@ Boolean interfacesRegistradas = false;
             return interfacesRegistradas;
 }
     /**
-     * Monitoriza secuencialmente todos los agentes activos que est�n definidos
-     * como necesarios en la configuraci�n.
+     * Monitoriza secuencialmente todos los agentes activos que estn definidos
+     * como necesarios en la configuracin.
      */
     public void monitorizarAgentes() {
         // if(DEBUG) System.out.println("GestorAgentes:Comienza ciclo
-        // monitorizaci�n.");
+        // monitorizacin.");
 
         boolean errorEncontrado = false;
         // recuperar todos los interfaces de gestion del repositorio que estamos
@@ -1093,17 +1093,17 @@ Boolean interfacesRegistradas = false;
                 int monitoriz = itfGes.obtenerEstado();
                 if (monitoriz == InterfazGestion.ESTADO_ERRONEO_IRRECUPERABLE || monitoriz == InterfazGestion.ESTADO_ERRONEO_RECUPERABLE || monitoriz == InterfazGestion.ESTADO_TERMINADO || monitoriz == InterfazGestion.ESTADO_TERMINANDO) {
                     errorEncontrado = true;
-                    logger.debug("GestorAgentes:Agente " + nombre + " est� en estado err�neo o terminado.");
+                    logger.debug("GestorAgentes:Agente " + nombre + " est en estado errneo o terminado.");
                     
                         trazas.aceptaNuevaTraza(new InfoTraza(
                                 "GestorAgentes",
-                                "Agente " + nombre + " est� en estado err�neo o terminado.",
+                                "Agente " + nombre + " est en estado errneo o terminado.",
                                 InfoTraza.NivelTraza.debug));
                     
                 }
             /*
              * else if(DEBUG) System.out.println("GestorAgentes:Agente
-             * "+nombre+" est� ok.");
+             * "+nombre+" est ok.");
              */
             } catch (Exception ex) {
                 errorEncontrado = true;
@@ -1181,7 +1181,7 @@ Boolean interfacesRegistradas = false;
                             InfoTraza.NivelTraza.debug));
                 }
             } catch (Exception ex) {
-                logger.error("GestorAgentes: Hubo un problema al acceder a un interfaz remoto mientras se daba orden de terminaci�n al agente " + nombre + ".");
+                logger.error("GestorAgentes: Hubo un problema al acceder a un interfaz remoto mientras se daba orden de terminacin al agente " + nombre + ".");
                 
                     trazas.aceptaNuevaTraza(new InfoTraza(
                             "GestorAgentes",
@@ -1267,16 +1267,16 @@ Boolean interfacesRegistradas = false;
       }
     }
     /**
-     * Intenta recuperar los errores detectados en la monitorizaci�n siguiendo
-     * la pol�tica definida para cada agente.
+     * Intenta recuperar los errores detectados en la monitorizacin siguiendo
+     * la poltica definida para cada agente.
      */
     public void recuperarErrorAlMonitorizarAgentes() {
-        // por defecto no se implementan pol�ticas de recuperaci�n
-        logger.debug("GestorAgentes: No se pudo recuperar el error de monitorizaci�n.");
+        // por defecto no se implementan polticas de recuperacin
+        logger.debug("GestorAgentes: No se pudo recuperar el error de monitorizacin.");
         
             trazas.aceptaNuevaTraza(new InfoTraza(
                     "GestorAgentes",
-                    "No se pudo recuperar el error de monitorizaci�n.",
+                    "No se pudo recuperar el error de monitorizacin.",
                     InfoTraza.NivelTraza.debug));
         
         

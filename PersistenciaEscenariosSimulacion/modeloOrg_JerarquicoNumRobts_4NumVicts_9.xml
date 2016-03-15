@@ -9,8 +9,8 @@
          <idRobotRol>indefinido</idRobotRol>
          <availableEnergy>0</availableEnergy>
          <robotCoordinateActual>
-            <x>168.0</x>
-            <y>442.0</y>
+            <x>53.0</x>
+            <y>146.0</y>
             <z>0.5</z>
          </robotCoordinateActual>
          <robotCapabilities class="java.util.ArrayList">
@@ -26,8 +26,8 @@
          <idRobotRol>indefinido</idRobotRol>
          <availableEnergy>0</availableEnergy>
          <robotCoordinateActual>
-            <x>279.0</x>
-            <y>158.0</y>
+            <x>129.0</x>
+            <y>480.0</y>
             <z>0.5</z>
          </robotCoordinateActual>
          <robotCapabilities class="java.util.ArrayList">
@@ -43,8 +43,8 @@
          <idRobotRol>indefinido</idRobotRol>
          <availableEnergy>0</availableEnergy>
          <robotCoordinateActual>
-            <x>93.0</x>
-            <y>287.0</y>
+            <x>138.0</x>
+            <y>289.0</y>
             <z>0.5</z>
          </robotCoordinateActual>
          <robotCapabilities class="java.util.ArrayList">
@@ -60,8 +60,8 @@
          <idRobotRol>indefinido</idRobotRol>
          <availableEnergy>0</availableEnergy>
          <robotCoordinateActual>
-            <x>70.0</x>
-            <y>71.0</y>
+            <x>187.0</x>
+            <y>137.0</y>
             <z>0.5</z>
          </robotCoordinateActual>
          <robotCapabilities class="java.util.ArrayList">
@@ -75,123 +75,162 @@
       <victim>
          <name>Victima9</name>
          <coordinateVictim>
-            <x>702.0</x>
-            <y>486.0</y>
+            <x>833.0</x>
+            <y>396.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima8">
       <victim>
          <name>Victima8</name>
          <coordinateVictim>
-            <x>771.0</x>
-            <y>414.0</y>
+            <x>642.0</x>
+            <y>308.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima7">
       <victim>
          <name>Victima7</name>
          <coordinateVictim>
-            <x>887.0</x>
-            <y>354.0</y>
+            <x>734.0</x>
+            <y>191.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima6">
       <victim>
          <name>Victima6</name>
          <coordinateVictim>
-            <x>663.0</x>
-            <y>335.0</y>
+            <x>772.0</x>
+            <y>191.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima5">
       <victim>
          <name>Victima5</name>
          <coordinateVictim>
-            <x>768.0</x>
-            <y>62.0</y>
+            <x>692.0</x>
+            <y>339.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima4">
       <victim>
          <name>Victima4</name>
          <coordinateVictim>
-            <x>829.0</x>
-            <y>23.0</y>
+            <x>795.0</x>
+            <y>177.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima3">
       <victim>
          <name>Victima3</name>
          <coordinateVictim>
-            <x>849.0</x>
-            <y>91.0</y>
+            <x>887.0</x>
+            <y>281.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima2">
       <victim>
          <name>Victima2</name>
          <coordinateVictim>
-            <x>678.0</x>
-            <y>122.0</y>
+            <x>722.0</x>
+            <y>405.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima1">
       <victim>
          <name>Victima1</name>
          <coordinateVictim>
-            <x>689.0</x>
-            <y>15.0</y>
+            <x>678.0</x>
+            <y>157.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
+         <tiempoDeVida>6000</tiempoDeVida>
       </victim>
    </victimas>
    <obstaculos key="0">
       <lineaObstaculo>
          <ini>
-            <x>436.0</x>
-            <y>126.0</y>
+            <x>446.0</x>
+            <y>149.0</y>
             <z>0.5</z>
          </ini>
          <fin>
-            <x>436.0</x>
-            <y>579.0</y>
+            <x>446.0</x>
+            <y>553.0</y>
             <z>0.5</z>
          </fin>
          <valueid>0</valueid>
+      </lineaObstaculo>
+   </obstaculos>
+   <obstaculos key="1">
+      <lineaObstaculo>
+         <ini>
+            <x>519.0</x>
+            <y>285.0</y>
+            <z>0.5</z>
+         </ini>
+         <fin>
+            <x>519.0</x>
+            <y>623.0</y>
+            <z>0.5</z>
+         </fin>
+         <valueid>1</valueid>
+      </lineaObstaculo>
+   </obstaculos>
+   <obstaculos key="inicial">
+      <lineaObstaculo>
+         <ini>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.5</z>
+         </ini>
+         <fin>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.5</z>
+         </fin>
+         <valueid>inicial</valueid>
       </lineaObstaculo>
    </obstaculos>
 </escenarioSimulacion>

@@ -26,7 +26,7 @@ public class PanelAccesoUsuario1_1 extends VentanaEstandar{
 			 * @uml.property  name="usoAgente"
 			 * @uml.associationEnd  multiplicity="(1 1)"
 			 */
-			private NotificacionesEventosVisAcceso usoAgente; //comunicaci�n con el agente (control)
+			private NotificacionesEventosVisAcceso usoAgente; //comunicacin con el agente (control)
 			
 			
 			public PanelAccesoUsuario1_1(ClaseGeneradoraVisualizacionAcceso visualizador) {
@@ -36,15 +36,15 @@ public class PanelAccesoUsuario1_1 extends VentanaEstandar{
 				
 			}
 			
-		    // <editor-fold defaultstate="collapsed" desc=" C�digo Generado  ">
+		    // <editor-fold defaultstate="collapsed" desc=" Cdigo Generado  ">
 		    private void initComponents() {
 		    	this.addWindowListener(new WindowAdapter()
 				{
 		    		public void windowClosing(WindowEvent e)
 		    		{
 		    			//usoAgente.notificacionCierreSistema();
-		    			JOptionPane.showMessageDialog(null,"Como el control est� en el agente, la ventana no podr� cerrar el sistema directamente.\n Si " +
-		    										  "quisi�ramos que esto ocurriera, deber�amos enviar un Evento y modificar el aut�mata del Agente.");
+		    			JOptionPane.showMessageDialog(null,"Como el control est en el agente, la ventana no podr cerrar el sistema directamente.\n Si " +
+		    										  "quisiramos que esto ocurriera, deberamos enviar un Evento y modificar el autmata del Agente.");
 		    		}
 				});
 		        labelUsr = new javax.swing.JLabel();
@@ -149,7 +149,7 @@ public class PanelAccesoUsuario1_1 extends VentanaEstandar{
 		        });
 		    }
 		    
-		    // Declaraci�n de varibales -no modificar
+		    // Declaracin de varibales -no modificar
 		    /**
 			 * @uml.property  name="botonAccess"
 			 * @uml.associationEnd  multiplicity="(1 1)"
@@ -180,6 +180,6 @@ public class PanelAccesoUsuario1_1 extends VentanaEstandar{
 			 * @uml.associationEnd  multiplicity="(1 1)"
 			 */
 		    private javax.swing.JTextField textoUsr;
-		    // Fin de declaraci�n de variables
+		    // Fin de declaracin de variables
 		    
 		}

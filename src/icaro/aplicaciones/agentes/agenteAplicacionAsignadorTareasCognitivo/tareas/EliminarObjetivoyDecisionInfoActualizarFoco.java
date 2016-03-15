@@ -30,7 +30,13 @@ public class EliminarObjetivoyDecisionInfoActualizarFoco extends TareaSincrona{
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(infoDecision);
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(ayudarVictima);
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(decidirQuienVa);
-			focoActual.setFocusToObjetivoMasPrioritario(misObjs);
+			if(this.identAgente.equalsIgnoreCase("jerarquicoagenteasignador")){
+				focoActual.setFoco(null);
+			}
+			else{
+				focoActual.setFocusToObjetivoMasPrioritario(misObjs);
+			}
+			
 			//       this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
 			this.getEnvioHechos().actualizarHecho(focoActual);
 			trazas.aceptaNuevaTrazaEjecReglas(nombreAgenteEmisor, "Se ejecuta la tarea " + this.getIdentTarea()+

@@ -24,10 +24,10 @@ public class ArranqueSistemaConCrtlGestorO {
 	private static final long serialVersionUID = 1L;
 	private static boolean comenzar=false;
 	/**
-	 * M�todo de arranque principal de la organizaci�n
+	 * Mtodo de arranque principal de la organizacin
 	 * 
 	 * @param args
-	 *            Entrada: ruta completa hasta el fichero de configuraci�n
+	 *            Entrada: ruta completa hasta el fichero de configuracin
 	 */
 	private static String nombreXML=null;
 	public static void setNombreXML(String nombre){
@@ -40,7 +40,7 @@ public class ArranqueSistemaConCrtlGestorO {
 
 		boolean herramientaArrancada = false;
 		
-		// creamos los recursos de la organizaci�n
+		// creamos los recursos de la organizacin
 
 		ItfUsoConfiguracion configuracionExterna = null;
 		ItfUsoRecursoTrazas recursoTrazas = null;
@@ -50,7 +50,7 @@ public class ArranqueSistemaConCrtlGestorO {
 
 		if (args.length == 0) {
 			/*System.err.println("Error. Ningun argumento recibido.\n Causa: Es necesario pasar como argumento la ruta del fichero de descripcion.\n Ejemplo: ./config/descripcionAcceso.xml");
-            int opcion = JOptionPane.showConfirmDialog(new JFrame(), "Descripción de Organizacion no encontrado. ¿Desea arrancar el asistente de creación de Descripción de Organización?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(new JFrame(), "Descripción de Organizacion no encontrado. Desea arrancar el asistente de creación de Descripción de Organización?", "Confirmación", JOptionPane.YES_NO_OPTION);
 			 */
 			
 			JFileChooser fileC = new JFileChooser();

@@ -30,7 +30,7 @@ public class EstatusRespuestasEquipo {
             respuestasEsperadas = agtesEquipoIds.size() ;// 
     }
     
-    //Funcion que se utiliza para indicar en el array que el agente IDENTOTROAGTE ha enviado su respuesta siempre y cuando sea de la iteración de nombre ITERACIONID
+    //Funcion que se utiliza para indicar en el array que el agente IDENTOTROAGTE ha enviado su respuesta siempre y cuando sea de la iteracion de nombre ITERACIONID
     public boolean addRespuestaAgente (String identOtroAgte, String iteracionId){
         if ((respuestasEsperadas > respuestasRecibidas) && (identIteracion.equals(iteracionId)) ){
             for (int i = 0; i < agtesEquipoIds.size(); i++) {
@@ -45,7 +45,7 @@ public class EstatusRespuestasEquipo {
         } return false;
     }
     
-    //Devuelve un Array con los miembros del equipo que no han contestado aun a la iteración ITERACIONID
+    //Devuelve un Array con los miembros del equipo que no han contestado aun a la iteracion ITERACIONID
     public ArrayList<String> getAgtesFaltanRespuestas (String iteracionId){ 
         if (agtesEquipoIds.isEmpty() || !(identIteracion.equals(iteracionId)) ) return null;
         ArrayList<String> agtesEquipoSinRespuesta = new ArrayList();
@@ -59,7 +59,7 @@ public class EstatusRespuestasEquipo {
         return agtesEquipoSinRespuesta;
     }
     
-    //Devuelve un Array con los miembros del equipo que sí han contestado a la iteración de nombre ITERACIONID
+    //Devuelve un Array con los miembros del equipo que si han contestado a la iteracion de nombre ITERACIONID
     public ArrayList<String> getAgtesHanRespondido (String iteracionId){ 
         if (agtesEquipoIds.isEmpty() || !(identIteracion.equals(iteracionId)) ) return null;
         ArrayList<String> agtesEquipoHanRespondido = new ArrayList();
@@ -78,12 +78,12 @@ public class EstatusRespuestasEquipo {
         return (respuestasRecibidas==respuestasEsperadas);
     }
     
-    //Actualiza con un número nuevo las respuestas que se esperan
+    //Actualiza con un numero nuevo las respuestas que se esperan
     public void  setRespuestasEsperadas (int numRespEsperadas){
         respuestasEsperadas = numRespEsperadas;
     }
     
-    //Devuelve el número de respuestas que se esperan recibir (No haría falta el argumento, ¿no?)
+    //Devuelve el numero de respuestas que se esperan recibir (No haria falta el argumento, no?)
     public int  getRespuestasRecibidas (int numRespEsperadas){
         return respuestasRecibidas;
     }

@@ -31,6 +31,7 @@ import org.openide.util.Exceptions;
  * @author FGarijo
  */
 public class ControladorVisualizacionSimulRosace {
+	public static boolean asignadorSeMueve = false;
 	private NotificadorInfoUsuarioSimulador notifEvts;
 	private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
 	private int numMensajesEnviar = 3;
@@ -53,9 +54,9 @@ public class ControladorVisualizacionSimulRosace {
 	private String imageniconoRobot = "Robot.png";
 	private String modeloOrganizativoInicial = "Igualitario";
 	private String tituloAvisoEscenarioNoDefinido= "Escenario indefinido";
-	private String mensajeEscenarioNoDefinido= "El esceneraio de simulación no esta definido ";
+	private String mensajeEscenarioNoDefinido= "El esceneraio de simulacion no esta definido ";
 	private String recomendacionDefinirEscenario= " Abrir un escenario con el menu de edicion o crear un escenario nuevo";
-	private String mensajeEscenarioNoSeleccionado= "No se ha seleccionado el esceneraio de simulación ";
+	private String mensajeEscenarioNoSeleccionado= "No se ha seleccionado el esceneraio de simulacion ";
 	private Map<String, JLabel> tablaEntidadesEnEscenario;
 	private ArrayList <JLabel> listaEntidadesEnEscenario;
 	private ItfUsoRecursoPersistenciaEntornosSimulacion itfPersistenciaSimul;
@@ -103,7 +104,7 @@ public class ControladorVisualizacionSimulRosace {
 			//                    persistencia= new PersistenciaVisualizadorEscenarios();
 			//                    visor.setPersistencia(persistencia);
 			//                    visor.setGestorEscenarionComp(gestionEscComp);
-			//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulación());
+			//                    visor.setEscenarioActualComp(gestionEscComp.crearEscenarioSimulacion());
 			//                    visor.setIdentEquipoActual()
 			//                    visor.actualizarInfoEquipoEnEscenario();
 			// visorControlSim.setVisible(true);
@@ -163,7 +164,7 @@ public class ControladorVisualizacionSimulRosace {
 
 	}
 	public void setVisibleControlGUI(boolean b) {
-		this.visorControlSim.setVisible(true);
+		this.visorControlSim.setVisible(b);
 
 	}
 	public void visualizarIdentsEquipoRobot(ArrayList<String> identList) {
@@ -175,7 +176,11 @@ public class ControladorVisualizacionSimulRosace {
 
 	}
 	public void victimaSeleccionadaParaSimulacion(String identVictimaSeleccionada) {
-		notifEvts.sendPeticionSimulacionVictimToRobotTeam(identVictimaSeleccionada);
+		if(identVictimaSeleccionada==null)JOptionPane.showMessageDialog(null, "No hay una victima seleccionada\nPara seleccionar una victima debes hacer doble click en el panel de victimas del CC");
+		else {
+			notifEvts.sendPeticionSimulacionVictimToRobotTeam(identVictimaSeleccionada);
+		
+		}
 
 	}
 	public void peticionGuardarEscenario(EscenarioSimulacionRobtsVictms escenarioComp) {

@@ -138,7 +138,7 @@ public class ProcesarPropuestaDesempate  extends TareaSincrona {
                                       //            this.mandaMensajeAEmpatados(miPropuesta);
                      
                      ComunicacionAgentes comunicacion = new ComunicacionAgentes(nombreAgenteEmisor);
-                     //¿PORQUE SE INFORMA A TODO EL GRUPO DE EMPATADOS CUANDO LA EVALUACION RECIBIDA ES MAYOR QUE LA MIA?
+                     //PORQUE SE INFORMA A TODO EL GRUPO DE EMPATADOS CUANDO LA EVALUACION RECIBIDA ES MAYOR QUE LA MIA?
                      comunicacion.informaraGrupoAgentes(miPropuesta, IdentsAgentesEmpatados);
                      
                                       //      this.getEnvioHechos().assertFact(new EvaluacionAgente(nombreAgenteEmisor, nuevaEvalucion));

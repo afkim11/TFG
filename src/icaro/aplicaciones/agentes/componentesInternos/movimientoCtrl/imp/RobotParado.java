@@ -132,4 +132,10 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		this.robotStatus = robotStatus;		
 	}
 
+	@Override
+	public Coordinate getCoordenasDestino() {
+		// TODO Auto-generated method stub
+		return this.destinoCoord;
+	}
+
 }

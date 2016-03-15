@@ -173,7 +173,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
         jLabel3.setText("Robots en el escenario");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel4.setText("Ident Escenario de Simulación:");
+        jLabel4.setText("Ident Escenario de Simulacion:");
 
         jTextFieldIdentEquipoActual.setEditable(false);
         jTextFieldIdentEquipoActual.addActionListener(new java.awt.event.ActionListener() {
@@ -428,7 +428,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
 
     private void jMenuItemCrearEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearEscenarioActionPerformed
         // Usuario quiere crear un escenario
-        // se abre una  ventana vacia , si tiene otra abierta se le debería avisar de que se guardar
+        // se abre una  ventana vacia , si tiene otra abierta se le deberia avisar de que se guardar
         // lo que tiene
         controladorEscSim.peticionCrearEscenario();
 //        if (escenarioActualComp.getNumRobots()> 0){
@@ -443,7 +443,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
 //            //        JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
 //            //         persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
 //        }
-//        escenarioActualComp = gestionEscComp.crearEscenarioSimulación();
+//        escenarioActualComp = gestionEscComp.crearEscenarioSimulacion();
 //        //        jTextFieldIdentEquipo.setText()
 //        eliminarEntidadesEscenario();
 //        jTextFieldIdentEquipo.setText(escenarioActualComp.getIdentEscenario());
@@ -469,7 +469,7 @@ public class VisorControlSimuladorRosace extends javax.swing.JFrame {
 //        
 ////               fileName = selectedFile.getName();
 //        // enviariamos el fichero a la persistencia para que nos diera el contenido
-//        // se visualiza un escenario a partir de la información almacenada
+//        // se visualiza un escenario a partir de la informacion almacenada
 //        System.out.println("Ejecuto  accion sobre el fichero "+selectedFile.getAbsolutePath());
 //    } else {
 //        System.out.println("File access cancelled by user.");

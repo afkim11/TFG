@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  *
- * @author FGarijo
+ * @author FGarijo, Luis Garcia y Sergio Moreno
  */
 public class VictimsToRescue {
     private Map<String, Victim> victims2Rescue;
