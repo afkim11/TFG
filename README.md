@@ -25,7 +25,7 @@ Lo que hay que hacer es lo siguiente:
   - Por último, hay que aumentar el tamaño del stack(la pila de llamadas) porque se agota con el tamaño por defecto. Para aumentar el tamaño de la pila
   hay que añadir en _**VM Arguments**_ lo siguiente: _-Xss32m_.
 
-**Últimos pasos:**
+**Últimos pasos: **
 	El último paso es cambiar la codificación y la versión de Java del proyecto, para ello clickamos con el botón derecho en el proyecto en eclipse(o cualquier IDE usado) y seleccionamos propiedades; una vez ahí, vamos a **Resource** y en el apartado _Text file encoding_, seleccionamos _others_ y elegimos **Cp1252**. Para cambiar la versión, en el mismo menú seleccionamos el apartado _Java compiler_ y ahí activamos _Enable project specific settings_ y seleccionamos en _Compiler compliance level_ el **1.8**.
   Si todo ha ido bien las configuraciones y el proyecto os debe quedar como en las fotos de a continuacion:
 
