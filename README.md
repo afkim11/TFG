@@ -1,4 +1,8 @@
-**Instrucciones ejecución del proyecto en Eclipse:** Este proyecto incorpora los archivos que eclipse genera cuando creas un proyecto(classpath y .project), por lo que no es necesario crear un proyecto para incorporarlo. 
+**Nota importante:** La versión Java requerida es mínimo 1.6.
+
+**Instrucciones para ejecutar el proyecto.** 
+
+Este proyecto incorpora los archivos que eclipse genera cuando creas un proyecto(classpath y .project), por lo que no es necesario crear un proyecto para incorporarlo. 
 Lo que hay que hacer es lo siguiente: 
 
 	1. File -> Import...
