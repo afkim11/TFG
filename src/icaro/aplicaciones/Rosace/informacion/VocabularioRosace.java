@@ -28,6 +28,7 @@ public class VocabularioRosace extends NombresPredefinidos{
     public static final String DescrExpectComunicacionConJefe="miComunicacionConJefe";
     public static final String MsgPropuesta_Oferta_Para_Ir= "SoyElMejorSituadoParaRealizarElObjetivo";
     public static final String MsgPropuesta_Decision_Ir = "YoVoy";
+    public static final String MsgOrdenReconocerTerreno = "ReconoceElTerreno";
     public static final String MsgPropuesta_Para_Q_vayaOtro = "CreoQueDebesIrTu";
     public static final String MsgPropuesta_Para_Q_vayaYo = "CreoQueDebesIrTu";
     public static final String MsgPropuesta_Para_Aceptar_Objetivo = "HazteCargoDeEstaTarea";
@@ -119,6 +120,8 @@ public class VocabularioRosace extends NombresPredefinidos{
     static public  final String peticionSimulacionVictima = "peticionSimulacionVictima";
     static public  final String peticionPararSimulacion = "peticionPararSimulacion";
     static public  final String peticionSimulacionSecuenciaVictimas = "sendSequenceOfSimulatedVictimsToRobotTeam";
+    static public  final String peticionIniciarSimulacion = "iniciarBusqueda";
+    
     static public  final String peticionMostrarEscenarioActualSimulado = "mostrarEscenarioActualSimulado";
     static public  final String peticionActualizarEscenario = "actualizarEscenarioActual";
     static public  final String peticionTerminarSimulacion = "TerminarSimulacion";
@@ -139,4 +142,6 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static final String VictimaFallecida = "El tiempo de vida de la victima finalizó";
 
 	public static final Object MsgVictimaMuertaASubordinado = "La victima ha muerto y no hay que salvarla";
+
+	public static final String MsgExploraTerreno = "Explora el terreno";
 }

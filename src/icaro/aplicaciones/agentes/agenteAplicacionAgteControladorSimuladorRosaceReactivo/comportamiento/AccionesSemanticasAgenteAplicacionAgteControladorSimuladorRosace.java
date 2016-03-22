@@ -119,7 +119,17 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		}
 		return victimsID;
 	}
-
+	
+	public void iniciarBusqueda(){
+		OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgExploraTerreno, null);
+		
+		comunicator.enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
+		
+		
+		
+		
+		
+	}
 	//Esta accion semantica se ejecuta cuando se envia el input "sendSequenceOfSimulatedVictimsToRobotTeam" en el 
 	//metodo sendSequenceOfSimulatedVictimsToRobotTeam de la clase NotificacionEventosRecursoGUI3	
 	public void SendSequenceOfSimulatedVictimsToRobotTeam(Integer intervaloSecuencia) {

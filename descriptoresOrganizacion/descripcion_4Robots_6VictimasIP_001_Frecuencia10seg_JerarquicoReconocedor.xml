@@ -10,12 +10,12 @@
      <icaro:activarPanelTrazasDebug>true</icaro:activarPanelTrazasDebug>
         <icaro:listaPropiedades>
             <icaro:propiedad atributo="identificadorEquipo" valor = "Jerarquico" />
-            <icaro:propiedad atributo="rutaFicheroEscenarioSimulacion" valor = "PersistenciaEscenariosSimulacion/modeloOrg_JerarquicoNumRobts_4NumVicts_8" />            
+            <icaro:propiedad atributo="rutaFicheroEscenarioSimulacion" valor = "PersistenciaEscenariosSimulacion/modeloOrg_JerarquicoNumRobts_4NumVicts_9" /> 
             <icaro:propiedad atributo="timeMsTarea:TimeOutContactarMiembrosEquipo" valor = "1000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutEsquivarObstaculo" valor="2000" />
-            <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "200" />   <!-- valor expresado en milisegundos -->  
-            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "2000000" />   <!-- se usa en el igualitario y en el jerarquico -->                                                                        
-            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones2" valor = "1000" />
+            <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->  
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones1" valor = "3000" />   <!-- se usa en el igualitario y en el jerarquico -->                                                                        
+            <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEvaluaciones2" valor = "1000" />                                                                
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirConfirmacionesRealizacionObjetivo1" valor = "8000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutRecibirEstatusComunicacionConJefe" valor = "3000" />     
             <icaro:propiedad atributo="timeMsTarea:TimeOutReaccionJefeAmsgeCC" valor = "3000" />
@@ -51,7 +51,7 @@
        localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.procesoResolucionObjetivos.reglasJerarqJefeCambioRol.drl"/>
      <icaro:DescComportamientoAgente  
        nombreComportamiento="AgenteAplicacionSubordinado" rol="AgenteAplicacion" localizacionComportamiento="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo" tipo="Cognitivo"
-       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.procesoResolucionObjetivos.reglasSubordinado.drl"/>
+       localizacionFicheroReglas="icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.procesoResolucionObjetivos.reglasSubordinadoReconocedor.drl"/>
 </icaro:DescComportamientoAgentesAplicacion>
 </icaro:DescComportamientoAgentes>
 	<!--******************************************************************************************************
@@ -83,16 +83,17 @@
                             <icaro:componenteGestionado refId="AgenteControladorSimuladorRosaceReactivo1" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicoagenteAsignador" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicorobotSubordinado1" tipoComponente="AgenteAplicacion"/>
-                            <icaro:componenteGestionado refId="JerarquicorobotSubordinado2" tipoComponente="AgenteAplicacion"/>
+                			  <icaro:componenteGestionado refId="JerarquicorobotSubordinado2" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicorobotSubordinado3" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicorobotSubordinado4" tipoComponente="AgenteAplicacion"/>
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos">
                     <icaro:componentesGestionados>
-                             <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
-				<icaro:componenteGestionado refId="RecursoPersistenciaEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>
-				<icaro:componenteGestionado refId="RecursoCreacionEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>                            
+                                <icaro:componenteGestionado refId="RecursoEstadistica1" tipoComponente="RecursoAplicacion"/>
+                                <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
+								<icaro:componenteGestionado refId="RecursoPersistenciaEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>
+								<icaro:componenteGestionado refId="RecursoCreacionEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>                            
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
             </icaro:Gestores>
@@ -104,7 +105,7 @@
                 </icaro:Instancia>
                 <icaro:Instancia id="JerarquicoagenteAsignador" refDescripcion="AgenteAplicacionAsignadorTareas">
                 </icaro:Instancia>
-                <icaro:Instancia id="JerarquicorobotSubordinado1" refDescripcion="AgenteAplicacionSubordinado">
+               <icaro:Instancia id="JerarquicorobotSubordinado1" refDescripcion="AgenteAplicacionSubordinado">
                 </icaro:Instancia>
                 <icaro:Instancia id="JerarquicorobotSubordinado2" refDescripcion="AgenteAplicacionSubordinado">
                 </icaro:Instancia>

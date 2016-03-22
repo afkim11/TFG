@@ -53,8 +53,8 @@ public void   setJustificacion(Object contJustificacion){
   @Override
      public String toString(){
         if ( justificacion == null )
-            return "Agente Emisor :"+identCC+ " MensajeOrden :+" + mensajeOrden+ "  Justificacion: null "+"\n ";
+            return "Agente Emisor :"+identCC+ " MensajeOrden :" + mensajeOrden+ "  Justificacion: null "+"\n ";
         else 
-            return "Agente Emisor :"+identCC+ " MensajeOrden :+" + mensajeOrden+ "  Justificacion: "+justificacion.toString() +"\n ";
+            return "Agente Emisor :"+identCC+ " MensajeOrden :" + mensajeOrden+ "  Justificacion: "+justificacion.toString() +"\n ";
     }
 }

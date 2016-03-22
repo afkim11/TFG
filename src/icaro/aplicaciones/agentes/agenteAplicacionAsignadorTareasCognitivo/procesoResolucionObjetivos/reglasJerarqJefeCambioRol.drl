@@ -119,6 +119,24 @@ when
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
+/*
+rule "Proceso una peticion del CC para reconocer terreno"
+  when
+	focoActual : Focus(foco == null)
+	misObjs: MisObjetivos()
+	ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenReconocerTerreno)
+  then
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenCCReconocerTerreno.class); 
+	tarea.ejecutar(); 
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
+   
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
+end
+*/
+
+
+
+
 rule "Creacion del objetivo inicial  de los robots cuando llega un msg del CC"
 salience 10
  when

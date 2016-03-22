@@ -120,7 +120,8 @@ public class ControladorVisualizacionSimulRosace {
 		// else if (identEquipoActual== null)visorControlSim.setIdentEquipo(escenarioActualComp.getIdentEscenario());
 		// else if (intervaloSecuencia <=0)visorControlSim.solicitarDefinicionItervaloSecuencia();
 		//else 
-		notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
+		//notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
+		notifEvts.sendIniciarSimulacion();
 	}
 
 	public  void peticionCrearEscenario() {

@@ -35,7 +35,7 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
 	protected ArrayList identsAgtesEquipo;
 	protected Integer victimOrder = 0;
 	protected boolean stop = false;
-	private InfoContEvtMsgAgteReactivo peticionEnvioVictimaSimulada,peticionEnvioSecuenciaVictimas,
+	private InfoContEvtMsgAgteReactivo peticionEnvioVictimaSimulada,peticionEnvioSecuenciaVictimas,peticionIniciarSimulacion,
 	peticionParar,peticionMostrarEscenario, peticionPararAgente, peticionActualizarEscenario ;
 
 
@@ -53,6 +53,7 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
 		// inicializo tipos de peticiones que se pueden enviar al aagente controlador
 		peticionEnvioVictimaSimulada = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionSimulacionVictima);
 		peticionEnvioSecuenciaVictimas = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionSimulacionSecuenciaVictimas);
+		peticionIniciarSimulacion =  new InfoContEvtMsgAgteReactivo(VocabularioRosace.peticionIniciarSimulacion);
 		peticionParar = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionPararSimulacion);
 		peticionMostrarEscenario= new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionMostrarEscenarioActualSimulado);
 		this.itfUsoRepositorioInterfaces=NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
@@ -135,5 +136,11 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
 		catch (Exception ex) {
 			Logger.getLogger(NotificadorInfoUsuarioSimulador.class.getName()).log(Level.SEVERE, null, ex);}
 
+	}
+	public void sendIniciarSimulacion() {
+		Object[] infoDefinidaPorUsuario = new Object[]{};
+		peticionIniciarSimulacion.setvaloresParametrosAccion(infoDefinidaPorUsuario);
+		this.informaraOtroAgenteReactivo(peticionIniciarSimulacion, identificadorAgenteaReportar);
+		
 	}
 }
