@@ -4,7 +4,6 @@
  */
 
 package icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.tareas;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Tarea;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -17,7 +16,6 @@ import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.Clas
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.utils.WaitSecond;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 
 /**
  *
@@ -27,7 +25,7 @@ public class StopRobot extends Tarea{
 
    @Override
    public void ejecutar(Object... params) {
-	  try {           
+	 /* try {           
     	   ItfUsoRepositorioInterfaces ItfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
     	   try{    		   
     		   ItfUsoRecursoMorse morseResourceRef;
@@ -45,7 +43,7 @@ public class StopRobot extends Tarea{
 	  }
         catch (Exception e) {
 			e.printStackTrace();
-      }
+      }*/
    }
 }
 

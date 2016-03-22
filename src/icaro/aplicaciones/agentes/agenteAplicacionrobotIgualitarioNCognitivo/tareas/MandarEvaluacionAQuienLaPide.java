@@ -9,7 +9,6 @@ import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.DecidirQuienVa;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
@@ -111,7 +110,7 @@ public class MandarEvaluacionAQuienLaPide  extends TareaSincrona {
    }
         private int calcularCosteEstimadoVictima(){
           
-          try{    		   
+          /*try{    		   
                 ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
                 ItfUsoRecursoMorse morseResourceRef;
        		 morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
@@ -121,7 +120,7 @@ public class MandarEvaluacionAQuienLaPide  extends TareaSincrona {
        	          }
    	              catch (Exception ex){
        		              ex.printStackTrace();
-       	          }  
+       	          }  */
           Coste coste = new Coste();
           return coste.CalculoCosteAyudarVictima(nombreAgenteEmisor, robotLocation, robot, victimEnPeticion, victimasRecibidas, misObjtvs, "FuncionEvaluacion3");
                               

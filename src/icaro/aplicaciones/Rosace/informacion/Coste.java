@@ -4,7 +4,6 @@ package icaro.aplicaciones.Rosace.informacion;
 import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta.Anterior;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.MaquinaEstadoMovimientoCtrl;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
@@ -102,6 +101,7 @@ public class Coste {
 		}
 		else return evaluacionActual;		
 	}
+	/*
 	public int calculoCosteAyudarVictimaConRLocation (String nombreAgenteEmisor, RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
 		Coordinate robotLocation = null;
 		try{    		   
@@ -140,7 +140,7 @@ public class Coste {
 			mi_eval = mi_eval_nueva - mi_eval;
 		}
 		return mi_eval;
-	}
+	}*/
 
 	//Calcula el tiempo que tardara en atender todas las victimas que tiene asignadas actualmente, mas el tiempo que tardara en atender a la nueva victima
 	//El tiempo para atender una victima es igual al de la prioridad * factorMultiplicativo, siendo factorMultiplicativo el primer parametro pasado a este metodo

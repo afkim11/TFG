@@ -89,8 +89,8 @@ public class VisorEscenariosRosace extends JFrame {
 		
 		init();
 	}
-	public VisorEscenariosRosace(EscenarioSimulacionRobtsVictms escenario){
-		
+	public VisorEscenariosRosace(EscenarioSimulacionRobtsVictms escenario, NotificadorInfoUsuarioSimulador notifEvt){
+		this.notifEvts = notifEvt;
 		init2(escenario);
 
 

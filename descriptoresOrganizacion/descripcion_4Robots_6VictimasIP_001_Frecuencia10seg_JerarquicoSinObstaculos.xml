@@ -60,8 +60,6 @@
 	******************   Descripcion de los recursos de aplicacion                          ******************
 	********************************************************************************************************-->
 <icaro:DescRecursosAplicacion>
-    <icaro:DescRecursoAplicacion nombre="RecursoMorse" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoMorse.imp.ClaseGeneradoraRecursoMorse"/>
-<!--    <icaro:DescRecursoAplicacion nombre="RecursoGUI" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoGUI.imp.ClaseGeneradoraRecursoGUI"/>  -->
 	<icaro:DescRecursoAplicacion nombre="RecursoEstadistica" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoEstadistica.imp.ClaseGeneradoraRecursoEstadistica"/>
         <icaro:DescRecursoAplicacion nombre="RecursoVisualizadorEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion"/>			            		
 	<icaro:DescRecursoAplicacion nombre="RecursoPersistenciaEntornosSimulacion" localizacionClaseGeneradora="icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ClaseGeneradoraRecursoPersistenciaEntornosSimulacion"/>			            		
@@ -94,10 +92,7 @@
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos">
                     <icaro:componentesGestionados>
-                            <icaro:componenteGestionado refId="RecursoMorse1" tipoComponente="RecursoAplicacion"/> 
-                  <!--          <icaro:componenteGestionado refId="RecursoGUI1" tipoComponente="RecursoAplicacion"/>   
-                                <icaro:componenteGestionado refId="RecursoEstadistica1" tipoComponente="RecursoAplicacion"/>  -->
-                                <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
+                             <icaro:componenteGestionado refId="RecursoVisualizadorEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>	    
 				<icaro:componenteGestionado refId="RecursoPersistenciaEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>
 				<icaro:componenteGestionado refId="RecursoCreacionEntornosSimulacion1" tipoComponente="RecursoAplicacion"/>                            
                     </icaro:componentesGestionados>
@@ -124,10 +119,6 @@
 	******************   Instancias de Recursos de aplicacion                               ******************
 	********************************************************************************************************-->        
         <icaro:RecursosAplicacion>
-                <icaro:Instancia id="RecursoMorse1" refDescripcion="RecursoMorse" xsi:type="icaro:Instancia">
-                </icaro:Instancia>
-  <!--              <icaro:Instancia id="RecursoGUI1" refDescripcion="RecursoGUI" xsi:type="icaro:Instancia">    
-                </icaro:Instancia>    --> 
                 <icaro:Instancia id="RecursoEstadistica1" refDescripcion="RecursoEstadistica" xsi:type="icaro:Instancia"/>
   			    <icaro:Instancia id="RecursoVisualizadorEntornosSimulacion1" refDescripcion="RecursoVisualizadorEntornosSimulacion" xsi:type="icaro:Instancia"/>
 			    <icaro:Instancia id="RecursoPersistenciaEntornosSimulacion1" refDescripcion="RecursoPersistenciaEntornosSimulacion" xsi:type="icaro:Instancia"/>

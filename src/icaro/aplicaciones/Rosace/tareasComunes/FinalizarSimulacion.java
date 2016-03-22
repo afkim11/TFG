@@ -9,7 +9,6 @@ package icaro.aplicaciones.Rosace.tareasComunes;
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.utils.ConstantesRutasEstadisticas;
 import icaro.aplicaciones.recursos.recursoEstadistica.ItfUsoRecursoEstadistica;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -54,7 +53,7 @@ public class FinalizarSimulacion extends TareaSincrona {
             //Mostrar en ventana de trazas informacion de los costes 
             //trazas.aceptaNuevaTraza(new InfoTraza("Evaluacionadfd", " ", InfoTraza.NivelTraza.info)); 		        		                                                           		        		          		           
             //trazas.aceptaNuevaTraza(new InfoTraza("Evaluacionadfd", nombreAgenteEmisor + " ejecutando " + identTarea, InfoTraza.NivelTraza.info));       		        		                                                           		        		          		           
-            
+            /*
             try {            	            	
        	          ItfUsoRepositorioInterfaces ItfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
        	        		   
@@ -66,7 +65,7 @@ public class FinalizarSimulacion extends TareaSincrona {
    	        }
             catch (Exception e) {
    		          e.printStackTrace();
-            }
+            }*/
             
             Coste coste = new Coste();
 

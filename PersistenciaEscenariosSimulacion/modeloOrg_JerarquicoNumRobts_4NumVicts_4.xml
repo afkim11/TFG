@@ -1,0 +1,171 @@
+<escenarioSimulacion>
+   <identEscenario>modeloOrg_JerarquicoNumRobts_4NumVicts_4</identEscenario>
+   <modeloOrganizativo>Jerarquico</modeloOrganizativo>
+   <numRobots>4</numRobots>
+   <numVictimas>4</numVictimas>
+   <robots key="JerarquicorobotSubordinado4">
+      <robotStatus>
+         <idRobot>JerarquicorobotSubordinado4</idRobot>
+         <idRobotRol>indefinido</idRobotRol>
+         <availableEnergy>0</availableEnergy>
+         <robotCoordinateActual>
+            <x>109.0</x>
+            <y>395.0</y>
+            <z>0.5</z>
+         </robotCoordinateActual>
+         <robotCapabilities class="java.util.ArrayList">
+            <robotCapability nombre="radar">
+               <descripcion>radar del robot</descripcion>
+            </robotCapability>
+         </robotCapabilities>
+      </robotStatus>
+   </robots>
+   <robots key="JerarquicorobotSubordinado3">
+      <robotStatus>
+         <idRobot>JerarquicorobotSubordinado3</idRobot>
+         <idRobotRol>indefinido</idRobotRol>
+         <availableEnergy>0</availableEnergy>
+         <robotCoordinateActual>
+            <x>284.0</x>
+            <y>211.0</y>
+            <z>0.5</z>
+         </robotCoordinateActual>
+         <robotCapabilities class="java.util.ArrayList">
+            <robotCapability nombre="radar">
+               <descripcion>radar del robot</descripcion>
+            </robotCapability>
+         </robotCapabilities>
+      </robotStatus>
+   </robots>
+   <robots key="JerarquicorobotSubordinado2">
+      <robotStatus>
+         <idRobot>JerarquicorobotSubordinado2</idRobot>
+         <idRobotRol>indefinido</idRobotRol>
+         <availableEnergy>0</availableEnergy>
+         <robotCoordinateActual>
+            <x>129.0</x>
+            <y>200.0</y>
+            <z>0.5</z>
+         </robotCoordinateActual>
+         <robotCapabilities class="java.util.ArrayList">
+            <robotCapability nombre="radar">
+               <descripcion>radar del robot</descripcion>
+            </robotCapability>
+         </robotCapabilities>
+      </robotStatus>
+   </robots>
+   <robots key="JerarquicorobotSubordinado1">
+      <robotStatus>
+         <idRobot>JerarquicorobotSubordinado1</idRobot>
+         <idRobotRol>indefinido</idRobotRol>
+         <availableEnergy>0</availableEnergy>
+         <robotCoordinateActual>
+            <x>66.0</x>
+            <y>286.0</y>
+            <z>0.5</z>
+         </robotCoordinateActual>
+         <robotCapabilities class="java.util.ArrayList">
+            <robotCapability nombre="radar">
+               <descripcion>radar del robot</descripcion>
+            </robotCapability>
+         </robotCapabilities>
+      </robotStatus>
+   </robots>
+   <victimas key="Victima4">
+      <victim>
+         <name>Victima4</name>
+         <coordinateVictim>
+            <x>727.0</x>
+            <y>305.0</y>
+            <z>0.5</z>
+         </coordinateVictim>
+         <RequiredCompetencies class="java.util.ArrayList"/>
+         <priority>0</priority>
+         <tiempoDeVida>25000</tiempoDeVida>
+      </victim>
+   </victimas>
+   <victimas key="Victima3">
+      <victim>
+         <name>Victima3</name>
+         <coordinateVictim>
+            <x>717.0</x>
+            <y>397.0</y>
+            <z>0.5</z>
+         </coordinateVictim>
+         <RequiredCompetencies class="java.util.ArrayList"/>
+         <priority>0</priority>
+         <tiempoDeVida>26000</tiempoDeVida>
+      </victim>
+   </victimas>
+   <victimas key="Victima2">
+      <victim>
+         <name>Victima2</name>
+         <coordinateVictim>
+            <x>773.0</x>
+            <y>127.0</y>
+            <z>0.5</z>
+         </coordinateVictim>
+         <RequiredCompetencies class="java.util.ArrayList"/>
+         <priority>0</priority>
+         <tiempoDeVida>15000</tiempoDeVida>
+      </victim>
+   </victimas>
+   <victimas key="Victima1">
+      <victim>
+         <name>Victima1</name>
+         <coordinateVictim>
+            <x>799.0</x>
+            <y>185.0</y>
+            <z>0.5</z>
+         </coordinateVictim>
+         <RequiredCompetencies class="java.util.ArrayList"/>
+         <priority>0</priority>
+         <tiempoDeVida>20000</tiempoDeVida>
+      </victim>
+   </victimas>
+   <obstaculos key="0">
+      <lineaObstaculo>
+         <ini>
+            <x>533.0</x>
+            <y>121.0</y>
+            <z>0.5</z>
+         </ini>
+         <fin>
+            <x>533.0</x>
+            <y>383.0</y>
+            <z>0.5</z>
+         </fin>
+         <valueid>0</valueid>
+      </lineaObstaculo>
+   </obstaculos>
+   <obstaculos key="1">
+      <lineaObstaculo>
+         <ini>
+            <x>676.0</x>
+            <y>598.0</y>
+            <z>0.5</z>
+         </ini>
+         <fin>
+            <x>676.0</x>
+            <y>280.0</y>
+            <z>0.5</z>
+         </fin>
+         <valueid>1</valueid>
+      </lineaObstaculo>
+   </obstaculos>
+   <obstaculos key="inicial">
+      <lineaObstaculo>
+         <ini>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.5</z>
+         </ini>
+         <fin>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.5</z>
+         </fin>
+         <valueid>inicial</valueid>
+      </lineaObstaculo>
+   </obstaculos>
+</escenarioSimulacion>

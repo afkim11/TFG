@@ -4,7 +4,6 @@
  */
 
 package icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.tareas;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Tarea;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -16,7 +15,6 @@ import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.ItfUsoRe
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.ClaseGeneradoraRepositorioInterfaces;
 
 import fr.laas.openrobots.jmorse.components.destination.Coordinate;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 
 /**
  *
@@ -31,7 +29,7 @@ public class StartMovement extends Tarea{
            
            trazas.aceptaNuevaTraza(new InfoTraza(this.getIdentAgente(),"--------------------> Start Movement task: VOY A ...." + initialTargetCoordinate.toString(),InfoTraza.NivelTraza.info));
            
-    	   ItfUsoRepositorioInterfaces ItfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
+    	   ItfUsoRepositorioInterfaces ItfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();/*
     	   try{    		   
     		   ItfUsoRecursoMorse morseResourceRef;
     		   morseResourceRef = (ItfUsoRecursoMorse) ItfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
@@ -41,7 +39,7 @@ public class StartMovement extends Tarea{
     	   }
 	         catch (Exception ex){
     		   ex.printStackTrace();
-    	   }
+    	   }*/
 	  }
         catch (Exception e) {
 			e.printStackTrace();

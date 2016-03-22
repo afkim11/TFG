@@ -6,7 +6,6 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.*;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -94,17 +93,6 @@ public class MandarPropuestaAlJefeParaRealizarObjetivo  extends TareaSincrona {
 		return null;
 	}
 	private int calcularCosteEstimadoVictima(Victim victima){     
-		try{    		   
-			ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
-			ItfUsoRecursoMorse morseResourceRef;
-			morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
-					"RecursoMorse1");
-			robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
-
-		}
-		catch (Exception ex){
-			ex.printStackTrace();
-		}  
 		Coste coste = new Coste();
 		robot = miEquipo.getTeamMemberStatus(nombreAgenteEmisor);
 		return coste.CalculoCosteAyudarVictima(nombreAgenteEmisor, robotLocation, robot, victima, victimasRecibidas, misObjtvs, "FuncionEvaluacion3");                      

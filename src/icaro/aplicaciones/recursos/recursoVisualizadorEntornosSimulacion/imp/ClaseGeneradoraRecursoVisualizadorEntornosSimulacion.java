@@ -314,7 +314,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 
 	@Override
 	public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception {
-		visorEscenarios = new VisorEscenariosRosace(escenarioNuevo);
+		visorEscenarios = new VisorEscenariosRosace(escenarioNuevo,this.notifEvt);
 	}
 
 

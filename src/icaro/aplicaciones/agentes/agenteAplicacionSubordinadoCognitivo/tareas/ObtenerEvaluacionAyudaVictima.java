@@ -6,7 +6,6 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.*;
-import icaro.aplicaciones.recursos.recursoMorse.ItfUsoRecursoMorse;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -36,11 +35,11 @@ public class ObtenerEvaluacionAyudaVictima extends TareaSincrona {
     private Coordinate robotLocation; //Localizacion del robot
     private double funcionEvaluacion; //Variable para almacenar el resultado de calcular la funcion de evaluacion utilizada
  //   private Integer divisor = 10000;
-    
+   
 // Introduzco como parametro  la InfoParaDecidrQuienVa y le definimos el valor de la evaluacion. 
     @Override
     public void ejecutar(Object... params) {
-	   try {
+	   /* try {
             Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
             Victim victim = (Victim)params[1];            
             Coordinate victimLocation = victim.getCoordinateVictim();            
@@ -122,6 +121,6 @@ public class ObtenerEvaluacionAyudaVictima extends TareaSincrona {
        
        } catch (Exception e) {
 		   e.printStackTrace();
-       }
+       }*/
     }
 }
