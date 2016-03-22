@@ -148,8 +148,6 @@ public class Coste {
 	public int CalculoCosteAyudarVictima (String nombreAgenteEmisor, Coordinate robotLocation,RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
 		int aux;
 		int energia=robot.getAvailableEnergy();
-		
-
 		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima,energia)) != -1){
 			funcionEvaluacion =  aux;
 			return aux;

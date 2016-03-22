@@ -296,4 +296,7 @@ public class EscenarioSimulacionRobtsVictms {
 		}
 		
 	}
+	public int getNumObstacles() {
+		return this.infoObstaculos.size();
+	}
 }

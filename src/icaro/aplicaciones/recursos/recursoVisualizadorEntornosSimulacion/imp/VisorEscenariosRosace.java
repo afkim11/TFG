@@ -15,6 +15,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
@@ -39,6 +40,8 @@ import java.util.Map;
 
 import javax.swing.*;
 
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -157,20 +160,24 @@ public class VisorEscenariosRosace extends JFrame {
         scrollPane.setAutoscrolls(true);
         splitPane.setRightComponent(scrollPane);*/
 		ItfUsoConfiguracion itfconfig = (ItfUsoConfiguracion) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
-		String rutaFicheroRobotsTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroRobotsTest);
-		ReadXMLTestRobots rXMLTRobots = new ReadXMLTestRobots(rutaFicheroRobotsTest);
-		Document docRobots = rXMLTRobots.getDocument(rXMLTRobots.gettestFilePath());
-		NodeList nodeLstRobots = rXMLTRobots.getRobotsXMLStructure(docRobots, "robot");   //Obtain all the robots		
-		int nroRobots = rXMLTRobots.getNumberOfRobots(nodeLstRobots);
-
+		String rutaFicheroSimulacion = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroEscenarioSimulacion);
+		
+		File ficheroEscenario = new File(rutaFicheroSimulacion + ".xml");
+		if(ficheroEscenario.canRead())
+		{
+			int x = 1;
+		}
+		Serializer serializer = new Persister();
+		EscenarioSimulacionRobtsVictms escenario = serializer.read(EscenarioSimulacionRobtsVictms.class,ficheroEscenario, false);
+	
 		JPanel panelAccionesRobots=new JPanel();
+		int nroRobots = escenario.getNumRobots();
 
+		this.identRobots=escenario.getListIdentsRobots();
+		for(int i=0;i<nroRobots;i++){
 
-		this.identRobots=new ArrayList<String>();
-		for(int i=1;i<nroRobots;i++){
-
-			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, i);
-			String nombreRobot = rXMLTRobots.getRobotIDValue(info, "id");
+			
+			String nombreRobot = identRobots.get(i);
 			this.identRobots.add(nombreRobot);
 			panelAccionesRobots.add(new Boton("Romper robot " + nombreRobot.charAt(nombreRobot.length()-1),nombreRobot
 					,VocabularioRosace.MsgRomperRobot,notifEvts));
@@ -209,26 +216,19 @@ public class VisorEscenariosRosace extends JFrame {
 		//Recuperar la ruta del fichero de victimas del escenario
 		//        ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
 
-		String rutaFicheroVictimasTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroVictimasTest);
-		String rutaFicheroObstaculosTest = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroObstaculosTest);
-		ReadXMLTestSequence rXMLTSeq = new ReadXMLTestSequence(rutaFicheroVictimasTest);
-		ReadXMLTestObstacles rXMLTObs = new ReadXMLTestObstacles(rutaFicheroObstaculosTest);
-
-
-
-		Document docVictimas = rXMLTSeq.getDocument(rXMLTSeq.gettestFilePath());
-		NodeList nodeLstVictimas = rXMLTSeq.getVictimsXMLStructure(docVictimas, "victim");   //Obtain all the victims
-		int nroVictimas = rXMLTSeq.getNumberOfVictimsInSequence(nodeLstVictimas);
-		Document docObstaculos = rXMLTObs.getDocument(rXMLTObs.gettestFilePath());
-		NodeList nodeLstObs = rXMLTObs.getObstaculosXMLStructure(docObstaculos, "obstacle");
-		int nroObstaculos = rXMLTObs.getNumberObstaculos(nodeLstObs);
-		obstaculos = new ArrayList<LineaObstaculo>();
-
+		
+		
+		
+		int nroVictimas = escenario.getNumVictimas();
+		
+		int nroObstaculos = escenario.getNumObstacles();
+		
+		obstaculos = escenario.getListObstacles();
 		for (int j = 0; j < nroObstaculos; j++) {
-			Element info = rXMLTObs.getObsElement(nodeLstObs, j);
-			String valueid = rXMLTObs.getObsIDValue(info, "id");
-			Coordinate valueInitialCoordinate = rXMLTObs.getCoordinate(info, "initialcoordinate");
-			Coordinate valueFinalCoordinate = rXMLTObs.getCoordinate(info, "finalcoordinate");
+			
+			String valueid = obstaculos.get(j).getId();
+			Coordinate valueInitialCoordinate = obstaculos.get(j).getCoordenadaIni();
+			Coordinate valueFinalCoordinate = obstaculos.get(j).getCoordenadaFin();
 			int iniX = (int) valueInitialCoordinate.x;
 			int iniY = (int) valueInitialCoordinate.y;
 			int finX = (int) valueFinalCoordinate.x;
@@ -266,10 +266,9 @@ public class VisorEscenariosRosace extends JFrame {
 		panelVisor.add(asignador);
 		this.robotslabel.put("0",asignador);
 		
-		for (int j = 1; j < nroRobots; j++) {
-			Element info = rXMLTRobots.getRobotElement(nodeLstRobots, j);
-			String valueid = rXMLTRobots.getRobotIDValue(info, "id");
-			Coordinate valueInitialCoordinate = rXMLTRobots.getRobotCoordinate(info);
+		for (int j = 0; j < nroRobots; j++) {
+			String valueid = identRobots.get(j);
+			Coordinate valueInitialCoordinate = escenario.getRobotsWithIds().get(valueid).getRobotCoordinate();
 			int coordinateX = (int) valueInitialCoordinate.x;
 			int coordinateY = (int) valueInitialCoordinate.y;
 			//coordinateX = Math.abs(coordinateX);
@@ -301,7 +300,7 @@ public class VisorEscenariosRosace extends JFrame {
 		}
 
 		System.out.println("");
-		this.identVictims=new ArrayList<String>();
+		this.identVictims= escenario.getListIdentsVictims();
 
 		//*********************************************************************************************        
 		//Aniadir al panel panelVisor los componentes label que representan las victimas leidas del xml
@@ -309,10 +308,10 @@ public class VisorEscenariosRosace extends JFrame {
 
 		for (int j = 0; j < nroVictimas; j++) {
 			//Obtain info about first victim located at the test sequence 
-			Element info = rXMLTSeq.getVictimElement(nodeLstVictimas, j);
-			String valueid = rXMLTSeq.getVictimIDValue(info, "id");
+			
+			String valueid = identVictims.get(j);
 			this.identVictims.add(valueid);
-			Coordinate valueInitialCoordinate = rXMLTSeq.getVictimCoordinate(info);
+			Coordinate valueInitialCoordinate = escenario.getVictims().get(valueid).getCoordinateVictim();
 			int coordinateX = (int) valueInitialCoordinate.x;
 			int coordinateY = (int) valueInitialCoordinate.y;
 			//coordinateX = Math.abs(coordinateX);

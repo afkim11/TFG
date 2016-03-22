@@ -39,10 +39,10 @@ public class ObtenerEvaluacionAyudaVictima extends TareaSincrona {
 // Introduzco como parametro  la InfoParaDecidrQuienVa y le definimos el valor de la evaluacion. 
     @Override
     public void ejecutar(Object... params) {
-	   /* try {
+	    try {
             Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
             Victim victim = (Victim)params[1];            
-            Coordinate victimLocation = victim.getCoordinateVictim();            
+            /*Coordinate victimLocation = victim.getCoordinateVictim();            
   //          InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
             
             RobotStatus robot = (RobotStatus)params[2];                        
@@ -118,9 +118,10 @@ public class ObtenerEvaluacionAyudaVictima extends TareaSincrona {
        		//                                                     " , Posicion actual victima -> "  + victimLocation.toString() +
        		//                                                     " , Funcion distancia -> "  + funcionEvaluacion + " , eval-> " + mi_eval, 
        		//                                 InfoTraza.NivelTraza.debug));       		        		                                                           		        		          		           
-       
+       */
        } catch (Exception e) {
 		   e.printStackTrace();
-       }*/
+       }
+       
     }
 }

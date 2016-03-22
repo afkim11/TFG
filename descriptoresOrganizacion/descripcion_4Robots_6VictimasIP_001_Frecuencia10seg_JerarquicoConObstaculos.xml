@@ -10,9 +10,7 @@
      <icaro:activarPanelTrazasDebug>true</icaro:activarPanelTrazasDebug>
         <icaro:listaPropiedades>
             <icaro:propiedad atributo="identificadorEquipo" valor = "Jerarquico" />
-            <icaro:propiedad atributo="rutaFicheroVictimasTest" valor = "src/utils/Esc_6Victimas_0IP_001.xml" />            
-            <icaro:propiedad atributo="rutaFicheroRobotsTest" valor = "src/utils/Esc_Jerarquico_4Robots_001.xml" />         
-            <icaro:propiedad atributo="rutaFicheroObstaculosTest" valor = "src/utils/Esc_1Obstaculo_001.xml" />
+            <icaro:propiedad atributo="rutaFicheroEscenarioSimulacion" valor = "PersistenciaEscenariosSimulacion/modeloOrg_JerarquicoNumRobts_4NumVicts_9" /> 
             <icaro:propiedad atributo="timeMsTarea:TimeOutContactarMiembrosEquipo" valor = "1000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutEsquivarObstaculo" valor="2000" />
             <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->  

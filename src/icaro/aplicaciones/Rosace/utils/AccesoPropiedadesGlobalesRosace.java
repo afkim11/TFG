@@ -248,6 +248,27 @@ public class AccesoPropiedadesGlobalesRosace {
 		
 		return valorTipoAplicacion;		
 	}
+
+
+	public static String getRutaFicheroEscenario() {
+		String rutaFichero="";
+		
+		ClaseGeneradoraRepositorioInterfaces itfUsoRepositorioInterfaces;
+		ItfUsoConfiguracion itfconfig;
+		
+    	try{    	
+    		itfUsoRepositorioInterfaces = ClaseGeneradoraRepositorioInterfaces.instance();
+    		itfconfig = (ItfUsoConfiguracion)itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
+    		rutaFichero = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroEscenarioSimulacion); 
+    	}
+    	catch (Exception e){
+    		e.printStackTrace();
+    	}
+			
+    	
+    	    	
+		return rutaFichero + ".xml";
+	}
 	
 	
 }
