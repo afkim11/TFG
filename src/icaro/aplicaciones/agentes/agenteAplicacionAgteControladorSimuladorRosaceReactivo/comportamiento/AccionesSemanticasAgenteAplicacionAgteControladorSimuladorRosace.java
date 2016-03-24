@@ -121,7 +121,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 	}
 	
 	public void iniciarBusqueda(){
-		OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgExploraTerreno, null);
+		OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);
 		
 		comunicator.enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
 		

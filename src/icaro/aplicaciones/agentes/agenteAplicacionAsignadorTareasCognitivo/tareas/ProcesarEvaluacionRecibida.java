@@ -40,17 +40,12 @@ public class ProcesarEvaluacionRecibida extends TareaSincrona{
 			identDeEstaTarea = this.getIdentTarea();
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.info));
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Procesa la Evaluacion  enviada por el agente :"+ evaluacionRecibida.identAgente +" Cuyo Valor es:"+evaluacionRecibida.valorEvaluacion  , InfoTraza.NivelTraza.info));
-			//Cuanto tengo todas las evaluaciones el metodo addNuevaEvaluacion actualiza las variables noSoyElMejor, hayEmpates, 
-			//tengoLaMejorEvaluacion de InfoParaDecidirQuienVa  
+
 			infoDecisionAgente.addNuevaEvaluacion(evaluacionRecibida);
 			this.getEnvioHechos().eliminarHechoWithoutFireRules(evaluacionRecibida);
 			if (infoDecisionAgente.hanLlegadoTodasLasEvaluaciones) this.getEnvioHechos().actualizarHecho(infoDecisionAgente);
 			else this.getEnvioHechos().actualizarHechoWithoutFireRules(infoDecisionAgente);
-			// lo metemos directamente al motor el infoDecisionAgente  
-			//      this.getEnvioHechos().actualizarHechoWithoutFireRules(infoDecisionAgente);
-			//      this.getEnvioHechos().eliminarHecho(evaluacionRecibida);
-
-			//}             
+           
 
 		} catch (Exception e) {
 			e.printStackTrace();

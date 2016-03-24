@@ -119,7 +119,7 @@ when
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
-/*
+
 rule "Proceso una peticion del CC para reconocer terreno"
   when
 	focoActual : Focus(foco == null)
@@ -127,13 +127,84 @@ rule "Proceso una peticion del CC para reconocer terreno"
 	ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenReconocerTerreno)
   then
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenCCReconocerTerreno.class); 
-	tarea.ejecutar(); 
+	tarea.ejecutar(misObjs); 
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
    
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
-*/
 
+
+rule "Focalizacion inicial en el  objetivo  para decidir quien reconoce el terreno"
+ when
+    focoActual : Focus(foco == null)
+    obj1 : ReconocerTerreno(state == Objetivo.PENDING) 
+    obj :DecidirQuienVa(state == Objetivo.SOLVING, objectReferenceId == VocabularioRosace.MsgExploraTerreno) 
+ then
+    modify ( focoActual ){
+        setFoco(obj)
+        };
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+    System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+   
+end
+
+rule "Comenzar la consecucion del objetivo DecidirQuienVa primera vez en reconocer terreno"
+  when
+    miEquipo: InfoEquipo(idTeam:teamId,inicioContactoConEquipo== true)
+    obj1 : ReconocerTerreno(state == Objetivo.PENDING) 
+    obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
+    focoActual:Focus(foco == obj )
+    not (exists ( InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno)))
+  then
+     TareaSincrona tarea = gestorTareas.crearTareaSincrona(InicializarInfoParaDecidir.class);
+     tarea.ejecutar(obj, VocabularioRosace.MsgExploraTerreno,miEquipo );
+     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+end
+
+
+rule "Pido la evaluacion para realizar el objetivo de reconocer el terreno al equipo de robots "
+no-loop true
+  when
+    obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno )
+    focoActual:Focus(foco == obj )
+    infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, hanLlegadoTodasLasEvaluaciones== false, peticionEvaluacionEnviadaAtodos == false )
+  then
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(PedirEvalReconocerAtodos.class);
+    tarea.ejecutar(obj,infoDecision);
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+ end
+
+
+rule "Me ha llegado una evaluacion de un agente para reconocer el terreno, la proceso hasta que las tenga todas"
+no-loop true
+ when
+    obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
+    focoActual:Focus(foco == obj)
+   infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, peticionEvaluacionEnviadaAtodos == true, hanLlegadoTodasLasEvaluaciones == false)
+    evalRecibida:EvaluacionAgente(agente : identAgente ,objectEvaluationId == VocabularioRosace.MsgExploraTerreno)
+ then
+  TareaSincrona tarea = gestorTareas.crearTareaSincrona(ProcesarEvaluacionRecibida.class);
+    tarea.ejecutar(obj,infoDecision,evalRecibida );
+   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+end
+
+
+
+rule " Si tengo todas las evaluaciones asigno el objetivo de reconocer el terreno al agte de mejor evaluacion"
+no-loop true
+ when
+   obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
+   focoActual:Focus(foco == obj )
+    misObjs : MisObjetivos()
+    infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, heInformadoAlmejorParaQueAsumaElObjetivo == false, hanLlegadoTodasLasEvaluaciones == true)
+ then
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo.class);
+     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    tarea.ejecutar(obj,infoDecision, misObjs);
+end
+
+ 
 
 
 

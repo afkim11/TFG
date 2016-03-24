@@ -30,6 +30,7 @@ public class GeneraryEncolarObjetivoAyudarVictima extends TareaSincrona{
     //         Objetivo obj1 = (Objetivo)params[1];
   //           InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
 //             Focus focoActual = (Focus)params[1];
+             
              Victim victima = (Victim) params[1];
              AceptacionPropuesta propuestaAceptada = (AceptacionPropuesta) params[2];
 //             InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[4];

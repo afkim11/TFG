@@ -144,4 +144,6 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static final Object MsgVictimaMuertaASubordinado = "La victima ha muerto y no hay que salvarla";
 
 	public static final String MsgExploraTerreno = "Explora el terreno";
+
+	public static final String MsgAceptacionPropuestaExplora = "Acepto explorar el terreno";
 }
