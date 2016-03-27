@@ -21,7 +21,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
  * @author FGarijo
  */
 public class EncolarObjetivoActualizarFocoIGN extends TareaSincrona {
-
+	static int tipoRescate =0;
     @Override
     public void ejecutar(Object... params) {
 
@@ -80,7 +80,7 @@ public class EncolarObjetivoActualizarFocoIGN extends TareaSincrona {
                     nuevoObj.setSolved();
                     this.getEnvioHechos().actualizarHechoWithoutFireRules(nuevoObj);
                 } else {             
-                itfcompMov.moverAdestino(nuevoObj.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto);
+                itfcompMov.moverAdestino(nuevoObj.getobjectReferenceId(), victima.getCoordinateVictim(), velocidadCruceroPordefecto,tipoRescate);
             // se pondra la verlocidad por defecto 
             trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Objetivo1 : "+ obj1.toString()+ "Se ejecuta la tarea : " + identTarea + " Se actualiza el  foco al objetivo:  " + nuevoObj + "\n");
             trazas.aceptaNuevaTrazaEjecReglas(identAgente,"Posicion Robot : "+itfcompMov.getCoordenadasActuales()+ "Se da orden al comp Movimiento  para salvar a la victima :  " + victima + "\n");

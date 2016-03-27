@@ -4,7 +4,9 @@
  */
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas;
 
+
 import icaro.aplicaciones.Rosace.informacion.AceptacionPropuesta;
+import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
@@ -15,6 +17,7 @@ import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMov
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoEstadistica.ItfUsoRecursoEstadistica;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Focus;
@@ -32,21 +35,22 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 	
 	private ItfUsoMovimientoCtrl itfcompMov;
 	
-	private int velocidadCruceroPordefecto;
-	
-	
+	private float velocidadCruceroPordefecto;
+	public static int perimetroDeVision = 50;
+	private static int tipoActuacion=1;
 	@Override
 	public void ejecutar(Object... params) {
 		velocidadCruceroPordefecto = 1;
 		//       ItfUsoRecursoEstadistica itfUsoRecursoEstadistica=null;    //Para recoger estadisticas del instante de envio de victimas desde el centro de contro    	
 		try {
 			MisObjetivos misObjs = (MisObjetivos) params[0];
-			//         Objetivo obj1 = (Objetivo)params[1];
-			//           InfoParaDecidirQuienVa infoDecision = (InfoParaDecidirQuienVa)params[2];
 			Focus focoActual = (Focus)params[1];
 			AceptacionPropuesta propuestaAceptada = (AceptacionPropuesta) params[2];
 			InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[3];
 			RobotStatus robotStatus = (RobotStatus) params[4];
+			
+			
+			
 			String identTarea = this.getIdentTarea();
 			String nombreAgenteEmisor = this.getIdentAgente();    
 
@@ -62,10 +66,34 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			Thread t = new Thread(){
 				
 				public void run(){
-					/*boolean finalizado = false;
+					velocidadCruceroPordefecto = (float)0.75;
+					int alto = VisorEscenariosRosace.alto,ancho = VisorEscenariosRosace.ancho;
+					boolean finalizado = false;
+					double x = perimetroDeVision,y=perimetroDeVision;
+					Coordinate coor = new Coordinate(x,y,0.5);
+					itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
 					while(!finalizado){
-						itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto);
-					}*/
+						x = ancho - perimetroDeVision;
+						coor = new Coordinate(x,y,0.5);
+						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
+						y = y + 2*perimetroDeVision;
+						coor = new Coordinate(x,y,0.5);
+						if(y>alto){
+							finalizado=true;
+							break;
+						}
+						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
+						x = perimetroDeVision;
+						coor = new Coordinate(x,y,0.5);
+						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
+						y = y +2*perimetroDeVision;
+						if(y>alto){
+							finalizado=true;
+							break;
+						}
+						coor = new Coordinate(x,y,0.5);
+						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
+					}
 				}
 			};
 			t.start();

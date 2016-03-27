@@ -31,7 +31,7 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 	
 	private ItfUsoMovimientoCtrl itfcompMov;
 	private Victim victima;
-	
+	private static int tipoRescate = 0;
 	private int velocidadCruceroPordefecto;
 	
 	
@@ -95,7 +95,7 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 				
 				public void run(){
 					
-					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto); 
+					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto,tipoRescate); 
 				}
 			};
 			t.start();

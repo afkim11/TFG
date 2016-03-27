@@ -134,14 +134,14 @@ public class MaquinaEstadoMovimientoCtrl {
 		this.robotposicionActual = coordInicial;
 	} 
 
-	public synchronized void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero) {
+	public synchronized void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) {
 
 		//            this.estadoActual.identDestino = identDest;
 		
 		this.destinoCoord = coordDestino;
 		trazas.trazar(identAgente, "Se recibe una  orden de mover a destino."+ identDest + " El robot esta en el estado :"+ identEstadoActual
 				+ " CoordActuales =  "+this.robotposicionActual.toString() + " CoordDestino =  " +this.destinoCoord.toString(), InfoTraza.NivelTraza.debug);
-		estadoActual.moverAdestino(identDest,coordDestino, velocidadCrucero);
+		estadoActual.moverAdestino(identDest,coordDestino, velocidadCrucero,tipoActuacion);
 	}
 
 	public void cambiaVelocidad( float nuevaVelocidadCrucero) {

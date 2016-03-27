@@ -26,12 +26,14 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
         return false;
     } 
     @Override
-        public synchronized void moverAdestino(String identdest,Coordinate coordDestino, float velocidadCrucero) {   
+        public synchronized void moverAdestino(String identdest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) {   
+           this.tipoActuacion=tipoActuacion;
            if ( identdest.equals(identDestino)){
               this.trazas.trazar (this.identComponente, " Se esta avanzando hacia el destino ", InfoTraza.NivelTraza.debug);
               if (velocidadCrucero<= 0)trazas.trazar(identComponente, "La velocidad debe ser mayor que cero. Se ignora la operacion", InfoTraza.NivelTraza.error);
               else this.velocidadCrucero = velocidadCrucero;
             }else { // cambair destino
+            	
                if (monitorizacionLlegadaDestino != null)this.monitorizacionLlegadaDestino.finalizar();
                this.velocidadCrucero = velocidadCrucero;
                this.destinoCoord = coordDestino;
@@ -53,7 +55,7 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
             this.destinoCoord = coordDestino;
             this.identDestino = identdest;
             this.monitorizacionLlegadaDestino.finalizar();
-            moverAdestino(identDestino,destinoCoord,this.velocidadCrucero);
+            moverAdestino(identDestino,destinoCoord,this.velocidadCrucero,tipoActuacion);
         }
     
     @Override

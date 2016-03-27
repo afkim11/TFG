@@ -29,6 +29,7 @@ public abstract class EstadoAbstractoMovRobot  {
     public volatile Coordinate robotposicionActual;
     public volatile Coordinate destinoCoord;
     public double distanciaDestino ;
+    protected int tipoActuacion;
     protected float velocidadCrucero;
     public ItfProcesadorObjetivos itfProcObjetivos;
     protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
@@ -72,14 +73,7 @@ public abstract class EstadoAbstractoMovRobot  {
         robotposicionActual =coordInicial;
         velocidadCrucero = velocidadInicial;
     } 
-
-        public abstract void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero);
-//        {
-//            estadoActual.moverAdestino(identDest,coordDestino, velocidadCrucero);
-//            this.identDestino = identDest;
-//         //   identDestino = identDest;
-//        }
-
+        public abstract void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion);
         public void cambiaVelocidad( float nuevaVelocidadCrucero) {
             estadoActual.cambiaVelocidad(nuevaVelocidadCrucero);
         }
@@ -97,15 +91,6 @@ public abstract class EstadoAbstractoMovRobot  {
             estadoActual.continuar();
         }
     public abstract  boolean estamosEnDestino(String identDest);
-//    {
-//        // se informa al control de que estamos en el destino. Se cambia el estado a parar
-//        Informe informeLlegada = new Informe (identComponente,identDest, VocabularioRosace.MsgeLlegadaDestino);
-//        this.itfProcObjetivos.insertarHecho(informeLlegada);
-//        trazas.trazar(identAgente, "Se informa de llegada al  destino: " +informeLlegada + " El robot esta en el estado :"+ identEstadoActual, InfoTraza.NivelTraza.debug);
-//        estadoActual = maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
-//        this.identDestino = identDest;
-//  
-//    }
 
     public synchronized void imposibleAvanzarADestino(){
         maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotBloqueado);
@@ -125,5 +110,14 @@ public abstract class EstadoAbstractoMovRobot  {
     public EstadoAbstractoMovRobot getEstadoActual (){
         return this.estadoActual;
     }
+    
+    /**
+	 * 0-->Rescatando
+	 * 1-->Explorando
+	 * 	 * @return
+	 */
+	public int getActuacion(){
+		return this.tipoActuacion;
+	}
 
 }

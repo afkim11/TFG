@@ -29,7 +29,7 @@ public class RobotBloqueado extends EstadoAbstractoMovRobot implements ItfUsoMov
        
    } 
     @Override
-        public void moverAdestino(String identdest,Coordinate coordDestino, float velocidadCrucero) {
+        public void moverAdestino(String identdest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) {
 //            this.distanciaDestino = this.distanciaEuclidC1toC2(this.robotposicionActual, coordDestino);
 //            double tiempoParaAlcanzarDestino = distanciaDestino/velocidadCrucero;
             this.identDestino = identdest;

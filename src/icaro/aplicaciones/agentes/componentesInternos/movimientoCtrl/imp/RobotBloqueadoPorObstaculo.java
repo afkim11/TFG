@@ -25,7 +25,7 @@ public class RobotBloqueadoPorObstaculo extends EstadoAbstractoMovRobot implemen
 	}
 
 	@Override
-	public void moverAdestino(String identDest, Coordinate coordDestino, float velocidadCrucero) {
+	public void moverAdestino(String identDest, Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) {
 		// TODO Auto-generated method stub
 		
 	}

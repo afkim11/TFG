@@ -42,7 +42,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		this.maquinaEstados.setCoordenadasActuales(coordInicial);     
 	} 
 	@Override
-	public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero) {
+	public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) {
 		try {
 			semaforo.acquire();
 		} catch (InterruptedException e) {
@@ -53,9 +53,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		
 		
 		if (coordDestino!= null)  {
-			if (identDest.equals(identDestino))
-				this.trazas.trazar (this.identComponente, " No ha variado el destino en el que estoy ", InfoTraza.NivelTraza.error);
-			else {
+				this.tipoActuacion = tipoActuacion;
 				this.destinoCoord = coordDestino;
 				this.identDestino = identDest; 
 				if (velocidadCrucero >0){ 
@@ -74,7 +72,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 				}
 				else trazas.trazar(identComponente, "La velocidad debe ser mayor que cero. Se ignora la operacion", InfoTraza.NivelTraza.error);
 
-			}
+			
 		}
 		
 	
@@ -113,7 +111,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		if (distanciaDestino > 0){
 			// calcular el tiempo al destino y poner en marcha el reloj de llegada
 			estadoActual=  this.maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotEnMovimiento);
-			this.estadoActual.moverAdestino(identDestino,destinoCoord, velocidadCrucero);
+			this.estadoActual.moverAdestino(identDestino,destinoCoord, velocidadCrucero,this.tipoActuacion);
 		}
 		this.trazas.trazar (this.identAgente +"."+this.getClass().getSimpleName(), " ignoro la operacion porque estoy parado ", InfoTraza.NivelTraza.debug); 
 	}
@@ -137,5 +135,6 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		// TODO Auto-generated method stub
 		return this.destinoCoord;
 	}
+	
 
 }

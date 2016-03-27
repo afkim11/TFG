@@ -7,7 +7,7 @@
       <robotStatus>
          <idRobot>JerarquicorobotSubordinado4</idRobot>
          <idRobotRol>indefinido</idRobotRol>
-         <availableEnergy>2500</availableEnergy>
+         <availableEnergy>90000</availableEnergy>
          <robotCoordinateActual>
             <x>53.0</x>
             <y>146.0</y>

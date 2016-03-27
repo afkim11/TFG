@@ -8,6 +8,7 @@ import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.Coste;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
+import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas.GeneraryEncolarObjetivoReconocerTerreno;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
@@ -76,6 +77,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 	private long tiempoParaAlcanzarDestino = 2000;
 	private RobotStatus robotStatus;
 	public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
+	
 
 	private int contadorAuxiliar=0;
 
@@ -179,8 +181,9 @@ public class HebraMonitorizacionLlegada extends Thread {
 					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
 					ruta.add(coordActuales);
 					ruta=alg.calculaRuta(visitados,this.coordActuales, Anterior.MOV_NULO,ruta);
-					if(ruta!=null){		
-						//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeSimple(new Informacion(VocabularioRosace.MsgEsquivaObstaculo),this.identRobot,VocabularioRosace.IdentAgteDistribuidorTareas));
+					int anchoVictima =15;
+					int referenciaExploracion = (int)this.coordActuales.getX();
+					if(ruta!=null){
 						while(!enDestino && this.energia){
 							for(int i=0;i<ruta.size() && !this.finalizar && this.energia ;i++){
 								Thread.sleep(intervaloEnvioInformesMs);
@@ -191,6 +194,15 @@ public class HebraMonitorizacionLlegada extends Thread {
 								if (itfusoRecVisSimulador != null)
 									this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
 								this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+								/**
+								 * Si estas explorando entonces se comprueba que en el perímetro de vision del robot haya victimas. 
+								 */
+								if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && ((referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() || (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX())){
+									referenciaExploracion = referenciaExploracion + anchoVictima;
+									int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
+									
+									
+								}
 								if(energiaActual > 0){
 									energiaActual--;
 									this.robotStatus.setAvailableEnergy(energiaActual);
