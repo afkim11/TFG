@@ -28,7 +28,7 @@ public class Victim implements Serializable{
 	@Element
 	private Integer tiempoDeVida =null;
 	
-	
+	private boolean encontrada = false;
 	private String robotIdEncargadoDeMi = null;
 	private int estimatedCost;
 	private boolean isRescued = false;
@@ -160,6 +160,12 @@ public class Victim implements Serializable{
 		};
 		t.start();
 		
+	}
+	public void setEncontrada(){
+		this.encontrada = true;
+	}
+	public boolean isEncontrada(){
+		return this.encontrada;
 	}
 
 }

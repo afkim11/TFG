@@ -45,7 +45,6 @@ public class MaquinaEstadoMovimientoCtrl {
 	public EstadoAbstractoMovRobot estadoActual;
 	public RobotParado estadoRobotParado;
 	public String identAgente;
-	//    public RobotEnMovimiento estadoMovimiento;
 	public ItfUsoRecursoTrazas trazas;
 	private  Map<EstadoMovimientoRobot, EstadoAbstractoMovRobot> estadosCreados;
 	public volatile Coordinate robotposicionActual;
@@ -56,11 +55,7 @@ public class MaquinaEstadoMovimientoCtrl {
 	protected HebraMonitorizacionLlegada monitorizacionLlegadaDestino;
 	ItfUsoRecursoVisualizadorEntornosSimulacion itfUsoRecVisEntornosSimul;
 	
-	private ArrayList<LineaObstaculo> obstaculosDescubiertos;
-
 	public  MaquinaEstadoMovimientoCtrl (){
-		
-		this.obstaculosDescubiertos = new ArrayList<LineaObstaculo>();
 		estadosCreados = new EnumMap<EstadoMovimientoRobot, EstadoAbstractoMovRobot>(EstadoMovimientoRobot.class) ;
 	}
 
@@ -137,7 +132,7 @@ public class MaquinaEstadoMovimientoCtrl {
 	public synchronized void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) {
 
 		//            this.estadoActual.identDestino = identDest;
-		
+
 		this.destinoCoord = coordDestino;
 		trazas.trazar(identAgente, "Se recibe una  orden de mover a destino."+ identDest + " El robot esta en el estado :"+ identEstadoActual
 				+ " CoordActuales =  "+this.robotposicionActual.toString() + " CoordDestino =  " +this.destinoCoord.toString(), InfoTraza.NivelTraza.debug);
@@ -171,13 +166,15 @@ public class MaquinaEstadoMovimientoCtrl {
 		//        this.estadoActual.identDestino = identDest;
 		Informe informeLlegada = new Informe (identComponente,identDest, VocabularioRosace.MsgeLlegadaDestino);
 		Temporizador informeTemp = new Temporizador (1,itfProcObjetivos,informeLlegada);
-		
-		//Tiempo de rescate de la victima. Hemos decido que sea equivalente a moverse 100 pixeles--> esto es entonces 12 ms de espera entre cada pixel por 100 = 1200ms 
-		try {
-			Thread.sleep(Coste.tiempoAtencionVictima*12);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//Si estamos rescatando 
+		if(estadoActual.getActuacion() == 0){
+			//Tiempo de rescate de la victima. Hemos decido que sea equivalente a moverse 100 pixeles--> esto es entonces 12 ms de espera entre cada pixel por 100 = 1200ms 
+			try {
+				Thread.sleep(Coste.tiempoAtencionVictima*12);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
 		}
 		informeTemp.start();
 		//        robotposicionActual = monitorizacionLlegadaDestino.getCoordDestino();
@@ -195,7 +192,7 @@ public class MaquinaEstadoMovimientoCtrl {
 		estadoActual = this.cambiarEstado(EstadoMovimientoRobot.RobotBloqueado);
 	}
 
-		public synchronized Coordinate getCoordenadasActuales() {
+	public synchronized Coordinate getCoordenadasActuales() {
 		return this.robotposicionActual;
 	}
 
@@ -215,6 +212,6 @@ public class MaquinaEstadoMovimientoCtrl {
 	}
 
 
-	
-	
+
+
 }

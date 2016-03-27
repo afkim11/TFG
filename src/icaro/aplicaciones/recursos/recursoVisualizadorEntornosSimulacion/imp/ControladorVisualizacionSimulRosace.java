@@ -7,6 +7,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
 import icaro.aplicaciones.Rosace.informacion.RobotCapability;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 
@@ -16,6 +17,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -217,5 +220,8 @@ public class ControladorVisualizacionSimulRosace {
 			visorControlSim.setIdentEscenarioActual(escenarioComp.getIdentEscenario());
 		} 
 
+	}
+	public Map<String,Victim> getVictimasEscenario(){
+		return this.visorEscenarioRosace.getEscenario().getVictims();
 	}
 }

@@ -76,7 +76,7 @@ public class VisorEscenariosRosace extends JFrame {
 	private Graphics graficosVisor;
 	private ArrayList<String> identRobots;
 	private ArrayList<String> identVictims;
-
+	private EscenarioSimulacionRobtsVictms escenario;
 	private NotificadorInfoUsuarioSimulador notifEvts;
 
 
@@ -94,7 +94,8 @@ public class VisorEscenariosRosace extends JFrame {
 	}
 	public VisorEscenariosRosace(EscenarioSimulacionRobtsVictms escenario, NotificadorInfoUsuarioSimulador notifEvt){
 		this.notifEvts = notifEvt;
-		init2(escenario);
+		this.escenario = escenario;
+		init2();
 
 
 	}
@@ -169,7 +170,7 @@ public class VisorEscenariosRosace extends JFrame {
 		}
 		Serializer serializer = new Persister();
 		EscenarioSimulacionRobtsVictms escenario = serializer.read(EscenarioSimulacionRobtsVictms.class,ficheroEscenario, false);
-	
+		this.escenario = escenario;
 		JPanel panelAccionesRobots=new JPanel();
 		int nroRobots = escenario.getNumRobots();
 
@@ -366,7 +367,7 @@ public class VisorEscenariosRosace extends JFrame {
 		System.out.println("");
 	}
 
-	private void init2(EscenarioSimulacionRobtsVictms escenario){
+	private void init2(){
 		robotslabel = new HashMap<String, JLabel>();
 		victimaslabel = new HashMap<String, JLabel>();
 		this.coordinadasJerarquico = new Coordinate(50.0,30.0,0.5);
@@ -754,5 +755,7 @@ public class VisorEscenariosRosace extends JFrame {
 		}
 
 	}
-	
+	public EscenarioSimulacionRobtsVictms getEscenario(){
+		return this.escenario;
+	}
 }

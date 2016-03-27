@@ -2,27 +2,20 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 
+import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+
 import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta;
 import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta.Anterior;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
-import icaro.aplicaciones.Rosace.informacion.Coste;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas.GeneraryEncolarObjetivoReconocerTerreno;
-import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
-import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
-import icaro.infraestructura.patronAgenteCognitivo.percepcion.imp.PercepcionAgenteCognitivoImp;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.TreeMap;
-
-import org.apache.log4j.Logger;
 
 
 /**
@@ -130,7 +123,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 		this.b = (float) (coordActuales.y -pendienteRecta * coordActuales.x ) ;
 
 		}
-		intervaloEnvioInformesMs = (int)velocidadRobot* 12;
+		intervaloEnvioInformesMs = (int)(velocidadRobot* 12);
 		distanciaRecorridaEnIntervaloInformes = 1;
 	}
 
@@ -186,7 +179,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 					if(ruta!=null){
 						while(!enDestino && this.energia){
 							for(int i=0;i<ruta.size() && !this.finalizar && this.energia ;i++){
-								Thread.sleep(intervaloEnvioInformesMs);
+								
 								Coordinate punto=ruta.get(i);
 								this.coordActuales.setY(punto.getY());
 								this.coordActuales.setX(punto.getX());
@@ -197,12 +190,44 @@ public class HebraMonitorizacionLlegada extends Thread {
 								/**
 								 * Si estas explorando entonces se comprueba que en el perímetro de vision del robot haya victimas. 
 								 */
-								if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && ((referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() || (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX())){
+								//Movimiento a derechas
+								if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() ){
 									referenciaExploracion = referenciaExploracion + anchoVictima;
 									int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
-									
+									Thread t = new Thread(){
+										public void run(){
+											try {
+												itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
+											} catch (Exception e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+										}
+									};
+									t.start();
 									
 								}
+								//Movimiento a izquierdas
+								else if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX()){
+									referenciaExploracion = referenciaExploracion - anchoVictima;
+									int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
+									Thread t = new Thread(){
+										public void run(){
+											try {
+												itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
+											} catch (Exception e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+										}
+									};
+									t.start();
+									
+								}
+								//Si no se realiza el escaneo entonces se realiza el sleep entre pixeles.
+								else Thread.sleep(intervaloEnvioInformesMs);
+								
+								
 								if(energiaActual > 0){
 									energiaActual--;
 									this.robotStatus.setAvailableEnergy(energiaActual);

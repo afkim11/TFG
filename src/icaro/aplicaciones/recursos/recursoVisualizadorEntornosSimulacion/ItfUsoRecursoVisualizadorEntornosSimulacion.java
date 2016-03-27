@@ -2,6 +2,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.PuntoEstadistica;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.patronRecursoSimple.ItfUsoRecursoSimple;
@@ -41,4 +42,5 @@ public void aniadirSerieAVisorGraficaEstadisticas( String tituloSerie, int index
  public void mostrarVictimaMuerta(String refVictima)throws Exception;
  public void setItfUsoPersistenciaSimulador(ItfUsoRecursoPersistenciaEntornosSimulacion itfUsoRecursoPersistenciaEntornosSimulacion) throws Exception;
  public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception;
+ public void comprobarVictimasArea(Coordinate coor, int perimetroDeVision) throws Exception;
 }

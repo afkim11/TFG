@@ -1,5 +1,6 @@
 package icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.tareas;
 
+import icaro.aplicaciones.Rosace.informacion.OrdenCentroControl;
 import icaro.aplicaciones.Rosace.informacion.PropuestaAgente;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.AyudarVictima;
@@ -14,6 +15,8 @@ public class InterpretarOrdenCCReconocerTerreno extends TareaSincrona{
 	@Override
 	public void ejecutar(Object... params) {
 		MisObjetivos objs = (MisObjetivos) params[0];
+		OrdenCentroControl orden = (OrdenCentroControl)params[1];
+		
 		ReconocerTerreno reconocer = new ReconocerTerreno();
 		reconocer.setPriority(9);
 		objs.setobjetivoMasPrioritario(reconocer);
@@ -22,6 +25,7 @@ public class InterpretarOrdenCCReconocerTerreno extends TareaSincrona{
 		newDecision.setSolving();
 		this.getEnvioHechos().insertarHechoWithoutFireRules(reconocer);
 		this.getEnvioHechos().actualizarHechoWithoutFireRules(objs);
+		this.getEnvioHechos().eliminarHechoWithoutFireRules(orden);
 		this.getEnvioHechos().insertarHecho(newDecision);
 		
 	}

@@ -127,7 +127,7 @@ rule "Proceso una peticion del CC para reconocer terreno"
 	ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenReconocerTerreno)
   then
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenCCReconocerTerreno.class); 
-	tarea.ejecutar(misObjs); 
+	tarea.ejecutar(misObjs,ccOrden); 
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
    
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
@@ -160,6 +160,7 @@ rule "Comenzar la consecucion del objetivo DecidirQuienVa primera vez en reconoc
      TareaSincrona tarea = gestorTareas.crearTareaSincrona(InicializarInfoParaDecidir.class);
      tarea.ejecutar(obj, VocabularioRosace.MsgExploraTerreno,miEquipo );
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+     retract(obj1)
 end
 
 
@@ -202,6 +203,9 @@ no-loop true
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo.class);
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     tarea.ejecutar(obj,infoDecision, misObjs);
+    modify(focoActual){
+    	 setFoco(null)
+    }
 end
 
  
@@ -216,11 +220,13 @@ salience 10
     victims2R:VictimsToRescue(victims2Rescue!=null)
     ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenCCAyudarVictima,victim:justificacion)
  then
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea el  objetivo ayudar victima
-    tarea.ejecutar(misObjs,null,ccOrden,victims2R ); 
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea el  objetivo ayudar victima
+ 	System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());  
+    
+    tarea.ejecutar(misObjs,null,ccOrden,victims2R ); 
+        
 end
 // atiendo la orden y genero los objetivos para cumplirla
 rule "Interpreto la orden del CC cuando no estoy implicado en una decision"
@@ -266,7 +272,7 @@ end
 //-------------------------------------------------------
 //   Reglas de focalizacion en objetivo DecidirQuienVa
 //-------------------------------------------------------
-rule "Focalizacion inicial en el  objectivo  para decidir quien se hace cargo de la ayuda"
+rule "Focalizacion inicial en el  objetivo  para decidir quien se hace cargo de la ayuda"
  when
     focoActual : Focus(foco == null)
     victimaCC:Victim($idVict:name)
@@ -275,33 +281,13 @@ rule "Focalizacion inicial en el  objectivo  para decidir quien se hace cargo de
  then
     modify ( focoActual ){
         setFoco(obj)
-        };
+    };
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
    
 end
-/*
-rule "Focalizacion  en el  objectivo para decidir quien se hace cargo de la ayuda"
-// se ha generado un nuevo objetivo y una nueva victima al tratar un mensaje del CC en la tareas InterperetarOrdenDelCC  
- when   
-//    misObjs : MisObjetivos()
-    obj1: AyudarVictima(state == Objetivo.SOLVING, idVict1: objectReferenceId )
-    focoActual:Focus(foco == obj1)
-    exists Victim(name ==idVict1 ) 
-    Victim (name != idVict1, idVict2:name )
-    exists AyudarVictima(state == Objetivo.PENDING, objectReferenceId == idVict2)
-    obj :DecidirQuienVa(state == Objetivo.SOLVING, objectReferenceId == idVict2)  
-       
- then
-    modify ( focoActual ){
-        setFoco(obj)
-        };
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-    System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict1 + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-end
-*/
+
 rule "Re-focalizacion  en el  ultimo objetivo despues de conseguir decidirQuienVa "
  when
     misObjs : MisObjetivos($objPrio:objetivoMasPrioritario)

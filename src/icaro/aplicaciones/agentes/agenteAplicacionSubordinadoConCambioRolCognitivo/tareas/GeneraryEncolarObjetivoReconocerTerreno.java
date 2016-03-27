@@ -40,8 +40,7 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 	private static int tipoActuacion=1;
 	@Override
 	public void ejecutar(Object... params) {
-		velocidadCruceroPordefecto = 1;
-		//       ItfUsoRecursoEstadistica itfUsoRecursoEstadistica=null;    //Para recoger estadisticas del instante de envio de victimas desde el centro de contro    	
+		velocidadCruceroPordefecto = (float)0.5;  	
 		try {
 			MisObjetivos misObjs = (MisObjetivos) params[0];
 			Focus focoActual = (Focus)params[1];
@@ -66,7 +65,7 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			Thread t = new Thread(){
 				
 				public void run(){
-					velocidadCruceroPordefecto = (float)0.75;
+					
 					int alto = VisorEscenariosRosace.alto,ancho = VisorEscenariosRosace.ancho;
 					boolean finalizado = false;
 					double x = perimetroDeVision,y=perimetroDeVision;

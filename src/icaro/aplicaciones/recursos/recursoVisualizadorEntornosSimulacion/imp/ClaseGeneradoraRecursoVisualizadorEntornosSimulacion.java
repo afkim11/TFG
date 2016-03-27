@@ -2,6 +2,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.PuntoEstadistica;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoEstadistica.imp.visualizacionEstadisticas.VisualizacionJfreechart;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
@@ -11,13 +12,17 @@ import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
+
 
 //Other imports used by this Resource
 //#start_nodespecialImports:specialImports <--specialImports-- DO NOT REMOVE THIS
@@ -253,40 +258,6 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 			//               visorEscenarios.moverRobot(idRobot, coordX, coordX);
 		}
 	}
-	//        public synchronized void mostrarMovimientoAdestino(String idRobot,String identDest,Coordinate coordDestino, float velocidadCrucero) {
-	//            if (idRobot != null ){
-	//                this.visorEscenarios.setVisible(true);
-	//           HebraMovimiento hebraMov =  this.getInstanciaHebraMvto(idRobot);
-	//           hebraMov.finalizar();
-	//           hebraMov.inicializarDestino(identDest, hebraMov.getCoordRobot(), coordDestino, velocidadCrucero);
-	//           hebraMov.run();
-	//            }
-	//         //   identDestino = identDest;
-	//        }
-	////    private HebraMovimiento getInstanciaHebraMvto(String identRobot) {
-	////         
-	////         if(identRobot != null){
-	////             HebraMovimiento hebramov;
-	////             if (tablaHebrasMov == null ){
-	////                 tablaHebrasMov = new HashMap();
-	////                 hebramov = new HebraMovimiento (identRobot,notifEvt,visorEscenarios);
-	////                 tablaHebrasMov.put(identRobot, hebramov);
-	////                 return hebramov;
-	////             }else{
-	////                 hebramov = tablaHebrasMov.get(identRobot);
-	////                 if (hebramov == null){
-	////                      hebramov = new HebraMovimiento (identRobot,notifEvt,visorEscenarios);
-	////                      tablaHebrasMov.put(identRobot, hebramov);                  
-	////                 }
-	////                 
-	////                 trazas.trazar(identRobot, " se crea el monitor de movimiento del robot ", InfoTraza.NivelTraza.debug);
-	////                 return hebramov;
-	////             }
-	//         }
-	//         trazas.trazar(identAgenteAReportar, " el identificador del monitor de movimiento del robot debe ser distinto de null ", InfoTraza.NivelTraza.error);
-	//         return null;
-	//         
-	//     }
 	@Override
 	public void mostrarIdentsEquipoRobots(ArrayList identList){
 		controlador.visualizarIdentsEquipoRobot(identList);
@@ -311,10 +282,31 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 		this.controlador.setIftRecPersistencia(itfUsoRecursoPersistenciaEntornosSimulacion);
 
 	}
-
 	@Override
 	public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception {
 		visorEscenarios = new VisorEscenariosRosace(escenarioNuevo,this.notifEvt);
+	}
+	@Override
+	public void comprobarVictimasArea(Coordinate coor,int perimetroDeVision) throws Exception {
+		
+		Collection<Victim> victimas = this.controlador.getVictimasEscenario().values();
+		double x1 = coor.getX()-perimetroDeVision,x2 = coor.getX()+perimetroDeVision,y1 = coor.getY()-perimetroDeVision,y2 = coor.getY()+perimetroDeVision;
+		Iterator<Victim> it = victimas.iterator();
+		while(it.hasNext()){
+			Victim v = it.next();
+			double x =  v.getCoordinateVictim().getX(),y =  v.getCoordinateVictim().getY();
+			if(!v.isEncontrada() && x <= x2 && x >=  x1 && y <= y2 && y >= y1){
+				v.setEncontrada();
+				controlador.victimaSeleccionadaParaSimulacion(v.getName());
+				System.out.println("Se ha encontrado una victima: " + v.toString() + ". Se ha notificado al jefe para su correspondiente rescate");
+				
+			}
+		}
+		
+		
+		
+		
+		
 	}
 
 
