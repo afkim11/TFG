@@ -193,7 +193,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 								//Movimiento a derechas
 								if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() ){
 									referenciaExploracion = referenciaExploracion + anchoVictima;
-									int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
+									final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
 									Thread t = new Thread(){
 										public void run(){
 											try {
@@ -210,7 +210,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 								//Movimiento a izquierdas
 								else if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX()){
 									referenciaExploracion = referenciaExploracion - anchoVictima;
-									int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
+									final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
 									Thread t = new Thread(){
 										public void run(){
 											try {

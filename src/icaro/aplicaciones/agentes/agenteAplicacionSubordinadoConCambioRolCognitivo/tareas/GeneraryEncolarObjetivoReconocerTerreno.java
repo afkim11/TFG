@@ -36,7 +36,7 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 	private ItfUsoMovimientoCtrl itfcompMov;
 	
 	private float velocidadCruceroPordefecto;
-	public static int perimetroDeVision = 50;
+	public final static int perimetroDeVision = 50;
 	private static int tipoActuacion=1;
 	@Override
 	public void ejecutar(Object... params) {

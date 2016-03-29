@@ -142,7 +142,6 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static final String VictimaFallecida = "El tiempo de vida de la victima finalizó";
 
 	public static final Object MsgVictimaMuertaASubordinado = "La victima ha muerto y no hay que salvarla";
-
 	public static final String MsgExploraTerreno = "Explora el terreno";
 
 	public static final String MsgAceptacionPropuestaExplora = "Acepto explorar el terreno";

@@ -107,7 +107,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Lin
  	 * @return
  	 */
  	private PriorityQueue<Coordinate> estimaCoste(boolean[][] visitados, Coordinate coordinadasActuales, Anterior anterior) {
- 		PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(comparador);
+ 		PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(8,comparador);
  		for(int i=1;i<=8;i++){
  			if(i!=anterior.ordinal()){
  				if(i==Anterior.NOROESTE.ordinal()){

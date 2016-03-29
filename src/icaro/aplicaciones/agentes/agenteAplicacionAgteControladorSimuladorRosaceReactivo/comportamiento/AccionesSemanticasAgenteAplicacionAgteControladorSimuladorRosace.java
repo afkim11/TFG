@@ -176,7 +176,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			}
 
 		};
-		victimasDefinidas2=new PriorityQueue<Victim>(comp);
+		victimasDefinidas2=new PriorityQueue<Victim>(20,comp);
 		for(int i =0;i<victimasDefinidas.size();i++)victimasDefinidas2.add(victimasDefinidas.get(i));
 
 

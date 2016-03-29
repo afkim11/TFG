@@ -1,3 +1,4 @@
+
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.*;
@@ -160,7 +161,6 @@ rule "Comenzar la consecucion del objetivo DecidirQuienVa primera vez en reconoc
      TareaSincrona tarea = gestorTareas.crearTareaSincrona(InicializarInfoParaDecidir.class);
      tarea.ejecutar(obj, VocabularioRosace.MsgExploraTerreno,miEquipo );
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-     retract(obj1)
 end
 
 
@@ -201,15 +201,62 @@ no-loop true
     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, heInformadoAlmejorParaQueAsumaElObjetivo == false, hanLlegadoTodasLasEvaluaciones == true)
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo.class);
-     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-    tarea.ejecutar(obj,infoDecision, misObjs);
-    modify(focoActual){
-    	 setFoco(null)
-    }
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    tarea.ejecutar(obj,infoDecision, misObjs); 
 end
 
- 
 
+rule "Proceso el primer timeout respuestas pido las respuestas que me faltan para reconocer terreno"
+  when 
+ //    exists  AyudarVictima(state == Objetivo.SOLVING,victimId == idVict)
+     obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
+     Focus(foco == obj)
+     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
+     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones1, contenidoInforme==VocabularioRosace.MsgExploraTerreno )              
+ then
+    // Les pido a  los agentes que me faltan  su evaluacion
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(PedirEvaluacionesQueFaltanParaExplorar.class);
+    tarea.ejecutar(obj,infoDecision); 
+    retract (informeTarea2);
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ReconocerTerreno) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+end
+/*
+rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo"
+  when
+     obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == idVict)
+     Focus(foco == obj)
+     v2r:VictimsToRescue(victims2Rescue!=null)
+     misObjs : MisObjetivos()
+     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
+     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2, contenidoInforme==idVict )              
+ then
+    // Les pido a  los agentes que me faltan  su evaluacion
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaAlMejorParaQueRealiceObjetivo.class);
+    tarea.ejecutar(obj,infoDecision,victimaCC,misObjs, v2r); 
+    retract (informeTarea2);
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+end*/
+
+//Esta regla sirve para que las reglas de asginacion de victimas funcione
+rule "He recibido la confirmacion del explorador y actualizo el foco"
+ when
+ 	obj1:ReconocerTerreno(state == Objetivo.PENDING)
+    obj: DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
+    focoActual:Focus(foco == obj)
+    InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, heInformadoAlmejorParaQueAsumaElObjetivo == true)
+ 	acProp:AceptacionPropuesta(msgAceptacionPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
+ then
+	modify ( obj ){
+            setSolved()
+    };
+ 	modify(focoActual){
+    	 setFoco(null)
+    };
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
+    retract(acProp)
+    retract(obj1)
+ end
 
 
 rule "Creacion del objetivo inicial  de los robots cuando llega un msg del CC"
