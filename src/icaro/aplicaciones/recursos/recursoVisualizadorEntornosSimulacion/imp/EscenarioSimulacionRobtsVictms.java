@@ -299,4 +299,20 @@ public class EscenarioSimulacionRobtsVictms {
 	public int getNumObstacles() {
 		return this.infoObstaculos.size();
 	}
+	public void actualizarEnergiaRobot(String text) {
+
+		RobotStatus robotStatus = infoRobots.get(text);
+		int energyMS;
+		
+		try {
+			energyMS=Integer.parseInt(energy);
+			if(energyMS <0)throw new NumberFormatException("Negative Value not allowed");
+			robotStatus.setAvailableEnergy(energyMS);
+			this.infoRobots.put(text, robotStatus);
+		}
+		catch(NumberFormatException e){
+			System.err.println(e.getStackTrace() + e.getMessage());
+		}
+		
+	}
 }

@@ -12,6 +12,7 @@ package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
@@ -32,13 +33,13 @@ import javax.swing.SwingUtilities;
  */
 public class ComponentMover extends MouseAdapter
 {
-//	private boolean moveWindow;
+	//	private boolean moveWindow;
 
 	private Class destinationClass;
 	private Component destinationComponent;
 	private Component destination;
 	private Component source;
-        private JPopupMenu menuAccionesEntidades;
+	private JPopupMenu menuAccionesEntidadRobot,menuAccionesEntidadVictim;
 
 	private boolean changeCursor = true;
 
@@ -108,9 +109,10 @@ public class ComponentMover extends MouseAdapter
 	{
 		this.changeCursor = changeCursor;
 	}
-        public void addMenuAcciones(JPopupMenu menuAcciones){
-            this.menuAccionesEntidades = menuAcciones;
-        }
+	public void addMenuAcciones(JPopupMenu menuVictim,JPopupMenu menuRobot){
+		this.menuAccionesEntidadRobot = menuRobot;
+		this.menuAccionesEntidadVictim = menuVictim;
+	}
 
 	/**
 	 *  Get the drag insets
@@ -188,9 +190,10 @@ public class ComponentMover extends MouseAdapter
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-            if(e.getButton()==3){
-                activarPopUp(e);
-            }
+		
+		if(e.getButton()==3){
+			activarPopUp(e);
+		}
 		source = e.getComponent();
 		int width  = source.getSize().width  - dragInsets.left - dragInsets.right;
 		int height = source.getSize().height - dragInsets.top - dragInsets.bottom;
@@ -283,16 +286,20 @@ public class ComponentMover extends MouseAdapter
 		}
 	}
 
-    private void activarPopUp(MouseEvent evt) {
-
-   menuAccionesEntidades.show(evt.getComponent(),evt.getX(),evt.getY());
-    }
-    public Component getUltimoComponenteSeleccionado(){
-        return source;
-    }
-    public Component eliminarUltimoCompSeleccionado(){
-        source.setVisible(false);
-        this.deregisterComponent(source);
-        return source;
-    }
+	private void activarPopUp(MouseEvent evt) {
+		JLabel entity = (JLabel) evt.getComponent();
+		if(entity.getText().startsWith("Victim")){
+			menuAccionesEntidadVictim.show(evt.getComponent(),evt.getX(),evt.getY());
+		}
+		else
+			menuAccionesEntidadRobot.show(evt.getComponent(),evt.getX(),evt.getY());
+	}
+	public Component getUltimoComponenteSeleccionado(){
+		return source;
+	}
+	public Component eliminarUltimoCompSeleccionado(){
+		source.setVisible(false);
+		this.deregisterComponent(source);
+		return source;
+	}
 }

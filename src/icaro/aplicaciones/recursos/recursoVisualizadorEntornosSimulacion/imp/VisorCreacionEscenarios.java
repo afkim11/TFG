@@ -51,16 +51,17 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
 	private int numMensajesEnviar = 3;
 	private boolean primeraVictima = true;
-	private ArrayList identsRobotsEquipo ;
+	private ArrayList identsRobotsEquipo;
 	private javax.swing.JLabel jLabelAux;
 	private String directorioTrabajo;
 	private String tituloVentanaVisor = "ROSACE Scenario Visor";
-	private String rutassrc = "src/";   //poner "src/main/java" si el proyecto de icaro se monta en un proyecto maven
+	private String rutassrc = "src/"; // poner "src/main/java" si el proyecto de icaro se monta en un proyecto maven
 	private String rutapaqueteConstructorEscenariosROSACE = "utilsDiseniaEscenariosRosace/";
-	private static  Image IMAGErobot,IMAGEmujer,IMAGEmujerRes ;
+	private static Image IMAGErobot, IMAGEmujer, IMAGEmujerRes;
 	private String rutaIconos = "\\src\\utilsDiseniaEscenariosRosace\\";
-	//    private String rutaPersistenciaEscenario = "\\src\\persistenciaEscenarios\\";
-	private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
+	// private String rutaPersistenciaEscenario =
+	// "\\src\\persistenciaEscenarios\\";
+	private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios + File.separator;
 	private String imageniconoHombre = "Hombre.png";
 	private String imageniconoMujer = "Mujer.png";
 	private String imageniconoMujerRescatada = "MujerRescatada.png";
@@ -68,19 +69,19 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private String imageniconoRobot = "Robot.png";
 	private String modeloOrganizativoInicial = "Igualitario";
 	private Map<String, JLabel> tablaEntidadesEnEscenario;
-	private ArrayList <JLabel> listaEntidadesEnEscenario;
+	private ArrayList<JLabel> listaEntidadesEnEscenario;
 	private JPanel panelVisor;
 	private ObjectScene scene;
 	private LayerWidget layer;
-	JLabel entidadSeleccionada=null;
-	private WidgetAction moveAction = ActionFactory.createMoveAction ();
-	private Point ultimoPuntoClic ;
+	JLabel entidadSeleccionada = null;
+	private WidgetAction moveAction = ActionFactory.createMoveAction();
+	private Point ultimoPuntoClic;
 
-	private SceneAnimator animator ;
+	private SceneAnimator animator;
 	private boolean intencionUsuarioCrearRobot;
 	private boolean intencionUsuarioCrearVictima;
 	private boolean entidadSeleccionadaParaMover;
-	private int numeroRobots, mumeroVictimas,numeroObstaculos;
+	private int numeroRobots, mumeroVictimas, numeroObstaculos;
 	private volatile GestionEscenariosSimulacion gestionEscComp;
 	private volatile EscenarioSimulacionRobtsVictms escenarioActualComp;
 	private ComponentMover moverComp;
@@ -90,99 +91,114 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private String identEquipoActual;
 	private JMenuItem jMenuItemAddObstacle;
 	private Point primerPuntoObstaculo;
-	private boolean primerPuntoObstaculoMarcado=false;
-	
-
+	private boolean primerPuntoObstaculoMarcado = false;
 
 	public VisorCreacionEscenarios(ControladorVisualizacionSimulRosace controlador) throws Exception {
-		//        super("visor Escenario ");
+		// super("visor Escenario ");
 
 		initComponents();
 		initEscenario();
-		moverComp =new ComponentMover();
-		moverComp.addMenuAcciones(jPopupMenuAcionEntidad);
+		moverComp = new ComponentMover();
+		moverComp.addMenuAcciones(jPopupMenuAccionEntidadVictim,jPopupMenuAccionEntidadRobot);
 		controladorSim = controlador;
 
-
-		//        identEquipoActual = escenarioActualComp.getIdentEscenario();
-		//        actualizarInfoEquipoEnEscenario();
-		//        leerInfoEscenario();
+		// identEquipoActual = escenarioActualComp.getIdentEscenario();
+		// actualizarInfoEquipoEnEscenario();
+		// leerInfoEscenario();
 		directorioTrabajo = System.getProperty("user.dir");
-		numeroRobots=0;  mumeroVictimas=0;numeroObstaculos=0;
-		//        tablaEntidadesEnEscenario = new HashMap<String, JLabel>();
-		listaEntidadesEnEscenario = new ArrayList < JLabel>();
+		numeroRobots = 0;
+		mumeroVictimas = 0;
+		numeroObstaculos = 0;
+		// tablaEntidadesEnEscenario = new HashMap<String, JLabel>();
+		listaEntidadesEnEscenario = new ArrayList<JLabel>();
 
 	}
 
-	public void paint(Graphics g){
+	public void paint(Graphics g) {
 		super.paint(g);
-		if(escenarioActualComp.getListObstacles()!=null){
-			for(LineaObstaculo obs : escenarioActualComp.getListObstacles()){
-				g.drawLine((int)obs.getCoordenadaIni().getX(), (int)obs.getCoordenadaIni().getY(), (int)obs.getCoordenadaFin().getX(), (int)obs.getCoordenadaFin().getY());
+		if (escenarioActualComp.getListObstacles() != null) {
+			for (LineaObstaculo obs : escenarioActualComp.getListObstacles()) {
+				g.drawLine((int) obs.getCoordenadaIni().getX(), (int) obs.getCoordenadaIni().getY(),
+						(int) obs.getCoordenadaFin().getX(), (int) obs.getCoordenadaFin().getY());
 			}
 		}
 	}
 
-	private void initEscenario(){
-		//String rutaIconoRobot =   rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
+	private void initEscenario() {
+		// String rutaIconoRobot = rutapaqueteConstructorEscenariosROSACE +
+		// imageniconoRobot;
 
-		//IMAGErobot = Utilities.loadImage(rutaIconoRobot);
-		//IMAGEmujerRes = Utilities.loadImage ( rutapaqueteConstructorEscenariosROSACE +imageniconoMujerRescatada); 
-		//IMAGEmujer = Utilities.loadImage ( rutapaqueteConstructorEscenariosROSACE +imageniconoMujer);
-		//        JLabel label = new javax.swing.JLabel("RobotPrueba");
-		//            String rutaIconoRobot = directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
+		// IMAGErobot = Utilities.loadImage(rutaIconoRobot);
+		// IMAGEmujerRes = Utilities.loadImage (
+		// rutapaqueteConstructorEscenariosROSACE +imageniconoMujerRescatada);
+		// IMAGEmujer = Utilities.loadImage (
+		// rutapaqueteConstructorEscenariosROSACE +imageniconoMujer);
+		// JLabel label = new javax.swing.JLabel("RobotPrueba");
+		// String rutaIconoRobot = directorioTrabajo + "/" + rutassrc +
+		// rutapaqueteConstructorEscenariosROSACE + imageniconoRobot;
 
-		//       label.setIcon(new javax.swing.ImageIcon(rutaIconoRobot));     //System.out.println("Ruta->" + rutaIconoRobot);
-		//       label.createImage(10,10);
-		//            this.getRootPane().add(label);
-		//            this.repaint();
+		// label.setIcon(new javax.swing.ImageIcon(rutaIconoRobot));
+		// //System.out.println("Ruta->" + rutaIconoRobot);
+		// label.createImage(10,10);
+		// this.getRootPane().add(label);
+		// this.repaint();
 	}
 
 	public synchronized void cambiarIconoVictimaARescatada(String valor_idVictima) {
-		System.out.println("se cambia el icono de la victima a rescatada: "+valor_idVictima );
-		//        ((IconNodeWidget)scene.findWidget(valor_idVictima)).setImage(IMAGEmujerRes);
+		System.out.println("se cambia el icono de la victima a rescatada: " + valor_idVictima);
+		// ((IconNodeWidget)scene.findWidget(valor_idVictima)).setImage(IMAGEmujerRes);
 
-		//        int numeroIdVictima = Integer.parseInt(numeroVictima);
+		// int numeroIdVictima = Integer.parseInt(numeroVictima);
 		//
-		//        JLabel jlabelVictima = new JLabel();
+		// JLabel jlabelVictima = new JLabel();
 		//
-		//        jlabelVictima = victimaslabel.get(numeroVictima);
+		// jlabelVictima = victimaslabel.get(numeroVictima);
 		//
-		//        if (jlabelVictima != null) {
+		// if (jlabelVictima != null) {
 		//
-		//            //String rutaAbsolutaIconoVictima = jlabelVictima.getIcon().toString();			
-		//            //System.out.println("victima " + numeroVictima + "  , " + jlabelVictima.getIcon().toString());
+		// //String rutaAbsolutaIconoVictima =
+		// jlabelVictima.getIcon().toString();
+		// //System.out.println("victima " + numeroVictima + " , " +
+		// jlabelVictima.getIcon().toString());
 		//
-		//            if (numeroIdVictima % 2 == 0) {
-		//                jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "HombreRescatado.png"));
-		//                //System.out.println("Es un hombre");
-		//            } else {
-		//                jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo + "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE + "MujerRescatada.png"));
-		//                //System.out.println("Es una mujer");
-		//            }
+		// if (numeroIdVictima % 2 == 0) {
+		// jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo +
+		// "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE +
+		// "HombreRescatado.png"));
+		// //System.out.println("Es un hombre");
+		// } else {
+		// jlabelVictima.setIcon(new javax.swing.ImageIcon(directorioTrabajo +
+		// "/" + rutassrc + rutapaqueteConstructorEscenariosROSACE +
+		// "MujerRescatada.png"));
+		// //System.out.println("Es una mujer");
+		// }
 		//
-		//        } else {
-		//            System.out.println("jlabelVictima nulo");
-		//        }
+		// } else {
+		// System.out.println("jlabelVictima nulo");
+		// }
 		System.out.println("se cambia el icono de la victima a rescatada");
 	}
 
-	/** This method is called from within the constructor to
-	 * initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is
-	 * always regenerated by the Form Editor.
+	/**
+	 * This method is called from within the constructor to initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is always
+	 * regenerated by the Form Editor.
 	 */
 	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+	// <editor-fold defaultstate="collapsed" desc="Generated
+	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
 		jDialogAvisoErrorDefNumEntidades = new javax.swing.JDialog();
 		jButton1 = new javax.swing.JButton();
 		jLabel1 = new javax.swing.JLabel();
-		jPopupMenuAcionEntidad = new javax.swing.JPopupMenu();
+		jPopupMenuAccionEntidadRobot = new javax.swing.JPopupMenu();
+		jPopupMenuAccionEntidadVictim = new javax.swing.JPopupMenu();
 		jMenuItemEliminar = new javax.swing.JMenuItem();
+		jMenuItemEliminar2 = new javax.swing.JMenuItem();
 		jSeparator3 = new javax.swing.JPopupMenu.Separator();
 		jMenuItemGuardar = new javax.swing.JMenuItem();
+		jMenuItemGuardar2 = new javax.swing.JMenuItem();
 		jPopupMenuAddEntidades = new javax.swing.JPopupMenu();
 		jMenuItemAddRobot = new javax.swing.JMenuItem();
 		jMenuItemAddObstacle = new javax.swing.JMenuItem();
@@ -220,6 +236,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		jSeparator2 = new javax.swing.JPopupMenu.Separator();
 		jMenuItemCrearVictima = new javax.swing.JMenuItem();
 		jMenuItemVictimaTiempo = new javax.swing.JMenuItem();
+		jMenuItemEnergiaRobot = new javax.swing.JMenuItem();
 
 		jDialogAvisoErrorDefNumEntidades.setTitle("Error: Definicion de entidades en el escenario");
 		jDialogAvisoErrorDefNumEntidades.setBounds(new java.awt.Rectangle(20, 20, 335, 88));
@@ -229,46 +246,82 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 		jLabel1.setText("El numero de entidades no puede ser mayor que 20");
 
-		javax.swing.GroupLayout jDialogAvisoErrorDefNumEntidadesLayout = new javax.swing.GroupLayout(jDialogAvisoErrorDefNumEntidades.getContentPane());
+		javax.swing.GroupLayout jDialogAvisoErrorDefNumEntidadesLayout = new javax.swing.GroupLayout(
+				jDialogAvisoErrorDefNumEntidades.getContentPane());
 		jDialogAvisoErrorDefNumEntidades.getContentPane().setLayout(jDialogAvisoErrorDefNumEntidadesLayout);
-		jDialogAvisoErrorDefNumEntidadesLayout.setHorizontalGroup(
-				jDialogAvisoErrorDefNumEntidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jDialogAvisoErrorDefNumEntidadesLayout.createSequentialGroup()
-						.addGap(122, 122, 122)
-						.addComponent(jButton1)
-						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(jDialogAvisoErrorDefNumEntidadesLayout.createSequentialGroup()
-						.addGap(36, 36, 36)
-						.addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addContainerGap())
-				);
+		jDialogAvisoErrorDefNumEntidadesLayout.setHorizontalGroup(jDialogAvisoErrorDefNumEntidadesLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jDialogAvisoErrorDefNumEntidadesLayout.createSequentialGroup().addGap(122, 122, 122)
+						.addComponent(jButton1).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(jDialogAvisoErrorDefNumEntidadesLayout.createSequentialGroup().addGap(36, 36, 36)
+						.addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addContainerGap()));
 		jDialogAvisoErrorDefNumEntidadesLayout.setVerticalGroup(
 				jDialogAvisoErrorDefNumEntidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogAvisoErrorDefNumEntidadesLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+						jDialogAvisoErrorDefNumEntidadesLayout.createSequentialGroup().addContainerGap()
+						.addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(jButton1))
-				);
+						.addComponent(jButton1)));
 
-		jPopupMenuAcionEntidad.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+		jPopupMenuAccionEntidadVictim.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
 			public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
 			}
+
 			public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
 			}
+
 			public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
 				jPopupMenuAcionEntidadPopupMenuWillBecomeVisible(evt);
 			}
 		});
-		jPopupMenuAcionEntidad.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+		jPopupMenuAccionEntidadVictim.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
 			public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
 			}
+
 			public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
 				jPopupMenuAcionEntidadMenuKeyPressed(evt);
 			}
+
 			public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
 			}
 		});
+
+		jPopupMenuAccionEntidadRobot.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+			public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+			}
+
+			public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+			}
+
+			public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+				jPopupMenuAcionEntidadPopupMenuWillBecomeVisible(evt);
+			}
+		});
+		jPopupMenuAccionEntidadRobot.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+			public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+			}
+
+			public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+				jPopupMenuAcionEntidadMenuKeyPressed(evt);
+			}
+
+			public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+			}
+		});
+
+
+
+		jMenuItemEnergiaRobot.setText("Modificar energia del robot");
+		jMenuItemEnergiaRobot.setToolTipText("Se recomienda un valor por encima de 4000");
+		jMenuItemEnergiaRobot.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItemEnergiaRobotActionPerformed(evt);
+			}
+		});
+
 
 		jMenuItemEliminar.setText("Eliminar");
 		jMenuItemEliminar.setToolTipText("");
@@ -277,25 +330,52 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 				jMenuItemEliminarActionPerformed(evt);
 			}
 		});
+		
+		jMenuItemEliminar2.setText("Eliminar");
+		jMenuItemEliminar2.setToolTipText("");
+		jMenuItemEliminar2.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItemEliminarActionPerformed(evt);
+			}
+		});
+		
+		
+		
+		
 		jMenuItemVictimaTiempo.setText("Modificar tiempo de vida");
-		jMenuItemVictimaTiempo.setToolTipText("");
+		jMenuItemVictimaTiempo.setToolTipText("Se recomienda un tiempo de vida superior a 15000");
 		jMenuItemVictimaTiempo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jMenuItemVictimaTiempoActionPerformed(evt);
 			}
 		});
-		jPopupMenuAcionEntidad.add(jMenuItemEliminar);
-		jPopupMenuAcionEntidad.add(jSeparator3);
-
+		jPopupMenuAccionEntidadRobot.add(jMenuItemEliminar);
+		
+		jPopupMenuAccionEntidadVictim.add(jMenuItemEliminar2);
+	
+		
+		
 		jMenuItemGuardar.setText("Guardar");
+		jMenuItemGuardar.setToolTipText("");
 		jMenuItemGuardar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jMenuItemGuardarActionPerformed(evt);
 			}
 		});
-		jPopupMenuAcionEntidad.add(jMenuItemGuardar);
 		
-		jPopupMenuAcionEntidad.add(jMenuItemVictimaTiempo);
+		jMenuItemGuardar2.setText("Guardar");
+		jMenuItemGuardar2.setToolTipText("");
+		jMenuItemGuardar2.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItemGuardarActionPerformed(evt);
+			}
+		});
+		
+		jPopupMenuAccionEntidadVictim.add(jMenuItemGuardar);
+		jPopupMenuAccionEntidadRobot.add(jMenuItemGuardar2);
+
+		jPopupMenuAccionEntidadVictim.add(jMenuItemVictimaTiempo);
+		jPopupMenuAccionEntidadRobot.add(jMenuItemEnergiaRobot);
 
 		jMenuItemAddRobot.setText("Anadir Robot");
 		jMenuItemAddRobot.setActionCommand("AddRobot");
@@ -323,10 +403,9 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 				jMenuItemAddObstacleActionPerformed(evt);
 			}
 		});
-		//jPopupMenuAddEntidades.add(this.jSeparator4);
+		// jPopupMenuAddEntidades.add(this.jSeparator4);
 
 		jPopupMenuAddEntidades.add(jMenuItemAddObstacle);
-
 
 		jFileChooser1.setDialogTitle("Seleccion de escenario");
 		jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
@@ -358,7 +437,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		});
 
 		victimaIcon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		victimaIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilsDiseniaEscenariosRosace/Mujer.png"))); // NOI18N
+		victimaIcon1
+		.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilsDiseniaEscenariosRosace/Mujer.png"))); // NOI18N
 		victimaIcon1.setText("Victimas");
 		victimaIcon1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 		victimaIcon1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -484,403 +564,441 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-				.addGroup(layout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup()
-										.addComponent(jLabelOrganizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jTextFieldModeloOrganizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(robotIcon)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(intervalNumRobots, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(victimaIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(intervalNumVictimas, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jLabelIdentEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jTextFieldIdentEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jButtonGuardarEscenario)
-										.addGap(0, 0, Short.MAX_VALUE))
-								.addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING))
-						.addContainerGap())
-				);
-		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addGap(4, 4, 4)
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+				.addGroup(layout.createSequentialGroup().addContainerGap().addGroup(layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(jLabelOrganizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 82,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jTextFieldModeloOrganizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(robotIcon)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(intervalNumRobots, javax.swing.GroupLayout.PREFERRED_SIZE, 27,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(victimaIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 69,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(intervalNumVictimas, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jLabelIdentEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 95,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jTextFieldIdentEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 292,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jButtonGuardarEscenario).addGap(0, 0, Short.MAX_VALUE))
+						.addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING)).addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addGap(4, 4, 4)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(intervalNumVictimas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(victimaIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(intervalNumRobots, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(robotIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jTextFieldIdentEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(intervalNumVictimas, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(victimaIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(intervalNumRobots, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(robotIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 27,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(jTextFieldIdentEquipo, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(jButtonGuardarEscenario)
-								.addComponent(jTextFieldModeloOrganizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabelOrganizacion)
-								.addComponent(jLabelIdentEquipo))
+								.addComponent(jTextFieldModeloOrganizacion, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabelOrganizacion).addComponent(jLabelIdentEquipo))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(538, Short.MAX_VALUE))
-				);
+						.addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(538, Short.MAX_VALUE)));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
+	protected void jMenuItemEnergiaRobotActionPerformed(ActionEvent evt) {
+		JLabel entidadAcambiar = (JLabel) moverComp.getUltimoComponenteSeleccionado();
+		escenarioActualComp.actualizarEnergiaRobot(entidadAcambiar.getText());
+		System.out.println("Se actualiza el tiempo de la entidad : " + entidadAcambiar.getText()
+		+ " Coordenadas : X =" + entidadAcambiar.getX() + " , Y = " + entidadAcambiar.getY());
+		actualizarInfoEquipoEnEscenario();
+	}
+
 	private void jMenuItemVictimaTiempoActionPerformed(ActionEvent evt) {
-		JLabel entidadAcambiar=   (JLabel) moverComp.getUltimoComponenteSeleccionado();
+		JLabel entidadAcambiar = (JLabel) moverComp.getUltimoComponenteSeleccionado();
 		escenarioActualComp.actualizarTiempodeVida(entidadAcambiar.getText());
-		System.out.println( "Se actualiza el tiempo de la entidad : "+entidadAcambiar.getText()+ " Coordenadas : X =" + entidadAcambiar.getX() +" , Y = " +entidadAcambiar.getY() );
-		actualizarInfoEquipoEnEscenario ();
-		
+		System.out.println("Se actualiza el tiempo de la entidad : " + entidadAcambiar.getText()
+		+ " Coordenadas : X =" + entidadAcambiar.getX() + " , Y = " + entidadAcambiar.getY());
+		actualizarInfoEquipoEnEscenario();
+
 	}
 
 	private void jMenuItemAddObstacleActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
-		this.primerPuntoObstaculo=new Point(ultimoPuntoClic.x,ultimoPuntoClic.y);
-		this.primerPuntoObstaculoMarcado=true;
+		this.primerPuntoObstaculo = new Point(ultimoPuntoClic.x, ultimoPuntoClic.y);
+		this.primerPuntoObstaculoMarcado = true;
 	}
 
-	private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+	private void formMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_formMouseClicked
 		// TODO add your handling code here
-		if (SwingUtilities.isRightMouseButton(evt)){
-			jPopupMenuAddEntidades.show(this,evt.getX(),evt.getY());
-			ultimoPuntoClic = new Point(evt.getX(),evt.getY());
-		}
-		else if(evt.getClickCount()==1 && primerPuntoObstaculoMarcado){
-			primerPuntoObstaculoMarcado=false;
-			Coordinate ini=new Coordinate(ultimoPuntoClic.x,ultimoPuntoClic.y,0.5),fin=new Coordinate(evt.getX(),evt.getY(),0.5);
-			
-			if(Math.abs(ini.getX()-fin.getX())>Math.abs(ini.getY()-fin.getY())){
-				int y1=(int)ini.getY(),y2=(int)fin.getY(),puntoMedio=(y1+y2)/2;
+		if (SwingUtilities.isRightMouseButton(evt)) {
+			jPopupMenuAddEntidades.show(this, evt.getX(), evt.getY());
+			ultimoPuntoClic = new Point(evt.getX(), evt.getY());
+		} else if (evt.getClickCount() == 1 && primerPuntoObstaculoMarcado) {
+			primerPuntoObstaculoMarcado = false;
+			Coordinate ini = new Coordinate(ultimoPuntoClic.x, ultimoPuntoClic.y, 0.5),
+					fin = new Coordinate(evt.getX(), evt.getY(), 0.5);
+
+			if (Math.abs(ini.getX() - fin.getX()) > Math.abs(ini.getY() - fin.getY())) {
+				int y1 = (int) ini.getY(), y2 = (int) fin.getY(), puntoMedio = (y1 + y2) / 2;
 				ini.setY(puntoMedio);
 				fin.setY(puntoMedio);
-			}
-			else {
-				int x1=(int)ini.getX(),x2=(int)fin.getX(),puntoMedio=(x1+x2)/2;
+			} else {
+				int x1 = (int) ini.getX(), x2 = (int) fin.getX(), puntoMedio = (x1 + x2) / 2;
 				ini.setX(puntoMedio);
 				fin.setX(puntoMedio);
 			}
-			LineaObstaculo obstaculo=new LineaObstaculo(ini, fin, numeroObstaculos+"");
+			LineaObstaculo obstaculo = new LineaObstaculo(ini, fin, numeroObstaculos + "");
 			numeroObstaculos++;
 			this.escenarioActualComp.addObstaculo(obstaculo);
-		}
-		else if(evt.getClickCount()==2){
-			String tipoEntidad=null;
-			if(intencionUsuarioCrearRobot)tipoEntidad="Robot";
-			if(intencionUsuarioCrearVictima)tipoEntidad="Victima";
-			if(tipoEntidad!=null){
+		} else if (evt.getClickCount() == 2) {
+			String tipoEntidad = null;
+			if (intencionUsuarioCrearRobot)
+				tipoEntidad = "Robot";
+			if (intencionUsuarioCrearVictima)
+				tipoEntidad = "Victima";
+			if (tipoEntidad != null) {
 
-				this.crearIconoRobVict(tipoEntidad,evt.getX(),evt.getY());
+				this.crearIconoRobVict(tipoEntidad, evt.getX(), evt.getY());
 			}
-			
-			
-			
-			
+
 		}
 		repaint();
-	}//GEN-LAST:event_formMouseClicked
+	}// GEN-LAST:event_formMouseClicked
 
-	private void jButtonGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioActionPerformed
+	private void jButtonGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonGuardarEscenarioActionPerformed
 		// TODO add your handling code here:
 		System.out.println("Ha pulsado el boton Guardar escenario");
 		actualizarCoordenadasEntidades();
-		//controladorSim.peticionGuardarEscenario(escenarioActualComp);
+		// controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
-
-		//        String valor ;
-		//        setLocationRelativeTo(this);
-		//        escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
-		//        persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
+		// String valor ;
+		// setLocationRelativeTo(this);
+		// escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
+		// persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia,
+		// escenarioActualComp);
 		//
-		//        //         String smsg = "Puede cambiar el valor en milisegundos en que deben enviarse las coordenadas";
+		// // String smsg = "Puede cambiar el valor en milisegundos en que deben
+		// enviarse las coordenadas";
 		//
-		//        String smsg = "Se va a guardar el escenario: " +jTextFieldIdentEquipo.getText() ;
-		//        JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
-		//         jOptionPaneAvisoError.setToolTipText(smsg);
-		//         jOptionPaneAvisoError.setLocation(20,20);
-		//         jOptionPaneAvisoError.setVisible(true);
-		//         this.add(jOptionPaneAvisoError);
-		//         this.validate();
+		// String smsg = "Se va a guardar el escenario: "
+		// +jTextFieldIdentEquipo.getText() ;
+		// JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar
+		// GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
+		// jOptionPaneAvisoError.setToolTipText(smsg);
+		// jOptionPaneAvisoError.setLocation(20,20);
+		// jOptionPaneAvisoError.setVisible(true);
+		// this.add(jOptionPaneAvisoError);
+		// this.validate();
 
-	}//GEN-LAST:event_jButtonGuardarEscenarioActionPerformed
+	}// GEN-LAST:event_jButtonGuardarEscenarioActionPerformed
 
-	private void intervalNumRobotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intervalNumRobotsActionPerformed
+	private void intervalNumRobotsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_intervalNumRobotsActionPerformed
 		// TODO add your handling code here:
 		int num1 = Integer.parseInt(intervalNumRobots.getText());
 		System.out.println("Numero de robots");
-		if (num1>20 ){
-			//                    JOptionPane.showInputDialog(rootPane,"El numero de robots tiene que ser menor que 20");
-			JOptionPane.showMessageDialog(rootPane,"El numero de robots tiene que ser menor que 20","Error en Numero Entidades", JOptionPane.ERROR_MESSAGE);
+		if (num1 > 20) {
+			// JOptionPane.showInputDialog(rootPane,"El numero de robots tiene
+			// que ser menor que 20");
+			JOptionPane.showMessageDialog(rootPane, "El numero de robots tiene que ser menor que 20",
+					"Error en Numero Entidades", JOptionPane.ERROR_MESSAGE);
 
-		}else System.out.println("Definido el numero de robots : "+ num1);
+		} else
+			System.out.println("Definido el numero de robots : " + num1);
 
-	}//GEN-LAST:event_intervalNumRobotsActionPerformed
+	}// GEN-LAST:event_intervalNumRobotsActionPerformed
 
-	private void jMenuItemGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarEscenarioActionPerformed
+	private void jMenuItemGuardarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemGuardarEscenarioActionPerformed
 		// TODO add your handling code here:
 		// TODO add your handling code here:
 		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
-		//controladorSim.peticionGuardarEscenario (escenarioActualComp);
+		// controladorSim.peticionGuardarEscenario (escenarioActualComp);
 
-
-
-		//         System.out.println("Ha pulsado el boton Aceptar valores Robots y victimas");
-		//        String valor ;
-		//        setLocationRelativeTo(this);
-		//        escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
-		//        persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
+		// System.out.println("Ha pulsado el boton Aceptar valores Robots y
+		// victimas");
+		// String valor ;
+		// setLocationRelativeTo(this);
+		// escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
+		// persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia,
+		// escenarioActualComp);
 		//
-		//        //         String smsg = "Puede cambiar el valor en milisegundos en que deben enviarse las coordenadas";
+		// // String smsg = "Puede cambiar el valor en milisegundos en que deben
+		// enviarse las coordenadas";
 		//
-		//        String smsg = "Se va a guardar el escenario: " +jTextFieldIdentEquipo.getText() ;
-		//        JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
-		//        //         jOptionPaneAvisoError.setToolTipText(smsg);
-	}//GEN-LAST:event_jMenuItemGuardarEscenarioActionPerformed
+		// String smsg = "Se va a guardar el escenario: "
+		// +jTextFieldIdentEquipo.getText() ;
+		// JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar
+		// GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
+		// // jOptionPaneAvisoError.setToolTipText(smsg);
+	}// GEN-LAST:event_jMenuItemGuardarEscenarioActionPerformed
 
-	private void jButtonGuardarEscenarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonGuardarEscenarioMousePressed
+	private void jButtonGuardarEscenarioMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonGuardarEscenarioMousePressed
 		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
-	}//GEN-LAST:event_jButtonGuardarEscenarioMousePressed
+	}// GEN-LAST:event_jButtonGuardarEscenarioMousePressed
 
-	private void intervalNumVictimasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intervalNumVictimasActionPerformed
+	private void intervalNumVictimasActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_intervalNumVictimasActionPerformed
 		// TODO add your handling code here:
 		int num1 = Integer.parseInt(intervalNumVictimas.getText());
 		System.out.println("Numero de victimas");
-		if (num1>20 ){
-			JOptionPane.showMessageDialog(rootPane,"El numero de victimas tiene que ser menor que 20","Error en Numero Entidades", JOptionPane.ERROR_MESSAGE);
+		if (num1 > 20) {
+			JOptionPane.showMessageDialog(rootPane, "El numero de victimas tiene que ser menor que 20",
+					"Error en Numero Entidades", JOptionPane.ERROR_MESSAGE);
 
-		}else System.out.println("Definido el numero de victimas : "+ num1);
-	}//GEN-LAST:event_intervalNumVictimasActionPerformed
+		} else
+			System.out.println("Definido el numero de victimas : " + num1);
+	}// GEN-LAST:event_intervalNumVictimasActionPerformed
 
-	private void jMenuItemCrearRobotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearRobotActionPerformed
+	private void jMenuItemCrearRobotActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemCrearRobotActionPerformed
 		// TODO add your handling code here:
 		intencionUsuarioCrearRobot = true;
 		intencionUsuarioCrearVictima = false;
-	}//GEN-LAST:event_jMenuItemCrearRobotActionPerformed
+	}// GEN-LAST:event_jMenuItemCrearRobotActionPerformed
 
-	private void jMenuItemCrearVictimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearVictimaActionPerformed
+	private void jMenuItemCrearVictimaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemCrearVictimaActionPerformed
 		// TODO add your handling code here:
 		intencionUsuarioCrearVictima = true;
 		intencionUsuarioCrearRobot = false;
-	}//GEN-LAST:event_jMenuItemCrearVictimaActionPerformed
+	}// GEN-LAST:event_jMenuItemCrearVictimaActionPerformed
 
-	private void jTextFieldIdentEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdentEquipoActionPerformed
+	private void jTextFieldIdentEquipoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextFieldIdentEquipoActionPerformed
 		// TODO add your handling code here:
-	}//GEN-LAST:event_jTextFieldIdentEquipoActionPerformed
+	}// GEN-LAST:event_jTextFieldIdentEquipoActionPerformed
 
-	private void jMenuItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEliminarActionPerformed
+	private void jMenuItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemEliminarActionPerformed
 		// TODO add your handling code here:
-		System.out.println("Eliminar menu: "+ "  entidad = "   );
-		//        JLabel compAeliminar =(JLabel)moverComp.getUltimoComponenteSeleccionado();
-		//        compAeliminar.setVisible(false);
+		System.out.println("Eliminar menu: " + "  entidad = ");
+		// JLabel compAeliminar
+		// =(JLabel)moverComp.getUltimoComponenteSeleccionado();
+		// compAeliminar.setVisible(false);
 		eliminarEntidadSeleccionada();
 
-	}//GEN-LAST:event_jMenuItemEliminarActionPerformed
+	}// GEN-LAST:event_jMenuItemEliminarActionPerformed
 
-	private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarActionPerformed
+	private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemGuardarActionPerformed
 		// TODO add your handling code here:
 		System.out.println("Ha pulsado el boton Guardar Escenario");
 		actualizarCoordenadasEntidades();
 		controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
-		//        String valor ;
-		//        setLocationRelativeTo(this);
-		////        escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
-		//        escenarioActualComp.setIdentificadorNormalizado();
-		//        persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
+		// String valor ;
+		// setLocationRelativeTo(this);
+		//// escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
+		// escenarioActualComp.setIdentificadorNormalizado();
+		// persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia,
+		// escenarioActualComp);
 		//
-		//        //         String smsg = "Puede cambiar el valor en milisegundos en que deben enviarse las coordenadas";
-		//        jTextFieldIdentEquipo.setText(escenarioActualComp.getIdentEscenario());
-		//        String smsg = "Se va a guardar el escenario: " + escenarioActualComp.getIdentEscenario();
-		//        JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
-		//         jOptionPaneAvisoError.setToolTipText(smsg);
-	}//GEN-LAST:event_jMenuItemGuardarActionPerformed
+		// // String smsg = "Puede cambiar el valor en milisegundos en que deben
+		// enviarse las coordenadas";
+		// jTextFieldIdentEquipo.setText(escenarioActualComp.getIdentEscenario());
+		// String smsg = "Se va a guardar el escenario: " +
+		// escenarioActualComp.getIdentEscenario();
+		// JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar
+		// GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
+		// jOptionPaneAvisoError.setToolTipText(smsg);
+	}// GEN-LAST:event_jMenuItemGuardarActionPerformed
 
-	private void jPopupMenuAcionEntidadPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuAcionEntidadPopupMenuWillBecomeVisible
+	private void jPopupMenuAcionEntidadPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {// GEN-FIRST:event_jPopupMenuAcionEntidadPopupMenuWillBecomeVisible
 		// TODO add your handling code here:
-		//         jPopupMenuAcionEntidad.show(, 200, 200);
-	}//GEN-LAST:event_jPopupMenuAcionEntidadPopupMenuWillBecomeVisible
+		// jPopupMenuAcionEntidad.show(, 200, 200);
+	}// GEN-LAST:event_jPopupMenuAcionEntidadPopupMenuWillBecomeVisible
 
-	private void jPopupMenuAcionEntidadMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jPopupMenuAcionEntidadMenuKeyPressed
+	private void jPopupMenuAcionEntidadMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {// GEN-FIRST:event_jPopupMenuAcionEntidadMenuKeyPressed
 		// TODO add your handling code here:
-		//        jPopupMenuAcionEntidad.show(this, evt.getX(), e.getY());
-	}//GEN-LAST:event_jPopupMenuAcionEntidadMenuKeyPressed
+		// jPopupMenuAcionEntidad.show(this, evt.getX(), e.getY());
+	}// GEN-LAST:event_jPopupMenuAcionEntidadMenuKeyPressed
 
-	private void jMenuItemAddRobotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddRobotActionPerformed
+	private void jMenuItemAddRobotActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemAddRobotActionPerformed
 		// TODO add your handling code here:
 		intencionUsuarioCrearRobot = true;
 		intencionUsuarioCrearVictima = false;
-		this.crearIconoRobVict("Robot",ultimoPuntoClic.x,ultimoPuntoClic.y );
-	}//GEN-LAST:event_jMenuItemAddRobotActionPerformed
+		this.crearIconoRobVict("Robot", ultimoPuntoClic.x, ultimoPuntoClic.y);
+	}// GEN-LAST:event_jMenuItemAddRobotActionPerformed
 
-	private void jMenuItemAddVictimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddVictimaActionPerformed
+	private void jMenuItemAddVictimaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemAddVictimaActionPerformed
 		// TODO add your handling code here:
 		intencionUsuarioCrearRobot = false;
 		intencionUsuarioCrearVictima = true;
-		this.crearIconoRobVict("Victima",ultimoPuntoClic.x,ultimoPuntoClic.y );
-	}//GEN-LAST:event_jMenuItemAddVictimaActionPerformed
+		this.crearIconoRobVict("Victima", ultimoPuntoClic.x, ultimoPuntoClic.y);
+	}// GEN-LAST:event_jMenuItemAddVictimaActionPerformed
 
-	private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+	private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jFileChooser1ActionPerformed
 		// TODO add your handling code here:
 
-	}//GEN-LAST:event_jFileChooser1ActionPerformed
+	}// GEN-LAST:event_jFileChooser1ActionPerformed
 
-	private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAbrirActionPerformed
-		// TODO add your handling code here:    
-		//      peticionAbrirEscenario();
+	private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemAbrirActionPerformed
+		// TODO add your handling code here:
+		// peticionAbrirEscenario();
 		this.controladorSim.peticionAbrirEscenario();
-	}//GEN-LAST:event_jMenuItemAbrirActionPerformed
+	}// GEN-LAST:event_jMenuItemAbrirActionPerformed
 
-	private void jMenuItemNuevoEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoEscenarioActionPerformed
+	private void jMenuItemNuevoEscenarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemNuevoEscenarioActionPerformed
 		// Usuario quiere crear un escenario
-		// se abre una  ventana vacia , si tiene otra abierta se le deberia avisar de que se guardar
+		// se abre una ventana vacia , si tiene otra abierta se le deberia
+		// avisar de que se guardar
 		// lo que tiene
-		if (escenarioActualComp.getNumRobots()> 0){
-			//            peticionGuardarEscenario();
+		if (escenarioActualComp.getNumRobots() > 0) {
+			// peticionGuardarEscenario();
 
-			//this.controladorSim.peticionGuardarEscenario(escenarioActualComp);
+			// this.controladorSim.peticionGuardarEscenario(escenarioActualComp);
 
-			// Se avisa de que el escenario actual se va a guardar antes de abrir el nuevo
-			//            escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
-			//       
+			// Se avisa de que el escenario actual se va a guardar antes de
+			// abrir el nuevo
+			// escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
 			//
-			//        //         String smsg = "Puede cambiar el valor en milisegundos en que deben enviarse las coordenadas";
 			//
-			//        String smsg = "Se va a guardar el escenario: " +jTextFieldIdentEquipo.getText() ;
-			//        JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
-			//         persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
+			// // String smsg = "Puede cambiar el valor en milisegundos en que
+			// deben enviarse las coordenadas";
+			//
+			// String smsg = "Se va a guardar el escenario: "
+			// +jTextFieldIdentEquipo.getText() ;
+			// JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar
+			// GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
+			// persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia,
+			// escenarioActualComp);
 		}
 		escenarioActualComp = gestionEscComp.crearEscenarioSimulacion();
-		//        jTextFieldIdentEquipo.setText()
+		// jTextFieldIdentEquipo.setText()
 		eliminarEntidadesEscenario();
 		jTextFieldIdentEquipo.setText(escenarioActualComp.getIdentEscenario());
-		intervalNumRobots.setText(""+0);
-		intervalNumVictimas.setText(""+0);
+		intervalNumRobots.setText("" + 0);
+		intervalNumVictimas.setText("" + 0);
 
-	}//GEN-LAST:event_jMenuItemNuevoEscenarioActionPerformed
+	}// GEN-LAST:event_jMenuItemNuevoEscenarioActionPerformed
 
-	private void jMenuItemModeloJerarquicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModeloJerarquicoActionPerformed
+	private void jMenuItemModeloJerarquicoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemModeloJerarquicoActionPerformed
 		// TODO add your handling code here:
 		modeloOrganizativo = "Jerarquico";
 		jTextFieldModeloOrganizacion.setText(modeloOrganizativo);
 		escenarioActualComp.setmodeloOrganizativo(modeloOrganizativo);
-	}//GEN-LAST:event_jMenuItemModeloJerarquicoActionPerformed
+	}// GEN-LAST:event_jMenuItemModeloJerarquicoActionPerformed
 
-	private void jMenuItemModeloIgualitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModeloIgualitarioActionPerformed
+	private void jMenuItemModeloIgualitarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemModeloIgualitarioActionPerformed
 		// TODO add your handling code here:
 		modeloOrganizativo = "Igualitario";
 		jTextFieldModeloOrganizacion.setText(modeloOrganizativo);
 		escenarioActualComp.setmodeloOrganizativo(modeloOrganizativo);
-	}//GEN-LAST:event_jMenuItemModeloIgualitarioActionPerformed
+	}// GEN-LAST:event_jMenuItemModeloIgualitarioActionPerformed
 
-	private void jMenuItemEliminarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEliminarEscenarioActionPerformed
+	private void jMenuItemEliminarEscenarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemEliminarEscenarioActionPerformed
 		// TODO add your handling code here:
 		peticionEliminarEscenario();
-	}//GEN-LAST:event_jMenuItemEliminarEscenarioActionPerformed
-	private void setIntervaloEnvioMensajesDesdeCC(int intervalo){
-		intervaloSecuencia = intervalo ;
+	}// GEN-LAST:event_jMenuItemEliminarEscenarioActionPerformed
+
+	private void setIntervaloEnvioMensajesDesdeCC(int intervalo) {
+		intervaloSecuencia = intervalo;
 		int intervaloEnvioMensajesDesdeCC = 1000;
 		String strintervaloEnvioMensajesDesdeCC = "";
 	}
-	private void jLabelMouseReleased(java.awt.event.MouseEvent evt) {                                   
+
+	private void jLabelMouseReleased(java.awt.event.MouseEvent evt) {
 		// TODO add your handling code here:
-		// Si tiene una entidad seleccionada se suelta y se anotan la coordenadas
-		System.out.println("Released" + " X= "+ evt.getX() +" Y = "+ evt.getY() );
-		entidadSeleccionadaParaMover=false;
+		// Si tiene una entidad seleccionada se suelta y se anotan la
+		// coordenadas
+		System.out.println("Released" + " X= " + evt.getX() + " Y = " + evt.getY());
+		entidadSeleccionadaParaMover = false;
 		evt.consume();
 
-	}  
-
-	public void visualizarIdentsEquipoRobot ( ArrayList<String> equipoIds){
-		//        eqipoIds = eqipoIds.toArray();
-		identsRobotsEquipo = equipoIds;
-		//        this.listaComponentes.setListData(identsRobotsEquipo.toArray());
-		//        listaComponentes.setVisible(true);
 	}
 
-	public JLabel crearIconoRobVict(String tipoEntidad, int coordX, int coordY){
+	public void visualizarIdentsEquipoRobot(ArrayList<String> equipoIds) {
+		// eqipoIds = eqipoIds.toArray();
+		identsRobotsEquipo = equipoIds;
+		// this.listaComponentes.setListData(identsRobotsEquipo.toArray());
+		// listaComponentes.setVisible(true);
+	}
+
+	public JLabel crearIconoRobVict(String tipoEntidad, int coordX, int coordY) {
 
 		JLabel label = new JLabel();
-		//int correccionX=-30;
-		//int correccionY=-93;
-		int correccionX=0;
-		int correccionY=0;
-		coordX=coordX+correccionX;
-		coordY=coordY+correccionY;
+		// int correccionX=-30;
+		// int correccionY=-93;
+		int correccionX = 0;
+		int correccionY = 0;
+		coordX = coordX + correccionX;
+		coordY = coordY + correccionY;
 		String rutaImagen;
 		String identEntidad;
-		if ( tipoEntidad.startsWith("Robot")){
-			rutaImagen=directorioTrabajo+rutaIconos+imageniconoRobot;
-			numeroRobots= escenarioActualComp.getNumRobots();
+		if (tipoEntidad.startsWith("Robot")) {
+			rutaImagen = directorioTrabajo + rutaIconos + imageniconoRobot;
+			numeroRobots = escenarioActualComp.getNumRobots();
 
-
-			//           intervalNumRobots.setText(""+numeroRobots);
+			// intervalNumRobots.setText(""+numeroRobots);
 			numeroRobots++;
-			identEntidad= "JerarquicorobotSubordinado" +numeroRobots;
-			escenarioActualComp.addRoboLoc(identEntidad, new Point(coordX,coordY));
-			intervalNumRobots.setText(""+numeroRobots);
-			//           label.setText(tipoEntidad+numeroRobots);
+			identEntidad = "JerarquicorobotSubordinado" + numeroRobots;
+			escenarioActualComp.addRoboLoc(identEntidad, new Point(coordX, coordY));
+			intervalNumRobots.setText("" + numeroRobots);
+			// label.setText(tipoEntidad+numeroRobots);
 
-		}
-		else{
-			rutaImagen=directorioTrabajo+rutaIconos+imageniconoMujer;
-			mumeroVictimas= escenarioActualComp.getNumVictimas();
+		} else {
+			rutaImagen = directorioTrabajo + rutaIconos + imageniconoMujer;
+			mumeroVictimas = escenarioActualComp.getNumVictimas();
 			mumeroVictimas++;
-			//         intervalNumVictimas.setText(""+mumeroVictimas);
-			identEntidad=tipoEntidad+mumeroVictimas;
-			escenarioActualComp.addVictimLoc(identEntidad, new Point(coordX,coordY));
-			//         mumeroVictimas=escenrioSimComp.getNumVictimas();
-			intervalNumVictimas.setText(""+mumeroVictimas);
-			//         identEntidad=tipoEntidad+mumeroVictimas;
-			//         label.setText(tipoEntidad+mumeroVictimas);
+			// intervalNumVictimas.setText(""+mumeroVictimas);
+			identEntidad = tipoEntidad + mumeroVictimas;
+			escenarioActualComp.addVictimLoc(identEntidad, new Point(coordX, coordY));
+			// mumeroVictimas=escenrioSimComp.getNumVictimas();
+			intervalNumVictimas.setText("" + mumeroVictimas);
+			// identEntidad=tipoEntidad+mumeroVictimas;
+			// label.setText(tipoEntidad+mumeroVictimas);
 		}
 
 		label.setText(identEntidad);
 		label.setBounds(10, 10, 100, 100);
-		//        label.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-		//            @Override
-		//            public void mouseDragged(java.awt.event.MouseEvent evt) {
-		//                jLabelMouseDragged(evt);
-		//            }
-		//            public void mouseReleased(java.awt.event.MouseEvent evt) {
-		//                jLabelMouseReleased(evt);
-		//            }
-		//        });
+		// label.addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
+		// {
+		// @Override
+		// public void mouseDragged(java.awt.event.MouseEvent evt) {
+		// jLabelMouseDragged(evt);
+		// }
+		// public void mouseReleased(java.awt.event.MouseEvent evt) {
+		// jLabelMouseReleased(evt);
+		// }
+		// });
 
 		this.add(label);
 		label.setVisible(true);
 
-		//        label.setIcon(new ImageIcon("E:\\FicheroRed\\Github\\rosaceSIM\\src\\utilsDiseniaEscenariosRosace\\Robot.png"));
+		// label.setIcon(new
+		// ImageIcon("E:\\FicheroRed\\Github\\rosaceSIM\\src\\utilsDiseniaEscenariosRosace\\Robot.png"));
 		label.setIcon(new ImageIcon(rutaImagen));
 		label.setLocation(coordX, coordY);
 		this.listaEntidadesEnEscenario.add(label);
-		System.out.println( "Se crea la entidad : "+label.getText()+ " Coordenadas : X =" + coordX +" , Y = " +coordY );
-		//       tablaEntidadesEnEscenario.put(identEntidad, label);
-		//       listaEntidadesEnEscenario.add(label);
+		System.out.println(
+				"Se crea la entidad : " + label.getText() + " Coordenadas : X =" + coordX + " , Y = " + coordY);
+		// tablaEntidadesEnEscenario.put(identEntidad, label);
+		// listaEntidadesEnEscenario.add(label);
 
 		moverComp.registerComponent(label);
 		return label;
 	}
-	public void addEntidadEnEscenario (String rutaIcono, String idEntidad, Point puntoLoc){
+
+	public void addEntidadEnEscenario(String rutaIcono, String idEntidad, Point puntoLoc) {
 		JLabel label = new JLabel();
 
-		//          String rutaImagen=directorioTrabajo+rutaIconos+imageniconoMujer;
-		//           numeroRobots= escenrioSimComp.getNumRobots();
-		//           numeroRobots++;
-		//           intervalNumRobots.setText(""+numeroRobots);
-		//           identEntidad=tipoEntidad+numeroRobots;
-		//           escenrioSimComp.addRoboLoc(identEntidad, new Point(coordX,coordY));
-		//           intervalNumRobots.setText(""+numeroRobots);
+		// String rutaImagen=directorioTrabajo+rutaIconos+imageniconoMujer;
+		// numeroRobots= escenrioSimComp.getNumRobots();
+		// numeroRobots++;
+		// intervalNumRobots.setText(""+numeroRobots);
+		// identEntidad=tipoEntidad+numeroRobots;
+		// escenrioSimComp.addRoboLoc(identEntidad, new Point(coordX,coordY));
+		// intervalNumRobots.setText(""+numeroRobots);
 		label.setText(idEntidad);
 		label.setBounds(10, 10, 100, 100);
 		this.add(label);
@@ -889,163 +1007,187 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		label.setLocation(puntoLoc);
 		moverComp.registerComponent(label);
 		this.listaEntidadesEnEscenario.add(label);
-		System.out.println( "Se crea la entidad : "+label.getText()+ " Punto : =" + puntoLoc );
-		//       tablaEntidadesEnEscenario.put(identEntidad, label);
+		System.out.println("Se crea la entidad : " + label.getText() + " Punto : =" + puntoLoc);
+		// tablaEntidadesEnEscenario.put(identEntidad, label);
 	}
-	public void eliminarEntidadSeleccionada (){
-		JLabel entidadAeliminar=   (JLabel) moverComp.getUltimoComponenteSeleccionado();
-		//        escenrioSimComp.eliminarEntidad(((JLabel)moverComp.eliminarUltimoCompSeleccionado()).getName());
-		//     moverComp.deregisterComponent(entidadAeliminar);
+
+	public void eliminarEntidadSeleccionada() {
+		JLabel entidadAeliminar = (JLabel) moverComp.getUltimoComponenteSeleccionado();
+		// escenrioSimComp.eliminarEntidad(((JLabel)moverComp.eliminarUltimoCompSeleccionado()).getName());
+		// moverComp.deregisterComponent(entidadAeliminar);
 		entidadAeliminar.setVisible(false);
 		escenarioActualComp.eliminarEntidad(entidadAeliminar.getText());
 		listaEntidadesEnEscenario.remove(entidadAeliminar);
-		System.out.println( "Se elimina la entidad : "+entidadAeliminar.getText()+ " Coordenadas : X =" + entidadAeliminar.getX() +" , Y = " +entidadAeliminar.getY() );
-		actualizarInfoEquipoEnEscenario ();
+		System.out.println("Se elimina la entidad : " + entidadAeliminar.getText() + " Coordenadas : X ="
+				+ entidadAeliminar.getX() + " , Y = " + entidadAeliminar.getY());
+		actualizarInfoEquipoEnEscenario();
 	}
-	public void actualizarInfoEquipoEnEscenario (){
-		//        jTextFieldIdentEquipo= escenrioSimComp.get
-		jTextFieldModeloOrganizacion.setText(""+escenarioActualComp.getmodeloOrganizativo());
-		jTextFieldIdentEquipo.setText(""+escenarioActualComp.getIdentEscenario());
-		intervalNumRobots.setText(""+escenarioActualComp.getNumRobots());
-		intervalNumVictimas.setText(""+escenarioActualComp.getNumVictimas());
-		//        intervalNumVictimas.setVisible(true);
+
+	public void actualizarInfoEquipoEnEscenario() {
+		// jTextFieldIdentEquipo= escenrioSimComp.get
+		jTextFieldModeloOrganizacion.setText("" + escenarioActualComp.getmodeloOrganizativo());
+		jTextFieldIdentEquipo.setText("" + escenarioActualComp.getIdentEscenario());
+		intervalNumRobots.setText("" + escenarioActualComp.getNumRobots());
+		intervalNumVictimas.setText("" + escenarioActualComp.getNumVictimas());
+		// intervalNumVictimas.setVisible(true);
 	}
-	//    public void actualizarCoordenadasEntidades(){
-	//        System.out.println( "Se actualizan las coordenadas. Numero de entidades : "+listaEntidadesEnEscenario.size());
-	//        for (int i=0; i<listaEntidadesEnEscenario.size();){
-	//            JLabel entidadLabel = listaEntidadesEnEscenario.get(i);
-	//            String identEntidad = entidadLabel.getText();
-	//            if (identEntidad.contains("Robot"))
-	//                                        escenarioActualComp.addRoboLoc(identEntidad, entidadLabel.getLocation());
-	//            else escenarioActualComp.addVictimLoc(identEntidad, entidadLabel.getLocation());
-	//            System.out.println( "Se actualiza la entidad : "+identEntidad+ " Coordenadas : X =" + entidadLabel.getX() +" , Y = " +entidadLabel.getY() );
-	//        }
-	//    }
-	public void actualizarCoordenadasEntidades(){
-		System.out.println( "Se actualizan las coordenadas. Numero de entidades : "+listaEntidadesEnEscenario.size());
-		int numRobots= 0; int numVictims= 0;
+
+	// public void actualizarCoordenadasEntidades(){
+	// System.out.println( "Se actualizan las coordenadas. Numero de entidades :
+	// "+listaEntidadesEnEscenario.size());
+	// for (int i=0; i<listaEntidadesEnEscenario.size();){
+	// JLabel entidadLabel = listaEntidadesEnEscenario.get(i);
+	// String identEntidad = entidadLabel.getText();
+	// if (identEntidad.contains("Robot"))
+	// escenarioActualComp.addRoboLoc(identEntidad, entidadLabel.getLocation());
+	// else escenarioActualComp.addVictimLoc(identEntidad,
+	// entidadLabel.getLocation());
+	// System.out.println( "Se actualiza la entidad : "+identEntidad+ "
+	// Coordenadas : X =" + entidadLabel.getX() +" , Y = " +entidadLabel.getY()
+	// );
+	// }
+	// }
+	public void actualizarCoordenadasEntidades() {
+		System.out.println("Se actualizan las coordenadas. Numero de entidades : " + listaEntidadesEnEscenario.size());
+		int numRobots = 0;
+		int numVictims = 0;
 		for (JLabel entidadLabel : listaEntidadesEnEscenario) {
 			String identEntidad = entidadLabel.getText();
-			if (identEntidad.contains("Robot")||identEntidad.contains("robot")){
+			if (identEntidad.contains("Robot") || identEntidad.contains("robot")) {
 				escenarioActualComp.addRoboLoc(identEntidad, entidadLabel.getLocation());
 				numRobots++;
-			}
-			else if (identEntidad.contains("Victim")){
+			} else if (identEntidad.contains("Victim")) {
 				escenarioActualComp.addVictimLoc(identEntidad, entidadLabel.getLocation());
 				numVictims++;
 			}
-			System.out.println( "Se actualiza la entidad : "+identEntidad+ " Coordenadas : X =" + entidadLabel.getX() +" , Y = " +entidadLabel.getY() );
-			System.out.println( "Robots y victimas despues de la actualizacion. Num Robots :  "+numRobots+ " Num Victimas : " + numVictims );
+			System.out.println("Se actualiza la entidad : " + identEntidad + " Coordenadas : X =" + entidadLabel.getX()
+			+ " , Y = " + entidadLabel.getY());
+			System.out.println("Robots y victimas despues de la actualizacion. Num Robots :  " + numRobots
+					+ " Num Victimas : " + numVictims);
 		}
 		escenarioActualComp.setNumRobots(numRobots);
 		escenarioActualComp.setNumVictimas(numVictims);
-		System.out.println( "Robots y victimas despues de la actualizacion. Num Robots :  "+escenarioActualComp.getNumRobots()+ " Num Vicitimas : " + escenarioActualComp.getNumVictimas() );
+		System.out.println("Robots y victimas despues de la actualizacion. Num Robots :  "
+				+ escenarioActualComp.getNumRobots() + " Num Vicitimas : " + escenarioActualComp.getNumVictimas());
 	}
-	private void setEscenarioActualComp(EscenarioSimulacionRobtsVictms escenActualComp){
+
+	private void setEscenarioActualComp(EscenarioSimulacionRobtsVictms escenActualComp) {
 		escenarioActualComp = escenActualComp;
 	}
+
 	private void setPersistencia(PersistenciaVisualizadorEscenarios persistEscenario) {
-		//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		// throw new UnsupportedOperationException("Not supported yet."); //To
+		// change body of generated methods, choose Tools | Templates.
 		persistencia = persistEscenario;
 	}
-	public void visualizarEscenario(EscenarioSimulacionRobtsVictms infoEscenario ){
+
+	public void visualizarEscenario(EscenarioSimulacionRobtsVictms infoEscenario) {
 		eliminarEntidadesEscenario();
-		escenarioActualComp= infoEscenario;
+		escenarioActualComp = infoEscenario;
 		int numRobots = infoEscenario.getNumRobots();
 		int numVictims = infoEscenario.getNumVictimas();
-		jTextFieldIdentEquipo.setText(""+infoEscenario.getIdentEscenario());
-		intervalNumRobots.setText(""+numRobots);
-		intervalNumVictimas.setText(""+numVictims);
+		jTextFieldIdentEquipo.setText("" + infoEscenario.getIdentEscenario());
+		intervalNumRobots.setText("" + numRobots);
+		intervalNumVictimas.setText("" + numVictims);
 
 		String rutaImagen;
 		Set entidades;
 		Iterator entries;
-		if (numRobots>0) {
-			rutaImagen=directorioTrabajo+rutaIconos+imageniconoRobot;
+		if (numRobots > 0) {
+			rutaImagen = directorioTrabajo + rutaIconos + imageniconoRobot;
 			entidades = infoEscenario.getRobots();
-			//          entidades.remove("robotInit");
+			// entidades.remove("robotInit");
 			entries = entidades.iterator();
 			Entry thisEntry;
 			RobotStatus robotInfo;
 			while (entries.hasNext()) {
 				thisEntry = (Entry) entries.next();
-				robotInfo = (RobotStatus)thisEntry.getValue();
-				//            addEntidadEnEscenario(rutaImagen,(String)thisEntry.getKey(),(Point)thisEntry.getValue());
-				addEntidadEnEscenario(rutaImagen,(String)thisEntry.getKey(),robotInfo.getLocPoint());
-				//         intervalNumRobots.setText(""+infoEscenario.getNumRobots());
-				//         intervalNumVictimas.setText(""+escenrioSimComp.getNumVictimas());
+				robotInfo = (RobotStatus) thisEntry.getValue();
+				// addEntidadEnEscenario(rutaImagen,(String)thisEntry.getKey(),(Point)thisEntry.getValue());
+				addEntidadEnEscenario(rutaImagen, (String) thisEntry.getKey(), robotInfo.getLocPoint());
+				// intervalNumRobots.setText(""+infoEscenario.getNumRobots());
+				// intervalNumVictimas.setText(""+escenrioSimComp.getNumVictimas());
 			}
 		}
-		if (numVictims>0) {
-			rutaImagen=directorioTrabajo+rutaIconos+imageniconoMujer;
+		if (numVictims > 0) {
+			rutaImagen = directorioTrabajo + rutaIconos + imageniconoMujer;
 			entidades = infoEscenario.getSetVictims();
-			//            entidades.remove("victimInit");
+			// entidades.remove("victimInit");
 			entries = entidades.iterator();
-			Entry thisEntry ;
-			Victim victimInfo ;
+			Entry thisEntry;
+			Victim victimInfo;
 			while (entries.hasNext()) {
 				thisEntry = (Entry) entries.next();
-				victimInfo = (Victim)thisEntry.getValue();
-				addEntidadEnEscenario(rutaImagen,(String)thisEntry.getKey(),victimInfo.getLocPoint());
-				//         intervalNumRobots.setText(""+infoEscenario.getNumRobots());
-				//         intervalNumVictimas.setText(""+escenrioSimComp.getNumVictimas());
+				victimInfo = (Victim) thisEntry.getValue();
+				addEntidadEnEscenario(rutaImagen, (String) thisEntry.getKey(), victimInfo.getLocPoint());
+				// intervalNumRobots.setText(""+infoEscenario.getNumRobots());
+				// intervalNumVictimas.setText(""+escenrioSimComp.getNumVictimas());
 			}
 		}
-		this.setLocation(100,100);
+		this.setLocation(100, 100);
 		this.setVisible(true);
 	}
-	private void peticionGuardarEscenario (){
+
+	private void peticionGuardarEscenario() {
 		setLocationRelativeTo(this);
-		//        escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
+		// escenarioActualComp.setIdentEscenario(jTextFieldIdentEquipo.getText());
 		escenarioActualComp.setIdentificadorNormalizado();
 
 		jTextFieldIdentEquipo.setText(escenarioActualComp.getIdentEscenario());
 		String smsg = "Se va a guardar el escenario: " + escenarioActualComp.getIdentEscenario();
-		int respuesta= JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
-		//         jOptionPaneAvisoError.setToolTipText(smsg);
-		if (respuesta==JOptionPane.OK_OPTION){
+		int respuesta = JOptionPane.showConfirmDialog(rootPane, smsg, "Confirmar GuardarEscenario",
+				JOptionPane.OK_CANCEL_OPTION);
+		// jOptionPaneAvisoError.setToolTipText(smsg);
+		if (respuesta == JOptionPane.OK_OPTION) {
 			gestionEscComp.addEscenario(escenarioActualComp);
 			this.actualizarCoordenadasEntidades();
 			persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
 		}
 	}
-	public int confirmarPeticionGuardarEscenario (String msgConfirmacion){
+
+	public int confirmarPeticionGuardarEscenario(String msgConfirmacion) {
 		escenarioActualComp.setIdentificadorNormalizado();
 		jTextFieldIdentEquipo.setText(escenarioActualComp.getIdentEscenario());
 		String smsg = msgConfirmacion + jTextFieldIdentEquipo.getText();
-		//       int respuesta= JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
-		//         jOptionPaneAvisoError.setToolTipText(smsg);
-		return JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
-		//       if (respuesta==JOptionPane.OK_OPTION){
-		//           gestionEscComp.addEscenario(escenarioActualComp);
-		//             persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia, escenarioActualComp);
-		//       }
+		// int respuesta= JOptionPane.showConfirmDialog(rootPane,
+		// smsg,"Confirmar GuardarEscenario",JOptionPane.OK_CANCEL_OPTION );
+		// jOptionPaneAvisoError.setToolTipText(smsg);
+		return JOptionPane.showConfirmDialog(rootPane, smsg, "Confirmar GuardarEscenario",
+				JOptionPane.OK_CANCEL_OPTION);
+		// if (respuesta==JOptionPane.OK_OPTION){
+		// gestionEscComp.addEscenario(escenarioActualComp);
+		// persistencia.guardarInfoEscenarioSimulacion(directorioPersistencia,
+		// escenarioActualComp);
+		// }
 	}
-	private void eliminarEntidadesEscenario(){
-		//         Set entidades;
-		//         Iterator entries;
-		//         if (infoEscenario.getNumRobots()>0) {
-		//         rutaImagen=directorioTrabajo+rutaIconos+imageniconoRobot;
-		//          entidades = infoEscenario.getRobots();
-		//          entries = entidades.iterator();
-		//            while (entries.hasNext()) {
-		//                Entry thisEntry = (Entry) entries.next();
-		//                Point punto =(Point)thisEntry.getValue();
-		//            addEntidadEnEscenario(rutaImagen,(String)thisEntry.getKey(),(Point)thisEntry.getValue());
-		//             ((JLabel) this.findComponentAt((Point)thisEntry.getValue())).setVisible(false);
-		JLabel labelActual;             
-		for( Component comp : this.getContentPane().getComponents() ){
-			if (comp instanceof JLabel){
-				labelActual = (JLabel)comp;
-				if (!labelActual.equals(jLabelIdentEquipo)&&!labelActual.equals(jLabelOrganizacion)
-						&&!labelActual.equals(robotIcon)&&!labelActual.equals(victimaIcon1)){                    
+
+	private void eliminarEntidadesEscenario() {
+		// Set entidades;
+		// Iterator entries;
+		// if (infoEscenario.getNumRobots()>0) {
+		// rutaImagen=directorioTrabajo+rutaIconos+imageniconoRobot;
+		// entidades = infoEscenario.getRobots();
+		// entries = entidades.iterator();
+		// while (entries.hasNext()) {
+		// Entry thisEntry = (Entry) entries.next();
+		// Point punto =(Point)thisEntry.getValue();
+		// addEntidadEnEscenario(rutaImagen,(String)thisEntry.getKey(),(Point)thisEntry.getValue());
+		// ((JLabel)
+		// this.findComponentAt((Point)thisEntry.getValue())).setVisible(false);
+		JLabel labelActual;
+		for (Component comp : this.getContentPane().getComponents()) {
+			if (comp instanceof JLabel) {
+				labelActual = (JLabel) comp;
+				if (!labelActual.equals(jLabelIdentEquipo) && !labelActual.equals(jLabelOrganizacion)
+						&& !labelActual.equals(robotIcon) && !labelActual.equals(victimaIcon1)) {
 					comp.setVisible(false);
 					remove(comp);
 					listaEntidadesEnEscenario.remove(labelActual);
-					System.out.println( "Se borra la entidad : "+ " Coordenadas :  =" + comp.getLocation() );         
+					System.out.println("Se borra la entidad : " + " Coordenadas :  =" + comp.getLocation());
 				}
-			};
-		} 
+			}
+			;
+		}
 
 	}
 
@@ -1068,8 +1210,10 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private javax.swing.JMenuItem jMenuItemCrearRobot;
 	private javax.swing.JMenuItem jMenuItemCrearVictima;
 	private javax.swing.JMenuItem jMenuItemEliminar;
+	private javax.swing.JMenuItem jMenuItemEliminar2;
 	private javax.swing.JMenuItem jMenuItemEliminarEscenario;
 	private javax.swing.JMenuItem jMenuItemGuardar;
+	private javax.swing.JMenuItem jMenuItemGuardar2;
 	private javax.swing.JMenuItem jMenuItemGuardarEscenario;
 	private javax.swing.JMenuItem jMenuItemModeloIgualitario;
 	private javax.swing.JMenuItem jMenuItemModeloJerarquico;
@@ -1078,7 +1222,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private javax.swing.JMenuItem jMenuItemSalir;
 	private javax.swing.JMenu jMenuOrganizacion;
 	private javax.swing.JOptionPane jOptionPane1;
-	private javax.swing.JPopupMenu jPopupMenuAcionEntidad;
+	private javax.swing.JPopupMenu jPopupMenuAccionEntidadRobot;
+	private javax.swing.JPopupMenu jPopupMenuAccionEntidadVictim;
 	private javax.swing.JPopupMenu jPopupMenuAddEntidades;
 	private javax.swing.JPopupMenu.Separator jSeparator1;
 	private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -1093,35 +1238,42 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private javax.swing.JLabel robotIcon;
 	private javax.swing.JLabel victimaIcon1;
 	private JMenuItem jMenuItemVictimaTiempo;
+	private JMenuItem jMenuItemEnergiaRobot;
 	// End of variables declaration//GEN-END:variables
 
-	public void setGestorEscenarionComp(GestionEscenariosSimulacion gestEscComp ) {
-		//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-		this.gestionEscComp=gestEscComp;
+	public void setGestorEscenarionComp(GestionEscenariosSimulacion gestEscComp) {
+		// throw new UnsupportedOperationException("Not supported yet."); //To
+		// change body of generated methods, choose Tools | Templates.
+		this.gestionEscComp = gestEscComp;
 	}
 
-	public void visualizarConsejo (String titulo, String msgConsejo, String recomendacion){
-		JOptionPane.showMessageDialog(rootPane,msgConsejo + "  "+ recomendacion, titulo,2);
+	public void visualizarConsejo(String titulo, String msgConsejo, String recomendacion) {
+		JOptionPane.showMessageDialog(rootPane, msgConsejo + "  " + recomendacion, titulo, 2);
 	}
+
 	private void peticionEliminarEscenario() {
-		//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-		File ficheroseleccionado= peticionUsuarioSeleccionarFichero(directorioPersistencia,"Seleccionar Fichero a Eliminar");
-		if(ficheroseleccionado!=null){ 
-			//        confirmar eliminacion del fichero y si lo confirma 
+		// throw new UnsupportedOperationException("Not supported yet."); //To
+		// change body of generated methods, choose Tools | Templates.
+		File ficheroseleccionado = peticionUsuarioSeleccionarFichero(directorioPersistencia,
+				"Seleccionar Fichero a Eliminar");
+		if (ficheroseleccionado != null) {
+			// confirmar eliminacion del fichero y si lo confirma
 			String smsg = "Se va a eliminar el escenario: " + ficheroseleccionado.getName();
-			int respuesta=  JOptionPane.showConfirmDialog(rootPane, smsg,"Confirmar EliminarEscenario",JOptionPane.OK_CANCEL_OPTION );
-			if ( respuesta== JOptionPane.OK_OPTION) {
+			int respuesta = JOptionPane.showConfirmDialog(rootPane, smsg, "Confirmar EliminarEscenario",
+					JOptionPane.OK_CANCEL_OPTION);
+			if (respuesta == JOptionPane.OK_OPTION) {
 				ficheroseleccionado.delete();
 				gestionEscComp.eliminarEscenario(ficheroseleccionado.getName());
-				System.out.println("Se elimina el fichero :  "+ficheroseleccionado.getName());
+				System.out.println("Se elimina el fichero :  " + ficheroseleccionado.getName());
 			}
-		}    
-
+		}
 
 	}
+
 	private void peticionAbrirEscenario() {
-		//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("ficheros xml","xml","txt" );
+		// throw new UnsupportedOperationException("Not supported yet."); //To
+		// change body of generated methods, choose Tools | Templates.
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("ficheros xml", "xml", "txt");
 
 		jFileChooser1.setFileFilter(filter);
 		jFileChooser1.setCurrentDirectory(new File(directorioPersistencia));
@@ -1133,16 +1285,18 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			escenarioActualComp.setGestorEscenarios(gestionEscComp);
 			visualizarEscenario(escenarioActualComp);
 
-			//               fileName = selectedFile.getName();
-			// enviariamos el fichero a la persistencia para que nos diera el contenido
+			// fileName = selectedFile.getName();
+			// enviariamos el fichero a la persistencia para que nos diera el
+			// contenido
 			// se visualiza un escenario a partir de la informacion almacenada
-			System.out.println("Ejecuto  accion sobre el fichero "+selectedFile.getAbsolutePath());
+			System.out.println("Ejecuto  accion sobre el fichero " + selectedFile.getAbsolutePath());
 		} else {
 			System.out.println("File access cancelled by user.");
 		}
 	}
-	public File peticionUsuarioSeleccionarFichero(String directorio, String motivo){
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("ficheros xml","xml","txt" );
+
+	public File peticionUsuarioSeleccionarFichero(String directorio, String motivo) {
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("ficheros xml", "xml", "txt");
 		jFileChooser1.setDialogTitle(motivo);
 		jFileChooser1.setFileFilter(filter);
 		jFileChooser1.setCurrentDirectory(new File(directorioPersistencia));
@@ -1151,7 +1305,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = jFileChooser1.getSelectedFile();
 			return selectedFile;
-		}else{
+		} else {
 			// mensaje diciendo que no se ha seleccionado ningun fichero
 			return null;
 		}
