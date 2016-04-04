@@ -302,6 +302,7 @@ public class EscenarioSimulacionRobtsVictms {
 	public void actualizarEnergiaRobot(String text) {
 
 		RobotStatus robotStatus = infoRobots.get(text);
+		String energy = JOptionPane.showInputDialog("Introduce el la energia de " + text + " en ms: ");
 		int energyMS;
 		
 		try {
