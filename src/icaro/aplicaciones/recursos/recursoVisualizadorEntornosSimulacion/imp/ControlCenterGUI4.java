@@ -107,6 +107,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		jMenuItem2 = new javax.swing.JMenuItem();
 		jMenu3 = new javax.swing.JMenu();
 		jButtonActivarJerarquico = new javax.swing.JButton();
+		jButtonActivarExploracion = new javax.swing.JButton();
 
 		jPopupMenuAcionesRobots.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
 			public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -127,6 +128,20 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 				jButtonActivarJerarquicoActionPerformed();
 			}
 		});
+		
+		if(ControladorVisualizacionSimulRosace.exploracionPrevia)jButtonActivarExploracion.setText("Desactivar exploracion previa(Actual: On)");
+		else jButtonActivarExploracion.setText("Activar exploracion previa(Actual: Off)");
+		jButtonActivarExploracion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				jButtonActivacionExploracionActionPerformed();
+			}
+		});
+		
+		
+		
 		
 		
 		jMenuItemParar.setText("Parar robot");
@@ -302,6 +317,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 										.addComponent(jButtonMostrarEscenarioActual)
 										.addGap(45, 45, 45)
 										.addComponent(jLabel4))
+								.addComponent(jButtonActivarExploracion)
 								.addComponent(jButtonActivarJerarquico)
 								.addComponent(jButtonSendVictim)
 								.addComponent(jButtonSendVictimsSequence))
@@ -351,6 +367,8 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 										.addContainerGap())
 								.addGroup(layout.createSequentialGroup()
 										.addGap(0, 107, Short.MAX_VALUE)
+										.addComponent(jButtonActivarExploracion)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addComponent(jButtonActivarJerarquico)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addComponent(jButtonSendVictim)
@@ -373,12 +391,24 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		pack();
 	}
 
-	protected void jButtonActivarJerarquicoActionPerformed() {
-		if(controladorEscSim.asignadorSeMueve){
-			this.jButtonActivarJerarquico.setText("Activar(Actual: Off)");
+	protected void jButtonActivacionExploracionActionPerformed() {
+		// TODO Auto-generated method stub
+		if(controladorEscSim.exploracionPrevia){
+			this.jButtonActivarExploracion.setText("Activar exploracion previa(Actual: Off)");
 		}
 		else{
-			this.jButtonActivarJerarquico.setText("Desactivar(Actual: On)");
+			this.jButtonActivarExploracion.setText("Desactivar exploracion previa(Actual: On)");
+			
+		}
+		
+		controladorEscSim.exploracionPrevia = !controladorEscSim.exploracionPrevia;
+	}
+	protected void jButtonActivarJerarquicoActionPerformed() {
+		if(controladorEscSim.asignadorSeMueve){
+			this.jButtonActivarJerarquico.setText("Activar mov jefe(Actual: Off)");
+		}
+		else{
+			this.jButtonActivarJerarquico.setText("Desactivar mov jefe(Actual: On)");
 			
 		}
 		
@@ -595,6 +625,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	private javax.swing.JList jlistIdentsRobots;
 	private javax.swing.JTextField jtextTextFieldIntervaloEnvioMensajes;
 	private javax.swing.JButton jButtonActivarJerarquico;
+	private javax.swing.JButton jButtonActivarExploracion;
 	// End of variables declaration//GEN-END:variables
 
 	public void setIdentEscenarioActual(String identEscenario) {

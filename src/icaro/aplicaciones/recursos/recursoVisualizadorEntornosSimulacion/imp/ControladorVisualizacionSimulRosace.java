@@ -35,6 +35,7 @@ import org.openide.util.Exceptions;
  */
 public class ControladorVisualizacionSimulRosace {
 	public static boolean asignadorSeMueve = false;
+	public static boolean exploracionPrevia = true;
 	private NotificadorInfoUsuarioSimulador notifEvts;
 	private int intervaloSecuencia = 10000; // valor por defecto. Eso deberia ponerse en otro sitio
 	private int numMensajesEnviar = 3;
@@ -123,8 +124,10 @@ public class ControladorVisualizacionSimulRosace {
 		// else if (identEquipoActual== null)visorControlSim.setIdentEquipo(escenarioActualComp.getIdentEscenario());
 		// else if (intervaloSecuencia <=0)visorControlSim.solicitarDefinicionItervaloSecuencia();
 		//else 
-		//notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
-		notifEvts.sendIniciarSimulacion();
+		if(exploracionPrevia)
+			notifEvts.sendIniciarSimulacion();
+		else 
+			notifEvts.sendPeticionSimulacionSecuenciaVictimasToRobotTeam(intervaloSecuencia);
 	}
 
 	public  void peticionCrearEscenario() {
