@@ -32,8 +32,14 @@ Lo que hay que hacer es lo siguiente:
 	El último paso es cambiar la codificación y la versión de Java del proyecto, para ello clickamos con el botón derecho en el proyecto en eclipse(o cualquier IDE usado) y seleccionamos propiedades; una vez ahí, vamos a **Resource** y en el apartado _Text file encoding_, seleccionamos _others_ y elegimos **Cp1252**. Para cambiar la versión, en el mismo menú seleccionamos el apartado _Java compiler_ y ahí activamos _Enable project specific settings_ y seleccionamos en _Compiler compliance level_ el **1.8**.
   Si todo ha ido bien las configuraciones y el proyecto os debe quedar como en las fotos de a continuacion:
 
-  Proyecto en eclipse --> https://pixabay.com/photo-1089640/
+  Proyecto en eclipse -->
   
-  Configuracion(Main) --> https://pixabay.com/photo-1089641/
+  <a href="http://es.tinypic.com?ref=2vwfxmw" target="_blank"><img src="http://i63.tinypic.com/2vwfxmw.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
   
-  Configuracion(Arguments) --> https://pixabay.com/photo-1089642/
+  Configuracion(Main) -->
+  
+  <a href="http://es.tinypic.com?ref=bg1qc8" target="_blank"><img src="http://i68.tinypic.com/bg1qc8.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
+  
+  Configuracion(Arguments) --> 
+
+<a href="http://es.tinypic.com?ref=k55rus" target="_blank"><img src="http://i67.tinypic.com/k55rus.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
