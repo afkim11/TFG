@@ -24,7 +24,7 @@ Lo que hay que hacer es lo siguiente:
    o directamente ponemos _"icaro.infraestructura.clasesGeneradorasOrganizacion.ArranqueSistemaConCrtlGestorO"_.
   - En la pestaña Arguments tenemos que ir al cuadro de texto _**Program Arguments**_ y escribir ahí el nombre del xml de configuración que queramos ejecutar.
   Actualmente, tenemos un unico archivo de configuracion(lo que hay que poner en _**Program Arguments**_):
-  	- "descripcion_4Robots_6VictimasIP_001_Frecuencia10seg_Jerarquico
+  	- descripcion_4Robots_6VictimasIP_001_Frecuencia10seg_Jerarquico
   - Por último, hay que aumentar el tamaño del stack(la pila de llamadas) porque se agota con el tamaño por defecto. Para aumentar el tamaño de la pila
   hay que añadir en _**VM Arguments**_ lo siguiente: _-Xss32m_.
 
