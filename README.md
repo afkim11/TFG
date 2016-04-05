@@ -1,4 +1,4 @@
-**Nota importante:** La versión Java requerida es mínimo 1.6.
+**Nota importante:** La versión Java requerida es mínimo 1.7.
 
 **Instrucciones para ejecutar el proyecto.** 
 
@@ -23,9 +23,8 @@ Lo que hay que hacer es lo siguiente:
   - En la pestaña Main tenemos que seleccionar en _**Project**_ nuestro proyecto y despues en _**Main Class**_ buscamos la clase mencionada anteriormente
    o directamente ponemos _"icaro.infraestructura.clasesGeneradorasOrganizacion.ArranqueSistemaConCrtlGestorO"_.
   - En la pestaña Arguments tenemos que ir al cuadro de texto _**Program Arguments**_ y escribir ahí el nombre del xml de configuración que queramos ejecutar.
-  Actualmente, usamos dos archivos de configuracion(lo que hay que poner en _**Program Arguments**_ es cualquiera de las dos descripciones de a continuacion):
-  	- "descripcion_4Robots_6VictimasIP_001_Frecuencia10seg_JerarquicoCR"        --> Esta descripción es con 2 obstaculos, 4 robots y 6 victimas.
-  	- "descripcion_4Robots_6VictimasIP_001_Frecuencia10seg_JerarquicoCR2"       --> Esta descripcion es sin obstaculos, 4 robots y 6 victimas
+  Actualmente, tenemos un unico archivo de configuracion(lo que hay que poner en _**Program Arguments**_):
+  	- "descripcion_4Robots_6VictimasIP_001_Frecuencia10seg_Jerarquico
   - Por último, hay que aumentar el tamaño del stack(la pila de llamadas) porque se agota con el tamaño por defecto. Para aumentar el tamaño de la pila
   hay que añadir en _**VM Arguments**_ lo siguiente: _-Xss32m_.
 
