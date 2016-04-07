@@ -285,6 +285,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 	@Override
 	public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception {
 		visorEscenarios = new VisorEscenariosRosace(escenarioNuevo,this.notifEvt);
+		this.controlador.setNuevoVisorEscenario(visorEscenarios);
 	}
 	@Override
 	public void comprobarVictimasArea(Coordinate coor,int perimetroDeVision) throws Exception {

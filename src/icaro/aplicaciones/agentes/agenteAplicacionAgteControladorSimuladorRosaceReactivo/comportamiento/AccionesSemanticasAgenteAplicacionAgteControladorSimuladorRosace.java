@@ -523,7 +523,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 				String nombre = (String) this.identsAgtesEquipo.get(i);
 				if(!nombre.equalsIgnoreCase("jerarquicoagenteAsignador")){
 
-					this.comunicator.enviarInfoAotroAgente(new Informacion(VocabularioRosace.CambiarUbicacion,robots.get(nombre)),nombre);		
+					this.comunicator.enviarInfoAotroAgente(new Informacion(VocabularioRosace.CambiarUbicacion,robots.get(nombre)),nombre);	
 				}
 
 			}

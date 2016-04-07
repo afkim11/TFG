@@ -7,7 +7,7 @@
       <robotStatus>
          <idRobot>JerarquicorobotSubordinado4</idRobot>
          <idRobotRol>indefinido</idRobotRol>
-         <availableEnergy>2500</availableEnergy>
+         <availableEnergy>90000</availableEnergy>
          <robotCoordinateActual>
             <x>113.0</x>
             <y>116.0</y>
@@ -24,7 +24,7 @@
       <robotStatus>
          <idRobot>JerarquicorobotSubordinado3</idRobot>
          <idRobotRol>indefinido</idRobotRol>
-         <availableEnergy>2500</availableEnergy>
+         <availableEnergy>90000</availableEnergy>
          <robotCoordinateActual>
             <x>53.0</x>
             <y>158.0</y>
@@ -41,7 +41,7 @@
       <robotStatus>
          <idRobot>JerarquicorobotSubordinado2</idRobot>
          <idRobotRol>indefinido</idRobotRol>
-         <availableEnergy>2500</availableEnergy>
+         <availableEnergy>90000</availableEnergy>
          <robotCoordinateActual>
             <x>141.0</x>
             <y>264.0</y>
@@ -58,7 +58,7 @@
       <robotStatus>
          <idRobot>JerarquicorobotSubordinado1</idRobot>
          <idRobotRol>indefinido</idRobotRol>
-         <availableEnergy>2500</availableEnergy>
+         <availableEnergy>90000</availableEnergy>
          <robotCoordinateActual>
             <x>184.0</x>
             <y>145.0</y>

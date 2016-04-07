@@ -8,6 +8,7 @@ import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
+import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.AyudarVictima;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
@@ -30,7 +31,7 @@ public class TareaRomperRobot extends TareaSincrona{
 		Iterator<Objetivo> it = misObjs.getMisObjetivosPriorizados().iterator();
 		while(it.hasNext()){
 			Objetivo obj=it.next();
-			if(obj.getState()==Objetivo.SOLVING){
+			if(obj.getState()==Objetivo.SOLVING && obj instanceof AyudarVictima){
 				String nombreVictima=obj.getobjectReferenceId();
 				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
 				Object[] valoresParametrosAccion = new Object[1];

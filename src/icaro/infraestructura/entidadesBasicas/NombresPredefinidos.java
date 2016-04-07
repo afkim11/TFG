@@ -75,7 +75,7 @@ public class NombresPredefinidos {
   public static final String CARPETA_TAREAS = "tareas";
   public static final String CARPETA_COMPORTAMIENTO = "comportamiento";
   public static final String DESCRIPCION_SCHEMA = "./schemas/DescripcionOrganizacionSchema.xsd";
-  public static final String RUTA_DESCRIPCIONES = "descriptoresOrganizacion/";
+  public static final String RUTA_DESCRIPCIONES = "descripcionesOrganizacion/";
   public static final String PAQUETE_JAXB = "icaro.infraestructura.entidadesBasicas.descEntidadesOrganizacion.jaxb";
   public static final String RUTA_LOGS = "./log/";
 // Estados e inputs para el automata del ciclo de vida
@@ -118,7 +118,8 @@ public class NombresPredefinidos {
   public final static String regex_ruta_automata_behaviour = "<NOMBRE>";
   public final static String DROOLS_Debugging_BEFORE_RuleFired = "BEFORE_ActivationFired";
   public final static String DROOLS_Debugging_AFTER_RuleFired = "AFTER_ActivationFired";
-  public final static String PROPERTY_TIME_TIMEOUT_POR_DEFECTO = "timeTimeoutPorDefecto"; 
+  public final static String PROPERTY_TIME_TIMEOUT_POR_DEFECTO = "timeTimeoutPorDefecto";
+public static final String RUTA_PERSISTENCIA_ESCENARIOS = "PersistenciaEscenariosSimulacion/"; 
   // añadir los nombres de cada aplicacion en concreto
   public static String RUTA_Carpeta_CodigoFuente_ICARO = "src/";  //cambiar el valor a "src/main/java" si pone el icaro en un proyecto maven
 }

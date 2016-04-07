@@ -9,10 +9,16 @@ public class CambiarCoordenadas extends TareaSincrona{
 	@Override
 	public void ejecutar(Object... params) {
 		
-		RobotStatus robotStatus = (RobotStatus) params[0];
+		RobotStatus robotStatus = (RobotStatus) params[0];	
 		
 		Informacion mensaje = (Informacion) params[1];
-		robotStatus.setRobotCoordinate(((RobotStatus) mensaje.getContenido2()).getRobotCoordinate());
+		RobotStatus newStatus = (RobotStatus) mensaje.getContenido2();
+		
+		robotStatus.setAvailableEnergy(newStatus.getAvailableEnergy());
+		robotStatus.setRobotCoordinate(newStatus.getRobotCoordinate());
+		robotStatus.setIdRobot(newStatus.getIdRobot());
+		robotStatus.setIdRobotRol(newStatus.getIdRobotRol());
+		robotStatus.setRobotCapabilities(newStatus.getRobotCapabilities());
 		this.itfProcObjetivos.actualizarHechoWithoutFireRules(robotStatus);
 		this.itfProcObjetivos.eliminarHechoWithoutFireRules(mensaje);
 	}

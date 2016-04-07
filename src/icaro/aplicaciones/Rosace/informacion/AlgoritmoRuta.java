@@ -55,12 +55,10 @@ public class AlgoritmoRuta {
 		}
 		private void inicializarObstaculos() {
 			try {
-				ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
-				ItfUsoConfiguracion itfconfig;
-				itfconfig = (ItfUsoConfiguracion) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
-				String rutaFicheroEscenario = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroEscenarioSimulacion);
-				EscenarioSimulacionRobtsVictms escenario = new Persister().read(EscenarioSimulacionRobtsVictms.class,new File(rutaFicheroEscenario + ".xml"),false);
-				this.obstaculos = escenario.getListObstacles();
+			
+				String rutaFicheroEscenario = NombresPredefinidos.RUTA_PERSISTENCIA_ESCENARIOS + NombresPredefinidos.DESCRIPCION_XML_POR_DEFECTO;
+				EscenarioSimulacionRobtsVictms escenario = new Persister().read(EscenarioSimulacionRobtsVictms.class,new File(rutaFicheroEscenario),false);
+				obstaculos = escenario.getListObstacles();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -258,11 +256,4 @@ public class AlgoritmoRuta {
 			}
 			return null;
 		}
-
-		private void actualizarObstaculos() {
-
-			obstaculos = VisorEscenariosRosace.getObstaculos();
-		}
-
-
 }

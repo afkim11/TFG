@@ -131,6 +131,7 @@ public class NotificadorInfoUsuarioSimulador extends ComunicacionAgentes{
 				peticionActualizarEscenario = new InfoContEvtMsgAgteReactivo (VocabularioRosace.peticionActualizarEscenario);
 				peticionActualizarEscenario.setvaloresParametrosAccion(infoDefinidaPorUsuario);
 				this.generadoraVisualizador.updateEscenario(escenarioNuevo);
+				
 				this.informaraOtroAgenteReactivo(peticionActualizarEscenario, identificadorAgenteaReportar);
 		} 
 		catch (Exception ex) {
