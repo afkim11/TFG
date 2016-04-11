@@ -54,15 +54,8 @@ public class PedirEvaluacionesQueFaltanParaExplorar extends TareaSincrona{
 					}
 				}
 			}
-			//            trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Pedimos que nos reenvien las evaluaciones al agente: " +agenteReceptor, InfoTraza.NivelTraza.debug));
-
-			//    long time = (long)AccesoPropiedadesGlobalesRosace.getTimeTimeoutMilisegundosRecibirEvaluaciones();
-
+			
 			this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2,objetivoEjecutantedeTarea,nombreAgenteEmisor,infoDecisionAgente.getidElementoDecision());
-
-			//               this.generarInformeTemporizado(configConstantesSimulacion.TimeTimeoutRecibirEvaluaciones ,            		  
-			//                     VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2,objetivoEjecutantedeTarea, 
-			//                     nombreAgenteEmisor,infoDecisionAgente.getidElementoDecision());
 			this.generarInformeOK(identDeEstaTarea, objetivoEjecutantedeTarea, nombreAgenteEmisor, "PeticionDeEvaluacionesQueFaltanRealizada");
 
 			//  this.getEnvioHechos().insertarHecho(infoDecisionAgente);

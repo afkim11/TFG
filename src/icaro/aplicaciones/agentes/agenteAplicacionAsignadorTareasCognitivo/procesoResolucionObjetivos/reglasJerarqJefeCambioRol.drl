@@ -208,7 +208,6 @@ end
 
 rule "Proceso el primer timeout respuestas pido las respuestas que me faltan para reconocer terreno"
   when 
- //    exists  AyudarVictima(state == Objetivo.SOLVING,victimId == idVict)
      obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
      Focus(foco == obj)
      infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
@@ -220,23 +219,22 @@ rule "Proceso el primer timeout respuestas pido las respuestas que me faltan par
     retract (informeTarea2);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ReconocerTerreno) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 end
-/*
-rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo"
+
+rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo reconocer terreno"
   when
-     obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == idVict)
+     obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
      Focus(foco == obj)
-     v2r:VictimsToRescue(victims2Rescue!=null)
-     misObjs : MisObjetivos()
-     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
-     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2, contenidoInforme==idVict )              
+      misObjs : MisObjetivos()
+     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
+     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2, contenidoInforme==VocabularioRosace.MsgExploraTerreno )              
  then
     // Les pido a  los agentes que me faltan  su evaluacion
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaAlMejorParaQueRealiceObjetivo.class);
-    tarea.ejecutar(obj,infoDecision,victimaCC,misObjs, v2r); 
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo.class);
+    tarea.ejecutar(obj,infoDecision,misObjs); 
     retract (informeTarea2);
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-end*/
+end
 
 //Esta regla sirve para que las reglas de asginacion de victimas funcione
 rule "He recibido la confirmacion del explorador y actualizo el foco"

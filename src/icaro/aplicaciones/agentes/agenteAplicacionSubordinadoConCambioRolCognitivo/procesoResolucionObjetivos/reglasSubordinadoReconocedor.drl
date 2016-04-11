@@ -63,7 +63,7 @@ when
 end
 rule "Inicio consecucion Objetivo Conocer MiEquipo "
 // Consecucion Objetivo Conocer mi equipo
-when   
+when
     miEquipo: InfoEquipo(inicioContactoConEquipo== false)
     miStatus: RobotStatus(idRobot == agentId)
     obj1 : DefinirMiEquipo(state == Objetivo.SOLVING)
@@ -112,6 +112,7 @@ rule "Si me llega un mensaje de cambio de coordenadas, cambio mi coordenada"
     	System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());  
 end
+
 rule "Si me llega una peticion de envio de mi evaluacion del Agte Asignador  la calculo y se la mando"
 salience 10
  when    
@@ -125,8 +126,7 @@ salience 10
      TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarEvaluacionAlAgteAsignador.class);
      tarea.ejecutar(null,peticionAgte,misObjs,robot,victims2R);
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," :REGLA " + drools.getRule().getName());
-     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
-     
+     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );     
 end
 
 rule "Procesar propuesta para que asuma el objetivo cuando no tengo objetivo focalizado "
@@ -145,7 +145,6 @@ rule "Procesar propuesta para que asuma el objetivo cuando no tengo objetivo foc
       System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );    
       tarea.ejecutar(null,miStatus,misObjs,victims2R,propuesta );                 
 end
-
 
 rule "Procesar propuesta para que explore el terreno cuando no tengo objetivo focalizado "
    when
@@ -191,47 +190,8 @@ no-loop true
       System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" ); 
       tarea.ejecutar(misObjs,focoActual,victimaCC,acPropuesta,infoComMov,victims2R,robot);                    
 end
-/*
-rule "Focalizacion en el objetivo ayudar a la victima mas prioritaria"
-salience 10
-no-loop true
-when
-    misObjs : MisObjetivos(objetivoMasPrioritario !=null)
-    AyudarVictima($idVict: victimId ,state == Objetivo.SOLVING )
- //   victimaCC:Victim(name==$idVict) 
-    victims2R:VictimsToRescue(victims2Rescue!=null)
-//    infoComMov :InfoCompMovimiento()
-    robot:RobotStatus()
-//    exists DefinirMiEquipo(state == Objetivo.SOLVED)
-   focoActual : Focus()
-    FinSimulacion()
-//  not ( exists  acPropuesta:AceptacionPropuesta (identAgente == agentId,identObjectRefAcetPropuesta == $idVict))
- then
- modify (focoActual) {setFocusToObjetivoMasPrioritario(misObjs)}
- //   TareaSincrona tarea = gestorTareas.crearTareaSincrona(FocalizarObjetivoMasPrioritario.class); //crea otro  objetivo ayudar victima
- //   tarea.ejecutar(misObjs,focoActual,victimaCC,infoComMov,victims2R); // poner tambien en la tarea la creacion del objetivo decidir quien va
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
-    System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-end*/
-/*
-rule "Movimiento hacia una nueva victima tras conseguir salvar a la victima mas prioritaria"
-salience 20
-when
-    misObjs : MisObjetivos(objetivoMasPrioritario !=null)
-    victimaCC:Victim($idVict:name) 
-    victims2R:VictimsToRescue(victims2Rescue!=null)
-    infoComMov :InfoCompMovimiento()
-    obj :AyudarVictima( victimId == $idVict,state == Objetivo.SOLVED )
-    focoActual:Focus(foco == obj)
-    exists (Informe (referenciaContexto==$idVict,contenidoInforme == VocabularioRosace.MsgeLlegadaDestino))
- then
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MoverseAsalvarVictima.class); //crea otro  objetivo ayudar victima
-    tarea.ejecutar(misObjs,focoActual,victimaCC,infoComMov,victims2R); // poner tambien en la tarea la creacion del objetivo decidir quien va
-    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
-    System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+$idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
-end*/
+
+
 //==========================================================================
 //   Reglas de  consecucion  del objetivo AyudarVictima  : Condiciones para que se consiga
 //           
@@ -262,29 +222,17 @@ when
     System.out.println( "\n"+agentId + "Foco: Estoy en  el objetivo "+focoActual.toString()+" \n\n" );
   
 end
-/*
-rule "Fin de la simulacion"
-  when    
-    robot:RobotStatus()
-    victims2R:VictimsToRescue(victims2Rescue!=null)
-    misObjs: MisObjetivos()
-//    finSimu: FinSimulacion(flagActivacion==false)                
-    finSimu: FinSimulacion()                
-  then
-     TareaSincrona tarea = gestorTareas.crearTareaSincrona(FinalizarSimulacion.class);
-     tarea.ejecutar(robot,victims2R,misObjs,finSimu);
-     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 
-end*/
 //==========================================================================
 //   Reglas   del objetivo Parar Robot  : Ciclo de vida
 //           
 //==========================================================================
 //
 //   Generacion y focalizacion
+
 rule "Generacion y focalizacion objetivo PararRobot"
 salience 40
-  when    
+  when
     misObjs: MisObjetivos()
     infoComMov :InfoCompMovimiento()
    not ( exists PararRobot() )              
