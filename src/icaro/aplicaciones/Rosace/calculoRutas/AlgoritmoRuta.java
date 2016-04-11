@@ -1,4 +1,4 @@
-package icaro.aplicaciones.Rosace.informacion;
+package icaro.aplicaciones.Rosace.calculoRutas;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +8,9 @@ import java.util.PriorityQueue;
 import org.simpleframework.xml.core.Persister;
 
 import fr.laas.openrobots.jmorse.components.rosace_sensor.RosaceSensor;
+import icaro.aplicaciones.Rosace.informacion.Coordinate;
+import icaro.aplicaciones.Rosace.informacion.Coste;
+import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
@@ -27,11 +30,20 @@ import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.Repo
 public class AlgoritmoRuta {
 	private static final int width = 40;
 	private static final int height = 27;
-	private final Comparator<Coordinate> comparador = new Comparator<Coordinate>(){
-		public int compare(Coordinate o1, Coordinate o2){
-			double coste1=Coste.distanciaC1toC2(o1,coordenadasDestino),coste2=Coste.distanciaC1toC2(o2,coordenadasDestino);
-			if( coste1<coste2 )return -1;
-			else if(coste1 > coste2)return 1;
+	private Anterior direccionVictima;
+	private final Comparator<CoordenadaExtension> comparador = new Comparator<CoordenadaExtension>(){
+		public int compare(CoordenadaExtension o1, CoordenadaExtension o2){
+			double coste1=Coste.distanciaC1toC2(o1.getCoor(),coordenadasDestino),coste2=Coste.distanciaC1toC2(o2.getCoor(),coordenadasDestino);
+			if(coste1 < coste2){
+				if(direccionBuena(direccionVictima, o2.getDir()) && !direccionBuena(direccionVictima, o1.getDir()))
+					return 1;
+				else return -1;
+			}
+			else if(coste1 > coste2){
+				if(!direccionBuena(direccionVictima, o2.getDir()) && direccionBuena(direccionVictima, o1.getDir()))
+					return -1;
+				else return 1;
+			}
 			return 0;
 
 		}};
@@ -44,14 +56,12 @@ public class AlgoritmoRuta {
 		private static ArrayList<LineaObstaculo> obstaculos;
 
 
-
-		public enum Anterior{MOV_NULO, NOROESTE, NORTE, NORESTE, OESTE, ESTE, SUROESTE, SUR, SURESTE};
-
-
 		public AlgoritmoRuta(Coordinate destino,Coordinate iniciales){
 			this.coordenadasDestino=destino;
 			this.coordenadasIniciales=iniciales;
 			this.contador=0;
+			if(iniciales.getX() < destino.getX()) this.direccionVictima = Anterior.ESTE;
+			else if(iniciales.getX() > destino.getX()) this.direccionVictima = Anterior.OESTE;
 			this.inicializarObstaculos();
 		}
 		private void inicializarObstaculos() {
@@ -81,9 +91,9 @@ public class AlgoritmoRuta {
 				return rutaHastaAhora;
 			}
 			else{
-				PriorityQueue<Coordinate> colaNodos=estimaCoste(visitados,coordenadasActuales, anterior); 
+				PriorityQueue<CoordenadaExtension> colaNodos=estimaCoste(visitados,coordenadasActuales, anterior); 
 				while(!colaNodos.isEmpty() && this.contador<limiteRecursividad){
-					Coordinate coor=colaNodos.poll();
+					Coordinate coor=colaNodos.poll().getCoor();
 					int x=(int)coor.getX(),y=(int)coor.getY();
 					visitados[x][y]=true;
 					rutaHastaAhora.add(coor);
@@ -116,9 +126,38 @@ public class AlgoritmoRuta {
 			else if (restaX == 0 && restaY == 1) return Anterior.NORTE;
 			else if (restaX == 1 && restaY == 1) return Anterior.NOROESTE;
 			else return Anterior.MOV_NULO;
-
-
-
+		}
+		
+		
+		/**
+		 * 
+		 * @param anterior
+		 * @return Anterior
+		 * 
+		 * Esta funcion se utiliza para calcular en que direccion se esta moviendo el robot para la coordenada que esta calculando ahora, por ejemplo si viene de NORTE,
+		 * significa que el robot esta yendo hacia el SUR. Basicamente es el inverso del anterior.
+		 */
+		private Anterior calculaDirActual(Anterior anterior){
+			switch(anterior){
+			case NORTE:
+				return Anterior.SUR;
+			case SUR:
+				return Anterior.NORTE;
+			case ESTE:
+				return Anterior.OESTE;
+			case OESTE:
+				return Anterior.ESTE;
+			case NORESTE:
+				return Anterior.SUROESTE;
+			case NOROESTE:
+				return Anterior.SURESTE;
+			case SUROESTE:
+				return Anterior.NORESTE;
+			case SURESTE:
+				return Anterior.SUROESTE;
+			default:
+				return Anterior.MOV_NULO;
+			}
 		}
 		/**
 		 * Este método se encarga de calcular los posibles nodos siguientes desde una posición sin tener en cuenta las coordenadas ya visitadas y la posición de la que se viene.
@@ -127,76 +166,83 @@ public class AlgoritmoRuta {
 		 * @param anterior
 		 * @return
 		 */
-		private PriorityQueue<Coordinate> estimaCoste(boolean[][] visitados, Coordinate coordinadasActuales, Anterior anterior) {
-			PriorityQueue<Coordinate> cola=new PriorityQueue<Coordinate>(8,comparador);
+		private PriorityQueue<CoordenadaExtension> estimaCoste(boolean[][] visitados, Coordinate coordinadasActuales, Anterior anterior) {
+			PriorityQueue<CoordenadaExtension> cola=new PriorityQueue<CoordenadaExtension>(8,comparador);
 			for(int i=1;i<=8;i++){
 				if(i!=anterior.ordinal()){
 					if(i==Anterior.NOROESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()-1;
 						int y=(int)coordinadasActuales.getY()-1;
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(!visitados[x][y] && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 
 					}
 					else if(i==Anterior.NORTE.ordinal()){
 						int x=(int)coordinadasActuales.getX();
 						int y=(int)coordinadasActuales.getY()-1;
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(visitados[x][y]==false && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 
 					}
 					else if(i==Anterior.NORESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()+1;
 						int y=(int)coordinadasActuales.getY()-1;
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(visitados[x][y]==false && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 
 					}
 					else if(i==Anterior.OESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()-1;
 						int y=(int)coordinadasActuales.getY();
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(visitados[x][y]==false && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
-
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 					}
 					else if(i==Anterior.ESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()+1;
 						int y=(int)coordinadasActuales.getY();
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(visitados[x][y]==false && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 
 					}
 					else if(i==Anterior.SUROESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()-1;
 						int y=(int)coordinadasActuales.getY()+1;
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(visitados[x][y]==false && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 
 					}
 					else if(i==Anterior.SUR.ordinal()){
 						int x=(int)coordinadasActuales.getX();
 						int y=(int)coordinadasActuales.getY()+1;
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(visitados[x][y]==false && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 
 					}
 					else if(i==Anterior.SURESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()+1;
 						int y=(int)coordinadasActuales.getY()+1;
 						Coordinate coor=new Coordinate(x,y,0.5);
-						if(visitados[x][y]==false && !checkLimites(coor, calculaAnterior(coordinadasActuales, coor)))
-							cola.add(coor);
+						Anterior ant = calculaAnterior(coordinadasActuales, coor);
+						if(!visitados[x][y] && !checkLimites(coor, ant))
+							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
 
 					}
 				}
-			}		
+			}
 			return cola;
 		}
 
@@ -256,5 +302,37 @@ public class AlgoritmoRuta {
 				if(obs.compruebaCoordenada(coordinate))return obs;
 			}
 			return null;
+		}
+		/**
+		 * 
+		 * @param dirVictima
+		 * @param dirCoord
+		 * @return
+		 * 
+		 * Este metodo se utiliza para calcular si la direccion a la que se mueve si se toma la coordenada es una direccion buena para llegar a la victima, la victima puede estar
+		 * a la derecha(ESTE) o a la izquierda(OESTE). Si esta en la izquierda las direcciones que 
+		 */
+		private boolean direccionBuena(Anterior dirVictima, Anterior dirCoord){
+			if(dirVictima == Anterior.ESTE){
+				switch(dirCoord){
+				case OESTE:
+				case NOROESTE:
+				case SUROESTE:
+					return false;
+				default:
+					return true;				
+				}
+			}
+			else if(dirVictima == Anterior.OESTE){
+				switch(dirCoord){
+				case ESTE:
+				case NORESTE:
+				case SURESTE:
+					return false;
+				default:
+					return true;
+				}
+			}
+			else return false;
 		}
 }

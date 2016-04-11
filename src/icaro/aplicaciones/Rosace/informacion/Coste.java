@@ -1,7 +1,9 @@
 package icaro.aplicaciones.Rosace.informacion;
 
 
-import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta.Anterior;
+import icaro.aplicaciones.Rosace.*;
+import icaro.aplicaciones.Rosace.calculoRutas.AlgoritmoRuta;
+import icaro.aplicaciones.Rosace.calculoRutas.Anterior;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.MaquinaEstadoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;

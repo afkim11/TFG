@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta;
-import icaro.aplicaciones.Rosace.informacion.AlgoritmoRuta.Anterior;
+import icaro.aplicaciones.Rosace.calculoRutas.AlgoritmoRuta;
+import icaro.aplicaciones.Rosace.calculoRutas.Anterior;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
