@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 
 import org.simpleframework.xml.core.Persister;
 
+import fr.laas.openrobots.jmorse.components.rosace_sensor.RosaceSensor;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
@@ -56,7 +57,7 @@ public class AlgoritmoRuta {
 		private void inicializarObstaculos() {
 			try {
 			
-				String rutaFicheroEscenario = NombresPredefinidos.RUTA_PERSISTENCIA_ESCENARIOS + NombresPredefinidos.DESCRIPCION_XML_POR_DEFECTO;
+				String rutaFicheroEscenario = NombresPredefinidos.RUTA_PERSISTENCIA_ESCENARIOS + VocabularioRosace.rutaEscenario;
 				EscenarioSimulacionRobtsVictms escenario = new Persister().read(EscenarioSimulacionRobtsVictms.class,new File(rutaFicheroEscenario),false);
 				obstaculos = escenario.getListObstacles();
 			} catch (Exception e) {

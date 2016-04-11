@@ -52,6 +52,7 @@ public class VisorEscenariosRosace extends JFrame {
 	private String rutassrc = "src/";   //poner "src/main/java" si el proyecto de icaro se monta en un proyecto maven
 	private String rutapaqueteConstructorEscenariosROSACE = "utilsDiseniaEscenariosRosace/";
 	private String directorioTrabajo;
+	private String rutaEscenario;
 	private int excesoY = 20;
 	private int excesoX = 10;
 	private int dimensionVerticalTextArea = 20;
@@ -71,7 +72,7 @@ public class VisorEscenariosRosace extends JFrame {
 	private String imageniconoMujerRescatada = "MujerRescatada.png";
 	private String imageniconoHombreRescatado = "HombreRescatado.png";
 	private String imageniconoRobot = "Robot.png";
-	private JTextArea textAreaMensaje;
+	//private JTextArea textAreaMensaje;
 	private JPanelObstaculo panelVisor;
 	private Graphics graficosVisor;
 	private ArrayList<String> identRobots;
@@ -85,11 +86,10 @@ public class VisorEscenariosRosace extends JFrame {
 	 * Create the frame.
 	 */
 	public VisorEscenariosRosace(String rutaFicheroRobotsTest) throws Exception {
-
+		this.rutaEscenario = rutaFicheroRobotsTest;
 	}
 	public VisorEscenariosRosace( NotificadorInfoUsuarioSimulador notifEvt) throws Exception {
 		this.notifEvts=notifEvt;
-		
 		init();
 	}
 	public VisorEscenariosRosace(EscenarioSimulacionRobtsVictms escenario, NotificadorInfoUsuarioSimulador notifEvt){
@@ -162,12 +162,8 @@ public class VisorEscenariosRosace extends JFrame {
         splitPane.setRightComponent(scrollPane);*/
 		ItfUsoConfiguracion itfconfig = (ItfUsoConfiguracion) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfaz(NombresPredefinidos.NOMBRE_ITF_USO_CONFIGURACION);
 		String rutaFicheroSimulacion = itfconfig.getValorPropiedadGlobal(VocabularioRosace.rutaFicheroEscenarioSimulacion);
-		
+		VocabularioRosace.rutaEscenario = new File( rutaFicheroSimulacion+ ".xml" ).getName();
 		File ficheroEscenario = new File(rutaFicheroSimulacion + ".xml");
-		if(ficheroEscenario.canRead())
-		{
-			int x = 1;
-		}
 		Serializer serializer = new Persister();
 		EscenarioSimulacionRobtsVictms escenario = serializer.read(EscenarioSimulacionRobtsVictms.class,ficheroEscenario, false);
 		this.escenario = escenario;
@@ -702,9 +698,8 @@ public class VisorEscenariosRosace extends JFrame {
 	
 	public void escribirEnAreaTexto(String texto) {
 
-		textAreaMensaje.append(texto);
+		//textAreaMensaje.append(texto);
 	}
-
 	///////////////////////////////////////////////////////////////////////////////////////////
 	//  Metodos auxiliares para obtener los valores numericos de los robots y las victimas   //
 	//  Por ejemplo getNumeroRobot("robotIgualitario12") devuelve 12                         //

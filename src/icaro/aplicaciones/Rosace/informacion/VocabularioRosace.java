@@ -145,4 +145,6 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static final String MsgExploraTerreno = "Explora el terreno";
 
 	public static final String MsgAceptacionPropuestaExplora = "Acepto explorar el terreno";
+
+	public static String rutaEscenario = null;
 }

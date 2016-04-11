@@ -148,7 +148,7 @@ public class ControladorVisualizacionSimulRosace {
 			this.escenarioEdicionComp.setGestorEscenarios(gestionEscComp);
 			identEquipoActual= this.escenarioEdicionComp.getIdentEscenario();
 			visorControlSim.setIdentEquipo(identEquipoActual);
-			NombresPredefinidos.DESCRIPCION_XML_POR_DEFECTO = ficheroSeleccionado.getName();
+			VocabularioRosace.rutaEscenario = ficheroSeleccionado.getName();
 			identsRobotsEquipo= this.escenarioEdicionComp.getListIdentsRobots();
 			if( identsRobotsEquipo!=null) visorControlSim.visualizarIdentsEquipoRobot(identsRobotsEquipo);
 			if(this.escenarioEdicionComp.getListIdentsVictims()!=null)visorControlSim.visualizarIdentsEquipoVictims(this.escenarioEdicionComp.getListIdentsVictims());
