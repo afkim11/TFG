@@ -162,6 +162,18 @@ rule "Comenzar la consecucion del objetivo DecidirQuienVa primera vez en reconoc
      tarea.ejecutar(obj, VocabularioRosace.MsgExploraTerreno,miEquipo );
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 end
+rule "Comenzar la consecucion del objetivo DecidirQuienVa en reconocer terreno"
+  when
+    miEquipo: InfoEquipo(idTeam:teamId,inicioContactoConEquipo== true)
+    obj1 : ReconocerTerreno(state == Objetivo.PENDING) 
+    obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
+    focoActual:Focus(foco == obj )
+    exists (InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno))
+  then
+     TareaSincrona tarea = gestorTareas.crearTareaSincrona(InicializarInfoParaDecidir.class);
+     tarea.ejecutar(obj, VocabularioRosace.MsgExploraTerreno,miEquipo );
+     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+end
 
 
 rule "Pido la evaluacion para realizar el objetivo de reconocer el terreno al equipo de robots "
@@ -246,14 +258,15 @@ rule "He recibido la confirmacion del explorador y actualizo el foco"
  	acProp:AceptacionPropuesta(msgAceptacionPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
  then
 	modify ( obj ){
-            setSolved()
+         setSolved()
     };
  	modify(focoActual){
     	 setFoco(null)
     };
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
     retract(acProp)
     retract(obj1)
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
+    
  end
 
 

@@ -9,6 +9,7 @@ import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.AyudarVictima;
+import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
@@ -31,7 +32,8 @@ public class TareaRomperRobot extends TareaSincrona{
 		Iterator<Objetivo> it = misObjs.getMisObjetivosPriorizados().iterator();
 		while(it.hasNext()){
 			Objetivo obj=it.next();
-			if(obj.getState()==Objetivo.SOLVING && obj instanceof AyudarVictima){
+			if(obj.getState()==Objetivo.SOLVING){
+				if(obj instanceof AyudarVictima){
 				String nombreVictima=obj.getobjectReferenceId();
 				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
 				Object[] valoresParametrosAccion = new Object[1];
@@ -43,6 +45,14 @@ public class TareaRomperRobot extends TareaSincrona{
 				OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, v);
 				this.getComunicator().enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
 				misObjs.eliminarObjetivoDeMisObjetivosPriorizados(obj);
+				}
+				else if(obj instanceof ReconocerTerreno){
+					
+					OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);
+					this.getComunicator().enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
+					misObjs.eliminarObjetivoDeMisObjetivosPriorizados(obj);
+					
+				}
 			}
 		}
 		
