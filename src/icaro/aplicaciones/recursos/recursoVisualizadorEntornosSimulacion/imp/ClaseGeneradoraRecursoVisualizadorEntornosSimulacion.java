@@ -310,5 +310,12 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 		
 	}
 
+	@Override
+	public void mostrarPosicionVictima(String identVict, Coordinate coordVict) throws Exception {
+		visorEscenarios.setVisible(true);
+		visorEscenarios.cambiarPosicionVictima(identVict, coordVict);
+		
+	}
+
 
 }

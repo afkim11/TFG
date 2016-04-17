@@ -150,7 +150,7 @@ public class Coste {
 	public int CalculoCosteAyudarVictima (String nombreAgenteEmisor, Coordinate robotLocation,RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
 		int aux;
 		int energia=robot.getAvailableEnergy();
-		if((aux = this.prototipo(robotLocation, misObjs, victims2R, victima,energia)) != -1){
+		if((aux = this.calculoRutaConVuelta(robotLocation, misObjs, victims2R, victima,energia)) != -1){
 			funcionEvaluacion =  aux;
 			return aux;
 		}
@@ -169,7 +169,7 @@ public class Coste {
 		int prioridadNuevaVictima = nuevaVictima.getPriority();
 		// si la victima no esta entre las vicitimas a rescatar o en los objetivos
 
-		PriorityBlockingQueue <Objetivo> colaobjetivos = misObjs.getMisObjetivosPriorizados();
+		PriorityBlockingQueue<Objetivo> colaobjetivos = misObjs.getMisObjetivosPriorizados();
 
 		Iterator<Objetivo> it = colaobjetivos.iterator();
 		boolean hayVictimasArescatar = victims2R.getvictims2Rescue().isEmpty();
@@ -190,7 +190,7 @@ public class Coste {
 		tiempo = tiempo + (factorMultiplicativo*prioridadNuevaVictima);
 		return tiempo;
 	}
-	public int prototipo(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima,int energia){
+	public int calculoRuta(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima,int energia){
 		PriorityBlockingQueue<Objetivo> cola=misObjs.getMisObjetivosPriorizados();
 		Iterator<Objetivo> it=cola.iterator();
 		int time = 0;
@@ -208,8 +208,8 @@ public class Coste {
 				ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
 				try{
 					AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
-					 					arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
-					 					}
+					arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
+				}
 				catch(Exception e){
 					System.out.println("");
 				}
@@ -239,6 +239,54 @@ public class Coste {
 		return -1;
 	}
 
+	public int calculoRutaConVuelta(Coordinate robotLocation, MisObjetivos misObjs, VictimsToRescue victims2Resc, Victim nuevaVictima,int energia){
+		PriorityBlockingQueue<Objetivo> cola=misObjs.getMisObjetivosPriorizados();
+		Iterator<Objetivo> it=cola.iterator();
+		int time = 0;
+		boolean[][] visitados= new boolean[VisorEscenariosRosace.ancho][VisorEscenariosRosace.alto];
+		Coordinate actual = robotLocation;
+		while(it.hasNext()){
+			Objetivo x = it.next();
+			if(x.getState()==Objetivo.SOLVING){
+				String nombreVictima=x.getobjectReferenceId();
+				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
+				visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
+				visitados[(int)actual.getX()][(int)actual.getY()]=true;
+				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
+				ruta.add(actual);
+				ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
+				try{
+					AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
+					arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
+				}
+				catch(Exception e){
+					System.out.println("");
+				}
+
+				if(arrayAux != null){
+					time = time + arrayAux.size()*2 + tiempoAtencionVictima;
+				}
+				else return -1;
+			}
+
+		}
+
+		visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
+
+		visitados[(int)actual.getX()][(int)actual.getY()]=true;
+		ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
+		ruta.add(actual);
+		AlgoritmoRuta alg2= new AlgoritmoRuta(nuevaVictima.getCoordinateVictim(), actual);
+		ArrayList<Coordinate> arrayAux = alg2.calculaRuta(visitados, actual, Anterior.MOV_NULO,ruta);
+		if(arrayAux != null){
+			time += arrayAux.size();
+			time += tiempoAtencionVictima;
+			if(time<energia)
+				return time;
+		}
+		return -1;
+	}
+
 	private boolean[][] matrizBooleanos(int ancho, int alto) {
 		boolean [][] visitados=new boolean[ancho][alto];
 		for(int i =0;i<ancho;i++)
@@ -246,7 +294,7 @@ public class Coste {
 				visitados[i][j]=false;
 		return visitados;
 	}
-	
+
 
 	//Calcula la distancia del camino que pasa por las victimas actualmente asignadas, incluyendo la nueva victima actual que ha llegado.
 	//El orden de visita de victimas esta determinado por las prioridades de las victimas, es decir, las de mayor prioridad se visitan primero.

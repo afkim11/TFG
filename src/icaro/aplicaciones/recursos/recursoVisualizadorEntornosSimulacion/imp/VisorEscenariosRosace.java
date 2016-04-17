@@ -753,4 +753,20 @@ public class VisorEscenariosRosace extends JFrame {
 	public EscenarioSimulacionRobtsVictms getEscenario(){
 		return this.escenario;
 	}
+	public synchronized void cambiarPosicionVictima(String identVict, Coordinate coordVict) {
+
+		String numeroVict = getNumeroVictima(identVict);
+
+		JLabel jlabelVict = this.victimaslabel.get(numeroVict);
+
+		if (jlabelVict != null) {
+			
+			jlabelVict.setLocation((int)coordVict.getX(), (int)coordVict.getY());
+			this.notifyAll();
+
+		} else {
+			System.out.println("jlabel nulo");
+		}
+		
+	}
 }

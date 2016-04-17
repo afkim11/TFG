@@ -190,6 +190,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 								/**
 								 * Si estas explorando entonces se comprueba que en el perímetro de vision del robot haya victimas. 
 								 */
+								
 								//Movimiento a derechas
 								if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() ){
 									referenciaExploracion = referenciaExploracion + anchoVictima;
@@ -207,6 +208,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 									t.start();
 									
 								}
+								
 								//Movimiento a izquierdas
 								else if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX()){
 									referenciaExploracion = referenciaExploracion - anchoVictima;
@@ -224,7 +226,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 									t.start();
 									
 								}
-								//Si no se realiza el escaneo entonces se realiza el sleep entre pixeles.
 								else Thread.sleep(intervaloEnvioInformesMs);
 								
 								
@@ -234,6 +235,33 @@ public class HebraMonitorizacionLlegada extends Thread {
 								}
 								else energia = false;
 							}
+							
+						}
+						if(this.controladorMovimiento.estadoActual.getActuacion() == 0){
+							Coordinate coordVict = this.coordDestino;
+								for(int i=ruta.size()-1;i>=0&& !this.finalizar && this.energia ;i--){
+									Coordinate punto=ruta.get(i);
+									this.coordActuales.setY(punto.getY());
+									this.coordActuales.setX(punto.getX());
+									
+									if (itfusoRecVisSimulador != null){
+										this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
+										this.itfusoRecVisSimulador.mostrarPosicionVictima(this.identDestino,coordActuales);
+										coordVict = coordActuales;
+									}										
+									this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+									Thread.sleep(intervaloEnvioInformesMs);								
+									if(energiaActual > 0){
+										energiaActual--;
+										this.robotStatus.setAvailableEnergy(energiaActual);
+									}
+									else energia = false;
+								}
+								
+							
+							
+							
+							
 						}
 						if(!energia){
 							this.controladorMovimiento.itfProcObjetivos.insertarHecho(new Informacion(VocabularioRosace.MsgRomperRobot));
@@ -244,49 +272,15 @@ public class HebraMonitorizacionLlegada extends Thread {
 						enDestino=false;
 					}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		if (enDestino ){
 			finalizar = true;
-			//Thread.sleep(tiempoParaAlcanzarDestino);
-			this.controladorMovimiento.estamosEnDestino(identDestino,coordDestino );
+			this.controladorMovimiento.estamosEnDestino(identDestino,this.coordActuales);
 			log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
-			//          System.out.println("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");       
-			//                this.controladorMovimiento.setCoordenadasActuales(coordDestino);
 		}
 	}
 
-	
-/*
-	private void calcularNuevasCoordenadas (long incrementoDistancia){
-		// suponemos avance en linea recta 
-		// formula aplicada x1 = xo + sqrt( espacioRecorrido**2 / (1 + pendienteRecta**2))
-		//  y1 = y0 +(x1-x0)*pendienteRecta
-
-		if (pendienteInfinita){
-			//            constIncrX = 0;
-			//            constIncrY= incrementoDistancia;
-			this.coordActuales.setY(coordActuales.getY() + incrementoDistancia*dirY);
-		}
-		else {
-			// incremmento de x respecto a distancia recorrida
-			double nuevaVariableY = coordActuales.getY() + pendienteRecta*incrementoDistancia*dirY;
-			double nuevaVariableX = coordActuales.getX() + incrementoDistancia*dirX;
-			if(!this.controladorMovimiento.checkObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))){
-				this.coordActuales.setY(nuevaVariableY);
-				this.coordActuales.setX(nuevaVariableX);
-			}
-			else {
-				this.controladorMovimiento.bloqueadoPorObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()));
-				
-				//ArrayList<Object> array = new ArrayList<Object>();
-				//array.add(VocabularioRosace.MsgRobotBloqueadoObstaculo);
-				//array.add(this.controladorMovimiento.getObstaculo(new Coordinate(nuevaVariableX, nuevaVariableY, coordActuales.getZ()))); //Identidad obtaculo
-				//this.controladorMovimiento.itfProcObjetivos.insertarHecho(new MensajeBloqueoObstaculo(array,this.identRobot,"Jefe"));      		
-			}
-		}
-	}*/
 
 }

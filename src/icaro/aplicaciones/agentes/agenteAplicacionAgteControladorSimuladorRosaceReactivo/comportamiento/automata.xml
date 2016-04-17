@@ -33,8 +33,9 @@
      <transicion input="victimaMuerta" accion="victimaMuerta" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
      <transicion input="finSimulacion" accion="FinSimulacion" estadoSiguiente="finalizandoSimulacion" modoDeTransicion="bloqueante"/>
      <transicion input="mostrarEscenarioActualSimulado" accion="MostrarEscenarioActualSimulado" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-    <transicion input="enviarIdentsEquipo" accion="MostrarRobotsActivos" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
-    <transicion input="pararRobot" accion="PararRobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="enviarIdentsEquipo" accion="MostrarRobotsActivos" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="pararRobot" accion="PararRobot" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
+     <transicion input="iniciarBusqueda" accion="iniciarBusqueda" estadoSiguiente="simulando" modoDeTransicion="bloqueante"/>
   </estado>
   
   
