@@ -4,6 +4,8 @@ package icaro.aplicaciones.Rosace.informacion;
 import icaro.aplicaciones.Rosace.*;
 import icaro.aplicaciones.Rosace.calculoRutas.AlgoritmoRuta;
 import icaro.aplicaciones.Rosace.calculoRutas.Anterior;
+import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
+import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.MaquinaEstadoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
@@ -248,25 +250,29 @@ public class Coste {
 		while(it.hasNext()){
 			Objetivo x = it.next();
 			if(x.getState()==Objetivo.SOLVING){
-				String nombreVictima=x.getobjectReferenceId();
-				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
-				visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
-				visitados[(int)actual.getX()][(int)actual.getY()]=true;
-				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
-				ruta.add(actual);
-				ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
-				try{
-					AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
-					arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
-				}
-				catch(Exception e){
-					System.out.println("");
-				}
+				if(x instanceof AyudarVictima){
+					String nombreVictima=x.getobjectReferenceId();
+					Victim v=victims2Resc.getVictimToRescue(nombreVictima);
+					visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
+					visitados[(int)actual.getX()][(int)actual.getY()]=true;
+					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
+					ruta.add(actual);
+					ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
+					try{
+						AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
+						arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
+					}
+					catch(Exception e){
+						System.out.println("");
+					}
 
-				if(arrayAux != null){
-					time = time + arrayAux.size()*2 + tiempoAtencionVictima;
+					if(arrayAux != null){
+						time = time + arrayAux.size()*2 + tiempoAtencionVictima;
+					}
+					else return -1;
 				}
-				else return -1;
+				else if(x instanceof ReconocerTerreno)
+					time = time + 99999999;
 			}
 
 		}

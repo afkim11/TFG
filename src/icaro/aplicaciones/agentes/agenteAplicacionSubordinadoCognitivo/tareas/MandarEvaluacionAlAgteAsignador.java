@@ -116,7 +116,9 @@ public class MandarEvaluacionAlAgteAsignador  extends TareaSincrona {
 		}
 	}
 	private int calcularCosteEstimadoVictima(){
-
+		if(this.identAgente.equalsIgnoreCase("jerarquicorobotsubordinado4")){
+			int x = 1;
+		}
 		robotLocation = robot.getRobotCoordinate();
 		Coste coste = new Coste();
 		if(this.robot.getBloqueado())return Integer.MAX_VALUE;
