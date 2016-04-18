@@ -233,4 +233,9 @@
          <valueid>inicial</valueid>
       </lineaObstaculo>
    </obstaculos>
+   <posicionLugarSeguro>
+   		<x>30.0</x>
+   		<y>30.0</y>
+   		<z>0.5</z>
+   </posicionLugarSeguro>
 </escenarioSimulacion>

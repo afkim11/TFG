@@ -70,7 +70,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 	private long tiempoParaAlcanzarDestino = 2000;
 	private RobotStatus robotStatus;
 	public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
-	
+
 
 	private int contadorAuxiliar=0;
 
@@ -130,7 +130,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 	public void pararRobot(){
 		this.finalizar=true;
 	}
-	
+
 	/**
 	 * Termina la monitorizacin
 	 */
@@ -165,112 +165,114 @@ public class HebraMonitorizacionLlegada extends Thread {
 		//      this.itfusoRecVisSimulador.mostrarMovimientoAdestino(identRobot,identDestino, coordActuales,velocidadRobot);
 		while (!this.finalizar && (!enDestino)) {
 			try {
-					boolean[][] visitados= new boolean[VisorEscenariosRosace.ancho][VisorEscenariosRosace.alto];
-					for(int i =0;i<VisorEscenariosRosace.ancho;i++)
-						for(int j=0;j<VisorEscenariosRosace.alto;j++)
-							visitados[i][j]=false;
-					visitados[(int)this.coordActuales.getX()][(int)this.coordActuales.getY()]=true;
-					AlgoritmoRuta alg=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
-					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
-					ruta.add(coordActuales);
-					ruta=alg.calculaRuta(visitados,this.coordActuales, Anterior.MOV_NULO,ruta);
-					int anchoVictima =15;
-					int referenciaExploracion = (int)this.coordActuales.getX();
-					if(ruta!=null){
-						while(!enDestino && this.energia){
-							for(int i=0;i<ruta.size() && !this.finalizar && this.energia ;i++){
-								
-								Coordinate punto=ruta.get(i);
-								this.coordActuales.setY(punto.getY());
-								this.coordActuales.setX(punto.getX());
-								enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
-								if (itfusoRecVisSimulador != null)
-									this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
-								this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-								/**
-								 * Si estas explorando entonces se comprueba que en el perímetro de vision del robot haya victimas. 
-								 */
-								
-								//Movimiento a derechas
-								if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() ){
-									referenciaExploracion = referenciaExploracion + anchoVictima;
-									final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
-									Thread t = new Thread(){
-										public void run(){
-											try {
-												itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
-											} catch (Exception e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
+				AlgoritmoRuta alg=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
+				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
+				ruta.add(coordActuales);
+				alg.iniciarCalculoruta(coordActuales, ruta);
+				int anchoVictima =15;
+				int referenciaExploracion = (int)this.coordActuales.getX();
+				if(ruta!=null){
+					while(!enDestino && this.energia){
+						for(int i=0;i<ruta.size() && !this.finalizar && this.energia ;i++){
+
+							Coordinate punto=ruta.get(i);
+							this.coordActuales.setY(punto.getY());
+							this.coordActuales.setX(punto.getX());
+							enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
+							if (itfusoRecVisSimulador != null)
+								this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
+							this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+							/**
+							 * Si estas explorando entonces se comprueba que en el perímetro de vision del robot haya victimas. 
+							 */
+
+							//Movimiento a derechas
+							if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() ){
+								referenciaExploracion = referenciaExploracion + anchoVictima;
+								final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
+								Thread t = new Thread(){
+									public void run(){
+										try {
+											itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
+										} catch (Exception e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
 										}
-									};
-									t.start();
-									
-								}
-								
-								//Movimiento a izquierdas
-								else if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX()){
-									referenciaExploracion = referenciaExploracion - anchoVictima;
-									final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
-									Thread t = new Thread(){
-										public void run(){
-											try {
-												itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
-											} catch (Exception e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
-										}
-									};
-									t.start();
-									
-								}
-								else Thread.sleep(intervaloEnvioInformesMs);
-								
-								
-								if(energiaActual > 0){
-									energiaActual--;
-									this.robotStatus.setAvailableEnergy(energiaActual);
-								}
-								else energia = false;
-							}
-							
-						}
-						if(this.controladorMovimiento.estadoActual.getActuacion() == 0){
-							Coordinate coordVict = this.coordDestino;
-								for(int i=ruta.size()-1;i>=0&& !this.finalizar && this.energia ;i--){
-									Coordinate punto=ruta.get(i);
-									this.coordActuales.setY(punto.getY());
-									this.coordActuales.setX(punto.getX());
-									
-									if (itfusoRecVisSimulador != null){
-										this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
-										this.itfusoRecVisSimulador.mostrarPosicionVictima(this.identDestino,coordActuales);
-										coordVict = coordActuales;
-									}										
-									this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-									Thread.sleep(intervaloEnvioInformesMs);								
-									if(energiaActual > 0){
-										energiaActual--;
-										this.robotStatus.setAvailableEnergy(energiaActual);
 									}
-									else energia = false;
-								}
-								
-							
-							
-							
-							
+								};
+								t.start();
+
+							}
+
+							//Movimiento a izquierdas
+							else if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX()){
+								referenciaExploracion = referenciaExploracion - anchoVictima;
+								final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
+								Thread t = new Thread(){
+									public void run(){
+										try {
+											itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
+										} catch (Exception e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+								};
+								t.start();
+
+							}
+							else Thread.sleep(intervaloEnvioInformesMs);
+
+
+							if(energiaActual > 0){
+								energiaActual--;
+								this.robotStatus.setAvailableEnergy(energiaActual);
+							}
+							else energia = false;
 						}
-						if(!energia){
-							this.controladorMovimiento.itfProcObjetivos.insertarHecho(new Informacion(VocabularioRosace.MsgRomperRobot));
+
+					}
+					if(this.controladorMovimiento.estadoActual.getActuacion() == 0){
+						Coordinate victimCoor = this.coordDestino;
+						this.coordDestino = itfusoRecVisSimulador.getEscenario().getCoordenadaLugarSeguro();
+						ArrayList<Coordinate> ruta1 = new ArrayList<Coordinate>();
+						ruta1.add(coordActuales);
+						AlgoritmoRuta alg1=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
+						alg1.iniciarCalculoruta(coordActuales, ruta1);
+						
+
+						for(int i=0;i<ruta1.size() && !this.finalizar && this.energia ;i++){
+							Coordinate punto=ruta1.get(i);
+							this.coordActuales.setY(punto.getY());
+							this.coordActuales.setX(punto.getX());
+
+							if (itfusoRecVisSimulador != null){
+								this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
+								this.itfusoRecVisSimulador.mostrarPosicionVictima(this.identDestino,coordActuales);
+								victimCoor = coordActuales;
+							}										
+							this.controladorMovimiento.setCoordenadasActuales(coordActuales);
+							Thread.sleep(intervaloEnvioInformesMs);								
+							if(energiaActual > 0){
+								energiaActual--;
+								this.robotStatus.setAvailableEnergy(energiaActual);
+							}
+							else energia = false;
 						}
+
+
+
+
+
 					}
-					else {
-						finalizar=true;
-						enDestino=false;
+					if(!energia){
+						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new Informacion(VocabularioRosace.MsgRomperRobot));
 					}
+				}
+				else {
+					finalizar=true;
+					enDestino=false;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

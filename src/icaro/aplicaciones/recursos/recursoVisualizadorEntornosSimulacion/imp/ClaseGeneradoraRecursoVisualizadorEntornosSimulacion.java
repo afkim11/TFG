@@ -10,6 +10,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoR
 import icaro.infraestructura.entidadesBasicas.InfoTraza.NivelTraza;
 import icaro.infraestructura.patronRecursoSimple.imp.ImplRecursoSimple;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +20,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
+
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 
@@ -300,14 +303,8 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 				v.setEncontrada();
 				controlador.victimaSeleccionadaParaSimulacion(v.getName());
 				System.out.println("Se ha encontrado una victima: " + v.toString() + ". Se ha notificado al jefe para su correspondiente rescate");
-				
 			}
 		}
-		
-		
-		
-		
-		
 	}
 
 	@Override
@@ -315,6 +312,11 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 		visorEscenarios.setVisible(true);
 		visorEscenarios.cambiarPosicionVictima(identVict, coordVict);
 		
+	}
+
+	@Override
+	public EscenarioSimulacionRobtsVictms getEscenario() throws Exception {
+		return this.visorEscenarios.getEscenario();
 	}
 
 

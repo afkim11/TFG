@@ -13,7 +13,11 @@ import java.io.Serializable;
  */
 public class AceptacionPropuesta implements Serializable{
 
-    public String identAgente; // Identificador del agente que emite la confirmacion de la propuesta
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -90139357254961905L;
+	public String identAgente; // Identificador del agente que emite la confirmacion de la propuesta
     public String msgAceptacionPropuesta;
     public PropuestaAgente propuestaAceptada;
     public String identObjectRefAcetPropuesta;

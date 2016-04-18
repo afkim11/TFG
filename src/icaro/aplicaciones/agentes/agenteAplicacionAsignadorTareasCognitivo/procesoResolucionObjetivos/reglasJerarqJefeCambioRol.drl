@@ -186,7 +186,7 @@ no-loop true
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(PedirEvalReconocerAtodos.class);
     tarea.ejecutar(obj,infoDecision);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
- end
+end
 
 
 rule "Me ha llegado una evaluacion de un agente para reconocer el terreno, la proceso hasta que las tenga todas"
@@ -248,26 +248,20 @@ rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo re
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
 
-//Esta regla sirve para que las reglas de asginacion de victimas funcione
 rule "He recibido la confirmacion del explorador y actualizo el foco"
  when
- 	obj1:ReconocerTerreno(state == Objetivo.PENDING)
-    obj: DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
-    focoActual:Focus(foco == obj)
+    objDecidir:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
+ 	objReconocer:ReconocerTerreno(state == Objetivo.PENDING)
+    focoActual:Focus(foco == objDecidir)
     InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, heInformadoAlmejorParaQueAsumaElObjetivo == true)
- 	acProp:AceptacionPropuesta(msgAceptacionPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
+ 	aceptacionPropuesta:AceptacionPropuesta(msgAceptacionPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
  then
-	modify ( obj ){
-         setSolved()
-    };
- 	modify(focoActual){
-    	 setFoco(null)
-    };
-    retract(acProp)
-    retract(obj1)
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaActualizarFocoReconocedorTerreno.class);
+ 	tarea.ejecutar(objDecidir,objReconocer,focoActual,aceptacionPropuesta);
+ 	
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
     
- end
+end
 
 
 rule "Creacion del objetivo inicial  de los robots cuando llega un msg del CC"

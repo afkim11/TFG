@@ -50,6 +50,9 @@ public class EscenarioSimulacionRobtsVictms {
 	private Map<String, Victim> infoVictimas;
 	@ElementMap(entry="obstaculos", key="key", attribute=true, inline=true)
 	private Map<String,LineaObstaculo> infoObstaculos;
+	//posicionLugarseguro es una coordenada en la que se dejaran a las victimas rescatadas. 
+	@Element
+	private Coordinate posicionLugarSeguro;
 	private String robotInicialId = "initRobot";
 	private String victimInicialId = "initVictim";
 	private String robotCapability = "camera";
@@ -73,7 +76,7 @@ public class EscenarioSimulacionRobtsVictms {
 		infoVictimas = new HashMap<String, Victim>();
 		infoObstaculos=new HashMap<String,LineaObstaculo>();
 		infoObstaculos.put("inicial", new LineaObstaculo(new Coordinate(0,0,0.5),new Coordinate(0,0,0.5),"inicial"));
-
+		posicionLugarSeguro = new Coordinate(30.0,30.0,0.5);
 
 	}
 	public void  initEscenario(){
@@ -166,7 +169,6 @@ public class EscenarioSimulacionRobtsVictms {
 
 
 	}
-
 	public void eliminaRobot (String idRobot){
 		if(infoRobots.containsKey(idRobot)){
 			infoRobots.remove(idRobot);
@@ -197,12 +199,10 @@ public class EscenarioSimulacionRobtsVictms {
 		if(numVictimas>0)infoVictimas.remove(victimInicialId);
 		return this.infoVictimas;
 	}
-
 	public Set getRobots (){
 		if(numRobots>0)infoRobots.remove(robotInicialId);
 		return this.infoRobots.entrySet();
 	}
-
 	public Point getVictimLoc (String idVictima){
 		return this.infoVictimas.get(idVictima).getLocPoint();
 	}
@@ -222,6 +222,12 @@ public class EscenarioSimulacionRobtsVictms {
 		this.identEscenario= migestor.getIdentEscenario(modeloOrganizativo, numRobots, numVictimas);
 
 	} 
+	public synchronized Coordinate getCoordenadaLugarSeguro(){
+		return this.posicionLugarSeguro;
+	}
+	public synchronized void setCoordenadaLugarSeguro(Coordinate nuevoLugarSeguro){
+		this.posicionLugarSeguro = nuevoLugarSeguro;
+	}
 	public ArrayList<String> getListIdentsRobots(){
 		if (numRobots<=0)return null;
 		else{
@@ -259,7 +265,6 @@ public class EscenarioSimulacionRobtsVictms {
 			return listaObstaculos;
 		}    	
 	}
-
 	public void renombrarIdentRobts(ArrayList identList) {
 		String identNuevo; int i= 0;
 		RobotStatus robotInfo = null;
@@ -275,8 +280,6 @@ public class EscenarioSimulacionRobtsVictms {
 	public void addObstaculo(LineaObstaculo obstaculo){
 		infoObstaculos.put(obstaculo.getId(), obstaculo);    	
 	}
-
-
 	public Map<String, RobotStatus> getRobotsWithIds() {
 		return this.infoRobots;
 	}

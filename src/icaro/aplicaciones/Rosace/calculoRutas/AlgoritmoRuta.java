@@ -75,6 +75,14 @@ public class AlgoritmoRuta {
 				e.printStackTrace();
 			}
 		}
+		public void iniciarCalculoruta(Coordinate coorActuales,ArrayList<Coordinate> ruta){
+			boolean[][] visitados = generaMapaBooleanos();
+			visitados[(int)coorActuales.getX()][(int)coorActuales.getY()]=true;
+			
+			ruta = calculaRuta(visitados, coorActuales, Anterior.MOV_NULO, ruta);
+		}
+		
+		
 		/**
 		 * Algoritmo de vuelta atrás con heurística que se encarga de comprobar si hay una solución(un camino entre dos puntos).
 		 * Para limitar su calculabilidad, se hace uso de un contador de recursiones y de un límite de recursividad. 
@@ -84,8 +92,11 @@ public class AlgoritmoRuta {
 		 * @param rutaHastaAhora
 		 * @return
 		 */
+
 		public ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordenadasActuales,Anterior anterior,ArrayList<Coordinate> rutaHastaAhora) {
-			this.contador++;
+			try{
+				this.contador++;
+			
 			if(this.contador>=limiteRecursividad)return null;
 			if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(this.coordenadasDestino)){
 				return rutaHastaAhora;
@@ -102,6 +113,10 @@ public class AlgoritmoRuta {
 					rutaHastaAhora.remove(rutaHastaAhora.size()-1);
 					visitados[x][y]=false;
 				}
+			}
+			}
+			catch(Exception e){
+				e.printStackTrace();
 			}
 			return null;
 		}
@@ -127,8 +142,7 @@ public class AlgoritmoRuta {
 			else if (restaX == 1 && restaY == 1) return Anterior.NOROESTE;
 			else return Anterior.MOV_NULO;
 		}
-		
-		
+
 		/**
 		 * 
 		 * @param anterior
@@ -246,7 +260,13 @@ public class AlgoritmoRuta {
 			return cola;
 		}
 
-
+		private boolean[][] generaMapaBooleanos(){
+			boolean[][] visitados= new boolean[VisorEscenariosRosace.ancho][VisorEscenariosRosace.alto];
+			for(int i =0;i<VisorEscenariosRosace.ancho;i++)
+				for(int j=0;j<VisorEscenariosRosace.alto;j++)
+					visitados[i][j]=false;
+			return visitados;
+		}
 
 		public static boolean checkLimites(Coordinate coor, Anterior anterior){
 			if(obstaculos.isEmpty())return false;
