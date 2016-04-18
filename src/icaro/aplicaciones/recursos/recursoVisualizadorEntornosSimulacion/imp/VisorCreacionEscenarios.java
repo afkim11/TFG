@@ -90,6 +90,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private String modeloOrganizativo;
 	private String identEquipoActual;
 	private JMenuItem jMenuItemAddObstacle;
+	private JMenuItem jMenuItemSetSafePlace;
 	private Point primerPuntoObstaculo;
 	private boolean primerPuntoObstaculoMarcado = false;
 
@@ -237,6 +238,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		jMenuItemCrearVictima = new javax.swing.JMenuItem();
 		jMenuItemVictimaTiempo = new javax.swing.JMenuItem();
 		jMenuItemEnergiaRobot = new javax.swing.JMenuItem();
+		jMenuItemSetSafePlace = new JMenuItem();
 
 		jDialogAvisoErrorDefNumEntidades.setTitle("Error: Definicion de entidades en el escenario");
 		jDialogAvisoErrorDefNumEntidades.setBounds(new java.awt.Rectangle(20, 20, 335, 88));
@@ -407,6 +409,16 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 		jPopupMenuAddEntidades.add(jMenuItemAddObstacle);
 
+		jMenuItemSetSafePlace.setText("Definir como lugar seguro(safe place)");
+		jMenuItemSetSafePlace.setActionCommand("SetSafePlace");
+		jMenuItemSetSafePlace.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jMenuItemSetSafePlaceActionPerformed(evt);
+			}
+		});
+		jPopupMenuAddEntidades.add(jMenuItemSetSafePlace);
+		
+		
 		jFileChooser1.setDialogTitle("Seleccion de escenario");
 		jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -617,6 +629,11 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
+
+	protected void jMenuItemSetSafePlaceActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		this.escenarioActualComp.setCoordenadaLugarSeguro(new Coordinate(ultimoPuntoClic.x,ultimoPuntoClic.y,0.5));
+	}
 
 	protected void jMenuItemEnergiaRobotActionPerformed(ActionEvent evt) {
 		JLabel entidadAcambiar = (JLabel) moverComp.getUltimoComponenteSeleccionado();
