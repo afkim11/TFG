@@ -248,20 +248,17 @@ rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo re
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
 
-rule "He recibido la confirmacion del explorador y actualizo el foco"
- when
-    objDecidir:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
-    objReconocer:ReconocerTerreno(state == Objetivo.PENDING)
-    focoActual:Focus(foco == objDecidir)
-    InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, heInformadoAlmejorParaQueAsumaElObjetivo == true)
-    aceptacionPropuesta:AceptacionPropuesta(msgAceptacionPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
- then
- 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaActualizarFocoReconocedorTerreno.class);
- 	tarea.ejecutar(objDecidir,objReconocer,focoActual,aceptacionPropuesta);
- 	
- 	
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
-    
+rule "Actualizar foco cuando recibo victima de explorador"
+when
+ objDecidir:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId==VocabularioRosace.MsgExploraTerreno)
+ objReconocer:ReconocerTerreno(state==Objetivo.PENDING)
+ focoActual:Focus(foco==objDecidir)
+ acept:AceptacionPropuesta(msgAceptacionPropuesta==VocabularioRosace.MsgAceptacionPropuestaExplora)
+ InfoParaDecidirAQuienAsignarObjetivo(heInformadoAlmejorParaQueAsumaElObjetivo==true,idElementoDecision==VocabularioRosace.MsgExploraTerreno)
+then
+ TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaActualizarFocoReconocedorTerreno.class);
+ tarea.ejecutar(objDecidir, objReconocer, focoActual, acept);
+
 end
 
 
