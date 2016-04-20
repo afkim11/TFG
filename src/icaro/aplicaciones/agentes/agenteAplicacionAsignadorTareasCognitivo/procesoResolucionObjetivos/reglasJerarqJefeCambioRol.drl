@@ -233,13 +233,13 @@ rule "Proceso el primer timeout respuestas pido las respuestas que me faltan par
 end
 
 rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo reconocer terreno"
-  when
+	when
      obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
      Focus(foco == obj)
       misObjs : MisObjetivos()
      infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
      informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2, contenidoInforme==VocabularioRosace.MsgExploraTerreno )              
- then
+     then
     // Les pido a  los agentes que me faltan  su evaluacion
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo.class);
     tarea.ejecutar(obj,infoDecision,misObjs); 
@@ -251,13 +251,14 @@ end
 rule "He recibido la confirmacion del explorador y actualizo el foco"
  when
     objDecidir:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == VocabularioRosace.MsgExploraTerreno)
- 	objReconocer:ReconocerTerreno(state == Objetivo.PENDING)
+    objReconocer:ReconocerTerreno(state == Objetivo.PENDING)
     focoActual:Focus(foco == objDecidir)
     InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == VocabularioRosace.MsgExploraTerreno, heInformadoAlmejorParaQueAsumaElObjetivo == true)
- 	aceptacionPropuesta:AceptacionPropuesta(msgAceptacionPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
+    aceptacionPropuesta:AceptacionPropuesta(msgAceptacionPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaActualizarFocoReconocedorTerreno.class);
  	tarea.ejecutar(objDecidir,objReconocer,focoActual,aceptacionPropuesta);
+ 	
  	
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
     

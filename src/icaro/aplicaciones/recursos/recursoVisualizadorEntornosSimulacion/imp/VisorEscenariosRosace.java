@@ -754,7 +754,6 @@ public class VisorEscenariosRosace extends JFrame {
 		return this.escenario;
 	}
 	public synchronized void cambiarPosicionVictima(String identVict, Coordinate coordVict) {
-
 		String numeroVict = getNumeroVictima(identVict);
 
 		JLabel jlabelVict = this.victimaslabel.get(numeroVict);
@@ -768,5 +767,8 @@ public class VisorEscenariosRosace extends JFrame {
 			System.out.println("jlabel nulo");
 		}
 		
+	}
+	public void actualizarRastro(Coordinate coord){
+		panelVisor.addCoordRastro(new Coordinate(coord.getX(), coord.getY(), coord.getZ()));
 	}
 }

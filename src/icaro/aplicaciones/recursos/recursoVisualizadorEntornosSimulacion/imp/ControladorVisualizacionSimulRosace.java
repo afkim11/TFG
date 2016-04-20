@@ -5,6 +5,7 @@
  */
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
+import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotCapability;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
@@ -231,7 +232,9 @@ public class ControladorVisualizacionSimulRosace {
 
 
 	public void setNuevoVisorEscenario(VisorEscenariosRosace visorEscenarios) {
-		this.visorEscenarioRosace = visorEscenarios;
-		
+		this.visorEscenarioRosace = visorEscenarios;	
+	}
+	public void addRastroExploracion(Coordinate coor){
+		this.visorEscenarioRosace.actualizarRastro(coor);
 	}
 }

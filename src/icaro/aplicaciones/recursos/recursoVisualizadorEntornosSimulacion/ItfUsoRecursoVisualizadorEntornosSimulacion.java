@@ -43,4 +43,5 @@ public void crearEInicializarVisorGraficaEstadisticas(String tituloVenanaVisor,
  public void updateEscenario(EscenarioSimulacionRobtsVictms escenarioNuevo) throws Exception;
  public void comprobarVictimasArea(Coordinate coor, int perimetroDeVision) throws Exception;
  public EscenarioSimulacionRobtsVictms getEscenario() throws Exception;
+ public void addRastroExploracion(Coordinate coor) throws Exception;
 }

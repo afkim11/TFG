@@ -319,5 +319,11 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 		return this.visorEscenarios.getEscenario();
 	}
 
+	@Override
+	public void addRastroExploracion(Coordinate coor) throws Exception {
+		this.controlador.addRastroExploracion(coor);
+		
+	}
+
 
 }
