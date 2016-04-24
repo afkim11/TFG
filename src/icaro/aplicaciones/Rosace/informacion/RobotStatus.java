@@ -80,7 +80,7 @@ public class RobotStatus{
 	}
 
 	public synchronized Coordinate getRobotCoordinate(){
-		if (infoCompMovt != null && infoCompMovt.itfAccesoComponente.getHebraMonitorizacionLlegadaDestino() != null)
+		if (infoCompMovt != null && infoCompMovt.itfAccesoComponente.hebraMonitorizacionCreada())
 			this.robotCoordinateActual = infoCompMovt.itfAccesoComponente.getCoordenadasActuales();
 		return new Coordinate(robotCoordinateActual.getX(),robotCoordinateActual.getY(),robotCoordinateActual.z);
 	}

@@ -118,13 +118,10 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 	}
 	@Override
 	public  Coordinate getCoordenadasActuales(){
-		return this.monitorizacionLlegadaDestino.getCoordRobot();
+		if(this.monitorizacionLlegadaDestino!=null)return this.monitorizacionLlegadaDestino.getCoordRobot();
+    	else return null;
 	}
 
-	@Override
-	public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino() {
-		return this.monitorizacionLlegadaDestino;
-	}
 
 	@Override
 	public void setRobotStatus(RobotStatus robotStatus) {
@@ -135,6 +132,12 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 	public Coordinate getCoordenasDestino() {
 		// TODO Auto-generated method stub
 		return this.destinoCoord;
+	}
+
+	@Override
+	public boolean hebraMonitorizacionCreada() {
+		if(this.monitorizacionLlegadaDestino == null)return false;
+		else return true;
 	}
 	
 

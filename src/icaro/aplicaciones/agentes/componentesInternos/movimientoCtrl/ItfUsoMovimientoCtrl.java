@@ -6,19 +6,19 @@ import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.HebraMo
 
 public interface ItfUsoMovimientoCtrl {
 	public void inicializarInfoMovimiento(Coordinate coordInicial, float velocidadInicial) ;
-        public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) ;
-        public void cambiaVelocidad( float nuevaVelocidadCrucero) ;
-        public void cambiaDestino(String identDest,Coordinate coordDestino) ;
-        public Coordinate getCoordenasDestino();
- //       public void actualizarCoordenadas(Coordinate nuevasCoordenadas) ;
-        public Coordinate getCoordenadasActuales() ;
-        public  void setCoordenadasActuales(Coordinate nuevasCoordenadas) ;
-        public void parar();
-        public void bloquear();
-        public void continuar();
-        public boolean estamosEnDestino(String identDestino);
-        public void imposibleAvanzarADestino();
-		public HebraMonitorizacionLlegada getHebraMonitorizacionLlegadaDestino();
-		public void setRobotStatus(RobotStatus robotStatus);
-        
+	public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) ;
+	public void cambiaVelocidad( float nuevaVelocidadCrucero) ;
+	public void cambiaDestino(String identDest,Coordinate coordDestino) ;
+	public Coordinate getCoordenasDestino();
+	//       public void actualizarCoordenadas(Coordinate nuevasCoordenadas) ;
+	public Coordinate getCoordenadasActuales() ;
+	public  void setCoordenadasActuales(Coordinate nuevasCoordenadas) ;
+	public void parar();
+	public void bloquear();
+	public void continuar();
+	public boolean estamosEnDestino(String identDestino);
+	public void imposibleAvanzarADestino();
+	public boolean hebraMonitorizacionCreada();
+	public void setRobotStatus(RobotStatus robotStatus);
+
 }

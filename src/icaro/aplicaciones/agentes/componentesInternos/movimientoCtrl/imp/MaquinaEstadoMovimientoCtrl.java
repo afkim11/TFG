@@ -110,8 +110,7 @@ public class MaquinaEstadoMovimientoCtrl {
 	}
 	private EstadoAbstractoMovRobot crearInstanciaEstado2(EstadoMovimientoRobot estadoId) {
 
-		if(estadoId.equals(EstadoMovimientoRobot.RobotBloqueado))estadoActual = new RobotBloqueado(this);
-		else if(estadoId.equals(EstadoMovimientoRobot.RobotParado))estadoActual = new RobotParado(this);
+		if(estadoId.equals(EstadoMovimientoRobot.RobotParado))estadoActual = new RobotParado(this);
 		else estadoActual = new RobotEnMovimiento(this);
 		estadoActual.Inicializar(itfProcObjetivos, itfUsoRecVisEntornosSimul);
 		identEstadoActual = estadoId.name();

@@ -12,25 +12,25 @@ import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.factoriaE
  * @author FGarijo
  */
 public class InfoCompMovimiento extends InfoCompInterno {
-   
-    public  ItfUsoMovimientoCtrl itfAccesoComponente;
-    public  ItfProcesadorObjetivos itfAccesoControlEntidad;
-    
-  public  InfoCompMovimiento ( String componenteId){
-      super (componenteId);
-  }
-     public void setitfAccesoComponente( ItfUsoMovimientoCtrl itfAccComponente){
-         itfAccesoComponente = itfAccComponente;
-     }   
-    @Override
-     public Object getitfAccesoComponente(){
-         return itfAccesoComponente ;
-     } 
-      public void setitfAccesoControlEntidad( ItfProcesadorObjetivos itfAccEntidad){
-         itfAccesoControlEntidad = itfAccEntidad;
-     }   
-    @Override
-     public Object getitfAccesoControlEntidad(){
-         return itfAccesoControlEntidad ;
-     } 
+
+	public  ItfUsoMovimientoCtrl itfAccesoComponente;
+	public  ItfProcesadorObjetivos itfAccesoControlEntidad;
+
+	public  InfoCompMovimiento ( String componenteId){
+		super (componenteId);
+	}
+	public void setitfAccesoComponente( ItfUsoMovimientoCtrl itfAccComponente){
+		itfAccesoComponente = itfAccComponente;
+	}   
+	@Override
+	public Object getitfAccesoComponente(){
+		return itfAccesoComponente ;
+	} 
+	public void setitfAccesoControlEntidad( ItfProcesadorObjetivos itfAccEntidad){
+		itfAccesoControlEntidad = itfAccEntidad;
+	}   
+	@Override
+	public Object getitfAccesoControlEntidad(){
+		return itfAccesoControlEntidad ;
+	} 
 }
