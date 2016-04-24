@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 
 public class Coste {
 	public static int tiempoAtencionVictima = 100;
+	
 	private double funcionEvaluacion=0;
 	//    ItfUsoRecursoTrazas trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ; //Para depurar por la ventana de trazas de ICARO los calculos de costes
 
@@ -105,47 +106,6 @@ public class Coste {
 		}
 		else return evaluacionActual;		
 	}
-	/*
-	public int calculoCosteAyudarVictimaConRLocation (String nombreAgenteEmisor, RobotStatus robot,Victim victima, VictimsToRescue victims2R, MisObjetivos misObjs, String identFuncEval){
-		Coordinate robotLocation = null;
-		try{    		   
-			ItfUsoRepositorioInterfaces itfUsoRepositorioInterfaces = NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ;
-			ItfUsoRecursoMorse morseResourceRef;
-			morseResourceRef = (ItfUsoRecursoMorse) itfUsoRepositorioInterfaces.obtenerInterfaz(NombresPredefinidos.ITF_USO + 
-					"RecursoMorse1");
-			robotLocation = morseResourceRef.getGPSInfo(nombreAgenteEmisor);
-
-		}
-		catch (Exception ex){
-			ex.printStackTrace();
-		}
-		double distanciaCamino = this.CalculaDistanciaCamino(nombreAgenteEmisor, robotLocation, victima, victims2R, misObjs);
-		double tiempoAtencionVictimas = this.CalculaTiempoAtencion(3.0, victima, victims2R, misObjs); 
-		if (identFuncEval.equalsIgnoreCase("FuncionEvaluacion1"))
-			funcionEvaluacion = this.FuncionEvaluacion1(distanciaCamino, 10.0,  robot, victima);
-		else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion2"))
-			funcionEvaluacion = this.FuncionEvaluacion2(distanciaCamino, 10.0, robot, victima);
-		else if(identFuncEval.equalsIgnoreCase("FuncionEvaluacion3"))
-			funcionEvaluacion = this.FuncionEvaluacion3(distanciaCamino, 10.0, tiempoAtencionVictimas, 3.0, robot, victima);
-		else {
-			//                trazas.aceptaNuevaTraza(new InfoTraza("Evaluacion", "FuncionEvaluacion Especificada no existe sobre Victima(" + victima.getName() + ")"  +
-			//		          ": robot " + robot.getIdRobot() + "-> -1.0"	    		   
-			//	    		   , InfoTraza.NivelTraza.error)); 
-		}
-
-		int mi_eval = (int)funcionEvaluacion;   //convierto de double a int porque la implementación inicial de Paco usaba int                                  
-
-		if (mi_eval>=0){            
-			int  mi_eval_nueva = Integer.MAX_VALUE; 
-			//              mi_eval_nueva = cotaMaxima; 
-			//como va el que menor rango tiene, lo inicializamos a la peor                        
-			//Para que gane el que mayor valor tiene de evaluación le resto el valor de la distancia obtenida al valor máximo de Integer
-			//El que este más cercano hará decrecer menos ese valor y por tanto es el MEJOR
-			mi_eval = mi_eval_nueva - mi_eval;
-		}
-		return mi_eval;
-	}*/
-
 	//Calcula el tiempo que tardara en atender todas las victimas que tiene asignadas actualmente, mas el tiempo que tardara en atender a la nueva victima
 	//El tiempo para atender una victima es igual al de la prioridad * factorMultiplicativo, siendo factorMultiplicativo el primer parametro pasado a este metodo
 
@@ -271,8 +231,14 @@ public class Coste {
 					}
 					else return -1;
 				}
-				else if(x instanceof ReconocerTerreno)
-					time = time + 99999999;
+				else if(x instanceof ReconocerTerreno){
+					int visionExplorador = 50;
+					int alturaMapa = 700,anchoMapa = 1100,recorridos = (alturaMapa - (int)(actual.getY()))/visionExplorador + 1;
+					int tiempoRestanteExploracion = recorridos * anchoMapa + (alturaMapa - (int)(actual.getY()));
+					time = time + tiempoRestanteExploracion;
+					actual = new Coordinate(anchoMapa-visionExplorador,alturaMapa-visionExplorador,0.5);
+				
+				}
 			}
 
 		}
