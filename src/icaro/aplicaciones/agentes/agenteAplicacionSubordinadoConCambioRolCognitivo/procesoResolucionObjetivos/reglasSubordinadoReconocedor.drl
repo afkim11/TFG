@@ -302,6 +302,7 @@ when
 	infoComMov : InfoCompMovimiento()
 	misObjs : MisObjetivos()
 then
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	retract(informe)
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaHaMuerto.class);
 	tarea.ejecutar(infoComMov,misObjs,victim);

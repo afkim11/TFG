@@ -542,7 +542,6 @@ rule "Una victima no ha sido rescatada a tiempo"
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaNoRescatadaATiempo.class);
  	tarea.ejecutar(informe, victimaCC);
- 	retract(informe)
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 
 end

@@ -314,6 +314,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			infoCasoSimul.addEnvioVictima(infoAsigVictima);
 			OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
 			comunicator.informaraGrupoAgentes(ccOrder, identsAgtesEquipo);
+			victima.lanzarHebraTiempoDeVida(comunicator);
 		}
 	}
 	//Esta accion semantica se ejecuta cuando se envia el input "victimaAsignadaARobot" en la  

@@ -301,6 +301,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 			double x =  v.getCoordinateVictim().getX(),y =  v.getCoordinateVictim().getY();
 			if(!v.isEncontrada() && x <= x2 && x >=  x1 && y <= y2 && y >= y1){
 				v.setEncontrada();
+				
 				controlador.victimaSeleccionadaParaSimulacion(v.getName());
 				System.out.println("Se ha encontrado una victima: " + v.toString() + ". Se ha notificado al jefe para su correspondiente rescate");
 			}

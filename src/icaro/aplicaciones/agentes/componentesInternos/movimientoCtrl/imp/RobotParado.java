@@ -55,7 +55,8 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		if (coordDestino!= null)  {
 				this.tipoActuacion = tipoActuacion;
 				this.destinoCoord = coordDestino;
-				this.identDestino = identDest; 
+				this.identDestino = identDest;
+				
 				if (velocidadCrucero >0){ 
 					this.velocidadCrucero = velocidadCrucero;
 					//    this.distanciaDestino = this.distanciaEuclidC1toC2(this.robotposicionActual, destinoCoord);
@@ -96,9 +97,9 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 	@Override
 	public void parar(){
 		if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.pararRobot();
-		Informe informeParada = new Informe (identComponente,this.identDestino, VocabularioRosace.MsgeRobotParado);
+		/*Informe informeParada = new Informe (identComponente,this.identDestino, VocabularioRosace.MsgeRobotParado);
 		this.itfProcObjetivos.insertarHecho(informeParada);
-		trazas.trazar(identAgente, "Se informa de una orden de parada: " +informeParada + " El robot esta en el estado :"+ identEstadoActual, InfoTraza.NivelTraza.debug);
+		trazas.trazar(identAgente, "Se informa de una orden de parada: " +informeParada + " El robot esta en el estado :"+ identEstadoActual, InfoTraza.NivelTraza.debug);*/
 
 	}
 	@Override

@@ -94,7 +94,6 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			Thread t = new Thread(){
 				
 				public void run(){
-					
 					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto,tipoRescate); 
 				}
 			};

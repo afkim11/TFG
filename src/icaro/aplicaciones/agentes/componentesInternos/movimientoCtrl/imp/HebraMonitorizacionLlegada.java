@@ -128,7 +128,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 	}
 
 	public void pararRobot(){
-		this.finalizar=true;
+		this.finalizar=true;		
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 				int anchoVictima =15;
 				int referenciaExploracion = (int)this.coordActuales.getX();
 				if(ruta!=null){
-					while(!enDestino && this.energia){
+					while(!enDestino && this.energia &&!this.finalizar){
 						for(int i=0;i<ruta.size() && !this.finalizar && this.energia ;i++){
 
 							Coordinate punto=ruta.get(i);
@@ -221,7 +221,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 								t.start();
 
 							}
-							else if(this.controladorMovimiento.estadoActual.getActuacion()==1 && (this.coordActuales.getX()%4 == 0 || this.coordActuales.getY()%4 == 0))
+							if(this.controladorMovimiento.estadoActual.getActuacion()==1 && (this.coordActuales.getX()%4 == 0 || this.coordActuales.getY()%4 == 0))
 								itfusoRecVisSimulador.addRastroExploracion(this.coordActuales);
 							Thread.sleep(intervaloEnvioInformesMs);
 
