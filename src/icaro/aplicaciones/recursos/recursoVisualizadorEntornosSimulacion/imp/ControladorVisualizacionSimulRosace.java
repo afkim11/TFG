@@ -36,6 +36,8 @@ import org.openide.util.Exceptions;
  * @author FGarijo
  */
 public class ControladorVisualizacionSimulRosace {
+	public static final int PRIORIZACIONPORORDENDEIDENTIFICACION= 2;
+	public static final int PRIORIZADOTIEMPODEVIDA = 2;
 	public static boolean asignadorSeMueve = false;
 	public static boolean exploracionPrevia = true;
 	private NotificadorInfoUsuarioSimulador notifEvts;
@@ -50,6 +52,7 @@ public class ControladorVisualizacionSimulRosace {
 	private String rutassrc = "src/";   //poner "src/main/java" si el proyecto de icaro se monta en un proyecto maven
 	private String rutapaqueteConstructorEscenariosROSACE = "utilsDiseniaEscenariosRosace/";
 	private static  Image IMAGErobot,IMAGEmujer,IMAGEmujerRes ;
+	public static int modoEnvioVictimas = 1;
 	private String rutaIconos = "\\src\\utilsDiseniaEscenariosRosace\\";
 	//    private String rutaPersistenciaEscenario = "\\src\\persistenciaEscenarios\\";
 	private String directorioPersistencia = VocabularioRosace.IdentDirectorioPersistenciaEscenarios+File.separator;
@@ -236,5 +239,22 @@ public class ControladorVisualizacionSimulRosace {
 	}
 	public void addRastroExploracion(Coordinate coor){
 		this.visorEscenarioRosace.actualizarRastro(coor);
+	}
+
+
+	public void configurarParametrosSimulacion() {
+		// TODO Auto-generated method stub
+		if(VocabularioRosace.funcionEvaluacionSeleccionada.equals("FuncionEvaluacion1")){
+			exploracionPrevia = true;
+			modoEnvioVictimas = PRIORIZACIONPORORDENDEIDENTIFICACION;
+		}
+		else if(VocabularioRosace.funcionEvaluacionSeleccionada.equals("FuncionEvaluacion2")){
+			modoEnvioVictimas = PRIORIZADOTIEMPODEVIDA;
+			exploracionPrevia = false;
+		}
+		else if(VocabularioRosace.funcionEvaluacionSeleccionada.equals("FuncionEvaluacion3")){
+			modoEnvioVictimas = PRIORIZADOTIEMPODEVIDA;
+			exploracionPrevia = false;
+		} 
 	}
 }

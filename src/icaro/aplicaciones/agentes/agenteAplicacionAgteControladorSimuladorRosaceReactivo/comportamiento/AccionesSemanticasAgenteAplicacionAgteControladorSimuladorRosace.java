@@ -7,6 +7,7 @@ import icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.ItfUsoRecur
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestSequence;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
@@ -56,7 +57,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 	private int intervaloSecuencia;                 //Intervalo uniforme de envio de la secuencia de victimas
 	private ArrayList<Victim> victimasDefinidas;     //Victimas definidas en la simulacion 
 	private PriorityQueue<Victim> victimasDefinidas2;
-	private int modoEnvioVictimas=2;
 	private Map<String, Victim> victims2Rescue = new HashMap<String, Victim>();      //Victimas que han sido enviadas al equipo   
 	private Map<String, String> victimasAsignadas = new HashMap<String, String>();   //Victimas que han sido asignadas a algun robot, es decir, algun robot se ha hecho responsable para salvarla
 	private Map<String, InfoAsignacionVictima> infoVictimasAsignadas;
@@ -111,7 +111,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 
 		trazas.trazar(this.nombreAgente, "Accion AccionComenzar completada ....", NivelTraza.debug);
 	}
-
 	private ArrayList getVictimsName(ArrayList<Victim> victimasArescatar) {
 		ArrayList<String> victimsID = new ArrayList<String>();
 		for(int i=0; i < victimasArescatar.size(); i++){
@@ -119,8 +118,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		}
 		return victimsID;
 	}
-	
-	public void iniciarBusqueda(){
+		public void iniciarBusqueda(){
 		OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);
 		comunicator.enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
 	}
@@ -159,13 +157,13 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			e.printStackTrace();
 		}
 
-		iniciliarFicheroEstadisticas();
+		inicializarFicheroEstadisticas();
 		Comparator<Victim> comp = new Comparator<Victim>(){
 
 			@Override
 			public int compare(Victim arg0, Victim arg1) {
-				if(arg0.getPriority()<arg1.getPriority())return 1;
-				else if(arg0.getPriority()>arg1.getPriority())return -1;
+				if(arg0.getTiempoDeVida()<arg1.getTiempoDeVida())return 1;
+				else if(arg0.getTiempoDeVida()>arg1.getTiempoDeVida())return -1;
 				else return 0;
 			}
 
@@ -187,10 +185,10 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 				int i = 0;
 				Victim victima;
 				while ((i < numeroVictimasDiferentesSimulacion) && (stop == false)) {
-					//      victima = createNewVictim(rXMLTSeq, nodeLst, i);
-					if(modoEnvioVictimas==1)victima = victimasDefinidas.get(i);
-					else victima=victimasDefinidas2.poll();
 					
+					if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION)victima = victimasDefinidas.get(i);
+					else if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZADOTIEMPODEVIDA)victima=victimasDefinidas2.poll();
+					else victima = victimasDefinidas.get(i);
 					
 					if(!victima.getRescued() && !victima.isCostEstimated()){
 						OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
@@ -254,8 +252,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		};
 		t.start();
 	}
-
-	private void iniciliarFicheroEstadisticas() {
+	private void inicializarFicheroEstadisticas() {
 
 		//----------------------------------------------------------------------------------------------------------------	
 		// Inicializar fichero Estadistica de llegada de victimas y asignacion
@@ -277,7 +274,6 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			e.printStackTrace();
 		}
 	}
-
 	public void SendSimulatedVictimToRobotTeam(String idVictima){
 		trazas.aceptaNuevaTraza(new InfoTraza(this.nombreAgente, "Accion SendVictimToRobotTeam  .... "
 				+ idVictima, InfoTraza.NivelTraza.debug));
@@ -300,7 +296,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 
 
 		if(infoCasoSimul==null || infoEntornoCaso==null){
-			iniciliarFicheroEstadisticas();
+			inicializarFicheroEstadisticas();
 
 		}
 		Victim victima = victims2Rescue.get(idVictima);

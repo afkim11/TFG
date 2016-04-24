@@ -10,19 +10,12 @@
  */
 package icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp;
 
-import icaro.aplicaciones.Rosace.informacion.RobotStatus;
-import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
-import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
-
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -34,6 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ControlCenterGUI4 extends javax.swing.JFrame {
 
+	
 	/** Creates new form ControlCenterGui2 */
 	private ControladorVisualizacionSimulRosace controladorEscSim;
 	private int intervaloSecuencia = 100; // valor por defecto. Eso deberia ponerse en otro sitio
@@ -45,6 +39,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	private String identVictimaSeleccionada=null;
 	private String identRobotSeleccionado=null;
 	private String identEquipo="indefinido";
+	private String[] funcionesEvaluacion = {"FuncionEvaluacion1","FuncionEvaluacion2","FuncionEvaluacion3"};
 	
 	public ControlCenterGUI4() {
 		initComponents();
@@ -52,9 +47,6 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	}
 	public ControlCenterGUI4( ControladorVisualizacionSimulRosace controlador) {
 		this.controladorEscSim = controlador;
-		this.identsRobotsEquipo =identsRobotsEquipo;
-		//       this.cgen = cgenRec;
-		//       this.visorSc = visorScn;
 		initComponents();
 		jButtonStart.setEnabled(false);
 		listaComponentes.setVisible(false);
@@ -107,7 +99,8 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		jMenuItem2 = new javax.swing.JMenuItem();
 		jMenu3 = new javax.swing.JMenu();
 		jButtonActivarJerarquico = new javax.swing.JButton();
-		jButtonActivarExploracion = new javax.swing.JButton();
+		
+		jFuncionEvaluacion = new javax.swing.JComboBox<String>(this.funcionesEvaluacion);
 
 		jPopupMenuAcionesRobots.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
 			public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -129,7 +122,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 			}
 		});
 		
-		if(ControladorVisualizacionSimulRosace.exploracionPrevia)jButtonActivarExploracion.setText("Desactivar exploracion previa(Actual: On)");
+		/*if(ControladorVisualizacionSimulRosace.exploracionPrevia)jButtonActivarExploracion.setText("Desactivar exploracion previa(Actual: On)");
 		else jButtonActivarExploracion.setText("Activar exploracion previa(Actual: Off)");
 		jButtonActivarExploracion.addActionListener(new ActionListener() {
 			
@@ -138,7 +131,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 				// TODO Auto-generated method stub
 				jButtonActivacionExploracionActionPerformed();
 			}
-		});
+		});*/
 		
 		
 		
@@ -205,6 +198,19 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 
 			}
 		});
+		
+		jFuncionEvaluacion.setToolTipText("FuncionEvaluacion1: Simulacion con exploracion\nFuncionEvaluacion2: Sin exploracion priorizando a las victimas con menos tiempo vida\nFuncionEvaluacion3: Aun por desarrollar");
+		jFuncionEvaluacion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VocabularioRosace.funcionEvaluacionSeleccionada = (String) jFuncionEvaluacion.getSelectedItem();
+				jFuncionEvaluacionActionPerformed();
+			}
+		});
+		
+		
 
 		jListIdentsVictims.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -313,11 +319,11 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 										.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addComponent(jPararEnvioMensajes)
 												.addComponent(jtextTextFieldIntervaloEnvioMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+								.addComponent(jButtonMostrarEscenarioActual)
 								.addGroup(layout.createSequentialGroup()
-										.addComponent(jButtonMostrarEscenarioActual)
+										.addComponent(jFuncionEvaluacion)
 										.addGap(45, 45, 45)
 										.addComponent(jLabel4))
-								.addComponent(jButtonActivarExploracion)
 								.addComponent(jButtonActivarJerarquico)
 								.addComponent(jButtonSendVictim)
 								.addComponent(jButtonSendVictimsSequence))
@@ -350,7 +356,8 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 								.addComponent(jLabel4)
 								.addComponent(jTextFieldIdentEscenarioActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jButtonMostrarEscenarioActual))
+								.addComponent(jFuncionEvaluacion)
+								)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addGroup(layout.createSequentialGroup()
 										.addGap(18, 18, 18)
@@ -367,7 +374,8 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 										.addContainerGap())
 								.addGroup(layout.createSequentialGroup()
 										.addGap(0, 107, Short.MAX_VALUE)
-										.addComponent(jButtonActivarExploracion)
+										.addComponent(jButtonMostrarEscenarioActual)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 										.addComponent(jButtonActivarJerarquico)
 										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -391,20 +399,23 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 		pack();
 	}
 
-	protected void jButtonActivacionExploracionActionPerformed() {
+	protected void jFuncionEvaluacionActionPerformed() {
+		// TODO Auto-generated method stub
+		this.controladorEscSim.configurarParametrosSimulacion();
+	}
+	/*protected void jButtonActivacionExploracionActionPerformed() {
 		// TODO Auto-generated method stub
 		if(controladorEscSim.exploracionPrevia){
 			this.jButtonActivarExploracion.setText("Activar exploracion previa(Actual: Off)");
 		}
 		else{
-			this.jButtonActivarExploracion.setText("Desactivar exploracion previa(Actual: On)");
-			
+			this.jButtonActivarExploracion.setText("Desactivar exploracion previa(Actual: On)");	
 		}
 		
 		controladorEscSim.exploracionPrevia = !controladorEscSim.exploracionPrevia;
-	}
+	}*/
 	protected void jButtonActivarJerarquicoActionPerformed() {
-		if(controladorEscSim.asignadorSeMueve){
+		if(ControladorVisualizacionSimulRosace.asignadorSeMueve){
 			this.jButtonActivarJerarquico.setText("Activar mov jefe(Actual: Off)");
 		}
 		else{
@@ -412,7 +423,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 			
 		}
 		
-		controladorEscSim.asignadorSeMueve = !controladorEscSim.asignadorSeMueve;
+		ControladorVisualizacionSimulRosace.asignadorSeMueve = !ControladorVisualizacionSimulRosace.asignadorSeMueve;
 	}
 	protected void jMenuItemAbrirEscenarioActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
@@ -625,7 +636,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	private javax.swing.JList jlistIdentsRobots;
 	private javax.swing.JTextField jtextTextFieldIntervaloEnvioMensajes;
 	private javax.swing.JButton jButtonActivarJerarquico;
-	private javax.swing.JButton jButtonActivarExploracion;
+	private javax.swing.JComboBox<String> jFuncionEvaluacion;
 	// End of variables declaration//GEN-END:variables
 
 	public void setIdentEscenarioActual(String identEscenario) {
