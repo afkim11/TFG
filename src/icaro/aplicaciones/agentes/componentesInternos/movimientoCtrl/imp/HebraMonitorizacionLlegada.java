@@ -25,54 +25,36 @@ import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
  */
 public class HebraMonitorizacionLlegada extends Thread {
 
-	/**
-	 * Milisegundos que esperar antes de lanzar otra monitorizacin
-	 * @uml.property  name="milis"
-	 */
 	protected long milis;
-
-	/**
-	 * Indica cundo debe dejar de monitorizar
-	 * @uml.property  name="finalizar"
-	 */
 	protected volatile boolean finalizar = false;
-
-	/**
-	 * Agente reactivo al que se pasan los eventos de monitorizacin
-	 * @uml.property  name="agente"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
 	public MaquinaEstadoMovimientoCtrl controladorMovimiento;
 	private Logger log = Logger.getLogger(this.getClass().getSimpleName());
-	/**
-	 * Evento a producir
-	 * @uml.property  name="evento"
-	 */
 	private String identDestino, identRobot;
 	private   volatile Coordinate coordActuales;
 	private volatile Coordinate coordDestino;
-	private volatile Coordinate coordIncremento;
-	private double velocidadRobot; // en metros por segundo 
-	//     protected int intervaloEnvioInformacion = 1000; // por defecto en ms . Deberia ser configurable
+	private double velocidadRobot;
 	private volatile double pendienteRecta;
-	private volatile boolean estamosEnDestino;
-	private double espacioRecorrido ;
-	//     protected double distanciaDestino ;
-	private boolean pendienteInfinita = false ;
 	private volatile boolean parar = false ;
 	private volatile boolean enDestino = false ;
 	private boolean energia = true;
 	private float distanciaArecorrer ;
 	private float b ; // punto corte recta con eje Y
-	private int dirX =0, dirY=0,incrementoDistancia=0;
+	private int dirX =0, dirY=0;
 	private int intervaloEnvioInformesMs ;
-	private int distanciaRecorridaEnIntervaloInformes ;
-	private long tiempoParaAlcanzarDestino = 2000;
 	private RobotStatus robotStatus;
 	public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
+	final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
 
-
-	private int contadorAuxiliar=0;
+	Thread t = new Thread(){
+		public void run(){
+			try {
+				itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
+			} catch (Exception e){
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	};
 
 	//    private int numeroPuntos = 20;
 	/**
@@ -99,7 +81,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 		coordDestino = coordDest;
 		velocidadRobot = velocidad; // 
 		//      intervaloEnvioInformacion= intervEnvioInformacion; 
-		espacioRecorrido = 0;
 		identDestino = idDestino;
 		//      this. pendienteRecta = (float) ((coordDestino.y-coordActuales.y)/(coordDestino.x-coordActuales.x));
 		log.debug ("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
@@ -109,22 +90,9 @@ public class HebraMonitorizacionLlegada extends Thread {
 		//     this.evento = notificacionAProducir;
 		this.finalizar= false;
 		//       distanciaDestino = this.distanciaEuclidC1toC2(coordActuales, coordDestino);
-		double incrX=(coordDestino.getX()-coordActuales.getX());
-		double incrY=(coordDestino.getY()-coordActuales.getY());
-		if (incrX>0)dirX=1 ;
-		else dirX=-1;
-		if (incrY>0)dirY=1 ;
-		else dirY=-1;
-		if (incrX==0 &&incrY!=0){pendienteInfinita= true;
-		distanciaArecorrer = (float)incrY;
-		}else if (incrX==0 &&incrY==0) finalizar=true;
-		else { pendienteRecta = (float) Math.abs(incrY/incrX);
-		this.distanciaArecorrer =(float) Math.sqrt(incrX*incrX+incrY*incrY);
-		this.b = (float) (coordActuales.y -pendienteRecta * coordActuales.x ) ;
 
-		}
 		intervaloEnvioInformesMs = (int)(velocidadRobot* 12);
-		distanciaRecorridaEnIntervaloInformes = 1;
+
 	}
 
 	public void pararRobot(){
@@ -163,7 +131,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 		log.debug ("Coord Robot " + identRobot + " destino -> ("+this.coordDestino.getX() + " , " + this.coordDestino.getY() + ")");
 		//       System.out.println("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.x + " , " + this.coordActuales.y + ")");
 		//      this.itfusoRecVisSimulador.mostrarMovimientoAdestino(identRobot,identDestino, coordActuales,velocidadRobot);
-		while (!this.finalizar && (!enDestino)) {
+		while (!this.finalizar && (!enDestino)){
 			try {
 				AlgoritmoRuta alg=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
 				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
@@ -182,58 +150,32 @@ public class HebraMonitorizacionLlegada extends Thread {
 							if (itfusoRecVisSimulador != null)
 								this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
 							this.controladorMovimiento.setCoordenadasActuales(coordActuales);
-							/**
+							/*
 							 * Si estas explorando entonces se comprueba que en el perímetro de vision del robot haya victimas. 
 							 */
-
 							//Movimiento a derechas
 							if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() ){
 								referenciaExploracion = referenciaExploracion + anchoVictima;
-								final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
-								Thread t = new Thread(){
-									public void run(){
-										try {
-											itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
-										} catch (Exception e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-									}
-								};
 								t.start();
 
 							}
-
 							//Movimiento a izquierdas
 							else if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX()){
-								referenciaExploracion = referenciaExploracion - anchoVictima;
-								final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
-								Thread t = new Thread(){
-									public void run(){
-										try {
-											itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
-										} catch (Exception e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-									}
-								};
+								referenciaExploracion = referenciaExploracion - anchoVictima;								
 								t.start();
-
 							}
 							if(this.controladorMovimiento.estadoActual.getActuacion()==1 && (this.coordActuales.getX()%4 == 0 || this.coordActuales.getY()%4 == 0))
 								itfusoRecVisSimulador.addRastroExploracion(this.coordActuales);
 							Thread.sleep(intervaloEnvioInformesMs);
-
-
 							if(energiaActual > 0){
 								energiaActual--;
 								this.robotStatus.setAvailableEnergy(energiaActual);
 							}
 							else energia = false;
 						}
-
 					}
+
+					//Salvamento de la victima.
 					if(this.controladorMovimiento.estadoActual.getActuacion() == 0){
 						Coordinate victimCoor = this.coordDestino;
 						this.coordDestino = itfusoRecVisSimulador.getEscenario().getCoordenadaLugarSeguro();
@@ -241,8 +183,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 						ruta1.add(coordActuales);
 						AlgoritmoRuta alg1=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
 						alg1.iniciarCalculoruta(coordActuales, ruta1);
-						
-
 						for(int i=0;i<ruta1.size() && !this.finalizar && this.energia ;i++){
 							Coordinate punto=ruta1.get(i);
 							this.coordActuales.setY(punto.getY());
@@ -261,11 +201,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 							}
 							else energia = false;
 						}
-
-
-
-
-
 					}
 					if(!energia){
 						this.controladorMovimiento.itfProcObjetivos.insertarHecho(new Informacion(VocabularioRosace.MsgRomperRobot));
