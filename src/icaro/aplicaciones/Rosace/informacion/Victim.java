@@ -27,7 +27,7 @@ public class Victim implements Serializable{
 	private int priority; //victim severity
 	@Element
 	private Integer tiempoDeVida =null;
-	
+	public boolean isAlive = true;
 	private boolean encontrada = false;
 	private String robotIdEncargadoDeMi = null;
 	private int estimatedCost;
@@ -151,6 +151,7 @@ public class Victim implements Serializable{
 					e.printStackTrace();
 				}
 				if(!getRescued()){
+					isAlive = false;
 					Informe informe = new Informe(name,name,VocabularioRosace.VictimaFallecida);
 					comunicator.enviarInfoAotroAgente(informe, VocabularioRosace.IdentAgteDistribuidorTareas);
 				}

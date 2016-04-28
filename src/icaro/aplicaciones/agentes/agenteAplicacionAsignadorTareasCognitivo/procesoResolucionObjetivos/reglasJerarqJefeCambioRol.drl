@@ -325,7 +325,7 @@ end
 rule "Focalizacion inicial en el  objetivo  para decidir quien se hace cargo de la ayuda"
  when
     focoActual : Focus(foco == null)
-    victimaCC:Victim($idVict:name)
+    victimaCC:Victim($idVict:name,isAlive == true)
     obj1 : AyudarVictima(state == Objetivo.PENDING, victimId == $idVict) 
     obj :DecidirQuienVa(state == Objetivo.SOLVING, objectReferenceId == $idVict) 
  then
@@ -341,7 +341,7 @@ end
 rule "Re-focalizacion  en el  ultimo objetivo despues de conseguir decidirQuienVa "
  when
     misObjs : MisObjetivos($objPrio:objetivoMasPrioritario)
-    victimaCC:Victim($idVict:name)
+    victimaCC:Victim($idVict:name,isAlive == true)
     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == $idVict)
     obj1 :AyudarVictima(state == Objetivo.PENDING, victimId == $idVict)   
     obj: DecidirQuienVa (state == Objetivo.SOLVED,objectDecisionId == $idVict )
@@ -535,13 +535,13 @@ end
 
 
 rule "Una victima no ha sido rescatada a tiempo"
-
  when
  	informe : Informe(idVict:identEntidadEmisora,idVict == referenciaContexto,contenidoInforme == VocabularioRosace.VictimaFallecida)
  	victimaCC:Victim(idVict == name)
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaNoRescatadaATiempo.class);
  	tarea.ejecutar(informe, victimaCC);
+ 	//retract(victimaCC);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 
 end

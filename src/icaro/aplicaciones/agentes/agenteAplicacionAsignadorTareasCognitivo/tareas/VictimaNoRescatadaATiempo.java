@@ -25,8 +25,8 @@ public class VictimaNoRescatadaATiempo extends TareaSincrona{
 
 		InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("victimaMuerta", valoresParametrosAccion);
 		this.comunicator.enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
-		this.itfProcObjetivos.eliminarHechoWithoutFireRules(informe);
-		this.itfProcObjetivos.eliminarHecho(victima);
+		this.itfProcObjetivos.eliminarHecho(informe);
+		this.itfProcObjetivos.actualizarHecho(victima);
 	}
 
 }
