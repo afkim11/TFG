@@ -45,16 +45,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 	public ItfUsoRecursoVisualizadorEntornosSimulacion itfusoRecVisSimulador;
 	final int perimetroDeVision = GeneraryEncolarObjetivoReconocerTerreno.perimetroDeVision;
 
-	Thread t = new Thread(){
-		public void run(){
-			try {
-				itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
-			} catch (Exception e){
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	};
+	
 
 	//    private int numeroPuntos = 20;
 	/**
@@ -156,12 +147,32 @@ public class HebraMonitorizacionLlegada extends Thread {
 							//Movimiento a derechas
 							if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion + anchoVictima) == (int)this.coordActuales.getX() ){
 								referenciaExploracion = referenciaExploracion + anchoVictima;
+								Thread t = new Thread(){
+									public void run(){
+										try {
+											itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
+										} catch (Exception e){
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+								};
 								t.start();
 
 							}
 							//Movimiento a izquierdas
 							else if(this.controladorMovimiento.estadoActual.getActuacion() == 1 && (referenciaExploracion - anchoVictima) == (int)this.coordActuales.getX()){
 								referenciaExploracion = referenciaExploracion - anchoVictima;								
+								Thread t = new Thread(){
+									public void run(){
+										try {
+											itfusoRecVisSimulador.comprobarVictimasArea(coordActuales, perimetroDeVision);
+										} catch (Exception e){
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+								};
 								t.start();
 							}
 							if(this.controladorMovimiento.estadoActual.getActuacion()==1 && (this.coordActuales.getX()%4 == 0 || this.coordActuales.getY()%4 == 0))
