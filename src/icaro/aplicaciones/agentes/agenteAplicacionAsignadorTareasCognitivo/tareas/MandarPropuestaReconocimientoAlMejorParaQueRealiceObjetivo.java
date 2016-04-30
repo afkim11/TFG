@@ -49,6 +49,8 @@ public class MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo  extends
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.debug));
 			//               if (! infoDecision.getheInformadoAlmejorParaQueAsumaElObjetivo() ){ // si ya se le ha informado no se hace nada
 			nombreAgenteReceptor = infoDecision.dameIdentMejor();
+			
+			
 			if(nombreAgenteReceptor!=null){
 				PropuestaAgente miPropuesta = new PropuestaAgente (nombreAgenteEmisor);
 				miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);

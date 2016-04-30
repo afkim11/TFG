@@ -299,11 +299,12 @@ rule "La victima que habia que salvar ha muerto"
 when
 	informe : Informe(contenidoInforme == VocabularioRosace.MsgVictimaMuertaASubordinado,victimId:referenciaContexto)
 	victim : Victim(name == victimId)
+	victims : VictimsToRescue(victims2Rescue !=null)
 	infoComMov : InfoCompMovimiento()
 	misObjs : MisObjetivos()
 then
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	retract(informe)
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaHaMuerto.class);
-	tarea.ejecutar(infoComMov,misObjs,victim);
+	tarea.ejecutar(infoComMov,misObjs,victim, victims);
 end

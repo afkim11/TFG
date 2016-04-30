@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import icaro.aplicaciones.Rosace.informacion.Victim;
+import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
@@ -18,6 +19,7 @@ public class VictimaHaMuerto extends TareaSincrona{
 		InfoCompMovimiento infoComMov = (InfoCompMovimiento)params[0];
 		MisObjetivos misObj = (MisObjetivos) params[1];
 		Victim victima = (Victim) params[2];
+		VictimsToRescue victimas = (VictimsToRescue) params[3];
 		
 		ItfUsoMovimientoCtrl itfcompMov;
 		itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
@@ -32,7 +34,7 @@ public class VictimaHaMuerto extends TareaSincrona{
 				if(itfcompMov.getCoordenasDestino().equals(victima.getCoordinateVictim())){
 					itfcompMov.parar();
 				}
-			}
+			} 
 		}
 	}
 

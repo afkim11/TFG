@@ -85,6 +85,10 @@ public class MisObjetivos{
 	public void eliminarObjetivoDeMisObjetivosPriorizados(Objetivo obj) {
 		this.misObjetivosPriorizados.remove(obj);		
 	}
+	
+	public int getSizeObjetivos(){
+		return this.misObjetivosPriorizados.size();
+	}
     
 }
      
