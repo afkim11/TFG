@@ -78,7 +78,7 @@ public class AlgoritmoRuta {
 		public void iniciarCalculoruta(Coordinate coorActuales,ArrayList<Coordinate> ruta){
 			boolean[][] visitados = generaMapaBooleanos();
 			visitados[(int)coorActuales.getX()][(int)coorActuales.getY()]=true;
-			
+			ruta.add(coorActuales);
 			ruta = calculaRuta(visitados, coorActuales, Anterior.MOV_NULO, ruta);
 		}
 		

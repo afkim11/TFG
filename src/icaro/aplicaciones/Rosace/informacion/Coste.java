@@ -8,12 +8,14 @@ import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.MaquinaEstadoMovimientoCtrl;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.VisorEscenariosRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.ItfUsoRepositorioInterfaces;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -24,16 +26,26 @@ import java.util.concurrent.PriorityBlockingQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.simpleframework.xml.core.Persister;
+
 
 public class Coste {
 	public static int tiempoAtencionVictima = 100;
-	
+	private static Coordinate lugarSeguro; 
 	private double funcionEvaluacion=0;
 	//    ItfUsoRecursoTrazas trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ; //Para depurar por la ventana de trazas de ICARO los calculos de costes
 
 	//Constructor
 	public Coste(){
-
+		EscenarioSimulacionRobtsVictms escenario;
+		try {
+			escenario = new Persister().read(EscenarioSimulacionRobtsVictms.class,new File(NombresPredefinidos.RUTA_PERSISTENCIA_ESCENARIOS + VocabularioRosace.rutaEscenario),false);
+			lugarSeguro = escenario.getCoordenadaLugarSeguro();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	//Funcion de evaluacion que solo considera distancia entre la nueva victima y la posicion del robot. NO SE CONSIDERA LA ENERGIA NI LAS VICTIMAS QUE TIENE ASIGNADAS PREVIAMENTE.
 	//En este caso, el tercer parametro, robot, solo se utiliza para la depuracion. No interviene en el calculo de la funcion de evaluacion de este metodo
@@ -205,7 +217,6 @@ public class Coste {
 		PriorityBlockingQueue<Objetivo> cola=misObjs.getMisObjetivosPriorizados();
 		Iterator<Objetivo> it=cola.iterator();
 		int time = 0;
-		boolean[][] visitados= new boolean[VisorEscenariosRosace.ancho][VisorEscenariosRosace.alto];
 		Coordinate actual = robotLocation;
 		while(it.hasNext()){
 			Objetivo x = it.next();
@@ -213,21 +224,22 @@ public class Coste {
 				if(x instanceof AyudarVictima){
 					String nombreVictima=x.getobjectReferenceId();
 					Victim v=victims2Resc.getVictimToRescue(nombreVictima);
-					visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
-					visitados[(int)actual.getX()][(int)actual.getY()]=true;
-					ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
-					ruta.add(actual);
-					ArrayList<Coordinate> arrayAux=new ArrayList<Coordinate>();
+					ArrayList<Coordinate> viajeAVictima=new ArrayList<Coordinate>();
+					ArrayList<Coordinate> viajeALugarSeguro=new ArrayList<Coordinate>();
 					try{
 						AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
-						arrayAux = alg.calculaRuta(visitados, actual, Anterior.MOV_NULO, ruta);
+						alg.iniciarCalculoruta(actual,viajeAVictima);
+						actual = new Coordinate(v.getCoordinateVictim().x,v.getCoordinateVictim().y,v.getCoordinateVictim().z);
+						AlgoritmoRuta alg2=new AlgoritmoRuta(lugarSeguro,actual);
+						alg2.iniciarCalculoruta(actual, viajeALugarSeguro);
+						actual = new Coordinate(lugarSeguro.x,lugarSeguro.y,lugarSeguro.z);
 					}
 					catch(Exception e){
 						System.out.println("");
 					}
-
-					if(arrayAux != null){
-						time = time + arrayAux.size()*2 + tiempoAtencionVictima;
+					if(viajeAVictima != null){
+						time = time + viajeAVictima.size() + tiempoAtencionVictima;
+						if(viajeALugarSeguro!=null)time +=viajeALugarSeguro.size();
 					}
 					else return -1;
 				}
@@ -242,17 +254,19 @@ public class Coste {
 			}
 
 		}
-
-		visitados=matrizBooleanos(VisorEscenariosRosace.ancho,VisorEscenariosRosace.alto);
-
-		visitados[(int)actual.getX()][(int)actual.getY()]=true;
-		ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
-		ruta.add(actual);
-		AlgoritmoRuta alg2= new AlgoritmoRuta(nuevaVictima.getCoordinateVictim(), actual);
-		ArrayList<Coordinate> arrayAux = alg2.calculaRuta(visitados, actual, Anterior.MOV_NULO,ruta);
-		if(arrayAux != null){
-			time += arrayAux.size();
+		Coordinate coordNuevaVictima = nuevaVictima.getCoordinateVictim();
+		ArrayList<Coordinate> viajeAVictima=new ArrayList<Coordinate>();
+		ArrayList<Coordinate> viajeALugarSeguro=new ArrayList<Coordinate>();
+		AlgoritmoRuta alg3= new AlgoritmoRuta(nuevaVictima.getCoordinateVictim(), actual);
+		alg3.iniciarCalculoruta(actual, viajeAVictima);
+		actual = new Coordinate(coordNuevaVictima.x,coordNuevaVictima.y,coordNuevaVictima.z);
+		AlgoritmoRuta alg4 = new AlgoritmoRuta(lugarSeguro,actual);
+		alg4.iniciarCalculoruta(actual, viajeALugarSeguro);
+		actual = new Coordinate(lugarSeguro.x,lugarSeguro.y,lugarSeguro.z);
+		if(viajeAVictima != null){
+			time += viajeAVictima.size();
 			time += tiempoAtencionVictima;
+			if(viajeALugarSeguro !=null)time += viajeALugarSeguro.size();
 			if(time<energia)
 				return time;
 		}

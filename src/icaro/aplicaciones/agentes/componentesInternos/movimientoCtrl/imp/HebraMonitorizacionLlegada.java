@@ -126,7 +126,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 			try {
 				AlgoritmoRuta alg=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
 				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
-				ruta.add(coordActuales);
 				alg.iniciarCalculoruta(coordActuales, ruta);
 				int anchoVictima =15;
 				int referenciaExploracion = (int)this.coordActuales.getX();
@@ -191,7 +190,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 						Coordinate victimCoor = this.coordDestino;
 						this.coordDestino = itfusoRecVisSimulador.getEscenario().getCoordenadaLugarSeguro();
 						ArrayList<Coordinate> ruta1 = new ArrayList<Coordinate>();
-						ruta1.add(coordActuales);
 						AlgoritmoRuta alg1=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
 						alg1.iniciarCalculoruta(coordActuales, ruta1);
 						for(int i=0;i<ruta1.size() && !this.finalizar && this.energia ;i++){
