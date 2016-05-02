@@ -15,6 +15,7 @@ import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -76,6 +77,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	JLabel entidadSeleccionada = null;
 	private WidgetAction moveAction = ActionFactory.createMoveAction();
 	private Point ultimoPuntoClic;
+	public static int alto= 760;
+	public static int ancho= 1120;
 
 	private SceneAnimator animator;
 	private boolean intencionUsuarioCrearRobot;
@@ -93,6 +96,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	private JMenuItem jMenuItemSetSafePlace;
 	private Point primerPuntoObstaculo;
 	private boolean primerPuntoObstaculoMarcado = false;
+	private int correccionX=-30;
+	private int correccionY=-93;
 
 	public VisorCreacionEscenarios(ControladorVisualizacionSimulRosace controlador) throws Exception {
 		// super("visor Escenario ");
@@ -119,8 +124,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 		super.paint(g);
 		if (escenarioActualComp.getListObstacles() != null) {
 			for (LineaObstaculo obs : escenarioActualComp.getListObstacles()) {
-				g.drawLine((int) obs.getCoordenadaIni().getX(), (int) obs.getCoordenadaIni().getY(),
-						(int) obs.getCoordenadaFin().getX(), (int) obs.getCoordenadaFin().getY());
+				g.drawLine((int) obs.getCoordenadaIni().getX(), (int) obs.getCoordenadaIni().getY()-this.correccionY,
+						(int) obs.getCoordenadaFin().getX(), (int) obs.getCoordenadaFin().getY()-this.correccionY);
 			}
 		}
 	}
@@ -625,8 +630,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(538, Short.MAX_VALUE)));
-
+						.addContainerGap(alto, Short.MAX_VALUE)));
+		this.setPreferredSize(new Dimension(ancho, alto));
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
@@ -665,8 +670,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			ultimoPuntoClic = new Point(evt.getX(), evt.getY());
 		} else if (evt.getClickCount() == 1 && primerPuntoObstaculoMarcado) {
 			primerPuntoObstaculoMarcado = false;
-			Coordinate ini = new Coordinate(ultimoPuntoClic.x, ultimoPuntoClic.y, 0.5),
-					fin = new Coordinate(evt.getX(), evt.getY(), 0.5);
+			Coordinate ini = new Coordinate(ultimoPuntoClic.x, ultimoPuntoClic.y+this.correccionY, 0.5),
+					fin = new Coordinate(evt.getX(), evt.getY()+this.correccionY, 0.5);
 
 			if (Math.abs(ini.getX() - fin.getX()) > Math.abs(ini.getY() - fin.getY())) {
 				int y1 = (int) ini.getY(), y2 = (int) fin.getY(), puntoMedio = (y1 + y2) / 2;
@@ -944,10 +949,8 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 	public JLabel crearIconoRobVict(String tipoEntidad, int coordX, int coordY) {
 
 		JLabel label = new JLabel();
-		// int correccionX=-30;
-		// int correccionY=-93;
-		int correccionX = 0;
-		int correccionY = 0;
+		//int correccionX = 0;
+		//int correccionY = 0;
 		coordX = coordX + correccionX;
 		coordY = coordY + correccionY;
 		String rutaImagen;
@@ -1073,7 +1076,7 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 			if (identEntidad.contains("Robot") || identEntidad.contains("robot")) {
 				escenarioActualComp.addRoboLoc(identEntidad, entidadLabel.getLocation());
 				numRobots++;
-			} else if (identEntidad.contains("Victim")) {
+			}else if (identEntidad.contains("Victim")) {
 				escenarioActualComp.addVictimLoc(identEntidad, entidadLabel.getLocation());
 				numVictims++;
 			}
