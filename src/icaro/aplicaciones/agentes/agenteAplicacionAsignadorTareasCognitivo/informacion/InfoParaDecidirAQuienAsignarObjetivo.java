@@ -12,6 +12,8 @@ import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.recursosOrganizacion.configuracion.ItfUsoConfiguracion;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,10 +40,8 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
       public boolean tengoLaMejorEvaluacion = false ;
       public boolean hanLlegadoTodasLasEvaluaciones = false;
       public boolean hayEmpates = false;
- //     public boolean noSoyElMejor = true ; // Not (hayEmpates) or Not ( tengoLaMejorEvaluacion) 
       public boolean hayOtrosQueQuierenIr = false;
       public boolean tengoAcuerdoDeTodos = false;
-//      public boolean tengoMiEvaluacion = false;
       public boolean peticionEvaluacionEnviadaAtodos = false;
       public boolean miPropuestaParaAsumirElObjetivoEnviadaAtodos = false;
       public boolean miDecisionParaAsumirElObjetivoEnviadaAtodos = false;
@@ -49,7 +49,7 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
       public boolean heInformadoAlmejorParaQueAsumaElObjetivo = false;
       public boolean hePreguntadoARobotsYNoHayValido = false;
       public String idElementoDecision = null;
-//      private ItfUsoRecursoTrazas trazas;
+      private static Hashtable<String,Integer> numVictimasAsignadas;
 
       public  InfoParaDecidirAQuienAsignarObjetivo(String identAgente, InfoEquipo equipo){
         try {
@@ -73,13 +73,14 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
             respuestasRecibidas = 0;
             numeroRespuestasConfirmacionParaIrYo = 0;
             propuestasDesempateEsperadas = 0;
-           
+           if(numVictimasAsignadas==null)this.numVictimasAsignadas = new Hashtable<String,Integer>();
          // Inicializamos para cada agente las respuestas, empates, confirmaciones
             String aux;
             for (int i = 0; i < agentesEquipo.size(); i++) {
                 respuestasAgentes.add("");
                 confirmacionesAgentes.add("");
-                evaluacionesRecibidas.add(-5); 
+                evaluacionesRecibidas.add(-5);
+                if(numVictimasAsignadas.size()<agentesEquipo.size())numVictimasAsignadas.put(agentesEquipo.get(i),0);
                 }
             confirmacionesEsperadas = agentesEquipo.size()-1;
         } catch (Exception ex) {
@@ -231,7 +232,25 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
 
      //El que tiene mejor evaluacion nueva es el que menor Id tiene
     
-     
+     private static boolean comprobarSiActivarJefe(){
+    	 Iterator<Integer> it = numVictimasAsignadas.values().iterator();
+    	 int numAsignaciones = 0;
+    	 while(it.hasNext()){
+    		 numAsignaciones += it.next();
+    	 }
+    	 if(numAsignaciones > 0 && numAsignaciones%5 == 0){
+    		 if(!numVictimasAsignadas.contains("JerarquicoagenteAsignador")){
+    			 numVictimasAsignadas.put("JerarquicoagenteAsignador", 1);
+    		 }
+    		 else{
+    			 int x = numVictimasAsignadas.get("JerarquicoagenteAsignador");
+    			 numVictimasAsignadas.put("JerarquicoagenteAsignador", x+1);
+    		 }
+    		 return true;
+    	 }
+    	 else return false;
+    	 
+     }
      //devuelve el agente mejor dentro de mi equipo
      public synchronized String dameIdentMejor(){
          String mejorAgente = null;
@@ -246,13 +265,14 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
                  mejor_eval = evaluacion_local;
              }
          }
-         /*
-          * Mostramos un mensaje emergente avisando de que se ha asignado una victima sin tener evaluaciones
-          */
-         /*if(mejor_eval == Integer.MAX_VALUE || mejor_eval==-5){
-        	 JFrame frame = new JFrame();
-        	 JOptionPane.showMessageDialog(frame,"Se han asignado una victima" + this.idElementoDecision + " sin evaluaciones: " +mejor_eval + " al agente " + mejorAgente,"Aviso",JOptionPane.WARNING_MESSAGE);
-         }*/
+        if(comprobarSiActivarJefe()){
+        	
+        	return "JerarquicoagenteAsignador";
+        }
+        else if(mejorAgente != null){
+        	int x = numVictimasAsignadas.remove(mejorAgente);
+        	numVictimasAsignadas.put(mejorAgente, x+1);
+        }
          
          return mejorAgente;
      }

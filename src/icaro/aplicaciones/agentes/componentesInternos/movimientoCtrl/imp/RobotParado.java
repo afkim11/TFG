@@ -6,6 +6,7 @@ package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
@@ -23,20 +24,10 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 	private RobotStatus robotStatus;
 	private Semaphore semaforo;
 	public  RobotParado (MaquinaEstadoMovimientoCtrl maquinaEstados){
-		
-		// this.Inicializar(itfProcObjetivos);
-		//  MovimientoCtrlImp estado = estadosCreados.get(EstadoMovimientoRobot.RobotParado);
 		super (maquinaEstados,MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotParado);
 		semaforo=new Semaphore(1);
-		//     estadoActual = this;
-		//  this.Inicializar(itfProcObjetivos) ; 
-
 	}
-	//   @Override
-	//    public  void inicializarInfoMovimiento(Coordinate coordInicial, Integer velocidadInicial){
-
-	//   } 
-	@Override
+	
 	public void inicializarInfoMovimiento(Coordinate coordInicial, float velocidadInicial){
 		this.robotposicionActual = coordInicial;
 		this.maquinaEstados.setCoordenadasActuales(coordInicial);     
@@ -49,7 +40,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	
 		
 		
 		if (coordDestino!= null)  {
@@ -74,9 +65,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 				else trazas.trazar(identComponente, "La velocidad debe ser mayor que cero. Se ignora la operacion", InfoTraza.NivelTraza.error);
 
 			
-		}
-		
-	
+		}	
 		this.semaforo.release();
 		
 	}

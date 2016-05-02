@@ -168,5 +168,8 @@ public class Victim implements Serializable{
 	public boolean isEncontrada(){
 		return this.encontrada;
 	}
+	public boolean isAlive(){
+		return this.isAlive;
+	}
 
 }
