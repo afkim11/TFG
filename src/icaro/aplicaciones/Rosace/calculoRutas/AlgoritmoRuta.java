@@ -231,7 +231,7 @@ public class AlgoritmoRuta {
 			return cola;
 		}
 		private void generaNodo(int x,int y,boolean[][] visitados,Coordinate coordinadasActuales,PriorityQueue<CoordenadaExtension> cola){
-			if(x>=0 && y>=0 && x< EscenarioWidth && y < EscenarioWidth){
+			if(x>=0 && y>=0 && x< EscenarioWidth && y < EscenarioHeight){
 				Coordinate coor=new Coordinate(x,y,0.5);
 				Anterior ant = calculaAnterior(coordinadasActuales, coor);
 				if(!visitados[x][y] && !checkLimites(coor, ant))
