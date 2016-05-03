@@ -30,6 +30,8 @@ import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.Repo
 public class AlgoritmoRuta {
 	private static final int width = 40;
 	private static final int height = 27;
+	private static final int EscenarioWidth = 1100;
+	private static final int EscenarioHeight = 700;
 	private Anterior direccionVictima;
 	private final Comparator<CoordenadaExtension> comparador = new Comparator<CoordenadaExtension>(){
 		public int compare(CoordenadaExtension o1, CoordenadaExtension o2){
@@ -66,7 +68,7 @@ public class AlgoritmoRuta {
 		}
 		private void inicializarObstaculos() {
 			try {
-			
+
 				String rutaFicheroEscenario = NombresPredefinidos.RUTA_PERSISTENCIA_ESCENARIOS + VocabularioRosace.rutaEscenario;
 				EscenarioSimulacionRobtsVictms escenario = new Persister().read(EscenarioSimulacionRobtsVictms.class,new File(rutaFicheroEscenario),false);
 				obstaculos = escenario.getListObstacles();
@@ -81,8 +83,8 @@ public class AlgoritmoRuta {
 			ruta.add(coorActuales);
 			ruta = calculaRuta(visitados, coorActuales, Anterior.MOV_NULO, ruta);
 		}
-		
-		
+
+
 		/**
 		 * Algoritmo de vuelta atrás con heurística que se encarga de comprobar si hay una solución(un camino entre dos puntos).
 		 * Para limitar su calculabilidad, se hace uso de un contador de recursiones y de un límite de recursividad. 
@@ -96,24 +98,24 @@ public class AlgoritmoRuta {
 		public ArrayList<Coordinate> calculaRuta(boolean[][] visitados, Coordinate coordenadasActuales,Anterior anterior,ArrayList<Coordinate> rutaHastaAhora) {
 			try{
 				this.contador++;
-			
-			if(this.contador>=limiteRecursividad)return null;
-			if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(this.coordenadasDestino)){
-				return rutaHastaAhora;
-			}
-			else{
-				PriorityQueue<CoordenadaExtension> colaNodos=estimaCoste(visitados,coordenadasActuales, anterior); 
-				while(!colaNodos.isEmpty() && this.contador<limiteRecursividad){
-					Coordinate coor=colaNodos.poll().getCoor();
-					int x=(int)coor.getX(),y=(int)coor.getY();
-					visitados[x][y]=true;
-					rutaHastaAhora.add(coor);
-					ArrayList<Coordinate> posible_sol=calculaRuta(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora);
-					if(posible_sol!=null)return posible_sol;			
-					rutaHastaAhora.remove(rutaHastaAhora.size()-1);
-					visitados[x][y]=false;
+
+				if(this.contador>=limiteRecursividad)return null;
+				if(rutaHastaAhora.get(rutaHastaAhora.size()-1).equals(this.coordenadasDestino)){
+					return rutaHastaAhora;
 				}
-			}
+				else{
+					PriorityQueue<CoordenadaExtension> colaNodos=estimaCoste(visitados,coordenadasActuales, anterior); 
+					while(!colaNodos.isEmpty() && this.contador<limiteRecursividad){
+						Coordinate coor=colaNodos.poll().getCoor();
+						int x=(int)coor.getX(),y=(int)coor.getY();
+						visitados[x][y]=true;
+						rutaHastaAhora.add(coor);
+						ArrayList<Coordinate> posible_sol=calculaRuta(visitados,coor,calculaAnterior(coordenadasActuales,coor),rutaHastaAhora);
+						if(posible_sol!=null)return posible_sol;			
+						rutaHastaAhora.remove(rutaHastaAhora.size()-1);
+						visitados[x][y]=false;
+					}
+				}
 			}
 			catch(Exception e){
 				e.printStackTrace();
@@ -187,79 +189,55 @@ public class AlgoritmoRuta {
 					if(i==Anterior.NOROESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()-1;
 						int y=(int)coordinadasActuales.getY()-1;
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
-
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 					else if(i==Anterior.NORTE.ordinal()){
 						int x=(int)coordinadasActuales.getX();
 						int y=(int)coordinadasActuales.getY()-1;
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
-
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 					else if(i==Anterior.NORESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()+1;
 						int y=(int)coordinadasActuales.getY()-1;
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
-
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 					else if(i==Anterior.OESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()-1;
 						int y=(int)coordinadasActuales.getY();
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 					else if(i==Anterior.ESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()+1;
 						int y=(int)coordinadasActuales.getY();
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
-
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 					else if(i==Anterior.SUROESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()-1;
 						int y=(int)coordinadasActuales.getY()+1;
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
-
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 					else if(i==Anterior.SUR.ordinal()){
 						int x=(int)coordinadasActuales.getX();
 						int y=(int)coordinadasActuales.getY()+1;
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
-
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 					else if(i==Anterior.SURESTE.ordinal()){
 						int x=(int)coordinadasActuales.getX()+1;
 						int y=(int)coordinadasActuales.getY()+1;
-						Coordinate coor=new Coordinate(x,y,0.5);
-						Anterior ant = calculaAnterior(coordinadasActuales, coor);
-						if(!visitados[x][y] && !checkLimites(coor, ant))
-							cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
-
+						generaNodo(x,y,visitados,coordinadasActuales,cola);
 					}
 				}
 			}
 			return cola;
 		}
-
+		private void generaNodo(int x,int y,boolean[][] visitados,Coordinate coordinadasActuales,PriorityQueue<CoordenadaExtension> cola){
+			if(x>=0 && y>=0 && x< EscenarioWidth && y < EscenarioWidth){
+				Coordinate coor=new Coordinate(x,y,0.5);
+				Anterior ant = calculaAnterior(coordinadasActuales, coor);
+				if(!visitados[x][y] && !checkLimites(coor, ant))
+					cola.add(new CoordenadaExtension(calculaDirActual(ant), coor));
+			}
+		}
 		private boolean[][] generaMapaBooleanos(){
 			boolean[][] visitados= new boolean[VisorEscenariosRosace.ancho][VisorEscenariosRosace.alto];
 			for(int i =0;i<VisorEscenariosRosace.ancho;i++)
