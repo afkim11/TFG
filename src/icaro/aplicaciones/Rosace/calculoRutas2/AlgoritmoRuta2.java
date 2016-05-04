@@ -25,12 +25,12 @@ public class AlgoritmoRuta2 {
 	private static ArrayList<LineaObstaculo> obstaculos;
 
 	public AlgoritmoRuta2(Coordinate target,Coordinate source){
-		
-			this.coordIniciales = source;
-			this.coordDestino = target;
-			this.grid = new int[escenarioWidth][escenarioHeight];
-			inicializaObstaculos();
-			inicializaGrid();
+
+		this.coordIniciales = source;
+		this.coordDestino = target;
+		this.grid = new int[escenarioWidth][escenarioHeight];
+		inicializaObstaculos();
+		inicializaGrid();
 	}
 	public ArrayList<Coordinate> iniciarCalculoRuta(){
 		ArrayList<Coordinate> ruta = null;
@@ -72,23 +72,26 @@ public class AlgoritmoRuta2 {
 	private Coordinate getMinimoAlrededor(Coordinate auxCoor) {
 		int minx = (int)auxCoor.getX(),miny = (int)auxCoor.getY();
 		int x = (int) auxCoor.getX(),y = (int) auxCoor.getY();
-
-		for(int i = -1;i<2;i=i+2){
-			if(x+i >=0 && y>=0 && x+i<escenarioWidth && y<escenarioHeight){
-				if(this.grid[x+i][y] >-1 && this.grid[x+i][y] < this.grid[minx][miny] ){
-					minx = x+i;
-					miny = y;
+		for(int i = -1;i<2;i++)
+			for(int j = -1;j<2;j++){
+				if(x+i >=0 && y+j>=0 && x+i<escenarioWidth && y+j<escenarioHeight){
+					if(this.grid[x+i][y+j] >-1 && this.grid[x+i][y+j] < this.grid[minx][miny] ){
+						minx = x+i;
+						miny = y+j;
+					}
 				}
 			}
-		}
-		for(int i = -1;i<2;i=i+2){
+		
+		
+		
+		/*for(int i = -1;i<2;i=i+2){
 			if(x >=0 && y+i>=0 && x<escenarioWidth && y+i<escenarioHeight){
 				if(this.grid[x][y+i] >-1 && this.grid[x][y+i] < this.grid[minx][miny]){
 					minx = x;
 					miny = y+i;
 				}
 			}
-		}
+		}*/
 
 
 
@@ -97,7 +100,7 @@ public class AlgoritmoRuta2 {
 	}
 	private void generaNuevosNodos(LinkedList<Coordinate> cola, Coordinate auxCoor) {
 		int x = (int) auxCoor.getX(),y = (int) auxCoor.getY();
-
+		
 		for(int i = -1;i<2;i=i+2){
 			if(x+i >=0 && y>=0 && x+i<escenarioWidth && y<escenarioHeight){
 				if(this.grid[x+i][y] ==-1 || this.grid[x+i][y] ==-3){
@@ -114,6 +117,11 @@ public class AlgoritmoRuta2 {
 				}
 			}
 		}
+		
+		
+		
+		
+		
 	}
 
 
