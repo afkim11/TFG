@@ -3,15 +3,18 @@ package icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.obje
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 
 public class ReconocerTerreno extends Objetivo{
-	private String robotIdEncargado = null;
+	private int idNum;
 	
-	public ReconocerTerreno(){
-		super.setgoalId("Reconocer terreno");
+	public ReconocerTerreno(int idNum){
+		super.setgoalId("Reconozco el terreno " + idNum);
+		this.idNum = idNum;
 	}
-	public void setRobotEncargado(String robotId){
-		this.robotIdEncargado = robotId;
+
+	
+	public void setRobotId(int id){
+		this.idNum = id;
 	}
-	public String getRobotEncargado(){
-		return this.robotIdEncargado;
+	public int getRobotId(){
+		return this.idNum;
 	}
 }

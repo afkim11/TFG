@@ -17,7 +17,8 @@ public class InterpretarOrdenCCReconocerTerreno extends TareaSincrona{
 		MisObjetivos objs = (MisObjetivos) params[0];
 		OrdenCentroControl orden = (OrdenCentroControl)params[1];
 		
-		ReconocerTerreno reconocer = new ReconocerTerreno();
+		ReconocerTerreno reconocer = new ReconocerTerreno(VocabularioRosace.reconocedoresActuales);
+		VocabularioRosace.reconocedoresActuales++;
 		reconocer.setPriority(9);
 		objs.setobjetivoMasPrioritario(reconocer);
 		

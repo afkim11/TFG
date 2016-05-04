@@ -9,8 +9,10 @@ import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.InfoParaDecidirAQuienAsignarObjetivo;
+import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -44,6 +46,7 @@ public class MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo  extends
 			Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];
 			infoDecision = (InfoParaDecidirAQuienAsignarObjetivo)params[1];
 			MisObjetivos objs = (MisObjetivos)params[2];
+			ReconocerTerreno rec = (ReconocerTerreno)params[3];
 			nombreAgenteEmisor = this.getAgente().getIdentAgente();
 			identDeEstaTarea = this.getIdentTarea();
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.debug));
@@ -59,6 +62,8 @@ public class MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo  extends
 				this.getComunicator().enviarInfoAotroAgente(miPropuesta,nombreAgenteReceptor );
 				this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutRecibirConfirmacionesRealizacionObjetivo1,objetivoEjecutantedeTarea, 
 						nombreAgenteEmisor,  infoDecision.getidElementoDecision());
+				Informe inf = new Informe(this.identAgente,VocabularioRosace.MsgOrdenReconocerTerreno, rec.getgoalId());
+				this.getComunicator().enviarInfoAotroAgente(inf,nombreAgenteReceptor );
 				infoDecision.setheInformadoAlmejorParaQueAsumaElObjetivo(true);
 				this.getEnvioHechos().actualizarHecho(infoDecision);
 				trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,"IdentObjetoPropuesta: " +infoDecision.getidElementoDecision()+ "Enviamos la propuesta: " + VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo + "  Al agente " +nombreAgenteReceptor  , InfoTraza.NivelTraza.debug));

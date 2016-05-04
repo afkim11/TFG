@@ -21,6 +21,7 @@ import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.Vis
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Focus;
+import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -38,6 +39,7 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 	private float velocidadCruceroPordefecto;
 	public final static int perimetroDeVision = 50;
 	private static int tipoActuacion=1;
+	protected ReconocerTerreno rec;
 	@Override
 	public void ejecutar(Object... params) {
 		velocidadCruceroPordefecto = (float)0.5;  	
@@ -47,17 +49,19 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			AceptacionPropuesta propuestaAceptada = (AceptacionPropuesta) params[2];
 			InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[3];
 			RobotStatus robotStatus = (RobotStatus) params[4];
-			
+			Informe inf = (Informe) params[5];
 			
 			
 			String identTarea = this.getIdentTarea();
 			String nombreAgenteEmisor = this.getIdentAgente();    
-
+			String value = (String)inf.getContenidoInforme();
+			String intValue = value.replaceAll("[^0-9]", ""); // returns 123
+			int idNum = Integer.parseInt(intValue);
 
 			long tiempoActual = System.currentTimeMillis(); 
-			ReconocerTerreno nuevoObj = new ReconocerTerreno();
-			nuevoObj.setSolving();
-			misObjs.addObjetivo(nuevoObj);
+			rec = new ReconocerTerreno(idNum);
+			rec.setSolving();
+			misObjs.addObjetivo(rec);
 			focoActual.setFocusToObjetivoMasPrioritario(misObjs);
 			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
 			itfcompMov.setRobotStatus(robotStatus);
@@ -65,10 +69,10 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			Thread t = new Thread(){
 				
 				public void run(){
-					
-					int alto = VisorEscenariosRosace.alto,ancho = VisorEscenariosRosace.ancho;
+					boolean last = false;
+					int alto = generarYFin(),ancho = VisorEscenariosRosace.ancho;
 					boolean finalizado = false;
-					double x = perimetroDeVision,y=perimetroDeVision;
+					double x = perimetroDeVision,y=generarYIni();
 					Coordinate coor = new Coordinate(x,y,0.5);
 					itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
 					while(!finalizado){
@@ -76,19 +80,32 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 						coor = new Coordinate(x,y,0.5);
 						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
 						y = y + 2*perimetroDeVision;
-						coor = new Coordinate(x,y,0.5);
 						if(y>alto){
-							finalizado=true;
-							break;
+							if(alto >= 700 || last == true){
+								finalizado=true;
+								break;
+							}
+							else{
+								last = true;
+								y = alto-perimetroDeVision;
+							}
+							
 						}
+						coor = new Coordinate(x,y,0.5);
 						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
 						x = perimetroDeVision;
 						coor = new Coordinate(x,y,0.5);
 						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
 						y = y +2*perimetroDeVision;
 						if(y>alto){
-							finalizado=true;
-							break;
+							if(alto >= 700 || last == true){
+								finalizado=true;
+								break;
+							}
+							else{
+								last = true;
+								y = alto-perimetroDeVision;
+							}
 						}
 						coor = new Coordinate(x,y,0.5);
 						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
@@ -100,22 +117,33 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			
 			
 			
-			trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea : " + identTarea + " Se genera el  objetivo:  "+ nuevoObj+
+			trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea : " + identTarea + " Se genera el  objetivo:  "+ rec+
 					" Se actualiza el  foco al objetivo:  " + focoActual + "\n");
 			trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se da orden al comp Movimiento  para reconocer el terreno\n");
-			System.out.println("\n" + identAgente + "Se ejecuta la tarea " + identTarea + " Se actualiza el  objetivo:  " + nuevoObj + "\n\n");
-			this.getEnvioHechos().insertarHecho(nuevoObj);              
+			System.out.println("\n" + identAgente + "Se ejecuta la tarea " + identTarea + " Se actualiza el  objetivo:  " + rec + "\n\n");
+			this.getEnvioHechos().insertarHecho(rec);              
 			this.getEnvioHechos().actualizarHechoWithoutFireRules(misObjs);
 			this.getEnvioHechos().eliminarHecho(propuestaAceptada);
 			this.getEnvioHechos().actualizarHecho(focoActual);
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se ejecuta la tarea " + this.getIdentTarea()+
-					" Se actualiza el  objetivo:  "+ nuevoObj, InfoTraza.NivelTraza.debug));
-			System.out.println("\n"+nombreAgenteEmisor +"Se ejecuta la tarea " + this.getIdentTarea()+ " Se actualiza el  objetivo:  "+ nuevoObj+"\n\n" );
+					" Se actualiza el  objetivo:  "+ rec, InfoTraza.NivelTraza.debug));
+			System.out.println("\n"+nombreAgenteEmisor +"Se ejecuta la tarea " + this.getIdentTarea()+ " Se actualiza el  objetivo:  "+ rec+"\n\n" );
 
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private int generarYIni(){
+		int iniY = (700 * rec.getRobotId()) / VocabularioRosace.numeroReconocedores;
+		return iniY + perimetroDeVision;
+	}
+	private int generarYFin(){
+		int finY = (700 * (rec.getRobotId()+1)) / VocabularioRosace.numeroReconocedores;
+		if(finY == 700)
+			return finY - perimetroDeVision;
+		else return finY;
 	}
 
 }

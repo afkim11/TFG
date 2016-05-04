@@ -118,9 +118,13 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		}
 		return victimsID;
 	}
-		public void iniciarBusqueda(){
-		OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);
-		comunicator.enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
+	public void iniciarBusqueda(){
+		VocabularioRosace.numeroReconocedores = 3;
+		VocabularioRosace.reconocedoresActuales = 0;
+		for(int i = 0; i < VocabularioRosace.numeroReconocedores; i++){
+			OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);
+			comunicator.enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
+		}
 	}
 	//Esta accion semantica se ejecuta cuando se envia el input "sendSequenceOfSimulatedVictimsToRobotTeam" en el 
 	//metodo sendSequenceOfSimulatedVictimsToRobotTeam de la clase NotificacionEventosRecursoGUI3	
@@ -185,11 +189,11 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 				int i = 0;
 				Victim victima;
 				while ((i < numeroVictimasDiferentesSimulacion) && (stop == false)) {
-					
+
 					if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION)victima = victimasDefinidas.get(i);
 					else if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZADOTIEMPODEVIDA)victima=victimasDefinidas2.poll();
 					else victima = victimasDefinidas.get(i);
-					
+
 					if(!victima.getRescued() && !victima.isCostEstimated()){
 						OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
 						// Escribir nueva linea de estadistica en el fichero de llegada de victimas					
@@ -227,11 +231,11 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 						} else {
 							comunicator.informaraGrupoAgentes(ccOrder, identsAgtesEquipo);
 						}
-						
+
 						victima.lanzarHebraTiempoDeVida(comunicator);
-						
-						
-						
+
+
+
 						i++;
 						try {
 							Thread.sleep(interv);

@@ -9,6 +9,7 @@ import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.InfoParaDecidirAQuienAsignarObjetivo;
+import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
@@ -39,6 +40,7 @@ public class PedirEvalReconocerAtodos extends TareaSincrona {
 			trazas = NombresPredefinidos.RECURSO_TRAZAS_OBJ;
 			Objetivo objetivoEjecutantedeTarea = (Objetivo)params[0];    
 			infoDecision = (InfoParaDecidirAQuienAsignarObjetivo)params[1];
+			ReconocerTerreno rec = (ReconocerTerreno)params[2];
 			
 			nombreAgenteEmisor = this.getAgente().getIdentAgente();
 			String identTarea = this.getIdentTarea();
@@ -51,8 +53,7 @@ public class PedirEvalReconocerAtodos extends TareaSincrona {
 					PeticionAgente peticionEval = new PeticionAgente(nombreAgenteEmisor);
 					peticionEval.setidentObjectRefPeticion(objetivoEjecutantedeTarea.getobjectReferenceId());
 					peticionEval.setMensajePeticion(VocabularioRosace.MsgPeticionEnvioEvaluaciones);
-					Victim victim = new Victim();
-					victim.setCoordinateVictim(new Coordinate(1,1,0.5));
+					Victim victim = generarVictima(rec.getRobotId(), rec.getgoalId());
 					peticionEval.setJustificacion(victim); // para que se sepa qué evaluacion le pedimos
 					this.getComunicator().informaraGrupoAgentes(peticionEval, agentesEquipo);
 					infoDecision.setRespuestasEsperadas(agentesEquipo.size());
@@ -66,6 +67,22 @@ public class PedirEvalReconocerAtodos extends TareaSincrona {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private Victim generarVictima(int recActual, String victimName){
+		int recTotales = VocabularioRosace.numeroReconocedores;
+		int altoMapa = 700;
+		int iniY = (recActual * altoMapa) / recTotales;
+		if(iniY == 0){
+			Victim v = new Victim(new Coordinate(1,1,0.5));
+			v.setName(victimName);
+			return v;
+		}
+		else{
+			Victim v = new Victim(new Coordinate(1,iniY,0.5));
+			v.setName(victimName);
+			return v;
 		}
 	}
 }

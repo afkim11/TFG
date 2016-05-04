@@ -165,12 +165,13 @@ no-loop true
       infoComMov :InfoCompMovimiento()
       misObjs: MisObjetivos()
       robot:RobotStatus()
+      inf: Informe(referenciaContexto==VocabularioRosace.MsgOrdenReconocerTerreno)
       acPropuesta:AceptacionPropuesta (identAgente == agentId,identObjectRefAcetPropuesta == VocabularioRosace.MsgAceptacionPropuestaExplora)
    then
       TareaSincrona tarea = gestorTareas.crearTareaSincrona(GeneraryEncolarObjetivoReconocerTerreno.class);
       recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(Reconocer terreno) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
       System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" ); 
-      tarea.ejecutar(misObjs,focoActual,acPropuesta,infoComMov,robot);                    
+      tarea.ejecutar(misObjs,focoActual,acPropuesta,infoComMov,robot, inf);                    
 end
 
 rule "Si he aceptado la propuesta para asumir el objetivo lo genero y encolo"
