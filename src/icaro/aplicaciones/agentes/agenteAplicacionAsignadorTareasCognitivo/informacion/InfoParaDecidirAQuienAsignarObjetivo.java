@@ -232,13 +232,14 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
 
      //El que tiene mejor evaluacion nueva es el que menor Id tiene
     
-     private static boolean comprobarSiActivarJefe(){
+     private boolean comprobarSiActivarJefe(){
+    	 int numRobots = agentesEquipo.size(); 
     	 Iterator<Integer> it = numVictimasAsignadas.values().iterator();
     	 int numAsignaciones = 0;
     	 while(it.hasNext()){
     		 numAsignaciones += it.next();
     	 }
-    	 if(numAsignaciones > 0 && numAsignaciones%5 == 0){
+    	 if(numAsignaciones > 0 && numAsignaciones/numRobots == 2){
     		 if(!numVictimasAsignadas.contains("JerarquicoagenteAsignador")){
     			 numVictimasAsignadas.put("JerarquicoagenteAsignador", 1);
     		 }
