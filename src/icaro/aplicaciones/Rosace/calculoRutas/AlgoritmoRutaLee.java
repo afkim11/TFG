@@ -1,4 +1,4 @@
-package icaro.aplicaciones.Rosace.calculoRutas2;
+package icaro.aplicaciones.Rosace.calculoRutas;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,19 +12,27 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.LineaObstaculo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
-
-public class AlgoritmoRuta2 {
+/**
+ * Esta clase implementa el algoritmo de Lee, basado en exploración en anchura de un mapa de píxeles. 
+ * Garantiza siempre una solución en el caso de que la haya y la solución entregada es a su vez la mejor solución. 
+ * @author Luis García y Sergio Moreno
+ *
+ */
+public class AlgoritmoRutaLee {
 
 
 	private static int escenarioWidth = 1100;
 	private static int escenarioHeight = 700;
+	private static int robotHeight = 27;
+	private static int robotWidth = 40;
+	
 	//private static int escenarioWidth = 50;
 	//private static int escenarioHeight = 50;
 	private int grid[][];
 	private Coordinate coordIniciales,coordDestino;
 	private static ArrayList<LineaObstaculo> obstaculos;
 
-	public AlgoritmoRuta2(Coordinate target,Coordinate source){
+	public AlgoritmoRutaLee(Coordinate target,Coordinate source){
 
 		this.coordIniciales = source;
 		this.coordDestino = target;
@@ -81,21 +89,6 @@ public class AlgoritmoRuta2 {
 					}
 				}
 			}
-		
-		
-		
-		/*for(int i = -1;i<2;i=i+2){
-			if(x >=0 && y+i>=0 && x<escenarioWidth && y+i<escenarioHeight){
-				if(this.grid[x][y+i] >-1 && this.grid[x][y+i] < this.grid[minx][miny]){
-					minx = x;
-					miny = y+i;
-				}
-			}
-		}*/
-
-
-
-
 		return new Coordinate(minx,miny,0.5);
 	}
 	private void generaNuevosNodos(LinkedList<Coordinate> cola, Coordinate auxCoor) {
@@ -103,7 +96,7 @@ public class AlgoritmoRuta2 {
 		
 		for(int i = -1;i<2;i=i+2){
 			if(x+i >=0 && y>=0 && x+i<escenarioWidth && y<escenarioHeight){
-				if(this.grid[x+i][y] ==-1 || this.grid[x+i][y] ==-3){
+				if(this.compruebaLimitesRobot(x,y,i,0) && (this.grid[x+i][y] ==-1 || this.grid[x+i][y] ==-3)){
 					this.grid[x+i][y] = this.grid[x][y] + 1;
 					cola.add(new Coordinate(x+i,y,0.5));
 				}
@@ -111,22 +104,50 @@ public class AlgoritmoRuta2 {
 		}
 		for(int i = -1;i<2;i=i+2){
 			if(x >=0 && y+i>=0 && x<escenarioWidth && y+i<escenarioHeight){
-				if(this.grid[x][y+i] ==-1 || this.grid[x][y+i] ==-3){
+				if(this.compruebaLimitesRobot(x,y,i,1) && (this.grid[x][y+i] ==-1 || this.grid[x][y+i] ==-3)){
 					this.grid[x][y+i] = this.grid[x][y] + 1;
 					cola.add(new Coordinate(x,y+i,0.5));
 				}
 			}
 		}
-		
-		
-		
-		
-		
 	}
 
 
 
 
+	private boolean compruebaLimitesRobot(int x, int y, int i, int axis) {
+		if(axis == 0){
+			if(i==-1){
+				for(int k = 0;k<robotHeight;k++){
+					if(((y+k) < escenarioHeight) && (this.grid[x+i][y+k] == -2))
+						return false;
+				}
+			}
+			else if(i==1){
+				for(int k = 0;k<robotHeight;k++){
+					if(((x+robotWidth + i) < escenarioWidth )&& ((y+k) < escenarioHeight) && (this.grid[x+robotWidth + i][y+k] == -2))
+						return false;
+				}
+			}
+		}
+		else if(axis == 1){
+			if(i==-1){
+				for(int k = 0;k<robotWidth;k++){
+					if(((x+k) < escenarioWidth) && (this.grid[x+k][y+i] == -2))
+						return false;
+				}
+			}
+			else if(i==1){
+				for(int k = 0;k<robotWidth;k++){
+					if(((y+robotHeight+i) < escenarioHeight) && ((x+k) < escenarioWidth) && (this.grid[x+k][y+robotHeight+i] == -2))
+						return false;
+				}
+			}
+		}
+				
+		// TODO Auto-generated method stub
+		return true;
+	}
 	/**
 	 *  1-> blanco
 	 * -2-> obstaculo

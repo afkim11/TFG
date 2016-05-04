@@ -4,7 +4,7 @@ package icaro.aplicaciones.Rosace.informacion;
 import icaro.aplicaciones.Rosace.*;
 import icaro.aplicaciones.Rosace.calculoRutas.AlgoritmoRuta;
 import icaro.aplicaciones.Rosace.calculoRutas.Anterior;
-import icaro.aplicaciones.Rosace.calculoRutas2.AlgoritmoRuta2;
+import icaro.aplicaciones.Rosace.calculoRutas.AlgoritmoRutaLee;
 import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
@@ -228,10 +228,10 @@ public class Coste {
 					ArrayList<Coordinate> viajeAVictima=new ArrayList<Coordinate>();
 					ArrayList<Coordinate> viajeALugarSeguro=new ArrayList<Coordinate>();
 					try{
-						AlgoritmoRuta2 alg=new AlgoritmoRuta2(v.getCoordinateVictim(),actual);
+						AlgoritmoRutaLee alg=new AlgoritmoRutaLee(v.getCoordinateVictim(),actual);
 						viajeAVictima = alg.iniciarCalculoRuta();
 						actual = new Coordinate(v.getCoordinateVictim().x,v.getCoordinateVictim().y,v.getCoordinateVictim().z);
-						AlgoritmoRuta2 alg2=new AlgoritmoRuta2(lugarSeguro,actual);
+						AlgoritmoRutaLee alg2=new AlgoritmoRutaLee(lugarSeguro,actual);
 						viajeALugarSeguro=alg2.iniciarCalculoRuta();
 						actual = new Coordinate(lugarSeguro.x,lugarSeguro.y,lugarSeguro.z);
 					}
@@ -258,10 +258,10 @@ public class Coste {
 		Coordinate coordNuevaVictima = nuevaVictima.getCoordinateVictim();
 		ArrayList<Coordinate> viajeAVictima=new ArrayList<Coordinate>();
 		ArrayList<Coordinate> viajeALugarSeguro=new ArrayList<Coordinate>();
-		AlgoritmoRuta2 alg3= new AlgoritmoRuta2(nuevaVictima.getCoordinateVictim(), actual);
+		AlgoritmoRutaLee alg3= new AlgoritmoRutaLee(nuevaVictima.getCoordinateVictim(), actual);
 		viajeAVictima= alg3.iniciarCalculoRuta();
 		actual = new Coordinate(coordNuevaVictima.x,coordNuevaVictima.y,coordNuevaVictima.z);
-		AlgoritmoRuta2 alg4 = new AlgoritmoRuta2(lugarSeguro,actual);
+		AlgoritmoRutaLee alg4 = new AlgoritmoRutaLee(lugarSeguro,actual);
 		viajeALugarSeguro = alg4.iniciarCalculoRuta();
 		actual = new Coordinate(lugarSeguro.x,lugarSeguro.y,lugarSeguro.z);
 		if(viajeAVictima != null){
