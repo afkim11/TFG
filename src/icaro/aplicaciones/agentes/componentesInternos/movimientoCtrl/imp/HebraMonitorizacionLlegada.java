@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import icaro.aplicaciones.Rosace.calculoRutas.AlgoritmoRuta;
 import icaro.aplicaciones.Rosace.calculoRutas.Anterior;
+import icaro.aplicaciones.Rosace.calculoRutas2.AlgoritmoRuta2;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
@@ -124,9 +125,9 @@ public class HebraMonitorizacionLlegada extends Thread {
 		//      this.itfusoRecVisSimulador.mostrarMovimientoAdestino(identRobot,identDestino, coordActuales,velocidadRobot);
 		while (!this.finalizar && (!enDestino)){
 			try {
-				AlgoritmoRuta alg=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
+				AlgoritmoRuta2 alg=new AlgoritmoRuta2(this.coordDestino, this.coordActuales);
 				ArrayList<Coordinate> ruta=new ArrayList<Coordinate>();
-				alg.iniciarCalculoruta(coordActuales, ruta);
+				ruta = alg.iniciarCalculoRuta();
 				int anchoVictima =15;
 				int referenciaExploracion = (int)this.coordActuales.getX();
 				if(ruta!=null){
@@ -190,8 +191,8 @@ public class HebraMonitorizacionLlegada extends Thread {
 						Coordinate victimCoor = this.coordDestino;
 						this.coordDestino = itfusoRecVisSimulador.getEscenario().getCoordenadaLugarSeguro();
 						ArrayList<Coordinate> ruta1 = new ArrayList<Coordinate>();
-						AlgoritmoRuta alg1=new AlgoritmoRuta(this.coordDestino, this.coordActuales);
-						alg1.iniciarCalculoruta(coordActuales, ruta1);
+						AlgoritmoRuta2 alg1=new AlgoritmoRuta2(this.coordDestino, this.coordActuales);
+						ruta1 = alg1.iniciarCalculoRuta();
 						for(int i=0;i<ruta1.size() && !this.finalizar && this.energia ;i++){
 							Coordinate punto=ruta1.get(i);
 							this.coordActuales.setY(punto.getY());

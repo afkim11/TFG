@@ -24,12 +24,13 @@ public class AlgoritmoRuta2 {
 	private Coordinate coordIniciales,coordDestino;
 	private static ArrayList<LineaObstaculo> obstaculos;
 
-	public AlgoritmoRuta2(Coordinate source,Coordinate target){
-		this.coordIniciales = source;
-		this.coordDestino = target;
-		this.grid = new int[escenarioHeight][escenarioWidth];
-		inicializaObstaculos();
-		inicializaGrid();
+	public AlgoritmoRuta2(Coordinate target,Coordinate source){
+		
+			this.coordIniciales = source;
+			this.coordDestino = target;
+			this.grid = new int[escenarioWidth][escenarioHeight];
+			inicializaObstaculos();
+			inicializaGrid();
 	}
 	public ArrayList<Coordinate> iniciarCalculoRuta(){
 		ArrayList<Coordinate> ruta = null;
@@ -55,17 +56,17 @@ public class AlgoritmoRuta2 {
 	private ArrayList<Coordinate> generaRuta() {
 		ArrayList<Coordinate> ruta = new ArrayList<Coordinate>();
 		int x = (int)this.coordDestino.getX(),y = (int)this.coordDestino.getY();
-		
+
 		Coordinate aux = this.coordDestino;
-		
+
 		while(x != (int)this.coordIniciales.getX() || y != (int)this.coordIniciales.getY()){
 			x = (int)aux.getX();
 			y = (int)aux.getY();
 			ruta.add(0, new Coordinate(x,y,0.5));
 			aux = getMinimoAlrededor(aux);
 		}
-		
-		
+
+
 		return ruta;
 	}
 	private Coordinate getMinimoAlrededor(Coordinate auxCoor) {
@@ -73,7 +74,7 @@ public class AlgoritmoRuta2 {
 		int x = (int) auxCoor.getX(),y = (int) auxCoor.getY();
 
 		for(int i = -1;i<2;i=i+2){
-			if(x+i >=0 && y>=0 && x+i<escenarioHeight && y<escenarioWidth){
+			if(x+i >=0 && y>=0 && x+i<escenarioWidth && y<escenarioHeight){
 				if(this.grid[x+i][y] >-1 && this.grid[x+i][y] < this.grid[minx][miny] ){
 					minx = x+i;
 					miny = y;
@@ -81,24 +82,24 @@ public class AlgoritmoRuta2 {
 			}
 		}
 		for(int i = -1;i<2;i=i+2){
-			if(x >=0 && y+i>=0 && x<escenarioHeight && y+i<escenarioWidth){
+			if(x >=0 && y+i>=0 && x<escenarioWidth && y+i<escenarioHeight){
 				if(this.grid[x][y+i] >-1 && this.grid[x][y+i] < this.grid[minx][miny]){
 					minx = x;
 					miny = y+i;
 				}
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 		return new Coordinate(minx,miny,0.5);
 	}
 	private void generaNuevosNodos(LinkedList<Coordinate> cola, Coordinate auxCoor) {
 		int x = (int) auxCoor.getX(),y = (int) auxCoor.getY();
 
 		for(int i = -1;i<2;i=i+2){
-			if(x+i >=0 && y>=0 && x+i<escenarioHeight && y<escenarioWidth){
+			if(x+i >=0 && y>=0 && x+i<escenarioWidth && y<escenarioHeight){
 				if(this.grid[x+i][y] ==-1 || this.grid[x+i][y] ==-3){
 					this.grid[x+i][y] = this.grid[x][y] + 1;
 					cola.add(new Coordinate(x+i,y,0.5));
@@ -106,7 +107,7 @@ public class AlgoritmoRuta2 {
 			}
 		}
 		for(int i = -1;i<2;i=i+2){
-			if(x >=0 && y+i>=0 && x<escenarioHeight && y+i<escenarioWidth){
+			if(x >=0 && y+i>=0 && x<escenarioWidth && y+i<escenarioHeight){
 				if(this.grid[x][y+i] ==-1 || this.grid[x][y+i] ==-3){
 					this.grid[x][y+i] = this.grid[x][y] + 1;
 					cola.add(new Coordinate(x,y+i,0.5));
@@ -125,8 +126,8 @@ public class AlgoritmoRuta2 {
 	 * -3-> Destino
 	 */
 	private void inicializaGrid(){
-		for(int i=0;i<escenarioHeight;i++)
-			for(int j=0;j<escenarioWidth;j++)
+		for(int i=0;i<escenarioWidth;i++)
+			for(int j=0;j<escenarioHeight;j++)
 				this.grid[i][j] = -1;
 		this.grid[(int)coordIniciales.x][(int)coordIniciales.y] = 0;
 		this.grid[(int)coordDestino.x][(int)coordDestino.y] = -3;
@@ -159,9 +160,9 @@ public class AlgoritmoRuta2 {
 			e.printStackTrace();
 		}
 	}
-	
-	private void mostrarGrid(){
-		for(int i=0;i<escenarioHeight;i++){
+
+	/*private void mostrarGrid(){
+		for(int i=0;i<escenarioWidth;i++){
 			for(int j=0;j<escenarioHeight;j++)
 				System.out.print(this.grid[i][j] + " ");
 			System.out.println("");
@@ -174,7 +175,7 @@ public class AlgoritmoRuta2 {
 		AlgoritmoRuta2 alg = new AlgoritmoRuta2(new Coordinate(1.0,1.0,0.5),new Coordinate(350.0,1000.0,0.5));		
 		alg.iniciarCalculoRuta();
 
-	}
+	}*/
 
 
 }

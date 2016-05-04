@@ -4,6 +4,7 @@ package icaro.aplicaciones.Rosace.informacion;
 import icaro.aplicaciones.Rosace.*;
 import icaro.aplicaciones.Rosace.calculoRutas.AlgoritmoRuta;
 import icaro.aplicaciones.Rosace.calculoRutas.Anterior;
+import icaro.aplicaciones.Rosace.calculoRutas2.AlgoritmoRuta2;
 import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.aplicaciones.agentes.agenteAplicacionrobotIgualitarioNCognitivo.informacion.InfoParaDecidirQuienVa;
@@ -227,11 +228,11 @@ public class Coste {
 					ArrayList<Coordinate> viajeAVictima=new ArrayList<Coordinate>();
 					ArrayList<Coordinate> viajeALugarSeguro=new ArrayList<Coordinate>();
 					try{
-						AlgoritmoRuta alg=new AlgoritmoRuta(v.getCoordinateVictim(),actual);
-						alg.iniciarCalculoruta(actual,viajeAVictima);
+						AlgoritmoRuta2 alg=new AlgoritmoRuta2(v.getCoordinateVictim(),actual);
+						viajeAVictima = alg.iniciarCalculoRuta();
 						actual = new Coordinate(v.getCoordinateVictim().x,v.getCoordinateVictim().y,v.getCoordinateVictim().z);
-						AlgoritmoRuta alg2=new AlgoritmoRuta(lugarSeguro,actual);
-						alg2.iniciarCalculoruta(actual, viajeALugarSeguro);
+						AlgoritmoRuta2 alg2=new AlgoritmoRuta2(lugarSeguro,actual);
+						viajeALugarSeguro=alg2.iniciarCalculoRuta();
 						actual = new Coordinate(lugarSeguro.x,lugarSeguro.y,lugarSeguro.z);
 					}
 					catch(Exception e){
@@ -257,11 +258,11 @@ public class Coste {
 		Coordinate coordNuevaVictima = nuevaVictima.getCoordinateVictim();
 		ArrayList<Coordinate> viajeAVictima=new ArrayList<Coordinate>();
 		ArrayList<Coordinate> viajeALugarSeguro=new ArrayList<Coordinate>();
-		AlgoritmoRuta alg3= new AlgoritmoRuta(nuevaVictima.getCoordinateVictim(), actual);
-		alg3.iniciarCalculoruta(actual, viajeAVictima);
+		AlgoritmoRuta2 alg3= new AlgoritmoRuta2(nuevaVictima.getCoordinateVictim(), actual);
+		viajeAVictima= alg3.iniciarCalculoRuta();
 		actual = new Coordinate(coordNuevaVictima.x,coordNuevaVictima.y,coordNuevaVictima.z);
-		AlgoritmoRuta alg4 = new AlgoritmoRuta(lugarSeguro,actual);
-		alg4.iniciarCalculoruta(actual, viajeALugarSeguro);
+		AlgoritmoRuta2 alg4 = new AlgoritmoRuta2(lugarSeguro,actual);
+		viajeALugarSeguro = alg4.iniciarCalculoRuta();
 		actual = new Coordinate(lugarSeguro.x,lugarSeguro.y,lugarSeguro.z);
 		if(viajeAVictima != null){
 			time += viajeAVictima.size();
