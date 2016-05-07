@@ -245,12 +245,14 @@ public class ControladorVisualizacionSimulRosace {
 	public void configurarParametrosSimulacion() {
 		// TODO Auto-generated method stub
 		if(VocabularioRosace.funcionEvaluacionSeleccionada.equals("FuncionEvaluacion1")){
-			exploracionPrevia = true;
 			modoEnvioVictimas = PRIORIZACIONPORORDENDEIDENTIFICACION;
+			exploracionPrevia = true;
+			VocabularioRosace.numeroReconocedores = 1;
 		}
 		else if(VocabularioRosace.funcionEvaluacionSeleccionada.equals("FuncionEvaluacion2")){
-			modoEnvioVictimas = PRIORIZADOTIEMPODEVIDA;
-			exploracionPrevia = false;
+			modoEnvioVictimas = PRIORIZACIONPORORDENDEIDENTIFICACION;
+			VocabularioRosace.numeroReconocedores = 2;
+			exploracionPrevia = true;
 		}
 		else if(VocabularioRosace.funcionEvaluacionSeleccionada.equals("FuncionEvaluacion3")){
 			modoEnvioVictimas = PRIORIZADOTIEMPODEVIDA;

@@ -118,7 +118,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		return victimsID;
 	}
 	public void iniciarBusqueda(){
-		VocabularioRosace.numeroReconocedores = 2;
+		//VocabularioRosace.numeroReconocedores = 2;
 		VocabularioRosace.reconocedoresActuales = 0;
 		for(int i = 0; i < VocabularioRosace.numeroReconocedores; i++){
 			OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);

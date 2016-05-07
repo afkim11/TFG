@@ -148,7 +148,7 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static String funcionEvaluacionSeleccionada = "FuncionEvaluacion1";
 	public static String rutaEscenario = null;
 
-	public static int numeroReconocedores;
+	public static int numeroReconocedores=1;
 
 	public static int reconocedoresActuales;
 }

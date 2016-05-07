@@ -199,7 +199,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 			}
 		});
 		
-		jFuncionEvaluacion.setToolTipText("FuncionEvaluacion1: Simulacion con exploracion\nFuncionEvaluacion2: Sin exploracion priorizando a las victimas con menos tiempo vida\nFuncionEvaluacion3: Aun por desarrollar");
+		jFuncionEvaluacion.setToolTipText("FuncionEvaluacion1: Simulacion con 1 explorador.FuncionEvaluacion2: Simulacion con 2 exploradores FuncionEvaluacion3: Sin exploracion priorizando a las victimas con menos tiempo vida. ");
 		jFuncionEvaluacion.addActionListener(new ActionListener() {
 			
 			@Override
