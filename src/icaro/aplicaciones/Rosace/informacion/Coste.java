@@ -246,10 +246,10 @@ public class Coste {
 				}
 				else if(x instanceof ReconocerTerreno){
 					int visionExplorador = 50;
-					int alturaMapa = 700,anchoMapa = 1100,recorridos = (alturaMapa - (int)(actual.getY()))/visionExplorador + 1;
-					int tiempoRestanteExploracion = recorridos * anchoMapa + (alturaMapa - (int)(actual.getY()));
+					int alturaARecorrer = generarYFin(((ReconocerTerreno) x).getRobotId()),anchoMapa = 1100,recorridos = (alturaARecorrer - (int)(actual.getY()))/visionExplorador + 1;
+					int tiempoRestanteExploracion = recorridos * anchoMapa + (alturaARecorrer - (int)(actual.getY()));
 					time = time + tiempoRestanteExploracion;
-					actual = new Coordinate(anchoMapa-visionExplorador,alturaMapa-visionExplorador,0.5);
+					actual = new Coordinate(anchoMapa-visionExplorador,alturaARecorrer-visionExplorador,0.5);
 				
 				}
 			}
@@ -272,6 +272,13 @@ public class Coste {
 				return time;
 		}
 		return -1;
+	}
+	
+	private int generarYFin(int id){
+		int finY = (700 * (id+1)) / VocabularioRosace.numeroReconocedores;
+		if(finY == 700)
+			return finY - 50;
+		else return finY;
 	}
 
 	private boolean[][] matrizBooleanos(int ancho, int alto) {

@@ -5,6 +5,8 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas;
 
 
+import java.util.ArrayList;
+
 import icaro.aplicaciones.Rosace.informacion.AceptacionPropuesta;
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
@@ -39,6 +41,7 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 	private float velocidadCruceroPordefecto;
 	public final static int perimetroDeVision = 50;
 	private static int tipoActuacion=1;
+	private ArrayList<Coordinate> puntosAExplorar;
 	protected ReconocerTerreno rec;
 	@Override
 	public void ejecutar(Object... params) {
@@ -57,7 +60,9 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			String value = (String)inf.getContenidoInforme();
 			String intValue = value.replaceAll("[^0-9]", ""); // returns 123
 			int idNum = Integer.parseInt(intValue);
-
+			
+			
+		
 			long tiempoActual = System.currentTimeMillis(); 
 			rec = new ReconocerTerreno(idNum);
 			rec.setSolving();
@@ -65,10 +70,19 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			focoActual.setFocusToObjetivoMasPrioritario(misObjs);
 			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
 			itfcompMov.setRobotStatus(robotStatus);
-					
+			
+			inicializarPuntosExploracion();
+			
 			Thread t = new Thread(){
-				
 				public void run(){
+					for(int i=0;i<puntosAExplorar.size();i++){
+						
+						Coordinate coor = puntosAExplorar.get(i);
+						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
+						
+					}
+				}
+				/*public void run(){
 					boolean last = false;
 					int alto = generarYFin(),ancho = VisorEscenariosRosace.ancho;
 					boolean finalizado = false;
@@ -110,7 +124,7 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 						coor = new Coordinate(x,y,0.5);
 						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
 					}
-				}
+				}*/
 			};
 			t.start();
 			
@@ -135,6 +149,42 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 		}
 	}
 	
+	private synchronized void inicializarPuntosExploracion() {
+		int x = perimetroDeVision,y = generarYIni(),ancho = VisorEscenariosRosace.ancho,alto = generarYFin(),miperimetro = perimetroDeVision;
+		puntosAExplorar = new ArrayList<Coordinate>();
+		
+		
+		
+		while(y <= alto){
+			puntosAExplorar.add(new Coordinate(x,y,0.0));
+			if(miperimetro>0){
+				if(x<ancho){
+					x += 2*miperimetro;
+				}
+				if(x>ancho){
+					x = ancho - perimetroDeVision;
+					//puntosAExplorar.add(new Coordinate(x,y,0.0));
+					miperimetro = -miperimetro;
+					y += 2*perimetroDeVision;
+				}
+			}
+			else{
+				if(x>=0){
+					x +=2*miperimetro;
+				}
+				if(x<0){
+					x = perimetroDeVision;
+					//puntosAExplorar.add(new Coordinate(x,y,0.0));
+					miperimetro = -miperimetro;
+					y += 2*perimetroDeVision;
+				}
+			}
+		}
+		
+		System.out.println("Hola");
+		
+	}
+
 	private int generarYIni(){
 		int iniY = (700 * rec.getRobotId()) / VocabularioRosace.numeroReconocedores;
 		return iniY + perimetroDeVision;

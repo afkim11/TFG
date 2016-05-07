@@ -70,8 +70,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 	private int contadorRobotsQueContestanFinsimulacion = 0;
 	final int nMM = this.numMensajesEnviar; // numeroMaximoDeMensajes a  enviar										
 	final int interv = intervaloSecuencia;
-	// #end_nodeglobalVariables:globalVariables <--globalVariables-- DO NOT
-	// REMOVE THIS
+	// #end_nodeglobalVariables:globalVariables <--globalVariables-- DO NOT REMOVE THIS
 	private boolean peticionTerminacionSimulacionUsuario = false;
 
 	// AccionA is the action initial executed when agent manager sends the comenzar event
@@ -119,7 +118,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		return victimsID;
 	}
 	public void iniciarBusqueda(){
-		VocabularioRosace.numeroReconocedores = 3;
+		VocabularioRosace.numeroReconocedores = 2;
 		VocabularioRosace.reconocedoresActuales = 0;
 		for(int i = 0; i < VocabularioRosace.numeroReconocedores; i++){
 			OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);

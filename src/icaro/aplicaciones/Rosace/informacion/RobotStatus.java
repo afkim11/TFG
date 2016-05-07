@@ -32,7 +32,7 @@ public class RobotStatus{
 	@Element
 	private String idRobotRol="indefinido";
 	@Element
-	private int availableEnergy = 2500;
+	private int availableEnergy = 10000;
 	@Element
 	private Coordinate robotCoordinateActual;
 	private Coordinate robotCoordinateAnterior;

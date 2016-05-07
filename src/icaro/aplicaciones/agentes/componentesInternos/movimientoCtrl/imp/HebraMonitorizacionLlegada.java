@@ -175,7 +175,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 								};
 								t.start();
 							}
-							if(this.controladorMovimiento.estadoActual.getActuacion()==1 && (this.coordActuales.getX()%4 == 0 || this.coordActuales.getY()%4 == 0))
+							if(this.controladorMovimiento.estadoActual.getActuacion()==1 && (i%5 == 0))
 								itfusoRecVisSimulador.addRastroExploracion(this.coordActuales);
 							Thread.sleep(intervaloEnvioInformesMs);
 							if(energiaActual > 0){
