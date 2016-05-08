@@ -61,13 +61,7 @@ public class ProcesarPropuestaParaAsumirObjetivo extends TareaSincrona {
 					aceptacionAsignacion.setidentObjectRefAcetPropuesta(propuestaRecibida.getIdentObjectRefPropuesta());
 					victima.setEstimatedCost(costeAyudaVictima);
 					victimasRecibidas.addVictimToRescue(victima);
-					
-					if(this.identAgente.equalsIgnoreCase("jerarquicoagenteasignador")){
-						this.getComunicator().enviarInfoAotroAgente(new Informacion(VocabularioRosace.JerarquicoAsignadorRescatando), propuestaRecibida.getIdentAgente());
-					}
-					else {
-						this.getComunicator().enviarInfoAotroAgente(aceptacionAsignacion, propuestaRecibida.getIdentAgente());
-					}
+					this.getComunicator().enviarInfoAotroAgente(aceptacionAsignacion, propuestaRecibida.getIdentAgente());
 					
 					
 					

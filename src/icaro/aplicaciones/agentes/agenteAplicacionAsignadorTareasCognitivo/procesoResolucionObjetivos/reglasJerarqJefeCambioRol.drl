@@ -31,6 +31,7 @@ rule "Generacion de componentes internos"
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());   
     System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
 end
+/*
 rule "Acciones Iniciales"
  when
     infoCompmov: (InfoCompMovimiento())
@@ -41,7 +42,7 @@ rule "Acciones Iniciales"
    tarea1.ejecutar(VocabularioRosace.IdentRolAgteDistribuidorTareas,infoCompmov );           
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());   
     System.out.println( "\n"+agentId +"EJECUTO LA REGLA Acciones Iniciales\n\n" ); 
-end
+end*/
 // Objetivo Conocer Mi equipo Se conseguira este objetivo cuando el gagte tenga respuestas de los miembros de equipo
 // indicandole su equipo y su rol tambien la posicion y estado
 
@@ -486,14 +487,14 @@ end
 
 //Clase equivalente a la de aquí encima pero con menos restricciones
 rule "Si he aceptado rescatar a una victima  resuelvo el objetivo"
-when
+ when
 	victimaCC:Victim(idVict:name)
 	obj1:AyudarVictima(state == Objetivo.PENDING,victimId == idVict)
 	obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == idVict )
 	//focoActual:Focus(foco == obj)
 	infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict, heInformadoAlmejorParaQueAsumaElObjetivo == true)
 	informacion: Informacion(mensaje:contenido == VocabularioRosace.JerarquicoAsignadorRescatando)
-	then
+ then
 	retract(informacion);
 	modify ( obj ){setSolved()};
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA " + drools.getRule().getName()+  " " + mensaje + "\n");
@@ -520,7 +521,7 @@ end
 rule "Proceso el  timeout aceptacion propuesta doy por  asignado el objetivo"
   when
      victimaCC:Victim(idVict:name)
-      misObjs : MisObjetivos() 
+      misObjs : MisObjetivos()
      obj:DecidirQuienVa(state==Objetivo.SOLVING,objectDecisionId == idVict)
      focoActual:Focus(foco == obj)
      infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict, heInformadoAlmejorParaQueAsumaElObjetivo == true)
