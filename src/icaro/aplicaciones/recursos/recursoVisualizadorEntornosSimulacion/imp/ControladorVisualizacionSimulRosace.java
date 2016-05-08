@@ -36,7 +36,7 @@ import org.openide.util.Exceptions;
  * @author FGarijo
  */
 public class ControladorVisualizacionSimulRosace {
-	public static final int PRIORIZACIONPORORDENDEIDENTIFICACION= 2;
+	public static final int PRIORIZACIONPORORDENDEIDENTIFICACION= 1;
 	public static final int PRIORIZADOTIEMPODEVIDA = 2;
 	public static boolean asignadorSeMueve = false;
 	public static boolean exploracionPrevia = true;

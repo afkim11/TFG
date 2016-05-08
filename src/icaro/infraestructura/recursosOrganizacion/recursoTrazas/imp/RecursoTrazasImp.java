@@ -56,8 +56,14 @@ public class RecursoTrazasImp extends ClaseGeneradoraRecursoTrazas implements Se
 	public void visualizacionDeTrazas(Boolean opcionTraza) {
       // Permite cambiar la opcion de visualizar o no las trazas
         //ActivacionPanelTrazas = opcionTraza;
-        if (opcionTraza)this.controlVisulizacionTrazas.activarVisualizacionTrazas();
-                else this.controlVisulizacionTrazas.desactivarVisualizacionTrazas();
+        if (opcionTraza){
+        	this.activacionPanelTrazas = true;
+        	this.controlVisulizacionTrazas.activarVisualizacionTrazas();
+        }
+        else {
+        	this.activacionPanelTrazas = false;
+        	this.controlVisulizacionTrazas.desactivarVisualizacionTrazas();
+        }
         
     }
 

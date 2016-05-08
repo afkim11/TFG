@@ -50,6 +50,7 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
       public boolean hePreguntadoARobotsYNoHayValido = false;
       public String idElementoDecision = null;
       private static Hashtable<String,Integer> numVictimasAsignadas;
+      public static boolean activacionJerarquico = false;
 
       public  InfoParaDecidirAQuienAsignarObjetivo(String identAgente, InfoEquipo equipo){
         try {
@@ -266,7 +267,7 @@ public class InfoParaDecidirAQuienAsignarObjetivo implements Serializable{
                  mejor_eval = evaluacion_local;
              }
          }
-        if(comprobarSiActivarJefe()){
+        if(comprobarSiActivarJefe() &&  activacionJerarquico){
         	
         	return "JerarquicoagenteAsignador";
         }

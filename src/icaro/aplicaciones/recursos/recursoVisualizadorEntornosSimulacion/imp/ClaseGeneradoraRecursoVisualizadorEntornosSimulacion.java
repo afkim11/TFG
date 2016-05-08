@@ -32,14 +32,14 @@ import org.jfree.data.xy.XYSeries;
 //#end_nodespecialImports:specialImports <--specialImports-- DO NOT REMOVE THIS
 public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRecursoSimple implements ItfUsoRecursoVisualizadorEntornosSimulacion {
 
-	private ControlCenterGUI4 ventanaControlCenterGUI;
+	
 	private VisorEscenariosRosace visorEscenarios;
 	private ControladorVisualizacionSimulRosace controlador;
 	private VisualizacionJfreechart visualizadorJFchart;
 	private NotificadorInfoUsuarioSimulador notifEvt;
 	private String recursoId;
 	private String identAgenteaReportar;
-	private Map<String,HebraMovimiento> tablaHebrasMov;
+	//private Map<String,HebraMovimiento> tablaHebrasMov;
 	private int coordX = 40;
 	private int coordY = 40;  // valores iniciales 
 	//   private int coordX, coordY ; // coordenadas de visualizacion  se le dan valores iniciales y se incrementan para que las ventanas no coincidan
@@ -90,8 +90,9 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 		visualizadorJFchart.setColorChartPlotRangeGridlinePaint(colorChartPlotRangeGridlinePaint);
 
 	}
-
-	;
+	public ControladorVisualizacionSimulRosace getControlador(){
+		return this.controlador;
+	}
 	@Override
 	public void crearVisorGraficasLlegadaYasignacionVictimas(int numeroRobotsSimulacion, int numeroVictimasDiferentesSimulacion, int intervaloSecuencia, String identificadorEquipo) throws Exception {
 		String tituloVentanaVisor = "Simulacion: " + numeroRobotsSimulacion + " R; " + numeroVictimasDiferentesSimulacion + " Vic; " + intervaloSecuencia + " mseg ; " + " tipo simulacion->" + identificadorEquipo;
