@@ -152,7 +152,7 @@ public class Victim implements Serializable{
 				}
 				if(!getRescued()){
 					isAlive = false;
-					InformeVictimaMuerta informe = new InformeVictimaMuerta(name,VocabularioRosace.VictimaFallecida, getObject());
+					Informe informe = new Informe(name,name,VocabularioRosace.VictimaFallecida);
 					comunicator.enviarInfoAotroAgente(informe, VocabularioRosace.IdentAgteDistribuidorTareas);
 				}
 			}
@@ -171,6 +171,5 @@ public class Victim implements Serializable{
 	public boolean isAlive(){
 		return this.isAlive;
 	}
-	protected Victim getObject(){return this;}
 
 }

@@ -11,7 +11,6 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.InfoParaDecidirAQuienAsignarObjetivo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
-import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.InformeDeTarea;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -47,7 +46,6 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 			Victim victima = (Victim)params[2];
 			MisObjetivos objs = (MisObjetivos)params[3];
 			VictimsToRescue v2r = (VictimsToRescue)params[4];
-			InformeDeTarea inf = (InformeDeTarea) params[5];
 			nombreAgenteEmisor = this.getAgente().getIdentAgente();
 			identDeEstaTarea = this.getIdentTarea();
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.debug));
@@ -66,11 +64,19 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 						nombreAgenteEmisor,  infoDecision.getidElementoDecision());
 				infoDecision.setheInformadoAlmejorParaQueAsumaElObjetivo(true);
 				//objs.setVictimaAsignada(nombreAgenteReceptor, victima);
-				this.getEnvioHechos().eliminarHechoWithoutFireRules(inf);
 				this.getEnvioHechos().actualizarHecho(infoDecision);
 				trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,"IdentObjetoPropuesta: " +infoDecision.getidElementoDecision()+ "Enviamos la propuesta: " + VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo + "  Al agente " +nombreAgenteReceptor  , InfoTraza.NivelTraza.debug));
 			}
-			else{
+			else{/*
+				PropuestaAgente miPropuesta = new PropuestaAgente (nombreAgenteEmisor);
+				miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);
+				miPropuesta.setIdentObjectRefPropuesta(infoDecision.getidElementoDecision());
+				miPropuesta.setJustificacion(victima);
+				this.getComunicator().enviarInfoAotroAgente(miPropuesta,nombreAgenteReceptor );
+
+				this.generarInformeTemporizadoFromConfigProperty(VocabularioRosace.IdentTareaTimeOutRecibirConfirmacionesRealizacionObjetivo1,objetivoEjecutantedeTarea, 
+						nombreAgenteEmisor,  infoDecision.getidElementoDecision());*/
+				
 				infoDecision.setNoHayRobotAdecuado(true);
 				//objs.setVictimaAsignada(nombreAgenteReceptor, victima);
 				this.getEnvioHechos().actualizarHecho(infoDecision);

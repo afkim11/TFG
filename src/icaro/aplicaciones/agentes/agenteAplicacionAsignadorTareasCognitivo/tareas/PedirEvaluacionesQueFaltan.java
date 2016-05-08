@@ -11,7 +11,6 @@ import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.InfoParaDecidirAQuienAsignarObjetivo;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.interfaces.InterfazUsoAgente;
-import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.InformeDeTarea;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
@@ -38,7 +37,6 @@ public class PedirEvaluacionesQueFaltan extends TareaSincrona{
 			nombreAgenteEmisor = this.getAgente().getIdentAgente();
 			infoDecisionAgente = (InfoParaDecidirAQuienAsignarObjetivo) params[1];
 			Victim victima = (Victim) params[2];
-			InformeDeTarea inf = (InformeDeTarea) params[3];
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.debug));
 			if (!infoDecisionAgente.hanLlegadoTodasLasEvaluaciones){ // si no han llegado todas las evaluaciones  
 				//  ComunicacionAgentes comunicacion = new ComunicacionAgentes(nombreAgenteEmisor );            
@@ -68,7 +66,7 @@ public class PedirEvaluacionesQueFaltan extends TareaSincrona{
 			//                     VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2,objetivoEjecutantedeTarea, 
 			//                     nombreAgenteEmisor,infoDecisionAgente.getidElementoDecision());
 			this.generarInformeOK(identDeEstaTarea, objetivoEjecutantedeTarea, nombreAgenteEmisor, "PeticionDeEvaluacionesQueFaltanRealizada");
-			this.getEnvioHechos().eliminarHechoWithoutFireRules(inf);
+
 			//  this.getEnvioHechos().insertarHecho(infoDecisionAgente);
 		}
 		catch (Exception e) {

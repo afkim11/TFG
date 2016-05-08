@@ -3,6 +3,7 @@ package icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.tare
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
+import icaro.infraestructura.entidadesBasicas.comunicacion.MensajeSimple;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Informe;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
@@ -12,7 +13,8 @@ public class VictimaNoRescatadaATiempo extends TareaSincrona{
 	public void ejecutar(Object... params) {
 		// TODO Auto-generated method stub
 		Informe informe = (Informe) params[0];
-		Victim victima = (Victim) informe.getContenidoInforme();
+		Victim victima = (Victim) params[1];
+
 
 		String nombreVictima = informe.identEntidadEmisora;
 		Object[] valoresParametrosAccion = new Object[1];
