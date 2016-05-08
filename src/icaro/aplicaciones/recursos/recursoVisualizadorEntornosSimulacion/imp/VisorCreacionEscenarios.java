@@ -866,8 +866,11 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 
 	private void jMenuItemAbrirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemAbrirActionPerformed
 		// TODO add your handling code here:
-		// peticionAbrirEscenario();
+		//peticionAbrirEscenario();
+		
 		this.controladorSim.peticionAbrirEscenario();
+		this.escenarioActualComp = this.controladorSim.getEscenario();
+		visualizarEscenario(this.escenarioActualComp);
 	}// GEN-LAST:event_jMenuItemAbrirActionPerformed
 
 	private void jMenuItemNuevoEscenarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemNuevoEscenarioActionPerformed
@@ -1144,6 +1147,15 @@ public class VisorCreacionEscenarios extends javax.swing.JFrame {
 				// intervalNumVictimas.setText(""+escenrioSimComp.getNumVictimas());
 			}
 		}
+		if(this.escenarioActualComp.getNumObstacles()>0){
+			ArrayList<LineaObstaculo> obstaculos =escenarioActualComp.getListObstacles();
+			for(int i=0;i<obstaculos.size();i++){
+				this.escenarioActualComp.addObstaculo(obstaculos.get(i));
+				numeroObstaculos++;
+			}
+			
+		}
+		repaint();		
 		this.setLocation(100, 100);
 		this.setVisible(true);
 	}

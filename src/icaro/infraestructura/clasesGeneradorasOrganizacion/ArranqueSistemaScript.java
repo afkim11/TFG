@@ -129,7 +129,6 @@ public class ArranqueSistemaScript {
 		
 		
 		try {
-			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -146,6 +145,7 @@ public class ArranqueSistemaScript {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		controlador.setVisibleControlGUI(false);
 		
 		if(eval==1){
 			ControladorVisualizacionSimulRosace.modoEnvioVictimas = ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION;

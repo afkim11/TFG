@@ -93,7 +93,8 @@ public class InfoCasoSimulacion {
 	   Collection<Victim> victimas = this.victims2Rescue.values();
 	   Iterator<Victim> i = victimas.iterator();
 	   while(i.hasNext()){
-		   if(i.next().getRescued()){
+		   Victim v = i.next();
+		   if(v.getRescued() || !v.isAlive()){
 			   rescatadas++;
 		   }
 	   }

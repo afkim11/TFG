@@ -233,7 +233,9 @@ public class ControladorVisualizacionSimulRosace {
 		return this.visorEscenarioRosace.getEscenario().getVictims();
 	}
 
-
+	public EscenarioSimulacionRobtsVictms getEscenario(){
+		return this.escenarioEdicionComp;
+	}
 	public void setNuevoVisorEscenario(VisorEscenariosRosace visorEscenarios) {
 		this.visorEscenarioRosace = visorEscenarios;	
 	}
