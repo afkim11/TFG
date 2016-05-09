@@ -285,6 +285,7 @@ salience 10
 end
 // atiendo la orden y genero los objetivos para cumplirla
 rule "Interpreto la orden del CC cuando no estoy implicado en una decision"
+salience 100
  when
     misObjs: MisObjetivos()
     victims2R:VictimsToRescue(victims2Rescue!=null)

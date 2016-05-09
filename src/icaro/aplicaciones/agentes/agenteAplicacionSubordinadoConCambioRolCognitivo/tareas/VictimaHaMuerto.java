@@ -30,7 +30,7 @@ public class VictimaHaMuerto extends TareaSincrona{
 			Objetivo obj = it.next();
 			if(obj.getobjectReferenceId().equalsIgnoreCase(victima.getName())){
 				encontrado=true;
-				misObj.getMisObjetivosPriorizados().remove(obj);
+				misObj.eliminarObjetivoDeMisObjetivosPriorizados(obj);
 				if(itfcompMov.getCoordenasDestino().equals(victima.getCoordinateVictim())){
 					itfcompMov.parar();
 				}

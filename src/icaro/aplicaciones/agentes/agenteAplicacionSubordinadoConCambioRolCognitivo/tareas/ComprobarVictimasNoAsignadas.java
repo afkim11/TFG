@@ -47,7 +47,7 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 				}
 			}
 		}
-		if(pos!=-1){
+		if(pos!=-1 && victims.get(pos).isAlive()){
 			Victim v=victims.get(pos);
 			PropuestaAgente miPropuesta = new PropuestaAgente (this.identAgente);
 			miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);

@@ -51,7 +51,7 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 			trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor, "Se Ejecuta la Tarea :"+ identDeEstaTarea , InfoTraza.NivelTraza.debug));
 			//               if (! infoDecision.getheInformadoAlmejorParaQueAsumaElObjetivo() ){ // si ya se le ha informado no se hace nada
 			nombreAgenteReceptor = infoDecision.dameIdentMejor();
-			if(nombreAgenteReceptor!=null){
+			if(nombreAgenteReceptor!=null && victima.isAlive()){
 				//     PropuestaAgente miPropuesta = new PropuestaAgente (nombreAgenteEmisor,"CreoQueDebesIrTu", infoDecision.getValorMiEvaluacion());
 				//                   this.getEnvioHechos().getStatefulKnowledgeSession().getAgenda().clear();
 				PropuestaAgente miPropuesta = new PropuestaAgente (nombreAgenteEmisor);
@@ -67,7 +67,7 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 				this.getEnvioHechos().actualizarHecho(infoDecision);
 				trazas.aceptaNuevaTraza(new InfoTraza(nombreAgenteEmisor,"IdentObjetoPropuesta: " +infoDecision.getidElementoDecision()+ "Enviamos la propuesta: " + VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo + "  Al agente " +nombreAgenteReceptor  , InfoTraza.NivelTraza.debug));
 			}
-			else{/*
+			else if(victima.isAlive()){/*
 				PropuestaAgente miPropuesta = new PropuestaAgente (nombreAgenteEmisor);
 				miPropuesta.setMensajePropuesta(VocabularioRosace.MsgPropuesta_Para_Aceptar_Objetivo);
 				miPropuesta.setIdentObjectRefPropuesta(infoDecision.getidElementoDecision());
