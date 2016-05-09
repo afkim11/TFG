@@ -6,6 +6,7 @@ package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 
@@ -43,6 +44,11 @@ public class RobotEnMovimiento extends EstadoAbstractoMovRobot implements ItfUso
 			monitorizacionLlegadaDestino.inicializarDestino(identdest,this.robotposicionActual,coordDestino,velocidadCrucero);
 			monitorizacionLlegadaDestino.start();
 		}
+	}
+	@Override
+	public void moverAdestino(Victim victima, String identDest, Coordinate coordDestino, float velocidadCrucero,
+			int tipoActuacion) {
+		
 	}
 	@Override
 	public void cambiaVelocidad( float nuevaVelocidadCrucero) {

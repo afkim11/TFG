@@ -27,14 +27,14 @@ import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.
  * @author FGarijo
  */
 public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
-	
-	
+
+
 	private ItfUsoMovimientoCtrl itfcompMov;
 	private Victim victima;
 	private static int tipoRescate = 0;
 	private int velocidadCruceroPordefecto;
-	
-	
+
+
 	@Override
 	public void ejecutar(Object... params) {
 		velocidadCruceroPordefecto = 1;
@@ -78,8 +78,10 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			valoresParametrosAccion[1] = refVictima;
 			valoresParametrosAccion[2] = nombreAgenteEmisor;
 			valoresParametrosAccion[3] = miEvaluacion;
-			InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("victimaAsignadaARobot", valoresParametrosAccion);
-			this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
+			if(victima.isAlive()){
+				InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("victimaAsignadaARobot", valoresParametrosAccion);
+				this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
+			}
 			AyudarVictima nuevoObj = new AyudarVictima(refVictima);
 			nuevoObj.setSolving();
 			this.agente.setVictima(victima);
@@ -90,18 +92,18 @@ public class GeneraryEncolarObjetivoActualizarFocoNC extends TareaSincrona{
 			// victima = victimas.getVictimToRescue(objActual.getobjectReferenceId());
 			itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
 			itfcompMov.setRobotStatus(robotStatus);
-					
+
 			Thread t = new Thread(){
-				
+
 				public void run(){
-					itfcompMov.moverAdestino(victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto,tipoRescate); 
+					itfcompMov.moverAdestino(victima,victima.getName(), victima.getCoordinateVictim(), velocidadCruceroPordefecto,tipoRescate); 
 				}
 			};
 			t.start();
-			
-			
-			
-			
+
+
+
+
 			trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se ejecuta la tarea : " + identTarea + " Se genera el  objetivo:  "+ nuevoObj+
 					" Se actualiza el  foco al objetivo:  " + focoActual + "\n");
 			trazas.aceptaNuevaTrazaEjecReglas(identAgente, "Se da orden al comp Movimiento  para salvar a la victima :  " + victima + "\n");

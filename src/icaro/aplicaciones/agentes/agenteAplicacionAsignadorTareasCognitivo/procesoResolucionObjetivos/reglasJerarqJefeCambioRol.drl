@@ -346,8 +346,8 @@ end
 
 rule "Re-focalizacion  en el  ultimo objetivo despues de conseguir decidirQuienVa "
  when
-    misObjs : MisObjetivos($objPrio:objetivoMasPrioritario)
-    victimaCC:Victim($idVict:name,isAlive == true)
+    misObjs : MisObjetivos()
+    victimaCC:Victim($idVict:name)
     infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == $idVict)
     obj1 :AyudarVictima(state == Objetivo.PENDING, victimId == $idVict)   
     obj: DecidirQuienVa (state == Objetivo.SOLVED,objectDecisionId == $idVict )

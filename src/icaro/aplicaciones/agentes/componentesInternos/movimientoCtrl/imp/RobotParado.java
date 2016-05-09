@@ -128,6 +128,45 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		if(this.monitorizacionLlegadaDestino == null)return false;
 		else return true;
 	}
+
+	@Override
+	public void moverAdestino(Victim victima, String identDest, Coordinate coordDestino, float velocidadCrucero,
+			int tipoActuacion) {
+		// TODO Auto-generated method stub
+		try {
+			semaforo.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		if (coordDestino!= null && victima.isAlive()){
+				this.tipoActuacion = tipoActuacion;
+				this.destinoCoord = coordDestino;
+				this.identDestino = identDest;
+				
+				if (velocidadCrucero >0){ 
+					this.velocidadCrucero = velocidadCrucero;
+					//    this.distanciaDestino = this.distanciaEuclidC1toC2(this.robotposicionActual, destinoCoord);
+					//    long tiempoParaAlcanzarDestino = (long)(distanciaDestino/velocidadCrucero);
+					//    int intervaloEnvioInformes = (int)tiempoParaAlcanzarDestino/10; // 10 informes maximo
+					this.robotposicionActual = this.maquinaEstados.getCoordenadasActuales();
+					//           this.robotposicionActual = this.getCoordenadasActuales();  
+					if (monitorizacionLlegadaDestino != null)monitorizacionLlegadaDestino.finalizar();
+					//trazas.trazar(identComponente, "Estoy parado en la posicion : "+robotposicionActual + "  Me muevo al destino  : " + identDestino +" Coordenadas:  " + destinoCoord, InfoTraza.NivelTraza.error);
+					this.monitorizacionLlegadaDestino = new HebraMonitorizacionLlegada (this.identAgente,maquinaEstados,this.itfusoRecVisSimulador, this.robotStatus);       
+					monitorizacionLlegadaDestino.inicializarDestino(this.identDestino,robotposicionActual,this.destinoCoord,this.velocidadCrucero); 
+					monitorizacionLlegadaDestino.run();
+					//this.maquinaEstados.cambiarEstado(MaquinaEstadoMovimientoCtrl.EstadoMovimientoRobot.RobotEnMovimiento);
+				}
+				else trazas.trazar(identComponente, "La velocidad debe ser mayor que cero. Se ignora la operacion", InfoTraza.NivelTraza.error);
+
+			
+		}	
+		this.semaforo.release();
+	}
 	
 
 }
