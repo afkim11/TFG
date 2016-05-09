@@ -16,19 +16,21 @@ public class InterpretarOrdenCCReconocerTerreno extends TareaSincrona{
 	public void ejecutar(Object... params) {
 		MisObjetivos objs = (MisObjetivos) params[0];
 		OrdenCentroControl orden = (OrdenCentroControl)params[1];
-		
-		ReconocerTerreno reconocer = new ReconocerTerreno(VocabularioRosace.reconocedoresActuales);
-		VocabularioRosace.reconocedoresActuales++;
-		reconocer.setPriority(9);
-		objs.setobjetivoMasPrioritario(reconocer);
-		
-		DecidirQuienVa newDecision = new DecidirQuienVa(VocabularioRosace.MsgExploraTerreno);
-		newDecision.setSolving();
-		this.getEnvioHechos().insertarHechoWithoutFireRules(reconocer);
-		this.getEnvioHechos().actualizarHechoWithoutFireRules(objs);
-		this.getEnvioHechos().eliminarHechoWithoutFireRules(orden);
-		this.getEnvioHechos().insertarHecho(newDecision);
-		
+		if(VocabularioRosace.reconocedoresActualesReglas < VocabularioRosace.numeroReconocedores){
+			ReconocerTerreno reconocer = new ReconocerTerreno(VocabularioRosace.reconocedoresActuales);
+			VocabularioRosace.reconocedoresActuales++;
+			reconocer.setPriority(9);
+			objs.setobjetivoMasPrioritario(reconocer);
+
+			DecidirQuienVa newDecision = new DecidirQuienVa(VocabularioRosace.MsgExploraTerreno);
+			newDecision.setSolving();
+			this.getEnvioHechos().insertarHechoWithoutFireRules(reconocer);
+			this.getEnvioHechos().actualizarHechoWithoutFireRules(objs);
+			this.getEnvioHechos().eliminarHechoWithoutFireRules(orden);
+			this.getEnvioHechos().insertarHecho(newDecision);
+			VocabularioRosace.reconocedoresActualesReglas++;
+		}
+
 	}
 
 }

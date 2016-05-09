@@ -162,6 +162,7 @@ rule "Comenzar la consecucion del objetivo DecidirQuienVa primera vez en reconoc
      tarea.ejecutar(obj, idRec,miEquipo );
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 end
+/*
 rule "Comenzar la consecucion del objetivo DecidirQuienVa en reconocer terreno"
   when
     miEquipo: InfoEquipo(idTeam:teamId,inicioContactoConEquipo== true)
@@ -174,7 +175,7 @@ rule "Comenzar la consecucion del objetivo DecidirQuienVa en reconocer terreno"
      tarea.ejecutar(obj, idRec,miEquipo );
      recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"(ReconocerTerreno ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 end
-
+*/
 
 rule "Pido la evaluacion para realizar el objetivo de reconocer el terreno al equipo de robots "
 no-loop true
