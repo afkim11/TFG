@@ -224,6 +224,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 				e.printStackTrace();
 			}
 		}
+		if(enDestino){
 			finalizar = true;
 			this.controladorMovimiento.estamosEnDestino(identDestino,this.coordActuales);
 			log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
