@@ -5,6 +5,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.*;
 import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.gestorTareas.ItfGestorTareas;
 import icaro.aplicaciones.Rosace.informacion.*;
 import icaro.aplicaciones.Rosace.tareasComunes.*;
+import icaro.aplicaciones.Rosace.objetivosComunes.*;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas.*;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.informacion.*;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.*;

@@ -137,7 +137,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 							Coordinate punto=ruta.get(i);
 							this.coordActuales.setY(punto.getY());
 							this.coordActuales.setX(punto.getX());
-							enDestino = ((coordActuales.getX()-coordDestino.getX())*dirX>=0 &&(coordActuales.getY()-coordDestino.getY())*dirY>=0);
+							enDestino = ((coordActuales.getX()-coordDestino.getX())==0 &&(coordActuales.getY()-coordDestino.getY())==0);
 							if (itfusoRecVisSimulador != null)
 								this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
 							this.controladorMovimiento.setCoordenadasActuales(coordActuales);
@@ -224,7 +224,6 @@ public class HebraMonitorizacionLlegada extends Thread {
 				e.printStackTrace();
 			}
 		}
-		if (enDestino ){
 			finalizar = true;
 			this.controladorMovimiento.estamosEnDestino(identDestino,this.coordActuales);
 			log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");

@@ -1,14 +1,11 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas;
-
-import java.rmi.RemoteException;
 import java.util.Iterator;
-
 import icaro.aplicaciones.Rosace.informacion.OrdenCentroControl;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
-import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.AyudarVictima;
+import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.ReconocerTerreno;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
@@ -28,34 +25,34 @@ public class TareaRomperRobot extends TareaSincrona{
 		RobotStatus robotStatus=(RobotStatus) params[3];
 		robotStatus.setBloqueado(true);
 		itfcompMov.parar();
-		
+
 		Iterator<Objetivo> it = misObjs.getMisObjetivosPriorizados().iterator();
 		while(it.hasNext()){
 			Objetivo obj=it.next();
 			if(obj.getState()==Objetivo.SOLVING){
 				if(obj instanceof AyudarVictima){
-				String nombreVictima=obj.getobjectReferenceId();
-				Victim v=victims2Resc.getVictimToRescue(nombreVictima);
-				Object[] valoresParametrosAccion = new Object[1];
-				valoresParametrosAccion[0]=nombreVictima;
-				InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("desasignarVictima", valoresParametrosAccion);
-				this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
-				//victims2Resc.addVictimNoAsignadas(v);
-				victims2Resc.eliminarVictima(nombreVictima);
-				OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, v);
-				this.getComunicator().enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
-				misObjs.eliminarObjetivoDeMisObjetivosPriorizados(obj);
+					String nombreVictima=obj.getobjectReferenceId();
+					Victim v=victims2Resc.getVictimToRescue(nombreVictima);
+					Object[] valoresParametrosAccion = new Object[1];
+					valoresParametrosAccion[0]=nombreVictima;
+					InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("desasignarVictima", valoresParametrosAccion);
+					this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
+					//victims2Resc.addVictimNoAsignadas(v);
+					victims2Resc.eliminarVictima(nombreVictima);
+					OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, v);
+					this.getComunicator().enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
+					misObjs.eliminarObjetivoDeMisObjetivosPriorizados(obj);
 				}
 				else if(obj instanceof ReconocerTerreno){
-					
+
 					OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);
 					this.getComunicator().enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
 					misObjs.eliminarObjetivoDeMisObjetivosPriorizados(obj);
-					
+
 				}
 			}
 		}
-		
+
 	}
 
 }

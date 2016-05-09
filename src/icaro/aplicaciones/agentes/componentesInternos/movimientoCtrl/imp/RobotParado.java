@@ -43,7 +43,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 	
 		
 		
-		if (coordDestino!= null)  {
+		if (coordDestino!= null && !this.robotStatus.getBloqueado())  {
 				this.tipoActuacion = tipoActuacion;
 				this.destinoCoord = coordDestino;
 				this.identDestino = identDest;
@@ -142,7 +142,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 		
 		
 		
-		if (coordDestino!= null && victima.isAlive()){
+		if (coordDestino!= null && victima.isAlive()&& !this.robotStatus.getBloqueado()){
 				this.tipoActuacion = tipoActuacion;
 				this.destinoCoord = coordDestino;
 				this.identDestino = identDest;

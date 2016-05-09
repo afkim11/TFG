@@ -8,6 +8,7 @@ import icaro.aplicaciones.Rosace.objetivosComunes.*;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoCognitivo.tareas.*;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.informacion.*;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.objetivos.*;
+import icaro.aplicaciones.Rosace.objetivosComunes.*;
 //import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.objetivos.CambiarRol;
 import icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas.*;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.*;
@@ -271,7 +272,7 @@ when
 	robotS : RobotStatus()
 	misObjs : MisObjetivos()
 then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName() + nombreVictima);
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: (" + nombreVictima + ")" + drools.getRule().getName());
 	modify(ayudarvictima){
 		setSolved()
 	}

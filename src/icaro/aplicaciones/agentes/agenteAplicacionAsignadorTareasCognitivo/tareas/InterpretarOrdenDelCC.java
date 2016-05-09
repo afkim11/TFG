@@ -7,7 +7,7 @@ package icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.tare
 import icaro.aplicaciones.Rosace.informacion.OrdenCentroControl;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
-import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.AyudarVictima;
+import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.DecidirQuienVa;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
