@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -148,15 +149,21 @@ public class ControladorVisualizacionSimulRosace {
 		File ficheroSeleccionado=   visorControlSim.solicitarSeleccionFichero(directorioPersistencia);
 		if (ficheroSeleccionado==null)visorControlSim.visualizarConsejo(tituloAvisoEscenarioNoDefinido, mensajeEscenarioNoSeleccionado,recomendacionDefinirEscenario);
 		else{
-			this.escenarioEdicionComp = persistencia.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
-			this.escenarioEdicionComp.setGestorEscenarios(gestionEscComp);
-			identEquipoActual= this.escenarioEdicionComp.getIdentEscenario();
-			visorControlSim.setIdentEquipo(identEquipoActual);
-			VocabularioRosace.rutaEscenario = ficheroSeleccionado.getName();
-			identsRobotsEquipo= this.escenarioEdicionComp.getListIdentsRobots();
-			if( identsRobotsEquipo!=null) visorControlSim.visualizarIdentsEquipoRobot(identsRobotsEquipo);
-			if(this.escenarioEdicionComp.getListIdentsVictims()!=null)visorControlSim.visualizarIdentsEquipoVictims(this.escenarioEdicionComp.getListIdentsVictims());
-			this.notifEvts.sendPeticionCambioEscenario(this.escenarioEdicionComp);
+			EscenarioSimulacionRobtsVictms escenario = persistencia.obtenerInfoEscenarioSimulacion(ficheroSeleccionado.getAbsolutePath());
+			if(escenario.getListIdentsRobots().size() == this.visorEscenarioRosace.getEscenario().getNumRobots()){
+				this.escenarioEdicionComp = escenario;
+				this.escenarioEdicionComp.setGestorEscenarios(gestionEscComp);
+				identEquipoActual= this.escenarioEdicionComp.getIdentEscenario();
+				visorControlSim.setIdentEquipo(identEquipoActual);
+				VocabularioRosace.rutaEscenario = ficheroSeleccionado.getName();
+				identsRobotsEquipo= this.escenarioEdicionComp.getListIdentsRobots();
+				if( identsRobotsEquipo!=null) visorControlSim.visualizarIdentsEquipoRobot(identsRobotsEquipo);
+				if(this.escenarioEdicionComp.getListIdentsVictims()!=null)visorControlSim.visualizarIdentsEquipoVictims(this.escenarioEdicionComp.getListIdentsVictims());
+				this.notifEvts.sendPeticionCambioEscenario(this.escenarioEdicionComp);
+			}
+			else{
+				JOptionPane.showMessageDialog(null, "El numero de robots del escenario no coincide con el numero de robots registrados", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
@@ -191,7 +198,7 @@ public class ControladorVisualizacionSimulRosace {
 		if(identVictimaSeleccionada==null)JOptionPane.showMessageDialog(null, "No hay una victima seleccionada\nPara seleccionar una victima debes hacer doble click en el panel de victimas del CC");
 		else {
 			notifEvts.sendPeticionSimulacionVictimToRobotTeam(identVictimaSeleccionada);
-		
+
 		}
 
 	}

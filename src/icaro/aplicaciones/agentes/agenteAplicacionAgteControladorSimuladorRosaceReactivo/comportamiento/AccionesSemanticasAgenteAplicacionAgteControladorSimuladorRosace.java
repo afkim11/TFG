@@ -96,8 +96,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			equipo = new InfoEquipo(this.nombreAgente, identificadorEquipo);  //el primer parametro es una cadena con un caracter en blanco, asi obtengo el equipo correctamente
 			identsAgtesEquipo = equipo.getTeamMemberIDs();
 			this.numeroRobotsSimulacion = identsAgtesEquipo.size();
-			//	itfUsoRecursoVisualizadorEntornosSimulacion.setItfUsoPersistenciaSimulador(itfUsoRecursoPersistenciaEntornosSimulacion);
-			itfUsoRecursoVisualizadorEntornosSimulacion = (ItfUsoRecursoVisualizadorEntornosSimulacion) this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoVisualizadorEntornosSimulacion1");
+			itfUsoRecursoVisualizadorEntornosSimulacion = (ItfUsoRecursoVisualizadorEntornosSimulacion)this.itfUsoRepositorio.obtenerInterfaz(NombresPredefinidos.ITF_USO + "RecursoVisualizadorEntornosSimulacion1");
 			itfUsoRecursoVisualizadorEntornosSimulacion.setIdentAgenteAReportar(this.nombreAgente);
 			itfUsoRecursoVisualizadorEntornosSimulacion.mostrarVentanaControlSimulador();
 			itfUsoRecursoVisualizadorEntornosSimulacion.mostrarIdentsEquipoRobots(identsAgtesEquipo);
@@ -519,15 +518,15 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 
 					this.comunicator.enviarInfoAotroAgente(new Informacion(VocabularioRosace.CambiarUbicacion,robots.get(nombre)),nombre);	
 				}
-
+				this.rutaFicheroVictimasTest = "PersistenciaEscenariosSimulacion/"+escenarioNuevo.getIdentEscenario();
+				Collection<Victim> collection = escenarioNuevo.getVictims().values();
+				if (this.victimasDefinidas == null) this.victimasDefinidas = new ArrayList<Victim>();
+				else this.victimasDefinidas.clear();
+				for(Victim v : collection)
+					this.victimasDefinidas.add(v);
 			}
 		}
-		this.rutaFicheroVictimasTest = "PersistenciaEscenariosSimulacion/"+escenarioNuevo.getIdentEscenario();
-		Collection<Victim> collection = escenarioNuevo.getVictims().values();
-		if (this.victimasDefinidas == null) this.victimasDefinidas = new ArrayList<Victim>();
-		else this.victimasDefinidas.clear();
-		for(Victim i : collection)
-			this.victimasDefinidas.add(i);
+
 
 
 

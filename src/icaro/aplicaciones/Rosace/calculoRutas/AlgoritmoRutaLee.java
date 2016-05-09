@@ -118,13 +118,13 @@ public class AlgoritmoRutaLee {
 	private boolean compruebaLimitesRobot(int x, int y, int i, int axis) {
 		if(axis == 0){
 			if(i==-1){
-				for(int k = 0;k<robotHeight;k++){
+				for(int k = 0;k<=robotHeight;k++){
 					if(((y+k) < escenarioHeight) && (this.grid[x+i][y+k] == -2))
 						return false;
 				}
 			}
 			else if(i==1){
-				for(int k = 0;k<robotHeight;k++){
+				for(int k = 0;k<=robotHeight;k++){
 					if(((x+robotWidth + i) < escenarioWidth )&& ((y+k) < escenarioHeight) && (this.grid[x+robotWidth + i][y+k] == -2))
 						return false;
 				}
@@ -132,13 +132,13 @@ public class AlgoritmoRutaLee {
 		}
 		else if(axis == 1){
 			if(i==-1){
-				for(int k = 0;k<robotWidth;k++){
+				for(int k = 0;k<=robotWidth;k++){
 					if(((x+k) < escenarioWidth) && (this.grid[x+k][y+i] == -2))
 						return false;
 				}
 			}
 			else if(i==1){
-				for(int k = 0;k<robotWidth;k++){
+				for(int k = 0;k<=robotWidth;k++){
 					if(((y+robotHeight+i) < escenarioHeight) && ((x+k) < escenarioWidth) && (this.grid[x+k][y+robotHeight+i] == -2))
 						return false;
 				}
