@@ -211,6 +211,7 @@ public class ArranqueSistemaScript {
 				if(v.isAlive())s = s + "si";
 				else s = s + "no";
 				s = s + "\n";
+				fw.write(s);
 			}
 			fw.close();
 		} catch (IOException e) {
