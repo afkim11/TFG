@@ -30,8 +30,16 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 		RobotStatus robotS = (RobotStatus) params[1];
 		MisObjetivos misObjs = (MisObjetivos) params[2];
 		Informe informe =(Informe) params[3];
+		Victim victim = (Victim) params[4];
 		this.itfProcObjetivos.eliminarHechoWithoutFireRules(informe);
 		ArrayList<Victim> victims = v2r.getVictimNoAsignadas();
+		
+		//Notificamos la victima como rescatada.
+		Informe informeVictimaResuelta = new Informe(this.identAgente,VocabularioRosace.MsgVictimaResuelta,victim);
+		this.getComunicator().enviarInfoAotroAgente(informeVictimaResuelta, "JerarquicoagenteAsignador");
+		
+		
+		
 		
 		double temp=Integer.MAX_VALUE;
 		int pos=-1;

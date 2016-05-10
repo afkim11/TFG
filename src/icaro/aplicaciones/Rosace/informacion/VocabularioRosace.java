@@ -141,10 +141,12 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static final String CambiarUbicacion = "LaUbicacionDeLosRobotsHaSidoModificada";
 	public static final String VictimaFallecida = "ElTiempoDeVidaDeLaVictimaFinalizo";
 
-	public static final Object MsgVictimaMuertaASubordinado = "LaVictimaHaMuertoYNoHayQueSalvarla";
+	public static final String MsgVictimaMuertaASubordinado = "LaVictimaHaMuertoYNoHayQueSalvarla";
 	public static final String MsgExploraTerreno = "ExploraElTerreno";
 
 	public static final String MsgAceptacionPropuestaExplora = "AceptoExplorarElTerreno";
+
+	public static final String MsgVictimaResuelta = "VictimaResuelta";
 	public static String funcionEvaluacionSeleccionada = "FuncionEvaluacion1";
 	public static String rutaEscenario = null;
 
@@ -153,4 +155,8 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static int reconocedoresActuales=0;
 
 	public static Integer reconocedoresActualesReglas = 0;
+
+	public static long tiempoInicioEjecucion = 0;
+
+	public static int victimasTotalesASalvar=-1;
 }

@@ -264,15 +264,17 @@ when
 end
 
 
+
 rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
 when
-	informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
+	inf:Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
 	ayudarvictima : AyudarVictima(victimId == nombreVictima)
+	victim : Victim(name == nombreVictima)
 	v2r : VictimsToRescue(victims2Rescue !=null)
 	robotS : RobotStatus()
 	misObjs : MisObjetivos()
 then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: (" + nombreVictima + ")" + drools.getRule().getName());
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName() + nombreVictima);
 	modify(ayudarvictima){
 		setSolved()
 	}
@@ -280,7 +282,7 @@ then
 		setRescued(nombreVictima)
 	}
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ComprobarVictimasNoAsignadas.class);
-	tarea.ejecutar(v2r, robotS, misObjs,informe);
+	tarea.ejecutar(v2r, robotS, misObjs, inf,victim);
 	
 end
 

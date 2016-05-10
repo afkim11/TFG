@@ -10,6 +10,7 @@ import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.utils.AccesoPropiedadesGlobalesRosace;
 import icaro.aplicaciones.Rosace.utils.ReadXMLTestRobots;
+import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.TerminarSimulacion;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
@@ -47,6 +48,7 @@ public class InicializarInfoWorkMemCRN extends Tarea{
 			identEquipo = this.getItfUsoConfiguracion().getValorPropiedadGlobal(NombresPredefinidos.NOMBRE_PROPIEDAD_GLOBAL_EQUIPO_AGENTES);
 			this.getEnvioHechos().insertarHechoWithoutFireRules(new Focus());
 			this.getEnvioHechos().insertarHechoWithoutFireRules(new MisObjetivos());
+			this.getEnvioHechos().insertarHechoWithoutFireRules(new TerminarSimulacion());
 			this.getEnvioHechos().insertarHechoWithoutFireRules(new VictimsToRescue());
 			RobotStatus miStatus = getRobotStatusInicial ( identRolAgte);        
 			if (  miStatus != null){

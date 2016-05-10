@@ -119,10 +119,19 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 	public void iniciarBusqueda(){
 		VocabularioRosace.reconocedoresActuales = 0;
 		VocabularioRosace.reconocedoresActualesReglas = 0;
+		try {
+			VocabularioRosace.victimasTotalesASalvar = this.itfUsoRecursoPersistenciaEntornosSimulacion.getVictimasArescatar().size();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(int i = 0; i < VocabularioRosace.numeroReconocedores; i++){
 			OrdenCentroControl orden = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenReconocerTerreno, null);
 			comunicator.enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
 		}
+		VocabularioRosace.tiempoInicioEjecucion = System.currentTimeMillis();
+		
+			
 	}
 	//Esta accion semantica se ejecuta cuando se envia el input "sendSequenceOfSimulatedVictimsToRobotTeam" en el 
 	//metodo sendSequenceOfSimulatedVictimsToRobotTeam de la clase NotificacionEventosRecursoGUI3	
@@ -143,6 +152,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			if(victimasDefinidas==null)victimasDefinidas = this.itfUsoRecursoPersistenciaEntornosSimulacion.getVictimasArescatar();
 
 			numeroVictimasDiferentesSimulacion = victimasDefinidas.size();
+			VocabularioRosace.victimasTotalesASalvar = victimasDefinidas.size();
 
 			infoVictimasAsignadas = new HashMap<String, InfoAsignacionVictima>();
 

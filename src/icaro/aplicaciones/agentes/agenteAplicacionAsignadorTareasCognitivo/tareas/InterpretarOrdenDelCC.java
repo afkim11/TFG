@@ -9,6 +9,7 @@ import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.DecidirQuienVa;
+import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.TerminarSimulacion;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -28,7 +29,9 @@ public class InterpretarOrdenDelCC extends TareaSincrona{
 			Objetivo objetivoEjecutantedeTarea = (Objetivo)params[1];
 			OrdenCentroControl ccOrdenAyudarVictima = (OrdenCentroControl)params[2];
 			VictimsToRescue victims2R = (VictimsToRescue)params[3];
+			TerminarSimulacion objSimulacion = (TerminarSimulacion) params[4];
 			Victim victim = (Victim)ccOrdenAyudarVictima.getJustificacion();
+			objSimulacion.inicioVictimaSimulacion(victim);
 			String identTarea = this.getIdentTarea();
 			String nombreAgenteEmisor = this.getIdentAgente();
 			String idVictim = victim.getName();

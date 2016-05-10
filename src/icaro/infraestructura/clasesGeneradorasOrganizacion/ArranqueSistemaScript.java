@@ -1,6 +1,7 @@
 package icaro.infraestructura.clasesGeneradorasOrganizacion;
 
 
+import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
@@ -17,6 +18,12 @@ import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.ItfUsoRe
 import icaro.infraestructura.recursosOrganizacion.repositorioInterfaces.imp.ClaseGeneradoraRepositorioInterfaces;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -34,6 +41,9 @@ public class ArranqueSistemaScript {
 	 *            Entrada: ruta completa hasta el fichero de configuracin
 	 */
 	private static String nombreXML=null;
+	private static Map<Victim, Long> tiemposAsignacion=null;
+	private static Map<Victim, Long> tiemposResolucion=null;
+
 	public static void setNombreXML(String nombre){
 		nombreXML=nombre;
 	}
@@ -49,7 +59,7 @@ public class ArranqueSistemaScript {
 	public static void main(String args[]) {
 
 		boolean herramientaArrancada = false;
-		
+
 		// creamos los recursos de la organizacin
 
 		ItfUsoConfiguracion configuracionExterna = null;
@@ -61,11 +71,11 @@ public class ArranqueSistemaScript {
 			System.err.println("Numero de argumnentos invalido\nEjemplo: nombredescripcion eval");
 			System.exit(1);
 		}
-		
+
 		nombreXML=args[0];
 		Integer eval = Integer.parseInt(args[1]);
-		
-		
+
+
 		ItfUsoRepositorioInterfaces repositorioInterfaces = null;
 		try {
 			// Se crea el repositorio de interfaces y el recurso de trazas
@@ -107,7 +117,7 @@ public class ArranqueSistemaScript {
 			// arranco la organizacion
 			if ((ItfGestIniciador != null)&& (ItfUsoIniciador!= null)) {
 				ItfGestIniciador.arranca();
-				
+
 				//     DescDefOrganizacion descOrganizacionaCrear = new DescDefOrganizacion();
 				//     descOrganizacionaCrear.setIdentFicheroDefOrganizacion(args[0]);
 				//         ItfUsoIniciador.aceptaEvento( new EventoRecAgte("crearOrganizacion",descOrganizacionaCrear, "main", "iniciador" ));
@@ -126,28 +136,28 @@ public class ArranqueSistemaScript {
 			System.err.println(msgUsuario);
 			System.exit(1);
 		}
-		
-		
+
+
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		ClaseGeneradoraRecursoVisualizadorEntornosSimulacion claseVisualizacion=null;
 		ControladorVisualizacionSimulRosace controlador=null;
 		try {
 			claseVisualizacion =  (ClaseGeneradoraRecursoVisualizadorEntornosSimulacion) repositorioInterfaces.obtenerInterfaz("Itf_Uso_RecursoVisualizadorEntornosSimulacion1");
 			controlador = claseVisualizacion.getControlador();
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		controlador.setVisibleControlGUI(false);
-		
+
 		if(eval==1){
 			ControladorVisualizacionSimulRosace.modoEnvioVictimas = ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION;
 			ControladorVisualizacionSimulRosace.exploracionPrevia = true;
@@ -164,5 +174,52 @@ public class ArranqueSistemaScript {
 		} 
 		else System.exit(1);
 		controlador.peticionComenzarSimulacion("", intervaloSecuencia);
+		while(tiemposAsignacion==null || tiemposResolucion ==null){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		File f = new File("resultados" + args[0] + args[1]);
+		if(!f.exists()){
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		escribeResultados(f);
+		System.exit(0);
+
+	}
+	public static void escribeResultados(File f){
+		try {
+			FileWriter fw = new FileWriter(f);
+			Set set = tiemposAsignacion.entrySet();
+			Iterator<Entry<Victim,Long>> it = set.iterator();
+			while(it.hasNext()){
+				Entry<Victim,Long> pareja = it.next();
+				Victim v = pareja.getKey();
+				Long tiempoAsignacion = pareja.getValue();
+				Long tiempoResolucion = tiemposResolucion.get(v);
+				String s;
+				s = v.getName() + " " + tiempoAsignacion + " " + tiempoResolucion + " ";
+				if(v.isAlive())s = s + "si";
+				else s = s + "no";
+				s = s + "\n";
+			}
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void guardaResultados(Map<Victim, Long> tiemposAsignacion, Map<Victim, Long> tiemposResolucion) {
+		ArranqueSistemaScript.tiemposAsignacion = tiemposAsignacion;
+		ArranqueSistemaScript.tiemposResolucion = tiemposResolucion;
 	}
 }

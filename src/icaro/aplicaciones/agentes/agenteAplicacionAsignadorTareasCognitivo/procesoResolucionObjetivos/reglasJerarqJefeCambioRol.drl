@@ -268,23 +268,22 @@ then
 
 end
 
-
 rule "Creacion del objetivo inicial  de los robots cuando llega un msg del CC"
-salience 10
+ salience 200
  when
     focoActual : Focus(foco == null)
-    misObjs: MisObjetivos()
-    victims2R:VictimsToRescue(victims2Rescue!=null)
+    misObjs : MisObjetivos()
+    victims2R : VictimsToRescue(victims2Rescue!=null)
+    objSimulacion : TerminarSimulacion() 
     ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenCCAyudarVictima,victim:justificacion)
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea el  objetivo ayudar victima
  	System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());  
-    
-    tarea.ejecutar(misObjs,null,ccOrden,victims2R ); 
-        
+    tarea.ejecutar(misObjs,null,ccOrden,victims2R,objSimulacion);  
 end
+
 // atiendo la orden y genero los objetivos para cumplirla
 rule "Interpreto la orden del CC cuando no estoy implicado en una decision"
 salience 100
@@ -295,10 +294,11 @@ salience 100
     obj1 : AyudarVictima(state == Objetivo.PENDING, victimId == $idVict)
     obj: DecidirQuienVa(objectDecisionId == $idVict,state == Objetivo.SOLVING)
     focoActual : Focus(objFocalizado : foco != obj )
+    objSimulacion : TerminarSimulacion()
     ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenCCAyudarVictima,justificacion != victimaCC )
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea el  objetivo ayudar victima
-    tarea.ejecutar(misObjs,objFocalizado,ccOrden,victims2R ); 
+    tarea.ejecutar(misObjs,objFocalizado,ccOrden,victims2R, objSimulacion); 
     System.out.println( "\n"+$idVict +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     recursoTrazas.aceptaNuevaTrazaEjecReglas($idVict," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
@@ -311,7 +311,7 @@ salience 10
     victims2R:VictimsToRescue(victims2Rescue!=null)
     obj :AyudarVictima( victimId == $idVict,state == Objetivo.SOLVING )
     focoActual:Focus(foco == obj)
-    exists DecidirQuienVa ( objectDecisionId == $idVict, state == Objetivo.SOLVED)
+    exists(DecidirQuienVa ( objectDecisionId == $idVict, state == Objetivo.SOLVED))
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea otro  objetivo ayudar victima
     tarea.ejecutar(misObjs,obj,ccOrden,victims2R); // poner tambien en la tarea la creacion del objetivo decidir quien va
@@ -546,9 +546,14 @@ rule "Una victima no ha sido rescatada a tiempo"
  when
  	informe : Informe(idVict:identEntidadEmisora,idVict == referenciaContexto,contenidoInforme == VocabularioRosace.VictimaFallecida)
  	victimaCC:Victim(idVict == name)
+ 	obj: TerminarSimulacion()
  then
+ 	modify(obj){
+ 		sumarVictima(victimaCC)
+ 	};
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaNoRescatadaATiempo.class);
  	tarea.ejecutar(informe, victimaCC);
+ 	
  	//retract(victimaCC);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 
@@ -613,8 +618,9 @@ end
 
 rule "He llegado a la victima y pongo el objetivo ayudarVictima a Solved"
 when
-	informe : Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
+	inf:Informe(nombreVictima : referenciaContexto,VocabularioRosace.MsgeLlegadaDestino==contenidoInforme)
 	ayudarvictima : AyudarVictima(victimId == nombreVictima)
+	victim : Victim(name == nombreVictima)
 	v2r : VictimsToRescue(victims2Rescue !=null)
 	robotS : RobotStatus()
 	misObjs : MisObjetivos()
@@ -626,7 +632,30 @@ then
 	modify(v2r){
 		setRescued(nombreVictima)
 	}
-	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ComprobarVictimasNoAsignadas.class);
-	tarea.ejecutar(v2r, robotS, misObjs,informe);
 	
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ComprobarVictimasNoAsignadas.class);
+	tarea.ejecutar(v2r, robotS, misObjs, inf,victim);
+	
+end
+
+rule "Aumentar las victimas resueltas por victima salvada"
+when
+	inf:Informe(victim : contenidoInforme,VocabularioRosace.MsgVictimaResuelta==referenciaContexto)
+	obj: TerminarSimulacion()
+then
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	modify(obj){
+		sumarVictima((Victim)victim)
+	};
+	retract(inf);
+end
+
+
+rule "Compruebo si es el fin de simulacion"
+ when
+	obj:TerminarSimulacion(victimasResueltas == VocabularioRosace.victimasTotalesASalvar)
+ then
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(FinalizarSimulacion.class);
+	tarea.ejecutar(obj);
 end

@@ -27,6 +27,12 @@ public class InterpretarOrdenCCReconocerTerreno extends TareaSincrona{
 			VocabularioRosace.reconocedoresActualesReglas++;
 		}
 		this.getEnvioHechos().eliminarHecho(orden);
+		try {
+			this.repoInterfaces.listarNombresInterfacesRegistradas();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
