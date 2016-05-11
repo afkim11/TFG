@@ -41,8 +41,7 @@ public class ArranqueSistemaScript {
 	 *            Entrada: ruta completa hasta el fichero de configuracin
 	 */
 	private static String nombreXML=null;
-	private static Map<Victim, Long> tiemposAsignacion=null;
-	private static Map<Victim, Long> tiemposResolucion=null;
+	
 
 	public static void setNombreXML(String nombre){
 		nombreXML=nombre;
@@ -174,7 +173,8 @@ public class ArranqueSistemaScript {
 		} 
 		else System.exit(1);
 		controlador.peticionComenzarSimulacion("", intervaloSecuencia);
-		while(tiemposAsignacion==null || tiemposResolucion ==null){
+		VocabularioRosace.nombreFicheroResultadoSimulacion = "resultados" + args[0] + args[1];
+		/*while(tiemposAsignacion==null || tiemposResolucion ==null){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -193,34 +193,8 @@ public class ArranqueSistemaScript {
 		}
 
 		escribeResultados(f);
-		System.exit(0);
+		System.exit(0);*/
 
 	}
-	public static void escribeResultados(File f){
-		try {
-			FileWriter fw = new FileWriter(f);
-			Set set = tiemposAsignacion.entrySet();
-			Iterator<Entry<Victim,Long>> it = set.iterator();
-			while(it.hasNext()){
-				Entry<Victim,Long> pareja = it.next();
-				Victim v = pareja.getKey();
-				Long tiempoAsignacion = pareja.getValue();
-				Long tiempoResolucion = tiemposResolucion.get(v);
-				String s;
-				s = v.getName() + " " + tiempoAsignacion + " " + tiempoResolucion + " ";
-				if(v.isAlive())s = s + "si";
-				else s = s + "no";
-				s = s + "\n";
-				fw.write(s);
-			}
-			fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public static void guardaResultados(Map<Victim, Long> tiemposAsignacion, Map<Victim, Long> tiemposResolucion) {
-		ArranqueSistemaScript.tiemposAsignacion = tiemposAsignacion;
-		ArranqueSistemaScript.tiemposResolucion = tiemposResolucion;
-	}
+	
 }

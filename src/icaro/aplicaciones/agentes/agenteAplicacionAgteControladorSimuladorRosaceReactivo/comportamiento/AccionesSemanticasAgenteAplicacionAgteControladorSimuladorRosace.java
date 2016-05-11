@@ -194,6 +194,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 
 			@Override
 			public void run() {
+				VocabularioRosace.tiempoInicioEjecucion = System.currentTimeMillis();
 				int i = 0;
 				Victim victima;
 				while ((i < numeroVictimasDiferentesSimulacion) && (stop == false)) {
