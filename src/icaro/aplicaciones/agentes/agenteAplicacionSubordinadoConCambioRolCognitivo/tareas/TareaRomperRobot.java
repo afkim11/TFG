@@ -38,6 +38,9 @@ public class TareaRomperRobot extends TareaSincrona{
 					InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("desasignarVictima", valoresParametrosAccion);
 					this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
 					//victims2Resc.addVictimNoAsignadas(v);
+					if(((AyudarVictima)obj).getobjectReferenceId() == misObjs.getobjetivoMasPrioritario().getobjectReferenceId()){
+						v.setCoordinateVictim(robotStatus.getRobotCoordinate());
+					}
 					victims2Resc.eliminarVictima(nombreVictima);
 					OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, v);
 					this.getComunicator().enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);

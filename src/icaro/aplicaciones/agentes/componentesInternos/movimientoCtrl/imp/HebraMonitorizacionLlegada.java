@@ -197,7 +197,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 							Coordinate punto=ruta1.get(i);
 							this.coordActuales.setY(punto.getY());
 							this.coordActuales.setX(punto.getX());
-
+							enDestino = ((coordActuales.getX()-coordDestino.getX())==0 &&(coordActuales.getY()-coordDestino.getY())==0);
 							if (itfusoRecVisSimulador != null){
 								this.itfusoRecVisSimulador.mostrarPosicionRobot(identRobot, coordActuales);
 								this.itfusoRecVisSimulador.mostrarPosicionVictima(this.identDestino,coordActuales);
