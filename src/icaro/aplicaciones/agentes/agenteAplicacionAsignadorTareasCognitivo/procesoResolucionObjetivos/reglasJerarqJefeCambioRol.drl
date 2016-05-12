@@ -519,6 +519,21 @@ rule "Si no hay agente que pueda llegar a la victima la reservo para despues"
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
     System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
 end
+rule "Si la victima esta muerta y estaba focalizada, resuelvo el objetivo"
+ when
+    victimaCC:Victim(idVict:name,isAlive == false)
+    obj1:AyudarVictima(state == Objetivo.PENDING,victimId == idVict)
+    obj:DecidirQuienVa (state == Objetivo.SOLVING,objectDecisionId == idVict )
+    focoActual:Focus(foco == obj )
+    infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idVict, hePreguntadoARobotsYNoHayValido == true, heInformadoAlmejorParaQueAsumaElObjetivo == false)
+   // not(exists(aceptPropuesta :AceptacionPropuesta(agenteIdAceptador:identAgente != agentId,identObjectRefAcetPropuesta ==idVict )))
+ then
+    modify ( obj ){
+          setSolved()
+    };
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
+    System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+" \n\n" );
+end
 
 rule "Proceso el  timeout aceptacion propuesta doy por  asignado el objetivo"
   when

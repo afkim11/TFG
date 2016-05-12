@@ -82,6 +82,10 @@ public class MandarPropuestaAlMejorParaQueRealiceObjetivo  extends TareaSincrona
 				this.getEnvioHechos().actualizarHecho(infoDecision);
 				v2r.addVictimNoAsignadas(victima);
 			}
+			else{
+				infoDecision.setNoHayRobotAdecuado(true);
+				this.getEnvioHechos().actualizarHecho(infoDecision);
+			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();

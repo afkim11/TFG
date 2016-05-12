@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
+import javax.swing.JOptionPane;
+
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
@@ -28,6 +30,9 @@ public class VictimaHaMuerto extends TareaSincrona{
 		boolean encontrado=false;
 		while(!encontrado && it.hasNext()){
 			Objetivo obj = it.next();
+			if(victima == null || obj == null){
+				JOptionPane.showInputDialog("NullPointer Exception Incoming...");
+			}
 			if(obj.getobjectReferenceId().equalsIgnoreCase(victima.getName())){
 				encontrado=true;
 				misObj.eliminarObjetivoDeMisObjetivosPriorizados(obj);

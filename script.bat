@@ -1,0 +1,1 @@
+FOR %%A IN (1 , 2, 3) DO java -jar demo.jar descripcion_Pruebas %%A
