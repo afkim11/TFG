@@ -34,12 +34,12 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 	} 
 	@Override
 	public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) {
-		try {
+		/*try {
 			semaforo.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	
 		
 		
@@ -66,7 +66,7 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 
 			
 		}	
-		this.semaforo.release();
+		/*this.semaforo.release();*/
 		
 	}
 	@Override
@@ -166,6 +166,12 @@ public class RobotParado extends EstadoAbstractoMovRobot implements ItfUsoMovimi
 			
 		}	
 		this.semaforo.release();
+	}
+
+	@Override
+	public Semaphore getSemaphore() {
+		// TODO Auto-generated method stub
+		return this.semaforo;
 	}
 	
 

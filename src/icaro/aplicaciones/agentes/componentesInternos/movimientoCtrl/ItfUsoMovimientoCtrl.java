@@ -1,11 +1,14 @@
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl;
 
+import java.util.concurrent.Semaphore;
+
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp.HebraMonitorizacionLlegada;
 
 public interface ItfUsoMovimientoCtrl {
+	
 	public void inicializarInfoMovimiento(Coordinate coordInicial, float velocidadInicial);
 	public void moverAdestino(String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) ;
 	public void moverAdestino(Victim victima,String identDest,Coordinate coordDestino, float velocidadCrucero,int tipoActuacion) ;
@@ -22,5 +25,6 @@ public interface ItfUsoMovimientoCtrl {
 	public void imposibleAvanzarADestino();
 	public boolean hebraMonitorizacionCreada();
 	public void setRobotStatus(RobotStatus robotStatus);
+	public Semaphore getSemaphore();
 
 }

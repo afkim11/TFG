@@ -75,12 +75,20 @@ public class GeneraryEncolarObjetivoReconocerTerreno extends TareaSincrona{
 			
 			Thread t = new Thread(){
 				public void run(){
+					try {
+						itfcompMov.getSemaphore().acquire();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					for(int i=0;i<puntosAExplorar.size();i++){
 						
 						Coordinate coor = puntosAExplorar.get(i);
 						itfcompMov.moverAdestino(VocabularioRosace.MsgExploraTerreno, coor, velocidadCruceroPordefecto,tipoActuacion);
 						
 					}
+					
+					itfcompMov.getSemaphore().release();
 				}
 				/*public void run(){
 					boolean last = false;

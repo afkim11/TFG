@@ -4,6 +4,8 @@
  */
 package icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.imp;
 
+import java.util.concurrent.Semaphore;
+
 import icaro.aplicaciones.Rosace.informacion.Coordinate;
 import icaro.aplicaciones.Rosace.informacion.RobotStatus;
 import icaro.aplicaciones.Rosace.informacion.Victim;
@@ -96,5 +98,10 @@ public class RobotEnMovimiento extends EstadoAbstractoMovRobot implements ItfUso
 	public boolean hebraMonitorizacionCreada() {
 		if(this.monitorizacionLlegadaDestino == null)return false;
 		else return true;
+	}
+	@Override
+	public Semaphore getSemaphore() {
+		// TODO Auto-generated method stub
+		return null;
 	} 
 }
