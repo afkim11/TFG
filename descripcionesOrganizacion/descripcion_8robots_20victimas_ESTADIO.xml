@@ -10,7 +10,7 @@
      <icaro:activarPanelTrazasDebug>true</icaro:activarPanelTrazasDebug>
         <icaro:listaPropiedades>
             <icaro:propiedad atributo="identificadorEquipo" valor = "Jerarquico" />
-            <icaro:propiedad atributo="rutaFicheroEscenarioSimulacion" valor = "PersistenciaEscenariosSimulacion/modeloOrg_JerarquicoNumRobts_4NumVicts_10_CASA" /> 
+            <icaro:propiedad atributo="rutaFicheroEscenarioSimulacion" valor = "PersistenciaEscenariosSimulacion/modeloOrg_JerarquicoNumRobts_8NumVicts_20_ESTADIO" /> 
             <icaro:propiedad atributo="timeMsTarea:TimeOutContactarMiembrosEquipo" valor = "1000" />
             <icaro:propiedad atributo="timeMsTarea:TimeOutEsquivarObstaculo" valor="2000" />
             <icaro:propiedad atributo="intervaloMilisegundosEnvioMensajesDesdeCC" valor = "10000" />   <!-- valor expresado en milisegundos -->  
@@ -86,6 +86,10 @@
                 			  <icaro:componenteGestionado refId="JerarquicorobotSubordinado2" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicorobotSubordinado3" tipoComponente="AgenteAplicacion"/>
                             <icaro:componenteGestionado refId="JerarquicorobotSubordinado4" tipoComponente="AgenteAplicacion"/>
+							<icaro:componenteGestionado refId="JerarquicorobotSubordinado5" tipoComponente="AgenteAplicacion"/>
+							<icaro:componenteGestionado refId="JerarquicorobotSubordinado6" tipoComponente="AgenteAplicacion"/>
+							<icaro:componenteGestionado refId="JerarquicorobotSubordinado7" tipoComponente="AgenteAplicacion"/>
+							<icaro:componenteGestionado refId="JerarquicorobotSubordinado8" tipoComponente="AgenteAplicacion"/>
                     </icaro:componentesGestionados>
                 </icaro:InstanciaGestor>
                 <icaro:InstanciaGestor id="GestorRecursos" refDescripcion="GestorRecursos">
@@ -112,6 +116,14 @@
                 <icaro:Instancia id="JerarquicorobotSubordinado3" refDescripcion="AgenteAplicacionSubordinado">
                 </icaro:Instancia>
                 <icaro:Instancia id="JerarquicorobotSubordinado4" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia>
+				<icaro:Instancia id="JerarquicorobotSubordinado5" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia>
+				<icaro:Instancia id="JerarquicorobotSubordinado6" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia>
+                <icaro:Instancia id="JerarquicorobotSubordinado7" refDescripcion="AgenteAplicacionSubordinado">
+                </icaro:Instancia>
+                <icaro:Instancia id="JerarquicorobotSubordinado8" refDescripcion="AgenteAplicacionSubordinado">
                 </icaro:Instancia>
         </icaro:AgentesAplicacion>
 	<!--******************************************************************************************************

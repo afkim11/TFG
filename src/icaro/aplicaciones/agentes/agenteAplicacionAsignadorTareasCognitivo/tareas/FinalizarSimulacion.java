@@ -23,9 +23,8 @@ public class FinalizarSimulacion extends TareaSincrona{
 		guardaResultados(obj.getTiemposAsignacion(),obj.getTiemposResolucion());
 		if(VocabularioRosace.nombreFicheroResultadoSimulacion!=null)escribeResultados(new File(VocabularioRosace.nombreFicheroResultadoSimulacion));
 		
-		
-		
-		System.exit(0);
+		//Si estamos ejecutando en modo script cerramos la aplicacion al terminar simulación,sino continuamos con todo abierto. 
+		if(VocabularioRosace.executionMode == 1)System.exit(0);
 	}
 
 	public static void escribeResultados(File f){

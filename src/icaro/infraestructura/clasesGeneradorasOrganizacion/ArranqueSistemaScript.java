@@ -145,6 +145,9 @@ public class ArranqueSistemaScript {
 		}
 
 
+		VocabularioRosace.executionMode = 1;
+		
+		
 		ClaseGeneradoraRecursoVisualizadorEntornosSimulacion claseVisualizacion=null;
 		ControladorVisualizacionSimulRosace controlador=null;
 		try {
