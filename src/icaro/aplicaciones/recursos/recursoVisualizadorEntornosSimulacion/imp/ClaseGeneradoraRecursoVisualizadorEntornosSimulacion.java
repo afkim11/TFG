@@ -292,7 +292,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 		this.controlador.setNuevoVisorEscenario(visorEscenarios);
 	}
 	@Override
-	public void comprobarVictimasArea(Coordinate coor,int perimetroDeVision) throws Exception {
+	public synchronized void comprobarVictimasArea(Coordinate coor,int perimetroDeVision) throws Exception {
 		
 		Collection<Victim> victimas = this.controlador.getVictimasEscenario().values();
 		double x1 = coor.getX()-perimetroDeVision,x2 = coor.getX()+perimetroDeVision,y1 = coor.getY()-perimetroDeVision,y2 = coor.getY()+perimetroDeVision;
