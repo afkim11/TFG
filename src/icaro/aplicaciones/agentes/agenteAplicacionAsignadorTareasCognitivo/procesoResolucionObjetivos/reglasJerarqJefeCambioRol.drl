@@ -245,7 +245,7 @@ rule "Proceso el segundo timeout respuestas decido a quien asigno el objetivo re
       misObjs : MisObjetivos()
       rec:ReconocerTerreno(idRec:getgoalId())
      infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idRec,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
-     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2, contenidoInforme==VocabularioRosace.MsgExploraTerreno )              
+     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones2, contenidoInforme==idRec )              
      then
     // Les pido a  los agentes que me faltan  su evaluacion
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MandarPropuestaReconocimientoAlMejorParaQueRealiceObjetivo.class);
