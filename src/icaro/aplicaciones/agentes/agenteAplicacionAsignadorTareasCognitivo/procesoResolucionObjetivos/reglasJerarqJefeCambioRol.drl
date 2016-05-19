@@ -229,7 +229,7 @@ rule "Proceso el primer timeout respuestas pido las respuestas que me faltan par
      Focus(foco == obj)
      ReconocerTerreno(idRec:getgoalId())
      infoDecision: InfoParaDecidirAQuienAsignarObjetivo(idElementoDecision == idRec,peticionEvaluacionEnviadaAtodos == true,hanLlegadoTodasLasEvaluaciones == false)
-     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones1, contenidoInforme==VocabularioRosace.MsgExploraTerreno )              
+     informeTarea2:InformeDeTarea(identTarea == VocabularioRosace.IdentTareaTimeOutRecibirEvaluaciones1, contenidoInforme == idRec )              
  then
     // Les pido a  los agentes que me faltan  su evaluacion
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(PedirEvaluacionesQueFaltanParaExplorar.class);
@@ -280,7 +280,7 @@ rule "Creacion del objetivo inicial  de los robots cuando llega un msg del CC"
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea el  objetivo ayudar victima
  	System.out.println( "\n"+agentId +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
     System.out.println( "\n"+agentId + "Foco: NULL " +" \n\n" );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());  
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());  
     tarea.ejecutar(misObjs,null,ccOrden,victims2R,objSimulacion);  
 end
 
@@ -293,14 +293,14 @@ salience 100
     victimaCC:Victim($idVict:name)   
     obj1 : AyudarVictima(state == Objetivo.PENDING, victimId == $idVict)
     obj: DecidirQuienVa(objectDecisionId == $idVict,state == Objetivo.SOLVING)
-    focoActual : Focus(objFocalizado : foco != obj )
+    focoActual : Focus(objFocalizado : foco != null )
     objSimulacion : TerminarSimulacion()
     ccOrden:OrdenCentroControl(mensajeOrden == VocabularioRosace.MsgOrdenCCAyudarVictima,justificacion != victimaCC )
  then
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(InterpretarOrdenDelCC.class); //crea el  objetivo ayudar victima
     tarea.ejecutar(misObjs,objFocalizado,ccOrden,victims2R, objSimulacion); 
     System.out.println( "\n"+$idVict +" EJECUTO LA REGLA: "+drools.getRule().getName()+"\n\n" );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas($idVict," EJECUTO LA REGLA: " + drools.getRule().getName());      
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());      
 end
 rule "Tratamiento de una orden del CC cuando estoy intentando conseguir un objetivo de ayuda a una Victima, sin decisiones "
 salience 10
