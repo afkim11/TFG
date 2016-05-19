@@ -4,6 +4,7 @@ package icaro.infraestructura.clasesGeneradorasOrganizacion;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControlCenterGUI4;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.excepciones.ExcepcionEnComponente;
@@ -31,7 +32,7 @@ import javax.swing.JOptionPane;
 
 
 public class ArranqueSistemaScript {
-	private static int intervaloSecuencia = 500;
+	private static int intervaloSecuencia = ControlCenterGUI4.intervaloSecuencia;
 	private static final long serialVersionUID = 1L;
 	private static boolean comenzar=false;
 	/**

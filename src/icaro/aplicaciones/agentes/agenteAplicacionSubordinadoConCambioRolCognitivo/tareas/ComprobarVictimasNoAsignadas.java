@@ -1,6 +1,7 @@
 package icaro.aplicaciones.agentes.agenteAplicacionSubordinadoConCambioRolCognitivo.tareas;
 
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 import icaro.aplicaciones.Rosace.informacion.Coste;
 import icaro.aplicaciones.Rosace.informacion.PropuestaAgente;
@@ -23,7 +24,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 
 public class ComprobarVictimasNoAsignadas extends TareaSincrona{
-
+	static public Semaphore acceso;
 	@Override
 	public void ejecutar(Object... params) {
 		VictimsToRescue v2r = (VictimsToRescue) params[0];
@@ -32,15 +33,22 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 		Informe informe =(Informe) params[3];
 		Victim victim = (Victim) params[4];
 		this.itfProcObjetivos.eliminarHechoWithoutFireRules(informe);
-		ArrayList<Victim> victims = v2r.getVictimNoAsignadas();
+		if(acceso == null)
+			acceso = new Semaphore(1);
+
 		
 		//Notificamos la victima como rescatada.
 		Informe informeVictimaResuelta = new Informe(this.identAgente,VocabularioRosace.MsgVictimaResuelta,victim);
 		this.getComunicator().enviarInfoAotroAgente(informeVictimaResuelta, "JerarquicoagenteAsignador");
 		
 		
-		
-		
+		try {
+			acceso.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<Victim> victims = v2r.getVictimNoAsignadas();
 		double temp=Integer.MAX_VALUE;
 		int pos=-1;
 		
@@ -64,6 +72,8 @@ public class ComprobarVictimasNoAsignadas extends TareaSincrona{
 			this.itfProcObjetivos.insertarHecho(miPropuesta);
 			v2r.getVictimNoAsignadas().remove(pos);
 		}
+		
+		acceso.release();
 	}
 
 }

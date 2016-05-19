@@ -30,7 +30,7 @@ public class ControlCenterGUI4 extends javax.swing.JFrame {
 	
 	/** Creates new form ControlCenterGui2 */
 	private ControladorVisualizacionSimulRosace controladorEscSim;
-	private int intervaloSecuencia = 500; // valor por defecto. Eso deberia ponerse en otro sitio
+	public static int intervaloSecuencia = 1; // valor por defecto. Eso deberia ponerse en otro sitio
 	private int numMensajesEnviar = 3;
 	private boolean primeraVictima = true;
 	private VisorEscenariosRosace visorSc;
