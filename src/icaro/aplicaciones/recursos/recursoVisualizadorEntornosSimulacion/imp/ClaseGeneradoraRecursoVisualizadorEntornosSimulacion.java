@@ -15,8 +15,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +33,10 @@ import org.jfree.data.xy.XYSeries;
 //#start_nodespecialImports:specialImports <--specialImports-- DO NOT REMOVE THIS
 //#end_nodespecialImports:specialImports <--specialImports-- DO NOT REMOVE THIS
 public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRecursoSimple implements ItfUsoRecursoVisualizadorEntornosSimulacion {
-
+	//Es un buffer que se encarga de registrar qué victimas han sido enviadas(esto se comprueba si existen dentro de la tabla hash) y luego si han sido recibidas y tratadas correctamente.(Esto se comprueba con el booleano al que relaciona)
+	public static Hashtable<String,Boolean> victimasConfirmadasRecepcion;
+	
+	
 	
 	private VisorEscenariosRosace visorEscenarios;
 	private ControladorVisualizacionSimulRosace controlador;
@@ -39,6 +44,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 	private NotificadorInfoUsuarioSimulador notifEvt;
 	private String recursoId;
 	private String identAgenteaReportar;
+	
 	//private Map<String,HebraMovimiento> tablaHebrasMov;
 	private int coordX = 40;
 	private int coordY = 40;  // valores iniciales 
@@ -61,6 +67,7 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 			this.itfAutomata.transita("error");
 			throw e;
 		}
+		victimasConfirmadasRecepcion = new Hashtable<String,Boolean>();
 	}
 
 	@Override
@@ -295,18 +302,34 @@ public class ClaseGeneradoraRecursoVisualizadorEntornosSimulacion extends ImplRe
 	public synchronized void comprobarVictimasArea(Coordinate coor,int perimetroDeVision) throws Exception {
 		
 		Collection<Victim> victimas = this.controlador.getVictimasEscenario().values();
-		double x1 = coor.getX()-perimetroDeVision,x2 = coor.getX()+perimetroDeVision,y1 = coor.getY()-perimetroDeVision,y2 = coor.getY()+perimetroDeVision;
-		Iterator<Victim> it = victimas.iterator();
+		
+		//Comprobamos primero que las victimas previamente encontradas hayan sido notificadas correctamente
+		Set<Entry<String,Boolean>> pares = victimasConfirmadasRecepcion.entrySet();
+		Iterator<Entry<String,Boolean>> it = pares.iterator();
 		while(it.hasNext()){
-			Victim v = it.next();
+			Entry<String, Boolean> aux = it.next();
+			if((Boolean)aux.getValue() == false){
+				controlador.victimaSeleccionadaParaSimulacion((String)aux.getKey());
+				System.out.println("(Victim: " + (String)aux.getKey() + ")Se vuelve a notificar al jefe para su correspondiente rescate");
+			}
+		}
+		
+		double x1 = coor.getX()-perimetroDeVision,x2 = coor.getX()+perimetroDeVision,y1 = coor.getY()-perimetroDeVision,y2 = coor.getY()+perimetroDeVision;
+		Iterator<Victim> it2 = victimas.iterator();
+		while(it2.hasNext()){
+			Victim v = it2.next();
 			double x =  v.getCoordinateVictim().getX(),y =  v.getCoordinateVictim().getY();
 			if(!v.isEncontrada() && x <= x2 && x >=  x1 && y <= y2 && y >= y1){
 				v.setEncontrada();
-				
+				victimasConfirmadasRecepcion.put(v.getName(), false);
 				controlador.victimaSeleccionadaParaSimulacion(v.getName());
 				System.out.println("Se ha encontrado una victima: " + v.toString() + ". Se ha notificado al jefe para su correspondiente rescate");
 			}
 		}
+		
+		
+		
+		
 	}
 
 	@Override

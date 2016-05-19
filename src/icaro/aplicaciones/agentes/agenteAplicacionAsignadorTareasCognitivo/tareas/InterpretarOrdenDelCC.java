@@ -10,6 +10,7 @@ import icaro.aplicaciones.Rosace.informacion.VictimsToRescue;
 import icaro.aplicaciones.Rosace.objetivosComunes.AyudarVictima;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.DecidirQuienVa;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.TerminarSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
@@ -41,7 +42,8 @@ public class InterpretarOrdenDelCC extends TareaSincrona{
 			//          if((objetivoEjecutantedeTarea == null) |
 			//             ((objetivoEjecutantedeTarea != null)&&((!idVictim.equals(objetivoEjecutantedeTarea.getobjectReferenceId()))&& (!misObjs.existeObjetivoConEsteIdentRef(idVictim))))){
 			// se crea el objetivo y se inserta en el motor
-			if (victims2R.getvictims2Rescue().isEmpty() || victims2R.getVictimToRescue(idVictim) == null || !victims2R.getVictimToRescue(idVictim).getRescued())  {   
+			if (victims2R.getvictims2Rescue().isEmpty() || victims2R.getVictimToRescue(idVictim) == null || !victims2R.getVictimToRescue(idVictim).getRescued())  {
+				ClaseGeneradoraRecursoVisualizadorEntornosSimulacion.victimasConfirmadasRecepcion.put(idVictim,true);
 				AyudarVictima newAyudarVictima = new AyudarVictima (idVictim);
 				//      newObjetivo.setvictimId(idVictim);
 				newAyudarVictima.setPriority(victim.getPriority());

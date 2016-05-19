@@ -7,6 +7,7 @@ import icaro.aplicaciones.recursos.recursoCreacionEntornosSimulacion.ItfUsoRecur
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.ItfUsoRecursoPersistenciaEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoPersistenciaEntornosSimulacion.imp.ReadXMLTestSequence;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.ItfUsoRecursoVisualizadorEntornosSimulacion;
+import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ClaseGeneradoraRecursoVisualizadorEntornosSimulacion;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.ControladorVisualizacionSimulRosace;
 import icaro.aplicaciones.recursos.recursoVisualizadorEntornosSimulacion.imp.EscenarioSimulacionRobtsVictms;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -19,8 +20,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -130,8 +134,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 			comunicator.enviarInfoAotroAgente(orden, VocabularioRosace.IdentAgteDistribuidorTareas);
 		}
 		VocabularioRosace.tiempoInicioEjecucion = System.currentTimeMillis();
-		
-			
+
+
 	}
 	//Esta accion semantica se ejecuta cuando se envia el input "sendSequenceOfSimulatedVictimsToRobotTeam" en el 
 	//metodo sendSequenceOfSimulatedVictimsToRobotTeam de la clase NotificacionEventosRecursoGUI3	
@@ -199,9 +203,9 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 				Victim victima;
 				while ((i < numeroVictimasDiferentesSimulacion) && (stop == false)) {
 
-					if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION)victima = victimasDefinidas.get(i);
-					else if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZADOTIEMPODEVIDA)victima=victimasDefinidas2.poll();
-					else victima = victimasDefinidas.get(i);
+
+
+					victima = this.getSiguienteVictima(i);
 
 					if(!victima.getRescued() && !victima.isCostEstimated()){
 						OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
@@ -254,6 +258,33 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 					}
 				}// fin del while
 				while(!infoCasoSimul.todasRescatadas()){
+					try {
+						this.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//Comprobamos primero que las victimas previamente encontradas hayan sido notificadas correctamente
+					Set<Entry<String,Boolean>> pares = ClaseGeneradoraRecursoVisualizadorEntornosSimulacion.victimasConfirmadasRecepcion.entrySet();
+					Iterator<Entry<String,Boolean>> it = pares.iterator();
+					while(it.hasNext()){
+						Entry<String, Boolean> aux = it.next();
+						if((Boolean)aux.getValue() == false){
+							if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION)victima = victimasDefinidas.get(i);
+							else if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZADOTIEMPODEVIDA)victima=victimasDefinidas2.poll();
+							else victima = victimasDefinidas.get(i);
+							OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
+							if (identificadorEquipo.equals("robotSubordinado")) //VocabularioRosace.IdentEquipoJerarquico
+							{
+								comunicator.enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
+							} else {
+								comunicator.informaraGrupoAgentes(ccOrder, identsAgtesEquipo);
+							}							//controlador.victimaSeleccionadaParaSimulacion((String)aux.getKey());
+							System.out.println("(Victim: " + (String)aux.getKey() + ")Se vuelve a notificar al jefe para su correspondiente rescate");
+						}
+					}
+
+
 
 				};
 				visualizarYguardarResultadosCaso();
@@ -261,6 +292,12 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 				// Se han enviado todas las victimas
 				// Cerrar el fichero de estadistica en el fichero de llegada de victimas
 
+			}
+
+			private Victim getSiguienteVictima(int i) {
+				if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION)return victimasDefinidas.get(i);
+				else if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZADOTIEMPODEVIDA)return victimasDefinidas2.poll();
+				else return victimasDefinidas.get(i);
 			}
 		};
 		t.start();
