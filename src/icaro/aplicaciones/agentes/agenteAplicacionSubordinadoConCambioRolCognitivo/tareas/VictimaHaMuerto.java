@@ -30,10 +30,8 @@ public class VictimaHaMuerto extends TareaSincrona{
 		boolean encontrado=false;
 		while(!encontrado && it.hasNext()){
 			Objetivo obj = it.next();
-			if(victima == null || obj == null){
-				JOptionPane.showInputDialog("NullPointer Exception Incoming...");
-			}
-			if(obj.getobjectReferenceId().equalsIgnoreCase(victima.getName())){
+			String objIdReference = obj.getobjectReferenceId();
+			if(objIdReference != null && objIdReference.equalsIgnoreCase(victima.getName())){
 				encontrado=true;
 				misObj.eliminarObjetivoDeMisObjetivosPriorizados(obj);
 				if(itfcompMov.getCoordenasDestino().equals(victima.getCoordinateVictim())){

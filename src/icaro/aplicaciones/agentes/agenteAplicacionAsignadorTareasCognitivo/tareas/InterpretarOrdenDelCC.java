@@ -32,7 +32,7 @@ public class InterpretarOrdenDelCC extends TareaSincrona{
 			VictimsToRescue victims2R = (VictimsToRescue)params[3];
 			TerminarSimulacion objSimulacion = (TerminarSimulacion) params[4];
 			Victim victim = (Victim)ccOrdenAyudarVictima.getJustificacion();
-			objSimulacion.inicioVictimaSimulacion(victim);
+			
 			String identTarea = this.getIdentTarea();
 			String nombreAgenteEmisor = this.getIdentAgente();
 			String idVictim = victim.getName();
@@ -44,6 +44,7 @@ public class InterpretarOrdenDelCC extends TareaSincrona{
 			// se crea el objetivo y se inserta en el motor
 			if (victims2R.getvictims2Rescue().isEmpty() || victims2R.getVictimToRescue(idVictim) == null || !victims2R.getVictimToRescue(idVictim).getRescued())  {
 				ClaseGeneradoraRecursoVisualizadorEntornosSimulacion.victimasConfirmadasRecepcion.put(idVictim,true);
+				objSimulacion.inicioVictimaSimulacion(victim);
 				AyudarVictima newAyudarVictima = new AyudarVictima (idVictim);
 				//      newObjetivo.setvictimId(idVictim);
 				newAyudarVictima.setPriority(victim.getPriority());

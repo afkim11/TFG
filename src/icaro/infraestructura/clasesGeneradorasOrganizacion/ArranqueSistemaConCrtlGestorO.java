@@ -1,6 +1,7 @@
 package icaro.infraestructura.clasesGeneradorasOrganizacion;
 
 
+import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.excepciones.ExcepcionEnComponente;
 import icaro.infraestructura.patronAgenteReactivo.factoriaEInterfaces.FactoriaAgenteReactivo;
@@ -124,6 +125,7 @@ public class ArranqueSistemaConCrtlGestorO {
 			System.err.println(msgUsuario);
 			System.exit(1);
 		}
+		VocabularioRosace.nombreFicheroResultadoSimulacion = "Resultados";
 
 	}
 }

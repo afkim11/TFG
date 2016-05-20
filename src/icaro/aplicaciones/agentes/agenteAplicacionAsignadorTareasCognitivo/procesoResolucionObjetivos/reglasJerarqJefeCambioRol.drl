@@ -563,12 +563,12 @@ rule "Una victima no ha sido rescatada a tiempo"
  	victimaCC:Victim(idVict == name)
  	obj: TerminarSimulacion()
  then
+ 	
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaNoRescatadaATiempo.class);
+ 	tarea.ejecutar(informe, victimaCC);
  	modify(obj){
  		sumarVictima(victimaCC)
  	};
- 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaNoRescatadaATiempo.class);
- 	tarea.ejecutar(informe, victimaCC);
- 	
  	//retract(victimaCC);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"( ID Victima: "+idVict + " ) EJECUTO LA REGLA " + drools.getRule().getName() + "\n");
 

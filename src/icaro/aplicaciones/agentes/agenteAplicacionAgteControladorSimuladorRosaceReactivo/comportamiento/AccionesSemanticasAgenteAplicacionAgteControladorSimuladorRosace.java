@@ -27,6 +27,8 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.w3c.dom.NodeList;
 //This agent class need the next imports in order to use resources
@@ -125,6 +127,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 		VocabularioRosace.reconocedoresActualesReglas = 0;
 		try {
 			VocabularioRosace.victimasTotalesASalvar = this.itfUsoRecursoPersistenciaEntornosSimulacion.getVictimasArescatar().size();
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -238,6 +242,8 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 							e.printStackTrace();
 						}
 
+						
+						ClaseGeneradoraRecursoVisualizadorEntornosSimulacion.victimasConfirmadasRecepcion.put(victima.getName(), false);
 						if (identificadorEquipo.equals("robotSubordinado")) //VocabularioRosace.IdentEquipoJerarquico
 						{
 							comunicator.enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);
@@ -259,7 +265,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 				}// fin del while
 				while(!infoCasoSimul.todasRescatadas()){
 					try {
-						this.sleep(500);
+						sleep(500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -270,9 +276,7 @@ public class AccionesSemanticasAgenteAplicacionAgteControladorSimuladorRosace ex
 					while(it.hasNext()){
 						Entry<String, Boolean> aux = it.next();
 						if((Boolean)aux.getValue() == false){
-							if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION)victima = victimasDefinidas.get(i);
-							else if(ControladorVisualizacionSimulRosace.modoEnvioVictimas == ControladorVisualizacionSimulRosace.PRIORIZADOTIEMPODEVIDA)victima=victimasDefinidas2.poll();
-							else victima = victimasDefinidas.get(i);
+							victima = victims2Rescue.get(aux.getKey());
 							OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, victima);
 							if (identificadorEquipo.equals("robotSubordinado")) //VocabularioRosace.IdentEquipoJerarquico
 							{
