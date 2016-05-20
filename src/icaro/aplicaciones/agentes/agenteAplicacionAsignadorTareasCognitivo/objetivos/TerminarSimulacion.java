@@ -49,4 +49,7 @@ public class TerminarSimulacion extends Objetivo{
 	public  TreeMap<Victim, Long> getTiemposResolucion() {
 		return this.tiempoResolucion;
 	}
+	public boolean isAsignada(Victim victim) {
+		return this.tiempoInicio.containsKey(victim);
+	}
 }

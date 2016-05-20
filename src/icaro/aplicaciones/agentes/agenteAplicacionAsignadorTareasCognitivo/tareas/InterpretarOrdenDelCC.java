@@ -42,7 +42,7 @@ public class InterpretarOrdenDelCC extends TareaSincrona{
 			//          if((objetivoEjecutantedeTarea == null) |
 			//             ((objetivoEjecutantedeTarea != null)&&((!idVictim.equals(objetivoEjecutantedeTarea.getobjectReferenceId()))&& (!misObjs.existeObjetivoConEsteIdentRef(idVictim))))){
 			// se crea el objetivo y se inserta en el motor
-			if (victims2R.getvictims2Rescue().isEmpty() || victims2R.getVictimToRescue(idVictim) == null || !victims2R.getVictimToRescue(idVictim).getRescued())  {
+			if (victims2R.getVictimToRescue(idVictim) == null && !objSimulacion.isAsignada(victim))  {
 				ClaseGeneradoraRecursoVisualizadorEntornosSimulacion.victimasConfirmadasRecepcion.put(idVictim,true);
 				objSimulacion.inicioVictimaSimulacion(victim);
 				AyudarVictima newAyudarVictima = new AyudarVictima (idVictim);
