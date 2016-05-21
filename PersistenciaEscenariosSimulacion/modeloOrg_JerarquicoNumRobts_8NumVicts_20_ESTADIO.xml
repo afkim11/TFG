@@ -273,8 +273,8 @@
       <victim>
          <name>Victima17</name>
          <coordinateVictim>
-            <x>448.0</x>
-            <y>494.0</y>
+            <x>438.0</x>
+            <y>436.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
@@ -338,8 +338,8 @@
       <victim>
          <name>Victima13</name>
          <coordinateVictim>
-            <x>811.0</x>
-            <y>501.0</y>
+            <x>549.0</x>
+            <y>30.0</y>
             <z>0.5</z>
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>

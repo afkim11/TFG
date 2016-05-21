@@ -27,7 +27,7 @@ public class FinalizarSimulacion extends TareaSincrona{
 		TerminarSimulacion obj = (TerminarSimulacion)params[0];
 		System.out.println("Numero de victimas: " + VocabularioRosace.victimasTotalesASalvar + "Numero de resueltas: " + obj.victimasResueltas);
 		guardaResultados(obj.getTiemposAsignacion(),obj.getTiemposResolucion());
-		if(VocabularioRosace.nombreFicheroResultadoSimulacion!=null)escribeResultados(new File(VocabularioRosace.nombreFicheroResultadoSimulacion));
+		if(VocabularioRosace.nombreFicheroResultadoSimulacion!=null)escribeResultados(new File(VocabularioRosace.nombreFicheroResultadoSimulacion + ".txt"));
 		
 		this.getEnvioHechos().eliminarHechoWithoutFireRules(obj);
 		//Si estamos ejecutando en modo script cerramos la aplicacion al terminar simulación,sino continuamos con todo abierto. 
@@ -46,10 +46,13 @@ public class FinalizarSimulacion extends TareaSincrona{
 				Victim v = pareja.getKey();
 				Long tiempoAsignacion = pareja.getValue();
 				Long tiempoResolucion = tiemposResolucion.get(v);
+				String victimId="";
+				for(int i=7;i<v.getName().length();i++)
+					victimId +=v.getName().charAt(i);
 				String s;
-				s = v.getName() + " " + tiempoAsignacion + " " + tiempoResolucion + " ";
-				if(v.isAlive())s = s + "si";
-				else s = s + "no";
+				s = victimId + " " + tiempoAsignacion + " " + tiempoResolucion + " ";
+				if(v.isAlive())s = s + "1";
+				else s = s + "0";
 				s = s + "\n";
 				fw.write(s);
 			}
