@@ -19,7 +19,7 @@ import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objet
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 public class FinalizarSimulacion extends TareaSincrona{
-	
+
 	private static TreeMap<Victim, Long> tiemposAsignacion=null;
 	private static TreeMap<Victim, Long> tiemposResolucion=null;
 	@Override
@@ -28,7 +28,7 @@ public class FinalizarSimulacion extends TareaSincrona{
 		System.out.println("Numero de victimas: " + VocabularioRosace.victimasTotalesASalvar + "Numero de resueltas: " + obj.victimasResueltas);
 		guardaResultados(obj.getTiemposAsignacion(),obj.getTiemposResolucion());
 		if(VocabularioRosace.nombreFicheroResultadoSimulacion!=null)escribeResultados(new File(VocabularioRosace.nombreFicheroResultadoSimulacion + ".txt"));
-		
+
 		this.getEnvioHechos().eliminarHechoWithoutFireRules(obj);
 		//Si estamos ejecutando en modo script cerramos la aplicacion al terminar simulación,sino continuamos con todo abierto. 
 		if(VocabularioRosace.executionMode == 1)System.exit(0);
@@ -37,9 +37,9 @@ public class FinalizarSimulacion extends TareaSincrona{
 	public static void escribeResultados(File f){
 		try {
 			FileWriter fw = new FileWriter(f);
-			
+
 			Set<Entry<Victim, Long>> set = tiemposAsignacion.entrySet();
-			
+
 			Iterator<Entry<Victim,Long>> it = set.iterator();
 			while(it.hasNext()){
 				Entry<Victim,Long> pareja = it.next();
@@ -49,9 +49,13 @@ public class FinalizarSimulacion extends TareaSincrona{
 				String victimId="",robotId="";
 				for(int i=7;i<v.getName().length();i++)
 					victimId +=v.getName().charAt(i);
-				for(int i=26;i<v.getIdRobotEncargadoDeMi().length();i++)
-					robotId +=v.getIdRobotEncargadoDeMi().charAt(i);
-				
+				if(v.getIdRobotEncargadoDeMi() == null){
+					robotId = "-1";
+				}
+				else{
+					for(int i=26;i<v.getIdRobotEncargadoDeMi().length();i++)
+						robotId +=v.getIdRobotEncargadoDeMi().charAt(i);
+				}
 				String s;
 				s = victimId + " " + tiempoAsignacion + " " + tiempoResolucion + " ";
 				if(v.isAlive())s = s + "1";
