@@ -46,13 +46,17 @@ public class FinalizarSimulacion extends TareaSincrona{
 				Victim v = pareja.getKey();
 				Long tiempoAsignacion = pareja.getValue();
 				Long tiempoResolucion = tiemposResolucion.get(v);
-				String victimId="";
+				String victimId="",robotId="";
 				for(int i=7;i<v.getName().length();i++)
 					victimId +=v.getName().charAt(i);
+				for(int i=26;i<v.getIdRobotEncargadoDeMi().length();i++)
+					robotId +=v.getIdRobotEncargadoDeMi().charAt(i);
+				
 				String s;
 				s = victimId + " " + tiempoAsignacion + " " + tiempoResolucion + " ";
 				if(v.isAlive())s = s + "1";
 				else s = s + "0";
+				s = s + " " + robotId;
 				s = s + "\n";
 				fw.write(s);
 			}
