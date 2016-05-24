@@ -1,8 +1,8 @@
 function [] = script()
+indices = [1,2,3,4];
 
 
-
-files = glob('./*6victimas_LLANURA1.txt');
+files = glob('./*.txt');
 for i=1:numel(files)
 [~,file_name] = fileparts(files{i});
 escenarios{i} = readFile(file_name);
@@ -10,7 +10,67 @@ files_name{i} = file_name;
 endfor
 
 files_name
-escenarios
+
+j=1;
+%Grafica CASA, 10 victimas, con 4, 6 y 8 robots.
+
+%Primero recopilo los escenarios que queremos y los guardamos en escenariosCasa
+for i=1:length(escenarios)
+  if escenarios{i}{2} == 10 && escenarios{i}{4} == 1
+    escenariosCasa{j} = escenarios{i};
+    j++;
+  endif
+endfor
+
+p14 = [];
+p16 = [];
+p18 = [];
+p24 = [];
+p26 = [];
+p28 = [];
+p34 = [];
+p36 = [];
+p38 = [];
+for i=1:length(escenariosCasa)
+  if escenariosCasa{i}{3} == 1
+    if escenariosCasa{i}{1} == 4
+      p14 = [p14 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    elseif escenariosCasa{i}{1} == 6
+      p16 = [p16 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    elseif escenariosCasa{i}{1} == 8
+      p18 = [p18 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    endif
+  elseif escenariosCasa{i}{3} == 2
+   if escenariosCasa{i}{1} == 4
+      p24 = [p24 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    elseif escenariosCasa{i}{1} == 6
+      p26 = [p26 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    elseif escenariosCasa{i}{1} == 8
+      p28 = [p28 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    endif
+  elseif escenariosCasa{i}{3} == 3
+   if escenariosCasa{i}{1} == 4
+      p34 = [p34 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    elseif escenariosCasa{i}{1} == 6
+      p36 = [p36 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    elseif escenariosCasa{i}{1} == 8
+      p38 = [p38 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+    endif
+  endif
+endfor
+
+pglobal = mean([mean(p14),mean(p16),mean(p18),mean(p24),mean(p26),mean(p28),mean(p34),mean(p36),mean(p38)]);
+figure(1);
+plot(indices,[mean(p14) mean(p24) mean(p34) pglobal], "b",indices,[mean(p16) mean(p26) mean(p36) pglobal], "r",indices,[mean(p18) mean(p28) mean(p38) pglobal], "g");
+title('Porcentaje de Salvamento de victimas CASA-10Victimas');
+ylabel('% Victimas Salvadas');
+legend('4 Robots','6 Robots','8 Robots');
+axis([1,5,0.5,1.01]);
+set(gca,'xtick',indices);
+set(gca,'xticklabel',{'1Explorador','2Exploradores','SinExploradores','Global'});
+
+
+
 
 %tiempoMedioSimulacion = 0;
 %tiempoMaxSimulacion = 0;
