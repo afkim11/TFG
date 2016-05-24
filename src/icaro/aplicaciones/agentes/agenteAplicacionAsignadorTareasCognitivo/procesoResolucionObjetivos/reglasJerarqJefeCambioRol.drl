@@ -669,8 +669,9 @@ end
 rule "Compruebo si es el fin de simulacion"
  when
 	obj:TerminarSimulacion(victimasResueltas == VocabularioRosace.victimasTotalesASalvar)
+	infoEquipo: InfoEquipo(inicioContactoConEquipo== true)
  then
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(FinalizarSimulacion.class);
-	tarea.ejecutar(obj);
+	tarea.ejecutar(obj,infoEquipo);
 end

@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import icaro.aplicaciones.Rosace.informacion.InfoEquipo;
 import icaro.aplicaciones.Rosace.informacion.Victim;
 import icaro.aplicaciones.Rosace.informacion.VocabularioRosace;
 import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objetivos.TerminarSimulacion;
@@ -20,11 +21,14 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 public class FinalizarSimulacion extends TareaSincrona{
 
+	
+	private InfoEquipo infoEquipo;
 	private static TreeMap<Victim, Long> tiemposAsignacion=null;
 	private static TreeMap<Victim, Long> tiemposResolucion=null;
 	@Override
 	public void ejecutar(Object... params) {
 		TerminarSimulacion obj = (TerminarSimulacion)params[0];
+		infoEquipo = (InfoEquipo) params[1];
 		System.out.println("Numero de victimas: " + VocabularioRosace.victimasTotalesASalvar + "Numero de resueltas: " + obj.victimasResueltas);
 		guardaResultados(obj.getTiemposAsignacion(),obj.getTiemposResolucion());
 		if(VocabularioRosace.nombreFicheroResultadoSimulacion!=null)escribeResultados(new File(VocabularioRosace.nombreFicheroResultadoSimulacion + ".txt"));
@@ -34,13 +38,26 @@ public class FinalizarSimulacion extends TareaSincrona{
 		if(VocabularioRosace.executionMode == 1)System.exit(0);
 	}
 
-	public static void escribeResultados(File f){
+	public void escribeResultados(File f){
 		try {
 			FileWriter fw = new FileWriter(f);
 
+			
+			
 			Set<Entry<Victim, Long>> set = tiemposAsignacion.entrySet();
-
 			Iterator<Entry<Victim,Long>> it = set.iterator();
+			fw.write(this.infoEquipo.getNumberOfTeamMembers() + " " + set.size() + " " + VocabularioRosace.tipoSalvamento + " ");
+			if(VocabularioRosace.rutaEscenario.contains("CASA")){
+				fw.write("1\n");
+			}
+			else if(VocabularioRosace.rutaEscenario.contains("LLANURA")){
+				fw.write("2\n");
+			}
+			else if(VocabularioRosace.rutaEscenario.contains("ESTADIO")){
+				fw.write("3\n");
+			}
+			else 
+				fw.write("0\n");
 			while(it.hasNext()){
 				Entry<Victim,Long> pareja = it.next();
 				Victim v = pareja.getKey();

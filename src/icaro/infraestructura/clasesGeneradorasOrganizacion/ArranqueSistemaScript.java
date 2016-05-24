@@ -162,16 +162,19 @@ public class ArranqueSistemaScript {
 		controlador.setVisibleControlGUI(false);
 
 		if(eval==1){
+			VocabularioRosace.tipoSalvamento = 1;
 			ControladorVisualizacionSimulRosace.modoEnvioVictimas = ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION;
 			ControladorVisualizacionSimulRosace.exploracionPrevia = true;
 			VocabularioRosace.numeroReconocedores = 1;
 		}
 		else if(eval==2){
+			VocabularioRosace.tipoSalvamento = 2;
 			ControladorVisualizacionSimulRosace.modoEnvioVictimas = ControladorVisualizacionSimulRosace.PRIORIZACIONPORORDENDEIDENTIFICACION;
 			VocabularioRosace.numeroReconocedores = 2;
 			ControladorVisualizacionSimulRosace.exploracionPrevia = true;
 		}
 		else if(eval==3){
+			VocabularioRosace.tipoSalvamento = 3;
 			ControladorVisualizacionSimulRosace.modoEnvioVictimas = ControladorVisualizacionSimulRosace.PRIORIZADOTIEMPODEVIDA;
 			ControladorVisualizacionSimulRosace.exploracionPrevia = false;
 		} 

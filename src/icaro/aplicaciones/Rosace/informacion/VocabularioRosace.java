@@ -162,4 +162,6 @@ public class VocabularioRosace extends NombresPredefinidos{
 	public static int victimasTotalesASalvar=-1;
 
 	public static int executionMode = 0;
+
+	public static int tipoSalvamento = 0;
 }

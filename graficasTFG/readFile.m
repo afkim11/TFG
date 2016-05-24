@@ -1,4 +1,4 @@
-function [matrix] = readFile(file_name);
+function [escenario] = readFile(file_name);
 victimas = [];
 tiemposAsignacion = [];
 tiemposResolucion = [];
@@ -6,6 +6,10 @@ salvadas = [];
 robotsEncargados = [];
 fid = fopen(strcat(file_name,".txt"));
 if fid != -1
+nrobots = fscanf(fid,"%f",1);
+nvictims = fscanf(fid,"%f",1);
+tipoSimulacion = fscanf(fid,"%f",1);
+mapa = fscanf(fid,"%f",1);
 while (!feof (fid) )
 vid = fscanf(fid,"%f",1);
 at = fscanf(fid,"%f",1);
@@ -24,6 +28,11 @@ else
 strcat(file_name,".txt")
 
 endif
-matrix = [victimas tiemposAsignacion tiemposResolucion salvadas];
+matrix = [victimas tiemposAsignacion tiemposResolucion salvadas robotsEncargados];
+escenario{1} = nrobots;
+escenario{2} = nvictims;
+escenario{3} = tipoSimulacion;
+escenario{4} = mapa;
+escenario{5} = matrix;
 
 endfunction
