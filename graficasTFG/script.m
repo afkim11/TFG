@@ -17,7 +17,10 @@ generaGraficaPorcentaje(escenarios,1,10,1,4,6,8);
 generaGraficaPorcentaje(escenarios,2,6,2,2,4,6);
 generaGraficaTiempoMedioVictima(escenarios,3,10,1,4,6,8);
 generaGraficaTiempoMedioVictima(escenarios,4,6,2,2,4,6);
-
+generaGraficaTiempoTotalSimulacion(escenarios,5,10,1,4,6,8);
+generaGraficaTiempoTotalSimulacion(escenarios,6,6,2,2,4,6);
+generaGraficaPromedioVictimasPorRobot(escenarios,7,10,1,4,6,8);
+generaGraficaPromedioVictimasPorRobot(escenarios,8,6,2,2,4,6);
 %tiempoMedioSimulacion = 0;
 %tiempoMaxSimulacion = 0;
 %tiempoMinSimulacion = 10000000;
