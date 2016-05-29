@@ -13,14 +13,29 @@ files_name
 
 
 
-generaGraficaPorcentaje(escenarios,1,10,1,4,6,8);
-generaGraficaPorcentaje(escenarios,2,6,2,2,4,6);
-generaGraficaTiempoMedioVictima(escenarios,3,10,1,4,6,8);
-generaGraficaTiempoMedioVictima(escenarios,4,6,2,2,4,6);
-generaGraficaTiempoTotalSimulacion(escenarios,5,10,1,4,6,8);
-generaGraficaTiempoTotalSimulacion(escenarios,6,6,2,2,4,6);
-generaGraficaPromedioVictimasPorRobot(escenarios,7,10,1,4,6,8);
-generaGraficaPromedioVictimasPorRobot(escenarios,8,6,2,2,4,6);
+%generaGraficaPorcentaje(escenarios,1,10,1,4,6,8);
+%generaGraficaTiempoMedioVictima(escenarios,2,10,1,4,6,8);
+%generaGraficaTiempoTotalSimulacion(escenarios,3,10,1,4,6,8);
+%generaGraficaPromedioVictimasPorRobot(escenarios,4,10,1,4,6,8);
+%
+%
+%generaGraficaPorcentaje(escenarios,5,6,2,2,4,6);
+%generaGraficaTiempoMedioVictima(escenarios,6,6,2,2,4,6);
+%generaGraficaTiempoTotalSimulacion(escenarios,7,6,2,2,4,6);
+%generaGraficaPromedioVictimasPorRobot(escenarios,8,6,2,2,4,6);
+%
+%generaGraficaPorcentaje(escenarios,9,14,3,4,6,8);
+%generaGraficaTiempoMedioVictima(escenarios,10,14,3,4,6,8);
+%generaGraficaTiempoTotalSimulacion(escenarios,11,14,3,4,6,8);
+%generaGraficaPromedioVictimasPorRobot(escenarios,12,14,3,4,6,8);
+
+
+generaGraficaPorcentajeVariandoVictimas(escenarios,13,8,3,14,17,20);
+
+
+
+
+
 %tiempoMedioSimulacion = 0;
 %tiempoMaxSimulacion = 0;
 %tiempoMinSimulacion = 10000000;

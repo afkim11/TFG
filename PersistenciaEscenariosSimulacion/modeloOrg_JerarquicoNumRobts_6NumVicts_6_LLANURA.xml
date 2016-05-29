@@ -107,7 +107,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima1">

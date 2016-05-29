@@ -149,7 +149,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima1">
@@ -162,7 +162,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima4">
@@ -175,7 +175,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima3">
@@ -188,7 +188,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima6">
@@ -201,7 +201,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima5">
@@ -214,7 +214,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima8">
@@ -227,7 +227,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima7">
@@ -240,7 +240,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima9">
@@ -253,7 +253,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima14">
@@ -266,7 +266,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima13">
@@ -279,7 +279,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima12">
@@ -292,7 +292,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima11">
@@ -305,7 +305,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima10">
@@ -318,7 +318,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>50000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <obstaculos key="3">

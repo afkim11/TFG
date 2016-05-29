@@ -61,7 +61,7 @@ endif
 title(strcat('Porcentaje de salvamento de victimas ',nombreEscenario,'-',num2str(numVictimas),' Victimas'));
 xlabel('Modos de rescate');
 ylabel('% VS');
-legend('4 Robots','6 Robots','8 Robots');
+legend(strcat(num2str(nrobots1),' Robots'),strcat(num2str(nrobots2),' Robots'),strcat(num2str(nrobots3),' Robots'));
 axis([1,5,0.5,1.01]);
 set(gca,'xtick',indices);
 set(gca,'xticklabel',{'1Explorador','2Exploradores','SinExploradores','Global'});
