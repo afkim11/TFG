@@ -58,8 +58,10 @@ elseif tipoEscenario == 2
 elseif tipoEscenario == 3
  nombreEscenario = 'ESTADIO';
 endif
+title(strcat('Porcentaje de salvamento de victimas ',nombreEscenario,'-',num2str(numRobots),' Robots'));
 xlabel('Modos de rescate');
 ylabel('% VS');
+legend(strcat(num2str(nvictims1),' Victimas'),strcat(num2str(nvictims2),' Victimas'),strcat(num2str(nvictims3),' Victimas'));
 axis([1,5,0.5,1.01]);
 set(gca,'xtick',indices);
 set(gca,'xticklabel',{'1Explorador','2Exploradores','SinExploradores','Global'});
