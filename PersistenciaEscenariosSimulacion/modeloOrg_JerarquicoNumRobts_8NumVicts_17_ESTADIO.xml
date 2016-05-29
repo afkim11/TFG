@@ -266,7 +266,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>10000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima16">
@@ -279,7 +279,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>10000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima15">
@@ -292,7 +292,7 @@
          </coordinateVictim>
          <RequiredCompetencies class="java.util.ArrayList"/>
          <priority>0</priority>
-         <tiempoDeVida>10000</tiempoDeVida>
+         <tiempoDeVida>60000</tiempoDeVida>
       </victim>
    </victimas>
    <victimas key="Victima9">

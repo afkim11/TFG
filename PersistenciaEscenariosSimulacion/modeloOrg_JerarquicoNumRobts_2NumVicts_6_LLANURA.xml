@@ -1,5 +1,5 @@
 <escenarioSimulacion>
-   <identEscenario>modeloOrg_JerarquicoNumRobts_4NumVicts_6</identEscenario>
+   <identEscenario>modeloOrg_JerarquicoNumRobts_2NumVicts_6</identEscenario>
    <modeloOrganizativo>Jerarquico</modeloOrganizativo>
    <numRobots>2</numRobots>
    <numVictimas>6</numVictimas>
