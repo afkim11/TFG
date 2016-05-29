@@ -62,6 +62,7 @@ title(strcat('Tiempo total simulacion ',nombreEscenario,'-',num2str(numRobots),'
 xlabel('Modos de rescate');
 ylabel('Tiempo(ms)');
 legend(strcat(num2str(nvictims1),' Victimas'),strcat(num2str(nvictims2),' Victimas'),strcat(num2str(nvictims3),' Victimas'));
+%axis([1,5,0.5,1.01]);
 set(gca,'xtick',indices);
 set(gca,'xticklabel',{'1Explorador','2Exploradores','SinExploradores','Global'});
 %clf();
