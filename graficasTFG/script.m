@@ -31,6 +31,7 @@ generaGraficaPromedioVictimasPorRobot(escenarios,12,14,3,4,6,8);
 
 
 generaGraficaPorcentajeVariandoVictimas(escenarios,13,8,3,14,17,20);
+generaGraficaTiempoTotalSimulacionVariandoVictimas(escenarios,14,8,3,14,17,20);
 
 
 
