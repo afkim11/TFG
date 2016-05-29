@@ -1,4 +1,4 @@
-function [] = generaGraficaTiempoTotalSimulacionVariandoVictimas(escenarios,numFigure,numRobots,tipoEscenario,nvictims1,nvictims2,nvictims3)
+function [] = generaGraficaTiempoMedioRescateVictimaVariandoVictimas(escenarios,numFigure,numRobots,tipoEscenario,nvictims1,nvictims2,nvictims3)
 indices = [1,2,3,4];
 escenariosSeleccionados = {};
 j=1;
@@ -21,27 +21,27 @@ p38 = [];
 for i=1:length(escenariosSeleccionados)
   if escenariosSeleccionados{i}{3} == 1
     if escenariosSeleccionados{i}{2} == nvictims1
-      p14 = [p14 max(escenariosSeleccionados{i}{5}(:,3))];
+      p14 = [p14 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     elseif escenariosSeleccionados{i}{2} == nvictims2
-      p16 = [p16 max(escenariosSeleccionados{i}{5}(:,3))];
+      p16 = [p16 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     elseif escenariosSeleccionados{i}{2} == nvictims3
-      p18 = [p18 max(escenariosSeleccionados{i}{5}(:,3))];
+      p18 = [p18 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     endif
   elseif escenariosSeleccionados{i}{3} == 2
     if escenariosSeleccionados{i}{2} == nvictims1
-      p24 = [p24 max(escenariosSeleccionados{i}{5}(:,3))];
+      p24 = [p24 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     elseif escenariosSeleccionados{i}{2} == nvictims2
-      p26 = [p26 max(escenariosSeleccionados{i}{5}(:,3))];
+      p26 = [p26 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     elseif escenariosSeleccionados{i}{2} == nvictims3
-      p28 = [p28 max(escenariosSeleccionados{i}{5}(:,3))];
+      p28 = [p28 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     endif
   elseif escenariosSeleccionados{i}{3} == 3
    if escenariosSeleccionados{i}{2} == nvictims1
-      p34 = [p34 max(escenariosSeleccionados{i}{5}(:,3))];
+      p34 = [p34 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     elseif escenariosSeleccionados{i}{2} == nvictims2
-      p36 = [p36 max(escenariosSeleccionados{i}{5}(:,3))];
+      p36 = [p36 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     elseif escenariosSeleccionados{i}{2} == nvictims3
-      p38 = [p38 max(escenariosSeleccionados{i}{5}(:,3))];
+      p38 = [p38 mean(escenariosSeleccionados{i}{5}(:,3)-escenariosSeleccionados{i}{5}(:,2))];
     endif
   endif
 endfor
@@ -58,7 +58,7 @@ elseif tipoEscenario == 2
 elseif tipoEscenario == 3
  nombreEscenario = 'ESTADIO';
 endif
-title(strcat('Tiempo total simulacion ',nombreEscenario,'-',num2str(numRobots),' Robots'));
+title(strcat('Tiempo medio rescate victima',nombreEscenario,'-',num2str(numRobots),' Robots'));
 xlabel('Modos de rescate');
 ylabel('Tiempo(ms)');
 legend(strcat(num2str(nvictims1),' Victimas'),strcat(num2str(nvictims2),' Victimas'),strcat(num2str(nvictims3),' Victimas'));
@@ -67,6 +67,6 @@ set(gca,'xtick',indices);
 set(gca,'xticklabel',{'1Explorador','2Exploradores','SinExploradores','Global'});
 %clf();
 %surf(peaks);
-saveas(numFigure,strcat('TiempoTotalSimulacionVariandoVictimas',nombreEscenario,num2str(numRobots),'.jpg'));
+saveas(numFigure,strcat('TiempoMedioRescateVictimaVariandoVictimas',nombreEscenario,num2str(numRobots),'.jpg'));
 
 endfunction

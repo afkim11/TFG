@@ -9,7 +9,7 @@ escenarios{i} = readFile(file_name);
 files_name{i} = file_name;
 endfor
 
-files_name
+%files_name
 
 
 
@@ -31,8 +31,14 @@ generaGraficaPromedioVictimasPorRobot(escenarios,12,14,3,4,6,8);
 
 
 generaGraficaPorcentajeVariandoVictimas(escenarios,13,8,3,14,17,20);
-generaGraficaTiempoTotalSimulacionVariandoVictimas(escenarios,14,8,3,14,17,20);
+generaGraficaTiempoMedioRescateVictimaVariandoVictimas(escenarios,14,8,3,14,17,20);
+generaGraficaTiempoTotalSimulacionVariandoVictimas(escenarios,15,8,3,14,17,20);
+generaGraficaPromedioVictimasPorRobotVariandoVictimas(escenarios,16,8,3,14,17,20);
 
+generaGraficaPorcentajeVariandoVictimas(escenarios,17,4,1,10,15,20);
+generaGraficaTiempoMedioRescateVictimaVariandoVictimas(escenarios,18,4,1,10,15,20);
+generaGraficaTiempoTotalSimulacionVariandoVictimas(escenarios,19,4,1,10,15,20);
+generaGraficaPromedioVictimasPorRobotVariandoVictimas(escenarios,20,4,1,10,15,20);
 
 
 

@@ -1,10 +1,10 @@
 function [] = generaGraficaPorcentaje(escenarios,numFigure,numVictimas,tipoEscenario,nrobots1,nrobots2,nrobots3)
 indices = [1,2,3,4];
-escenariosCasa = {};
+escenariosSeleccionados = {};
 j=1;
 for i=1:length(escenarios)
   if escenarios{i}{2} == numVictimas && escenarios{i}{4} == tipoEscenario
-    escenariosCasa{j} = escenarios{i};
+    escenariosSeleccionados{j} = escenarios{i};
     j++;
   endif
 endfor
@@ -18,30 +18,30 @@ p28 = [];
 p34 = [];
 p36 = [];
 p38 = [];
-for i=1:length(escenariosCasa)
-  if escenariosCasa{i}{3} == 1
-    if escenariosCasa{i}{1} == nrobots1
-      p14 = [p14 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
-    elseif escenariosCasa{i}{1} == nrobots2
-      p16 = [p16 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
-    elseif escenariosCasa{i}{1} == nrobots3
-      p18 = [p18 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+for i=1:length(escenariosSeleccionados)
+  if escenariosSeleccionados{i}{3} == 1
+    if escenariosSeleccionados{i}{1} == nrobots1
+      p14 = [p14 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
+    elseif escenariosSeleccionados{i}{1} == nrobots2
+      p16 = [p16 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
+    elseif escenariosSeleccionados{i}{1} == nrobots3
+      p18 = [p18 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
     endif
-  elseif escenariosCasa{i}{3} == 2
-   if escenariosCasa{i}{1} == nrobots1
-      p24 = [p24 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
-    elseif escenariosCasa{i}{1} == nrobots2
-      p26 = [p26 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
-    elseif escenariosCasa{i}{1} == nrobots3
-      p28 = [p28 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+  elseif escenariosSeleccionados{i}{3} == 2
+   if escenariosSeleccionados{i}{1} == nrobots1
+      p24 = [p24 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
+    elseif escenariosSeleccionados{i}{1} == nrobots2
+      p26 = [p26 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
+    elseif escenariosSeleccionados{i}{1} == nrobots3
+      p28 = [p28 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
     endif
-  elseif escenariosCasa{i}{3} == 3
-   if escenariosCasa{i}{1} == nrobots1
-      p34 = [p34 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
-    elseif escenariosCasa{i}{1} == nrobots2
-      p36 = [p36 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
-    elseif escenariosCasa{i}{1} == nrobots3
-      p38 = [p38 sum(escenariosCasa{i}{5}(:,4))/escenariosCasa{i}{2}];
+  elseif escenariosSeleccionados{i}{3} == 3
+   if escenariosSeleccionados{i}{1} == nrobots1
+      p34 = [p34 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
+    elseif escenariosSeleccionados{i}{1} == nrobots2
+      p36 = [p36 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
+    elseif escenariosSeleccionados{i}{1} == nrobots3
+      p38 = [p38 sum(escenariosSeleccionados{i}{5}(:,4))/escenariosSeleccionados{i}{2}];
     endif
   endif
 endfor
