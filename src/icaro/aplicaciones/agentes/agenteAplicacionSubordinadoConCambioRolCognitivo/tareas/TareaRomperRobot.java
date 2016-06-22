@@ -10,6 +10,7 @@ import icaro.aplicaciones.agentes.agenteAplicacionAsignadorTareasCognitivo.objet
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.InfoCompMovimiento;
 import icaro.aplicaciones.agentes.componentesInternos.movimientoCtrl.ItfUsoMovimientoCtrl;
 import icaro.infraestructura.entidadesBasicas.comunicacion.InfoContEvtMsgAgteReactivo;
+import icaro.infraestructura.entidadesBasicas.comunicacion.Informacion;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.MisObjetivos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
@@ -23,6 +24,7 @@ public class TareaRomperRobot extends TareaSincrona{
 		InfoCompMovimiento infoComMov  = (InfoCompMovimiento)params[2];
 		ItfUsoMovimientoCtrl itfcompMov = (ItfUsoMovimientoCtrl) infoComMov.getitfAccesoComponente();
 		RobotStatus robotStatus=(RobotStatus) params[3];
+		Informacion inf = (Informacion) params[4];
 		robotStatus.setBloqueado(true);
 		itfcompMov.parar();
 
@@ -37,10 +39,12 @@ public class TareaRomperRobot extends TareaSincrona{
 					valoresParametrosAccion[0]=nombreVictima;
 					InfoContEvtMsgAgteReactivo msg = new InfoContEvtMsgAgteReactivo("desasignarVictima", valoresParametrosAccion);
 					this.getComunicator().enviarInfoAotroAgente(msg, VocabularioRosace.IdentAgteControladorSimulador);
-					//victims2Resc.addVictimNoAsignadas(v);
-					if(((AyudarVictima)obj).getobjectReferenceId() == misObjs.getobjetivoMasPrioritario().getobjectReferenceId()){
-						v.setCoordinateVictim(robotStatus.getRobotCoordinate());
+					if(inf!=null && ((AyudarVictima)obj).getobjectReferenceId() == misObjs.getobjetivoMasPrioritario().getobjectReferenceId()){
+							v.setCoordinateVictim(robotStatus.getRobotCoordinate());
+							this.itfProcObjetivos.eliminarHechoWithoutFireRules(inf);
+						
 					}
+					victims2Resc.addVictimNoAsignadas(v);
 					victims2Resc.eliminarVictima(nombreVictima);
 					OrdenCentroControl ccOrder = new OrdenCentroControl("ControlCenter", VocabularioRosace.MsgOrdenCCAyudarVictima, v);
 					this.getComunicator().enviarInfoAotroAgente(ccOrder, VocabularioRosace.IdentAgteDistribuidorTareas);

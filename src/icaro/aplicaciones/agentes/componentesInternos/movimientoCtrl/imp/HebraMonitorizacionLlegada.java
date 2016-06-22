@@ -117,6 +117,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 
 	@Override
 	public synchronized void run() {
+		Informacion inf = null;
 		int energiaActual=this.robotStatus.getAvailableEnergy();
 		//       double espacioRecorridoEnIntervalo = velocidadRobot*intervaloEnvioInformacion;
 		log.debug ("Coord Robot " + identRobot + " iniciales -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
@@ -190,6 +191,8 @@ public class HebraMonitorizacionLlegada extends Thread {
 					if(this.controladorMovimiento.estadoActual.getActuacion() == 0){
 						Coordinate victimCoor = this.coordDestino;
 						this.coordDestino = itfusoRecVisSimulador.getEscenario().getCoordenadaLugarSeguro();
+						inf = new Informacion(VocabularioRosace.MsgVictimaEncontrada, this.coordDestino);
+						this.controladorMovimiento.itfProcObjetivos.insertarHechoWithoutFireRules(inf);
 						ArrayList<Coordinate> ruta1 = new ArrayList<Coordinate>();
 						AlgoritmoRutaLee alg1=new AlgoritmoRutaLee(this.coordDestino, this.coordActuales);
 						ruta1 = alg1.iniciarCalculoRuta();
@@ -226,6 +229,7 @@ public class HebraMonitorizacionLlegada extends Thread {
 		}
 		if(enDestino){
 			finalizar = true;
+			if(inf != null) this.controladorMovimiento.itfProcObjetivos.eliminarHechoWithoutFireRules(inf);
 			this.controladorMovimiento.estamosEnDestino(identDestino,this.coordActuales);
 			log.debug("Coord Robot En thread  " + identRobot + " en destino -> ("+this.coordActuales.getX() + " , " + this.coordActuales.getY() + ")");
 		}

@@ -33,6 +33,7 @@ public class Victim implements Serializable{
 	private int estimatedCost;
 	private boolean isRescued = false;
 	private boolean isCostEstimated = false;
+	private boolean found = false;
 
 	public Victim(){
 	} 
@@ -171,5 +172,8 @@ public class Victim implements Serializable{
 	public boolean isAlive(){
 		return this.isAlive;
 	}
+	
+	public boolean getFound(){return this.found;}
+	public void setFound(boolean f){this.found = f;}
 
 }
