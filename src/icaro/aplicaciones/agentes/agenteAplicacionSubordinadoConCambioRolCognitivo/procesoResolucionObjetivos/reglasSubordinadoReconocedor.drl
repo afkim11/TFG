@@ -23,7 +23,7 @@ global ItfUsoMovimientoCtrl itfUsoMovimiento;
 global String agentId;
 
 //Primera regla que se ejecutara. Solo se debe disparar una vez.
-// Sfuponemos que el este componente es un robot como el resto del equipo
+// Suponemos que el este componente es un robot como el resto del equipo
 rule "Generacion de componentes internos"
  when
     not ( exists(InfoCompMovimiento()))
@@ -289,7 +289,6 @@ end
 rule "Regla para tratar que el robot se va a romper"
 when
 	inf : Informacion( contenido == VocabularioRosace.MsgRomperRobot)
-	not(exists(inf2 : Informacion(contenido == VocabularioRosace.MsgVictimaEncontrada)))
 	misObjs : MisObjetivos()
 	v2r : VictimsToRescue(victims2Rescue !=null)
 	infoComMov :InfoCompMovimiento()
@@ -297,22 +296,7 @@ when
 then
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaRomperRobot.class);
-	tarea.ejecutar(misObjs,v2r,infoComMov,robotS, null);
-	retract(inf);
-end
-
-rule "Regla para tratar que el robot se va a romper cuando se ha encontrado"
-when
-	inf : Informacion( contenido == VocabularioRosace.MsgRomperRobot)
-	inf2 : Informacion(contenido == VocabularioRosace.MsgVictimaEncontrada)
-	misObjs : MisObjetivos()
-	v2r : VictimsToRescue(victims2Rescue !=null)
-	infoComMov :InfoCompMovimiento()
-	robotS : RobotStatus()
-then
-	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-	TareaSincrona tarea = gestorTareas.crearTareaSincrona(TareaRomperRobot.class);
-	tarea.ejecutar(misObjs,v2r,infoComMov,robotS, inf2);
+	tarea.ejecutar(misObjs,v2r,infoComMov,robotS);
 	retract(inf);
 end
 rule "La victima que habia que salvar ha muerto"
@@ -326,5 +310,5 @@ then
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	retract(informe)
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(VictimaHaMuerto.class);
-	tarea.ejecutar(infoComMov,misObjs,victim, victims, null);
+	tarea.ejecutar(infoComMov,misObjs,victim, victims);
 end
